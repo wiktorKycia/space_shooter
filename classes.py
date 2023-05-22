@@ -32,7 +32,7 @@ class Scout:
         self.acc = Vector2(0, 0)
         self.hitbox = pygame.rect.RectType(self.pos, Vector2(750, 750)) # pygame.Rect(self.pos[0], self.pos[1], self.width, self.height)
 
-        self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
+        # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
 
 
 
@@ -61,19 +61,19 @@ class Scout:
         self.pos += self.vel
         self.acc *= 0
     def draw(self):
-        #Base polygon
-        self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
-
-        #Rotate polygon
-        angle = self.vel.angle_to(Vector2(0, 1)) # kąt między wektorem prędkości, a linią poziomą
-        self.points = [p.rotate(angle) for p in self.points]
-
-        # Fix y axis
-        self.points = [Vector2(p.x, p.y * -1) for p in self.points]
-
-        #Add current position
-        self.points = [self.pos + p for p in self.points]
-
-        #draw polygon
-        pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
+        # #Base polygon
+        # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
+        #
+        # #Rotate polygon
+        # angle = self.vel.angle_to(Vector2(0, 1)) # kąt między wektorem prędkości, a linią poziomą
+        # self.points = [p.rotate(angle) for p in self.points]
+        #
+        # # Fix y axis
+        # self.points = [Vector2(p.x, p.y * -1) for p in self.points]
+        #
+        # #Add current position
+        # self.points = [self.pos + p for p in self.points]
+        #
+        # #draw polygon
+        # pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
