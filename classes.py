@@ -16,6 +16,9 @@ class Object(object):
 class MovingObject(Object):
     pass
 
+class PlayableShip:
+    pass
+
 class Scout:
     def __init__(self, x, y, game):
         self.game = game
