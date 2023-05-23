@@ -20,6 +20,8 @@ class PlayableShip:
     def __init__(self, game, image_path):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path))
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
 
 class Scout:
     def __init__(self, x, y, game):
