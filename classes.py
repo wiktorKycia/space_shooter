@@ -44,6 +44,14 @@ class PlayableShip:
         if pressed[pygame.K_a]:
             self.add_force(Vector2(-self.speed, 0))
 
+        # Physics
+        self.vel *= 0.999
+        self.vel -= Vector2(0, 0)
+
+        self.vel += self.acc
+        self.pos += self.vel
+        self.acc *= 0
+
 class Scout:
     def __init__(self, x, y, game):
         self.game = game
