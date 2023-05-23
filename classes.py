@@ -32,6 +32,9 @@ class PlayableShip:
         def add_force(self, force):
             self.acc += force
 
+        def tick(self):
+            pass
+
 class Scout:
     def __init__(self, x, y, game):
         self.game = game
