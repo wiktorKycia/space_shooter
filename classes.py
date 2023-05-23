@@ -56,12 +56,10 @@ class PlayableShip:
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
 
 class Scout(PlayableShip):
-    def __init__(self, x, y, game):
+    def __init__(self, game):
         self.game = game
         self.path = "./ships/statek1.png"
         super().__init__(self.game, self.path, 0.001)
-        self.x = x
-        self.y = y
         self.width = self.image.get_width()
         self.height = self.image.get_height()
 
