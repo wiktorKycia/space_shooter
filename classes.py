@@ -72,7 +72,7 @@ class Scout(PlayableShip):
         #
         # # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
     def add_force(self, force):
-        self.acc += force
+        super().add_force(force)
 
     def tick(self):
         # Input
