@@ -17,7 +17,9 @@ class MovingObject(Object):
     pass
 
 class PlayableShip:
-    pass
+    def __init__(self, game, image_path):
+        self.game = game
+        self.image = pygame.image.load(os.path.join(image_path))
 
 class Scout:
     def __init__(self, x, y, game):
