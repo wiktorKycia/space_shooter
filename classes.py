@@ -17,11 +17,12 @@ class MovingObject(Object):
     pass
 
 class PlayableShip:
-    def __init__(self, game, image_path):
+    def __init__(self, game, image_path, speed=0.001):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path))
         self.width = self.image.get_width()
         self.height = self.image.get_height()
+        self.speed = speed
 
 class Scout:
     def __init__(self, x, y, game):
