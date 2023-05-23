@@ -23,8 +23,11 @@ class PlayableShip:
         self.width = self.image.get_width()
         self.height = self.image.get_height()
         self.speed = speed
-        
+
         size = self.game.screen.get_size()
+        self.pos = Vector2(size[0] / 2, size[1] / 2)
+        self.vel = Vector2(0, 0)
+        self.acc = Vector2(0, 0)
 
 class Scout:
     def __init__(self, x, y, game):
