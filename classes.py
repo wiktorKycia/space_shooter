@@ -29,6 +29,9 @@ class PlayableShip:
         self.vel = Vector2(0, 0)
         self.acc = Vector2(0, 0)
 
+        def add_force(self, force):
+            self.acc += force
+
 class Scout:
     def __init__(self, x, y, game):
         self.game = game
