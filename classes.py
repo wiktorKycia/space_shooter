@@ -17,12 +17,13 @@ class MovingObject(Object):
     pass
 
 class PlayableShip:
-    def __init__(self, game, image_path, speed):
+    def __init__(self, game, image_path, speed, slip):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path))
         self.width = self.image.get_width()
         self.height = self.image.get_height()
         self.speed = speed
+        self.slip = slip
 
         size = self.game.screen.get_size()
         self.pos = Vector2(size[0] / 2, size[1] / 2)
@@ -45,7 +46,7 @@ class PlayableShip:
             self.add_force(Vector2(-self.speed, 0))
 
         # Physics
-        self.vel *= 0.999
+        self.vel *= self.slip
         self.vel -= Vector2(0, 0)
 
         self.vel += self.acc
@@ -59,7 +60,7 @@ class Scout(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/statek1.png"
-        super().__init__(self.game, self.path, 0.001)
+        super().__init__(self.game, self.path, 0.001, 0.999)
         # self.width = self.image.get_width()
         # self.height = self.image.get_height()
         #
