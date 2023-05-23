@@ -55,7 +55,7 @@ class PlayableShip:
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
 
-class Scout:
+class Scout(PlayableShip):
     def __init__(self, x, y, game):
         self.game = game
         self.image = pygame.image.load(os.path.join("./ships/statek1.png"))
