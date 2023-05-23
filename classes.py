@@ -58,7 +58,8 @@ class PlayableShip:
 class Scout(PlayableShip):
     def __init__(self, x, y, game):
         self.game = game
-        self.image = pygame.image.load(os.path.join("./ships/statek1.png"))
+        self.path = "./ships/statek1.png"
+        super().__init__(self.game, self.path, 0.001)
         self.x = x
         self.y = y
         self.width = self.image.get_width()
