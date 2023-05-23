@@ -75,26 +75,27 @@ class Scout(PlayableShip):
         super().add_force(force)
 
     def tick(self):
-        # Input
-        pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_w]:
-            self.add_force(Vector2(0, -self.speed))
-        if pressed[pygame.K_s]:
-            self.add_force(Vector2(0, self.speed))
-        if pressed[pygame.K_d]:
-            self.add_force(Vector2(self.speed, 0))
-        if pressed[pygame.K_a]:
-            self.add_force(Vector2(-self.speed, 0))
-
-        ##dodać ograniczenie (ramy okna)
-
-        # Physics
-        self.vel *= 0.999
-        self.vel -= Vector2(0, 0)
-
-        self.vel += self.acc
-        self.pos += self.vel
-        self.acc *= 0
+        super().tick()
+        # # Input
+        # pressed = pygame.key.get_pressed()
+        # if pressed[pygame.K_w]:
+        #     self.add_force(Vector2(0, -self.speed))
+        # if pressed[pygame.K_s]:
+        #     self.add_force(Vector2(0, self.speed))
+        # if pressed[pygame.K_d]:
+        #     self.add_force(Vector2(self.speed, 0))
+        # if pressed[pygame.K_a]:
+        #     self.add_force(Vector2(-self.speed, 0))
+        #
+        # ##dodać ograniczenie (ramy okna)
+        #
+        # # Physics
+        # self.vel *= 0.999
+        # self.vel -= Vector2(0, 0)
+        #
+        # self.vel += self.acc
+        # self.pos += self.vel
+        # self.acc *= 0
     def draw(self):
         # #Base polygon
         # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
