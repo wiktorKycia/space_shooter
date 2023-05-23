@@ -55,51 +55,48 @@ class PlayableShip:
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
 
-class Scout:
-    def __init__(self, x, y, game):
+class Scout(PlayableShip):
+    def __init__(self, game):
         self.game = game
-        self.image = pygame.image.load(os.path.join("./ships/statek1.png"))
-        self.x = x
-        self.y = y
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
-
-        self.speed = 0.001
-        size = self.game.screen.get_size()
-        self.pos = Vector2(size[0] / 2, size[1] / 2)
-        self.vel = Vector2(0, 0)
-        self.acc = Vector2(0, 0)
-        self.hitbox = pygame.rect.RectType(self.pos, Vector2(750, 750)) # pygame.Rect(self.pos[0], self.pos[1], self.width, self.height)
-
-        # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
-
-
-
+        self.path = "./ships/statek1.png"
+        super().__init__(self.game, self.path, 0.001)
+        # self.width = self.image.get_width()
+        # self.height = self.image.get_height()
+        #
+        # self.speed = 0.001
+        # size = self.game.screen.get_size()
+        # self.pos = Vector2(size[0] / 2, size[1] / 2)
+        # self.vel = Vector2(0, 0)
+        # self.acc = Vector2(0, 0)
+        # self.hitbox = pygame.rect.RectType(self.pos, Vector2(750, 750)) # pygame.Rect(self.pos[0], self.pos[1], self.width, self.height)
+        #
+        # # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
     def add_force(self, force):
-        self.acc += force
-
+        super().add_force(force)
     def tick(self):
-        # Input
-        pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_w]:
-            self.add_force(Vector2(0, -self.speed))
-        if pressed[pygame.K_s]:
-            self.add_force(Vector2(0, self.speed))
-        if pressed[pygame.K_d]:
-            self.add_force(Vector2(self.speed, 0))
-        if pressed[pygame.K_a]:
-            self.add_force(Vector2(-self.speed, 0))
-
-        ##dodać ograniczenie (ramy okna)
-
-        # Physics
-        self.vel *= 0.999
-        self.vel -= Vector2(0, 0)
-
-        self.vel += self.acc
-        self.pos += self.vel
-        self.acc *= 0
+        super().tick()
+        # # Input
+        # pressed = pygame.key.get_pressed()
+        # if pressed[pygame.K_w]:
+        #     self.add_force(Vector2(0, -self.speed))
+        # if pressed[pygame.K_s]:
+        #     self.add_force(Vector2(0, self.speed))
+        # if pressed[pygame.K_d]:
+        #     self.add_force(Vector2(self.speed, 0))
+        # if pressed[pygame.K_a]:
+        #     self.add_force(Vector2(-self.speed, 0))
+        #
+        # ##dodać ograniczenie (ramy okna)
+        #
+        # # Physics
+        # self.vel *= 0.999
+        # self.vel -= Vector2(0, 0)
+        #
+        # self.vel += self.acc
+        # self.pos += self.vel
+        # self.acc *= 0
     def draw(self):
+        super().draw()
         # #Base polygon
         # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
         #
@@ -115,4 +112,6 @@ class Scout:
         #
         # #draw polygon
         # pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
-        self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
+
+
+        # self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
