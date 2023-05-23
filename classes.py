@@ -60,20 +60,17 @@ class Scout(PlayableShip):
         self.game = game
         self.path = "./ships/statek1.png"
         super().__init__(self.game, self.path, 0.001)
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
-
-        self.speed = 0.001
-        size = self.game.screen.get_size()
-        self.pos = Vector2(size[0] / 2, size[1] / 2)
-        self.vel = Vector2(0, 0)
-        self.acc = Vector2(0, 0)
-        self.hitbox = pygame.rect.RectType(self.pos, Vector2(750, 750)) # pygame.Rect(self.pos[0], self.pos[1], self.width, self.height)
-
-        # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
-
-
-
+        # self.width = self.image.get_width()
+        # self.height = self.image.get_height()
+        #
+        # self.speed = 0.001
+        # size = self.game.screen.get_size()
+        # self.pos = Vector2(size[0] / 2, size[1] / 2)
+        # self.vel = Vector2(0, 0)
+        # self.acc = Vector2(0, 0)
+        # self.hitbox = pygame.rect.RectType(self.pos, Vector2(750, 750)) # pygame.Rect(self.pos[0], self.pos[1], self.width, self.height)
+        #
+        # # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
     def add_force(self, force):
         self.acc += force
 
