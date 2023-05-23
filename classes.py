@@ -23,6 +23,8 @@ class PlayableShip:
         self.width = self.image.get_width()
         self.height = self.image.get_height()
         self.speed = speed
+        
+        size = self.game.screen.get_size()
 
 class Scout:
     def __init__(self, x, y, game):
