@@ -52,6 +52,9 @@ class PlayableShip:
         self.pos += self.vel
         self.acc *= 0
 
+    def draw(self):
+        self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
+
 class Scout:
     def __init__(self, x, y, game):
         self.game = game
