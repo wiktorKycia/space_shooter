@@ -17,7 +17,43 @@ class MovingObject(Object):
     pass
 
 class PlayableShip:
-    pass
+    def __init__(self, game, image_path, speed):
+        self.game = game
+        self.image = pygame.image.load(os.path.join(image_path))
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
+        self.speed = speed
+
+        size = self.game.screen.get_size()
+        self.pos = Vector2(size[0] / 2, size[1] / 2)
+        self.vel = Vector2(0, 0)
+        self.acc = Vector2(0, 0)
+
+    def add_force(self, force):
+        self.acc += force
+
+    def tick(self):
+        # Input
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_w]:
+            self.add_force(Vector2(0, -self.speed))
+        if pressed[pygame.K_s]:
+            self.add_force(Vector2(0, self.speed))
+        if pressed[pygame.K_d]:
+            self.add_force(Vector2(self.speed, 0))
+        if pressed[pygame.K_a]:
+            self.add_force(Vector2(-self.speed, 0))
+
+        # Physics
+        self.vel *= 0.999
+        self.vel -= Vector2(0, 0)
+
+        self.vel += self.acc
+        self.pos += self.vel
+        self.acc *= 0
+
+    def draw(self):
+        self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
 
 class Scout:
     def __init__(self, x, y, game):
