@@ -29,20 +29,20 @@ class PlayableShip:
         self.vel = Vector2(0, 0)
         self.acc = Vector2(0, 0)
 
-        def add_force(self, force):
-            self.acc += force
+    def add_force(self, force):
+        self.acc += force
 
-        def tick(self):
-            # Input
-            pressed = pygame.key.get_pressed()
-            if pressed[pygame.K_w]:
-                self.add_force(Vector2(0, -self.speed))
-            if pressed[pygame.K_s]:
-                self.add_force(Vector2(0, self.speed))
-            if pressed[pygame.K_d]:
-                self.add_force(Vector2(self.speed, 0))
-            if pressed[pygame.K_a]:
-                self.add_force(Vector2(-self.speed, 0))
+    def tick(self):
+        # Input
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_w]:
+            self.add_force(Vector2(0, -self.speed))
+        if pressed[pygame.K_s]:
+            self.add_force(Vector2(0, self.speed))
+        if pressed[pygame.K_d]:
+            self.add_force(Vector2(self.speed, 0))
+        if pressed[pygame.K_a]:
+            self.add_force(Vector2(-self.speed, 0))
 
 class Scout:
     def __init__(self, x, y, game):
