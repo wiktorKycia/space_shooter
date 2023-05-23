@@ -73,7 +73,6 @@ class Scout(PlayableShip):
         # # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
     def add_force(self, force):
         super().add_force(force)
-
     def tick(self):
         super().tick()
         # # Input
@@ -97,6 +96,7 @@ class Scout(PlayableShip):
         # self.pos += self.vel
         # self.acc *= 0
     def draw(self):
+        super().draw()
         # #Base polygon
         # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
         #
@@ -112,4 +112,6 @@ class Scout(PlayableShip):
         #
         # #draw polygon
         # pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
-        self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
+
+
+        # self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
