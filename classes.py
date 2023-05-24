@@ -57,9 +57,9 @@ class PlayableShip(object):
         self.acc *= 0
 
         self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
-        if pressed[pygame.K_SPACE] and self.clock >= 0.05:
+        if pressed[pygame.K_SPACE] and self.clock >= 0.1:
             self.clock = 0
-            self.bullets.append(Bullet(self.game, self.pos.x, self.pos.y, 2, 10, 1000000, 1, (255, 0, 0)))
+            self.bullets.append(Bullet(self.game, self.pos.x, self.pos.y, 2, 10, 100, 20, (255, 0, 0)))
 
         for bullet in self.bullets:
             bullet.tick()
@@ -72,7 +72,7 @@ class Scout(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/statek1.png"
-        super().__init__(self.game, self.path, 0.1, 0.99)
+        super().__init__(self.game, self.path, 0.2, 0.99)
         # # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
     def add_force(self, force):
         super().add_force(force)
@@ -100,19 +100,22 @@ class Bullet(object):
     def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255)):
         self.pos = Vector2(x, y)
         self.vel = Vector2(0, 0)
-        self.hitbox = pygame.Rect(x - width / 2, y - height / 2, width, height)
+        self.hitbox = pygame.Rect(self.pos.x - width / 2, self.pos.y - height / 2, width, height)
         acc = int(force / mass)
-        self.acc = Vector2(0, acc)
+        self.acc = Vector2(0, -acc)
+
+        self.width = width
+        self.height = height
 
         self.game = game
         self.color = color
     def tick(self):
         # Physics
         self.vel *= 0.999
-        self.vel -= Vector2(0, 0)
 
         self.vel += self.acc
         self.pos += self.vel
         self.acc *= 0
     def draw(self):
+        self.hitbox = pygame.Rect(self.pos.x - self.width / 2, self.pos.y - self.height / 2, self.width, self.height)
         pygame.draw.rect(self.game.screen, self.color, self.hitbox)
