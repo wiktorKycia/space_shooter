@@ -85,12 +85,15 @@ class Scout(PlayableShip):
         # pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
 
 class Bullet(object):
-    def __init__(self, x, y, width, height, speed, force, mass, color=(255, 255, 255)):
+    def __init__(self, game, x, y, width, height, speed, force, mass, color=(255, 255, 255)):
         self.pos = Vector2(x, y)
         self.vel = Vector2(0, 0)
         self.hitbox = pygame.Rect(x - width / 2, y - height / 2, width, height)
         acc = force / mass
         self.acc = Vector2(0, acc)
+
+        self.game = game
+        self.color = color
     def tick(self):
         # Physics
         self.vel *= 0.999
@@ -100,4 +103,4 @@ class Bullet(object):
         self.pos += self.vel
         self.acc *= 0
     def draw(self):
-        pass
+        pygame.draw.rect(self.game.screen, self.color, self.hitbox)
