@@ -11,7 +11,7 @@ class Game(object):
         self.height = 750
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.tps_clock = pygame.time.Clock()
-        self.tps_delta = 0.0
+        self.dt = 0.0
         #running
         self.isrun = True
 
@@ -25,6 +25,7 @@ class Game(object):
                     self.isrun = False
                     pygame.quit()
                     quit()
+            self.dt = self.tps_clock.tick(self.tps_max) / 100
             self.tick()
             self.screen.fill((0, 0, 0))
             self.draw()
