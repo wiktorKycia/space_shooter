@@ -92,6 +92,12 @@ class Bullet(object):
         acc = force / mass
         self.acc = Vector2(0, acc)
     def tick(self):
-        pass
+        # Physics
+        self.vel *= 0.999
+        self.vel -= Vector2(0, 0)
+
+        self.vel += self.acc
+        self.pos += self.vel
+        self.acc *= 0
     def draw(self):
         pass
