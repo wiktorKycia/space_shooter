@@ -59,7 +59,7 @@ class PlayableShip(object):
         self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
         if pressed[pygame.K_SPACE] and self.clock >= 0.05:
             self.clock = 0
-            print("I shoot!")
+            self.bullets.append(Bullet(self.game, self.pos.x, self.pos.y, 2, 10, 100, 20, (255, 0, 0)))
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
 
