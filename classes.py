@@ -16,7 +16,7 @@ class Object(object):
 class MovingObject(Object):
     pass
 
-class PlayableShip:
+class PlayableShip(object):
     def __init__(self, game, image_path, speed, slip):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path))
@@ -83,3 +83,24 @@ class Scout(PlayableShip):
         #
         # #draw polygon
         # pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
+
+class Bullet(object):
+    def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255)):
+        self.pos = Vector2(x, y)
+        self.vel = Vector2(0, 0)
+        self.hitbox = pygame.Rect(x - width / 2, y - height / 2, width, height)
+        acc = force / mass
+        self.acc = Vector2(0, acc)
+
+        self.game = game
+        self.color = color
+    def tick(self):
+        # Physics
+        self.vel *= 0.999
+        self.vel -= Vector2(0, 0)
+
+        self.vel += self.acc
+        self.pos += self.vel
+        self.acc *= 0
+    def draw(self):
+        pygame.draw.rect(self.game.screen, self.color, self.hitbox)
