@@ -60,7 +60,12 @@ class PlayableShip(object):
         if pressed[pygame.K_SPACE] and self.clock >= 0.05:
             self.clock = 0
             self.bullets.append(Bullet(self.game, self.pos.x, self.pos.y, 2, 10, 100, 20, (255, 0, 0)))
+
+        for bullet in self.bullets:
+            bullet.tick()
     def draw(self):
+        for bullet in self.bullets:
+            bullet.draw()
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
 
 class Scout(PlayableShip):
