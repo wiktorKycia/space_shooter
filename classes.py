@@ -85,4 +85,9 @@ class Scout(PlayableShip):
         # pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
 
 class Bullet(object):
-    pass
+    def __init__(self):
+        pass
+    def tick(self):
+        pass
+    def draw(self):
+        pass
