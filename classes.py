@@ -40,13 +40,13 @@ class PlayableShip(object):
         # Input
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_w]:
-            self.add_force(Vector2(0, -self.speed))
+            self.add_force(Vector2(0, -self.speed) * self.game.dt)
         if pressed[pygame.K_s]:
-            self.add_force(Vector2(0, self.speed))
+            self.add_force(Vector2(0, self.speed) * self.game.dt)
         if pressed[pygame.K_d]:
-            self.add_force(Vector2(self.speed, 0))
+            self.add_force(Vector2(self.speed, 0) * self.game.dt)
         if pressed[pygame.K_a]:
-            self.add_force(Vector2(-self.speed, 0))
+            self.add_force(Vector2(-self.speed, 0) * self.game.dt)
 
         # Physics
         self.vel *= self.slip
