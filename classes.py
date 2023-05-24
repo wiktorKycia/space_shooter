@@ -89,6 +89,8 @@ class Bullet(object):
         self.pos = Vector2(x, y)
         # self.vel = speed
         self.hitbox = pygame.Rect(x - width / 2, y - height / 2, width, height)
+        acc = force / mass
+        self.acc = Vector2(0, acc)
     def tick(self):
         pass
     def draw(self):
