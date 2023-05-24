@@ -31,6 +31,7 @@ class PlayableShip(object):
         self.acc = Vector2(0, 0)
 
         self.bullets = []
+        self.clock = 0
 
     def add_force(self, force):
         self.acc += force
