@@ -72,7 +72,7 @@ class Scout(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/statek1.png"
-        super().__init__(self.game, self.path, 0.001, 0.999)
+        super().__init__(self.game, self.path, 0.1, 0.99)
         # # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
     def add_force(self, force):
         super().add_force(force)
