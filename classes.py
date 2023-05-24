@@ -87,7 +87,7 @@ class Scout(PlayableShip):
 class Bullet(object):
     def __init__(self, x, y, width, height, speed, force, mass, color):
         self.pos = Vector2(x, y)
-        self.vel = speed
+        # self.vel = speed
     def tick(self):
         pass
     def draw(self):
