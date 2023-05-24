@@ -30,6 +30,8 @@ class PlayableShip(object):
         self.vel = Vector2(0, 0)
         self.acc = Vector2(0, 0)
 
+        self.bullets = []
+
     def add_force(self, force):
         self.acc += force
 
