@@ -85,7 +85,7 @@ class Scout(PlayableShip):
         # pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
 
 class Bullet(object):
-    def __init__(self, game, x, y, width, height, speed, force, mass, color=(255, 255, 255)):
+    def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255)):
         self.pos = Vector2(x, y)
         self.vel = Vector2(0, 0)
         self.hitbox = pygame.Rect(x - width / 2, y - height / 2, width, height)
