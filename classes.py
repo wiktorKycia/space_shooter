@@ -44,20 +44,20 @@ class PlayableShip(object):
         # Input
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_w]:
-            self.add_force(Vector2(0, -self.force) * self.game.dt)
+            self.add_force(Vector2(0, -self.force))
         if pressed[pygame.K_s]:
-            self.add_force(Vector2(0, self.force) * self.game.dt)
+            self.add_force(Vector2(0, self.force))
         if pressed[pygame.K_d]:
-            self.add_force(Vector2(self.force, 0) * self.game.dt)
+            self.add_force(Vector2(self.force, 0))
         if pressed[pygame.K_a]:
-            self.add_force(Vector2(-self.force, 0) * self.game.dt)
+            self.add_force(Vector2(-self.force, 0))
 
         # Physics
         self.vel *= self.slip
         self.vel -= Vector2(0, 0)
 
         self.vel += self.acc
-        self.pos += self.vel
+        self.pos += self.vel * self.game.dt
         self.acc *= 0
 
         self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
@@ -66,7 +66,7 @@ class PlayableShip(object):
             bullet = Bullet(self.game, self.pos.x, self.pos.y, 2, 10, self.force, 20, (255, 0, 0))
             self.bullets.append(bullet)
             acc = -bullet.acc # getting initial bullet velocity
-            vel = (bullet.mass * acc) / self.mass * self.game.dt \
+            vel = (bullet.mass * acc) / self.mass
                 # getting initial velocity from zasada zachowania pędu
             vel.x *= vel.x
             vel.y *= vel.y
