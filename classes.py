@@ -68,6 +68,8 @@ class PlayableShip(object):
     def draw(self):
         for bullet in self.bullets:
             bullet.draw()
+            if bullet.pos.y <= 0 - bullet.height:
+                self.bullets.remove(bullet)
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
 
 class Scout(PlayableShip):
