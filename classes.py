@@ -68,7 +68,9 @@ class PlayableShip(object):
             acc = -bullet.acc # getting initial bullet velocity
             vel = (bullet.mass * acc) / self.mass * self.game.dt \
                 # getting initial velocity from zasada zachowania pędu
-            energy = (self.mass * vel**2) / 2 # calculating kinetic energy
+            vel.x *= vel.x
+            vel.y *= vel.y
+            energy = (self.mass * vel) / 2 # calculating kinetic energy
             force = energy / self.barrel # calculating kickback force
             self.add_force(Vector2(0, force))
 
