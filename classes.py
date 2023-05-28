@@ -72,7 +72,7 @@ class PlayableShip(object):
             vel.y *= vel.y
             energy = (self.mass * vel) / 2 # calculating kinetic energy
             force = energy / self.barrel # calculating kickback force
-            self.add_force(Vector2(0, force))
+            self.add_force(Vector2(force.x, force.y))
 
         for bullet in self.bullets:
             bullet.tick()
