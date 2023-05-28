@@ -37,19 +37,19 @@ class PlayableShip(object):
         self.clock = 0
 
     def add_force(self, force):
-        self.acc += force
+        self.acc += force / self.mass
 
     def tick(self):
         # Input
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_w]:
-            self.add_force(Vector2(0, -self.speed) * self.game.dt)
+            self.add_force(Vector2(0, -self.force) * self.game.dt)
         if pressed[pygame.K_s]:
-            self.add_force(Vector2(0, self.speed) * self.game.dt)
+            self.add_force(Vector2(0, self.force) * self.game.dt)
         if pressed[pygame.K_d]:
-            self.add_force(Vector2(self.speed, 0) * self.game.dt)
+            self.add_force(Vector2(self.force, 0) * self.game.dt)
         if pressed[pygame.K_a]:
-            self.add_force(Vector2(-self.speed, 0) * self.game.dt)
+            self.add_force(Vector2(-self.force, 0) * self.game.dt)
 
         # Physics
         self.vel *= self.slip
