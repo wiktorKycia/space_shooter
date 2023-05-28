@@ -63,7 +63,14 @@ class PlayableShip(object):
         self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
         if pressed[pygame.K_SPACE] and self.clock >= 0.1:
             self.clock = 0
-            self.bullets.append(Bullet(self.game, self.pos.x, self.pos.y, 2, 10, self.force, 20, (255, 0, 0)))
+            bullet = Bullet(self.game, self.pos.x, self.pos.y, 2, 10, self.force, 20, (255, 0, 0))
+            self.bullets.append(bullet)
+            acc = -bullet.acc # getting initial bullet velocity
+            vel = (bullet.mass * acc) / self.mass * self.game.dt \
+                # getting initial velocity from zasada zachowania pędu
+            energy = (self.mass * vel**2) / 2 # calculating kinetic energy
+            force = energy / self.barrel # calculating kickback force
+            self.add_force(Vector2(0, force))
 
         for bullet in self.bullets:
             bullet.tick()
@@ -78,7 +85,7 @@ class Scout(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/statek1.png"
-        super().__init__(self.game, self.path, 0.99, 1000, 2000)
+        super().__init__(self.game, self.path, 0.99, 1000, 2000, 100)
         # # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
     def add_force(self, force):
         super().add_force(force)
