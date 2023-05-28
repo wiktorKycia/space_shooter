@@ -61,7 +61,7 @@ class PlayableShip(object):
         self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
         if pressed[pygame.K_SPACE] and self.clock >= 0.1:
             self.clock = 0
-            self.bullets.append(Bullet(self.game, self.pos.x, self.pos.y, 2, 10, 100, 20, (255, 0, 0)))
+            self.bullets.append(Bullet(self.game, self.pos.x, self.pos.y, 2, 10, self.force, 20, (255, 0, 0)))
 
         for bullet in self.bullets:
             bullet.tick()
@@ -116,7 +116,7 @@ class Bullet(object):
         self.vel *= 0.999
 
         self.vel += self.acc
-        self.pos += self.vel
+        self.pos += self.vel * self.game.dt
         self.acc *= 0
     def draw(self):
         self.hitbox = pygame.Rect(self.pos.x - self.width / 2, self.pos.y - self.height / 2, self.width, self.height)
