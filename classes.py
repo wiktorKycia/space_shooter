@@ -2,6 +2,7 @@ import pygame
 from pygame import mixer
 from pygame.math import Vector2
 import os
+mixer.init()
 class Object(object):
     def __init__(self, x, y, width, height, game):
         self.game = game
@@ -66,6 +67,7 @@ class PlayableShip(object):
             self.clock = 0
             bullet = Bullet(self.game, self.pos.x, self.pos.y, 2, 10, self.force, 20, (255, 0, 0), './shot_sounds/blaster.mp3')
             self.bullets.append(bullet)
+            bullet.sound.play(0, 850)
             acc = -bullet.acc # getting initial bullet velocity
             vel = (bullet.mass * acc) / self.mass
                 # getting initial velocity from zasada zachowania pędu
@@ -130,6 +132,7 @@ class Bullet(object):
 
         if sound is not None:
             self.sound = mixer.Sound(sound)
+            self.sound.set_volume(0.1)
     def tick(self):
         # Physics
         self.vel *= 0.999
