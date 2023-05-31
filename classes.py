@@ -65,9 +65,9 @@ class PlayableShip(object):
         self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
         if pressed[pygame.K_SPACE] and self.clock >= 0.1:
             self.clock = 0
-            bullet = Bullet(self.game, self.pos.x, self.pos.y, 2, 10, self.force, 20, (255, 0, 0), './shot_sounds/blaster.mp3')
+            bullet = Bullet(self.game, self.pos.x, self.pos.y, 2, 10, self.force, 20, (255, 0, 0), './shot_sounds/laser-medium-gun.mp3')
             self.bullets.append(bullet)
-            bullet.sound.play(0, 850)
+            bullet.sound.play(0, 800)
             acc = -bullet.acc # getting initial bullet velocity
             vel = (bullet.mass * acc) / self.mass
                 # getting initial velocity from zasada zachowania pędu
