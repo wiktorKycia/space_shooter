@@ -129,7 +129,7 @@ class Bullet(object):
         self.color = color
 
         if sound is not None:
-            self.sound = sound
+            self.sound = mixer.Sound(sound)
     def tick(self):
         # Physics
         self.vel *= 0.999
