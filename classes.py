@@ -78,7 +78,7 @@ class Scout(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/statek1.png"
-        super().__init__(self.game, self.path, 0.99, 1000, 2000, 10)
+        super().__init__(self.game, self.path, 0.99, 1000, 2000, 1500, 10)
         # # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
     def add_force(self, force):
         super().add_force(force)
@@ -87,7 +87,7 @@ class Scout(PlayableShip):
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_SPACE] and self.clock >= 0.15:
             self.clock = 0
-            bullet = Bullet(self.game, self.pos.x, self.pos.y, 2, 10, self.force, 20, (230, 0, 0),
+            bullet = Bullet(self.game, self.pos.x, self.pos.y, 2, 10, self.shot_force, 20, (230, 0, 0),
                             './shot_sounds/blaster.mp3')
             self.bullets.append(bullet)
             bullet.sound.play(0, 800)
@@ -121,7 +121,7 @@ class Ship2(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship1.png"
-        super().__init__(game, self.path, 0.98, 3500, 4000, 50)
+        super().__init__(game, self.path, 0.98, 3500, 4000, 35000, 50)
 
     def add_force(self, force):
         super().add_force(force)
@@ -130,7 +130,7 @@ class Ship2(PlayableShip):
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_SPACE] and self.clock >= 0.15:
             self.clock = 0
-            bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
+            bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
             self.bullets.append(bullet)
             bullet.sound.play(0, 800)
             acc = -bullet.acc # getting initial bullet velocity
