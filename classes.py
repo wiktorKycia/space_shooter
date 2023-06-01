@@ -114,6 +114,10 @@ class Scout(PlayableShip):
         # #draw polygon
         # pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
 
+class Ship2(PlayableShip):
+    def __init__(self, game):
+        self.game = game
+
 class Bullet(object):
     def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255), sound=None):
         self.pos = Vector2(x, y)
