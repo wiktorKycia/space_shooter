@@ -63,19 +63,7 @@ class PlayableShip(object):
         self.acc *= 0
 
         self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
-        if pressed[pygame.K_SPACE] and self.clock >= 0.1:
-            self.clock = 0
-            bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 20, self.force, 20, (0, 240, 255), './shot_sounds/blaster.mp3')
-            self.bullets.append(bullet)
-            bullet.sound.play(0, 800)
-            acc = -bullet.acc # getting initial bullet velocity
-            vel = (bullet.mass * acc) / self.mass
-                # getting initial velocity from zasada zachowania pędu
-            vel.x *= vel.x
-            vel.y *= vel.y
-            energy = (self.mass * vel) / 2 # calculating kinetic energy
-            force = energy / self.barrel # calculating kickback force
-            self.add_force(Vector2(force.x, force.y))
+
 
         for bullet in self.bullets:
             bullet.tick()
@@ -96,6 +84,21 @@ class Scout(PlayableShip):
         super().add_force(force)
     def tick(self):
         super().tick()
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_SPACE] and self.clock >= 0.15:
+            self.clock = 0
+            bullet = Bullet(self.game, self.pos.x, self.pos.y, 2, 10, self.force, 20, (230, 0, 0),
+                            './shot_sounds/blaster.mp3')
+            self.bullets.append(bullet)
+            bullet.sound.play(0, 800)
+            acc = -bullet.acc  # getting initial bullet velocity
+            vel = (bullet.mass * acc) / self.mass
+            # getting initial velocity from zasada zachowania pędu
+            vel.x *= vel.x
+            vel.y *= vel.y
+            energy = (self.mass * vel) / 2  # calculating kinetic energy
+            force = energy / self.barrel  # calculating kickback force
+            self.add_force(Vector2(force.x, force.y))
     def draw(self):
         super().draw()
         # #Base polygon
@@ -124,6 +127,20 @@ class Ship2(PlayableShip):
         super().add_force(force)
     def tick(self):
         super().tick()
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_SPACE] and self.clock >= 0.15:
+            self.clock = 0
+            bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
+            self.bullets.append(bullet)
+            bullet.sound.play(0, 800)
+            acc = -bullet.acc # getting initial bullet velocity
+            vel = (bullet.mass * acc) / self.mass
+                # getting initial velocity from zasada zachowania pędu
+            vel.x *= vel.x
+            vel.y *= vel.y
+            energy = (self.mass * vel) / 2 # calculating kinetic energy
+            force = energy / self.barrel # calculating kickback force
+            self.add_force(Vector2(force.x, force.y))
     def draw(self):
         super().draw()
 
