@@ -21,7 +21,7 @@ class MovingObject(Object):
 class PlayableShip(object):
     def __init__(self, game, image_path, slip, mov_force, mass, shot_force,barrel_lenght):
         self.game = game
-        self.image = pygame.image.load(os.path.join(image_path))
+        self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
         self.width = self.image.get_width()
         self.height = self.image.get_height()
 
@@ -64,9 +64,11 @@ class PlayableShip(object):
 
         self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
 
-
         for bullet in self.bullets:
-            bullet.tick()
+            if bullet.pos.y <= -bullet.height:
+                self.bullets.remove(bullet)
+            else:
+                bullet.tick()
     def draw(self):
         for bullet in self.bullets:
             bullet.draw()
