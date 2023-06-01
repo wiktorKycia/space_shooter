@@ -120,6 +120,13 @@ class Ship2(PlayableShip):
         self.path = "./ships/ship1.png"
         super().__init__(game, self.path, 0.98, 3500, 4000, 50)
 
+    def add_force(self, force):
+        super().add_force(force)
+    def tick(self):
+        super().tick()
+    def draw(self):
+        super().draw()
+
 class Bullet(object):
     def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255), sound=None):
         self.pos = Vector2(x, y)
