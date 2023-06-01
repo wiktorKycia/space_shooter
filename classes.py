@@ -19,15 +19,13 @@ class MovingObject(Object):
     pass
 
 class PlayableShip(object):
-    def __init__(self, game, image_path, slip, mov_force, mass, barrel_lenght):
+    def __init__(self, game, image_path, slip, mov_force, mass, shot_force,barrel_lenght):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path))
         self.width = self.image.get_width()
         self.height = self.image.get_height()
+
         self.slip = slip
-
-        self.barrel = barrel_lenght
-
         self.mov_force = mov_force
         self.mass = mass
 
@@ -36,6 +34,8 @@ class PlayableShip(object):
         self.vel = Vector2(0, 0)
         self.acc = Vector2(0, 0)
 
+        self.shot_force = shot_force
+        self.barrel = barrel_lenght
         self.bullets = []
         self.clock = 0
 
