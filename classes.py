@@ -117,6 +117,7 @@ class Scout(PlayableShip):
 class Ship2(PlayableShip):
     def __init__(self, game):
         self.game = game
+        self.path = "./ships/ship1.png"
 
 class Bullet(object):
     def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255), sound=None):
