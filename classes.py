@@ -64,9 +64,11 @@ class PlayableShip(object):
 
         self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
 
-
         for bullet in self.bullets:
-            bullet.tick()
+            if bullet.pos.y <= -bullet.height:
+                self.bullets.remove(bullet)
+            else:
+                bullet.tick()
     def draw(self):
         for bullet in self.bullets:
             bullet.draw()
