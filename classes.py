@@ -19,7 +19,7 @@ class MovingObject(Object):
     pass
 
 class PlayableShip(object):
-    def __init__(self, game, image_path, slip, force, mass, barrel_lenght):
+    def __init__(self, game, image_path, slip, mov_force, mass, barrel_lenght):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path))
         self.width = self.image.get_width()
@@ -28,7 +28,7 @@ class PlayableShip(object):
 
         self.barrel = barrel_lenght
 
-        self.force = force
+        self.mov_force = mov_force
         self.mass = mass
 
         size = self.game.screen.get_size()
@@ -46,13 +46,13 @@ class PlayableShip(object):
         # Input
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_w]:
-            self.add_force(Vector2(0, -self.force))
+            self.add_force(Vector2(0, -self.mov_force))
         if pressed[pygame.K_s]:
-            self.add_force(Vector2(0, self.force))
+            self.add_force(Vector2(0, self.mov_force))
         if pressed[pygame.K_d]:
-            self.add_force(Vector2(self.force, 0))
+            self.add_force(Vector2(self.mov_force, 0))
         if pressed[pygame.K_a]:
-            self.add_force(Vector2(-self.force, 0))
+            self.add_force(Vector2(-self.mov_force, 0))
 
         # Physics
         self.vel *= self.slip
