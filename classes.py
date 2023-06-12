@@ -146,6 +146,33 @@ class Ship1(PlayableShip):
     def draw(self):
         super().draw()
 
+class Ship2(PlayableShip):
+    def __init__(self, game):
+        self.game = game
+        self.path = "./ships/ship1.png"
+        super().__init__(game, self.path, 0.98, 3500, 4000, 20000, 100)
+
+    def add_force(self, force):
+        super().add_force(force)
+    def tick(self):
+        super().tick()
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_SPACE] and self.clock >= 0.15:
+            self.clock = 0
+            bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
+            self.bullets.append(bullet)
+            bullet.sound.play(0, 800)
+            acc = -bullet.acc # getting initial bullet velocity
+            vel = (bullet.mass * acc) / self.mass
+                # getting initial velocity from zasada zachowania pędu
+            vel.x *= vel.x
+            vel.y *= vel.y
+            energy = (self.mass * vel) / 2 # calculating kinetic energy
+            force = energy / self.barrel # calculating kickback force
+            self.add_force(Vector2(force.x, force.y))
+    def draw(self):
+        super().draw()
+
 class Bullet(object):
     def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255), sound=None):
         self.pos = Vector2(x, y)
