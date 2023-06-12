@@ -2,6 +2,8 @@ import pygame
 from pygame import mixer
 from pygame.math import Vector2
 import os
+
+from bullets import *
 mixer.init()
 
 class PlayableShip(object):
