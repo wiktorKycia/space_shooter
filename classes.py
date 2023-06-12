@@ -119,7 +119,7 @@ class Scout(PlayableShip):
         # #draw polygon
         # pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
 
-class Ship2(PlayableShip):
+class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship1.png"
@@ -142,6 +142,37 @@ class Ship2(PlayableShip):
             vel.y *= vel.y
             energy = (self.mass * vel) / 2 # calculating kinetic energy
             force = energy / self.barrel # calculating kickback force
+            self.add_force(Vector2(force.x, force.y))
+    def draw(self):
+        super().draw()
+
+class Ship2(PlayableShip):
+    def __init__(self, game):
+        self.game = game
+        self.path = "./ships/ship2.png"
+        super().__init__(game, self.path, 0.98, 4000, 3800, 25000, 100)
+
+    def add_force(self, force):
+        super().add_force(force)
+    def tick(self):
+        super().tick()
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_SPACE] and self.clock >= 0.18:
+            self.clock = 0
+            bullet = Bullet(self.game, self.pos.x-27, self.pos.y-15, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
+            bullet1 = Bullet(self.game, self.pos.x+27, self.pos.y-15, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
+            self.bullets.append(bullet)
+            self.bullets.append(bullet1)
+            bullet.sound.play(0, 650)
+            bullet1.sound.play(0, 650)
+            acc = -bullet.acc # getting initial bullet velocity
+            vel = (bullet.mass * acc) / self.mass
+                # getting initial velocity from zasada zachowania pędu
+            vel.x *= vel.x
+            vel.y *= vel.y
+            energy = (self.mass * vel) / 2 # calculating kinetic energy
+            force = energy / self.barrel # calculating kickback force
+            self.add_force(Vector2(force.x, force.y))
             self.add_force(Vector2(force.x, force.y))
     def draw(self):
         super().draw()
