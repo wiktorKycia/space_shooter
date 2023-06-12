@@ -119,7 +119,7 @@ class Scout(PlayableShip):
         # #draw polygon
         # pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
 
-class Ship2(PlayableShip):
+class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship1.png"
