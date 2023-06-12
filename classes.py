@@ -3,20 +3,6 @@ from pygame import mixer
 from pygame.math import Vector2
 import os
 mixer.init()
-class Object(object):
-    def __init__(self, x, y, width, height, game):
-        self.game = game
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.hitbox = pygame.Rect(self.x, self.y, self.width, self.height)
-    def tick(self):
-        pass
-    def draw(self):
-        pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox)
-class MovingObject(Object):
-    pass
 
 class PlayableShip(object):
     def __init__(self, game, image_path, slip, mov_force, mass, shot_force,barrel_lenght):
