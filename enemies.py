@@ -1,6 +1,7 @@
 from bullets import *
 class BaseEnemy(object):
-    def __init__(self, x, y, isshooting, movforce, mass, shotforce):
+    def __init__(self, game,  x, y, isshooting, movforce, mass, shotforce, imagepath):
+        self.game = game
         self.x = x
         self.y = y
         self.isshooting = isshooting
@@ -11,6 +12,8 @@ class BaseEnemy(object):
         self.acc = Vector2(0, 0)
         self.vel = Vector2(0, 0)
         self.pos = Vector2(x, y)
+
+        self.image = imagepath
     def add_force(self, force):
         self.acc += force / self.mass
 
