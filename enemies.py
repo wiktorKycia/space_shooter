@@ -21,4 +21,4 @@ class BaseEnemy(object):
         self.draw()
 
     def draw(self):
-        pass
+        self.game.screen.blit(self.image, (self.pos.x, self.pos.y))
