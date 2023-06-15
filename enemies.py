@@ -1,13 +1,14 @@
 from bullets import *
 class BaseEnemy(object):
-    def __init__(self, game, x, y, isshooting, movforce, mass, shotforce, imagepath):
+    def __init__(self, game, imagepath, x, y, slip, mov_force, mass, shot_force, barrel_lenght):
         self.game = game
         self.x = x
         self.y = y
-        self.isshooting = isshooting
-        self.movforce = movforce
+        self.slip = slip
+        self.movforce = mov_force
         self.mass = mass
-        self.shotforce = shotforce
+        self.shotforce = shot_force
+        self.barrel = barrel_lenght
 
         self.acc = Vector2(0, 0)
         self.vel = Vector2(0, 0)
