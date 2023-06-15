@@ -1,6 +1,6 @@
 from bullets import *
 class BaseEnemy(object):
-    def __init__(self, game,  x, y, isshooting, movforce, mass, shotforce, imagepath):
+    def __init__(self, game, x, y, isshooting, movforce, mass, shotforce, imagepath):
         self.game = game
         self.x = x
         self.y = y
@@ -24,5 +24,7 @@ class BaseEnemy(object):
         self.game.screen.blit(self.image, (self.pos.x, self.pos.y))
 
 class Enemy1(BaseEnemy):
-    def __init__(self):
-        pass
+    def __init__(self, game, path, x, y):
+        self.game = game
+        self.image = path
+        super().__init__(self.game, x, y , True, 1000, 500, 2200, self.image)
