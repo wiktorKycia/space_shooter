@@ -22,3 +22,7 @@ class BaseEnemy(object):
 
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x, self.pos.y))
+
+class Enemy1(BaseEnemy):
+    def __init__(self):
+        pass
