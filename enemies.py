@@ -28,4 +28,4 @@ class Enemy1(BaseEnemy):
     def __init__(self, game, path, x, y):
         self.game = game
         self.image = path
-        super().__init__(self.game, x, y , True, 1000, 500, 2200, self.image)
+        super().__init__(self.game, self.image, x, y , 0.99, 1000, 500, 2200, 50)
