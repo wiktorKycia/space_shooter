@@ -60,3 +60,17 @@ class BlasterBullet(Bullet):
         super().tick()
     def draw(self):
         super().draw()
+
+class KineticBullet(Bullet):
+    def __init__(self, game, x, y, force):
+        self.width = 2
+        self.height = 4
+        self.force = force
+        self.mass = 50
+        self.color = (130, 130, 120)
+        self.sound = "./shot_sounds/kinetic-gun.mp3"
+        super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
+    def tick(self):
+        super().tick()
+    def draw(self):
+        super().draw()
