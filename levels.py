@@ -10,3 +10,6 @@ from enemies import *
 class Minilevel():
     def __init__(self, game):
         self.game = game
+
+    def add_single(self, enemy):
+        self.game.enemies.append(enemy)
