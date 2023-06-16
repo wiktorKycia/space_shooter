@@ -37,10 +37,14 @@ class Game(object):
 
     def tick(self):
         self.player.tick()
+        for enemy in self.enemies:
+            enemy.tick()
 
     def draw(self):
         # self.ob.draw()
         self.player.draw()
+        for enemy in self.enemies:
+            enemy.draw()
 
 
 if __name__ == "__main__":
