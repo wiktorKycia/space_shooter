@@ -1,4 +1,5 @@
 from bullets import *
+import os
 class BaseEnemy(object):
     def __init__(self, game, imagepath, x, y, slip, mov_force, mass, shot_force, barrel_lenght):
         self.game = game
@@ -25,7 +26,7 @@ class BaseEnemy(object):
         self.game.screen.blit(self.image, (self.pos.x, self.pos.y))
 
 class Enemy1(BaseEnemy):
-    def __init__(self, game, path, x, y):
+    def __init__(self, game, x, y):
         self.game = game
-        self.image = path
+        self.image = pygame.image.load(os.path.join("./enemies/Enemy1.png"))
         super().__init__(self.game, self.image, x, y , 0.99, 1000, 500, 2200, 50)
