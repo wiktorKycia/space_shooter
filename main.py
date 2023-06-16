@@ -19,6 +19,9 @@ class Game(object):
         # self.ob = Object(50, 50, 50, 50, self)
         self.player = Ship2(self)
 
+        # lists
+        self.enemies = []
+
         while self.isrun:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
