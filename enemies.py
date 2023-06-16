@@ -5,6 +5,11 @@ class BaseEnemy(object):
         self.game = game
         self.x = x
         self.y = y
+
+        self.image = imagepath
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
+
         self.slip = slip
         self.movforce = mov_force
         self.mass = mass
@@ -15,7 +20,6 @@ class BaseEnemy(object):
         self.vel = Vector2(0, 0)
         self.pos = Vector2(x, y)
 
-        self.image = imagepath
     def add_force(self, force):
         self.acc += force / self.mass
 
@@ -23,7 +27,7 @@ class BaseEnemy(object):
         pass
 
     def draw(self):
-        self.game.screen.blit(self.image, (self.pos.x, self.pos.y))
+        self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
