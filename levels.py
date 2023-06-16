@@ -7,3 +7,6 @@ from enemies import *
 # zawiera wywołania poszczególnych metod z minilevel'a
 #
 # lista przeciwników w mainie
+class Minilevel():
+    def __init__(self, game):
+        self.game = game
