@@ -24,7 +24,7 @@ class Game(object):
         # lists
         self.enemies = []
         self.block = Minilevel(self)
-        self.block.add_single(Enemy1(self, 0, 0))
+        self.block.add_single(Enemy1(self, 375, 50))
         while self.isrun:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -39,15 +39,19 @@ class Game(object):
 
 
     def tick(self):
-        self.player.tick()
+
         for enemy in self.enemies:
             enemy.tick()
 
+        self.player.tick()
+
     def draw(self):
         # self.ob.draw()
-        self.player.draw()
+
         for enemy in self.enemies:
             enemy.draw()
+
+        self.player.draw()
 
 
 if __name__ == "__main__":
