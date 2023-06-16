@@ -49,12 +49,12 @@ class Kinetic60Bullet(Bullet):
 
 class BlasterBullet(Bullet):
     def __init__(self, game, x, y, force):
-        self.width = 2
-        self.height = 2
+        self.width = 4
+        self.height = 10
         self.force = force
-        self.mass = 40
-        self.color = (200, 210, 55)
-        self.sound = "./shot_sounds/M60-single.wav"
+        self.mass = 100
+        self.color = (175, 210, 190)
+        self.sound = "./shot_sounds/blaster.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
