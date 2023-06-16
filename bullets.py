@@ -47,19 +47,17 @@ class Kinetic60Bullet(Bullet):
     def draw(self):
         super().draw()
 
-class BlasterBullet(Bullet):
+class Kinetic9Bullet(Bullet):
     def __init__(self, game, x, y, force):
-        self.width = 4
-        self.height = 10
+        self.width = 2
+        self.height = 4
         self.force = force
-        self.mass = 100
-        self.color = (175, 210, 190)
-        self.sound = "./shot_sounds/blaster.mp3"
+        self.mass = 50
+        self.color = (130, 130, 120)
+        self.sound = "./shot_sounds/kinetic-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
-    def draw(self):
-        super().draw()
 
 class KineticBullet(Bullet):
     def __init__(self, game, x, y, force):
@@ -74,3 +72,21 @@ class KineticBullet(Bullet):
         super().tick()
     def draw(self):
         super().draw()
+
+    def draw(self):
+        super().draw()
+
+class BlasterBullet(Bullet):
+    def __init__(self, game, x, y, force):
+        self.width = 4
+        self.height = 10
+        self.force = force
+        self.mass = 100
+        self.color = (175, 210, 190)
+        self.sound = "./shot_sounds/blaster.mp3"
+        super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
+    def tick(self):
+        super().tick()
+    def draw(self):
+        super().draw()
+
