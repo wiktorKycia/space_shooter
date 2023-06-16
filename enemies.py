@@ -19,7 +19,7 @@ class BaseEnemy(object):
         self.acc += force / self.mass
 
     def tick(self):
-        self.draw()
+        pass
 
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x, self.pos.y))
