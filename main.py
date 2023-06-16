@@ -1,5 +1,6 @@
 import pygame
 from ships import *
+from enemies import *
 
 class Game(object):
     def __init__(self):
