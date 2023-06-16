@@ -24,7 +24,7 @@ class Game(object):
         # lists
         self.enemies = []
         self.block = Minilevel(self)
-        self.block.add_single(Enemy1(self, 50, 50))
+        self.block.add_single(Enemy1(self, 0, 0))
         while self.isrun:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
