@@ -32,3 +32,13 @@ class Bullet(object):
     def draw(self):
         self.hitbox = pygame.Rect(self.pos.x - self.width / 2, self.pos.y - self.height / 2, self.width, self.height)
         pygame.draw.rect(self.game.screen, self.color, self.hitbox)
+
+class Kinetic60Bullet(Bullet):
+    def __init__(self, game, x, y, force):
+        self.width = 2
+        self.height = 2
+        self.force = force
+        self.mass = 40
+        self.color = (200, 210, 55)
+        self.sound = "./shot_sounds/M60-single.wav"
+        super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
