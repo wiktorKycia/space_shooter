@@ -24,14 +24,15 @@ class Game(object):
         # lists
         self.enemies = []
         self.block = Minilevel(self)
-        self.block.add_single(Enemy3(self, 375, 50))
+        self.block.add_single(Enemy1(self, 400, 50))
+        self.block.add_single(Enemy1(self, 300, 50))
         while self.isrun:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.isrun = False
                     pygame.quit()
                     quit()
-            self.dt = self.tps_clock.tick(self.tps_max) / 100
+            self.dt = self.tps_clock.get_time() / 1000
             self.tps_clock.tick(self.tps_max)
             self.tick()
             self.screen.fill((0, 0, 0))
