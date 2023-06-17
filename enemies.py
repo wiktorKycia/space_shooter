@@ -66,6 +66,7 @@ class Enemy1(BaseEnemy):
                 self.bullets.remove(bullet)
             else:
                 bullet.tick()
+
     def draw(self):
         super().draw()
         for bullet in self.bullets:
