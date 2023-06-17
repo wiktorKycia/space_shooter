@@ -148,3 +148,44 @@ class LaserLightGunBullet(Bullet):
     def draw(self):
         super().draw()
 
+class LaserMediumGunBullet(Bullet):
+    def __init__(self, game, x, y, force):
+        self.width = 4
+        self.height = 10
+        self.force = force
+        self.mass = 60
+        self.color = (150, 210, 150)
+        self.sound = "./shot_sounds/laser-medium-gun.mp3"
+        super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
+    def tick(self):
+        super().tick()
+    def draw(self):
+        super().draw()
+
+class LaserHeavyGunBullet(Bullet):
+    def __init__(self, game, x, y, force):
+        self.width = 4
+        self.height = 12
+        self.force = force
+        self.mass = 100
+        self.color = (150, 210, 150)
+        self.sound = "./shot_sounds/laser-heavy-gun.wav"
+        super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
+    def tick(self):
+        super().tick()
+    def draw(self):
+        super().draw()
+
+class LaserLongGunBullet(Bullet):
+    def __init__(self, game, x, y, force):
+        self.width = 4
+        self.height = 40
+        self.force = force
+        self.mass = 90
+        self.color = (150, 210, 150)
+        self.sound = "./shot_sounds/laser-long-gun.mp3"
+        super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
+    def tick(self):
+        super().tick()
+    def draw(self):
+        super().draw()
