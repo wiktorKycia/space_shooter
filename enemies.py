@@ -1,3 +1,4 @@
+import pygame.time
 from bullets import *
 import os
 class BaseEnemy(object):
@@ -20,11 +21,13 @@ class BaseEnemy(object):
         self.vel = Vector2(0, 0)
         self.pos = Vector2(x, y)
 
+        self.clock = 0
+
     def add_force(self, force):
         self.acc += force / self.mass
 
     def tick(self):
-        pass
+        self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
 
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
