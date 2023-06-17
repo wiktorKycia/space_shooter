@@ -41,3 +41,16 @@ class Enemy1(BaseEnemy):
 
     def tick(self):
         super().tick()
+        if self.clock >= 1.0:
+            self.clock = 0
+            bullet = KineticBullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
+            self.bullets.append(bullet)
+            bullet.sound.play(0, 800)
+            acc = -bullet.acc  # getting initial bullet velocity
+            vel = (bullet.mass * acc) / self.mass
+            # getting initial velocity from zasada zachowania pędu
+            vel.x *= vel.x
+            vel.y *= vel.y
+            energy = (self.mass * vel) / 2  # calculating kinetic energy
+            force = energy / self.barrel  # calculating kickback force
+            self.add_force(Vector2(force.x, force.y))
