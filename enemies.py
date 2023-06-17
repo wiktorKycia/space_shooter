@@ -33,6 +33,18 @@ class BaseEnemy(object):
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
+    def add_bullet(self, bullet):
+        self.bullets.append(bullet)
+        bullet.sound.play(0, 800)
+        acc = -bullet.acc  # getting initial bullet velocity
+        vel = (bullet.mass * acc) / self.mass
+        # getting initial velocity from zasada zachowania pędu
+        vel.x *= vel.x
+        vel.y *= vel.y
+        energy = (self.mass * vel) / 2  # calculating kinetic energy
+        force = energy / self.barrel  # calculating kickback force
+        self.add_force(Vector2(force.x, force.y))
+
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
@@ -47,13 +59,4 @@ class Enemy1(BaseEnemy):
         if self.clock >= 1.0:
             self.clock = 0
             bullet = KineticBullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
-            self.bullets.append(bullet)
-            bullet.sound.play(0, 800)
-            acc = -bullet.acc  # getting initial bullet velocity
-            vel = (bullet.mass * acc) / self.mass
-            # getting initial velocity from zasada zachowania pędu
-            vel.x *= vel.x
-            vel.y *= vel.y
-            energy = (self.mass * vel) / 2  # calculating kinetic energy
-            force = energy / self.barrel  # calculating kickback force
-            self.add_force(Vector2(force.x, force.y))
+            super().add_bullet(bullet)
