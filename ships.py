@@ -50,7 +50,7 @@ class PlayableShip(object):
         self.pos += self.vel * self.game.dt
         self.acc *= 0
 
-        self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
+        self.clock += self.game.dt
 
         for bullet in self.bullets:
             if bullet.pos.y <= -bullet.height:
