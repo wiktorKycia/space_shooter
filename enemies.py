@@ -22,6 +22,7 @@ class BaseEnemy(object):
         self.pos = Vector2(x, y)
 
         self.clock = 0
+        self.bullets = []
 
     def add_force(self, force):
         self.acc += force / self.mass
@@ -37,3 +38,6 @@ class Enemy1(BaseEnemy):
         self.game = game
         self.image = pygame.image.load(os.path.join("./enemies/Enemy1.png"))
         super().__init__(self.game, self.image, x, y , 0.99, 1000, 500, 2200, 50)
+
+    def tick(self):
+        super().tick()
