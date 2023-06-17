@@ -104,3 +104,18 @@ class EnergyGunBullet(Bullet):
     def draw(self):
         super().draw()
 
+class LaserCannonBullet(Bullet):
+    def __init__(self, game, x, y, force):
+        self.width = 2
+        self.height = 25
+        self.force = force
+        self.mass = 20
+        self.color = (140, 220, 135)
+        self.sound = "./shot_sounds/laser-cannon.wav"
+        super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
+    def tick(self):
+        super().tick()
+    def draw(self):
+        super().draw()
+
+
