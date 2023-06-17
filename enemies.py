@@ -28,7 +28,7 @@ class BaseEnemy(object):
         self.acc += force / self.mass
 
     def tick(self):
-        self.clock += pygame.time.Clock().tick(self.game.tps_max) / 1000
+        self.clock += self.game.dt
 
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
