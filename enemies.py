@@ -122,8 +122,8 @@ class Enemy3(BaseEnemy):
         super().tick()
         if self.clock >= 0.5:
             self.clock = 0
-            bullet = BlasterBullet(self.game, self.pos.x-20, self.pos.y, -self.shotforce)
-            bullet1 = BlasterBullet(self.game, self.pos.x+20, self.pos.y, -self.shotforce)
+            bullet = BlasterBullet(self.game, self.pos.x-22, self.pos.y, -self.shotforce)
+            bullet1 = BlasterBullet(self.game, self.pos.x+22, self.pos.y, -self.shotforce)
             self.add_bullet(bullet)
             self.add_bullet(bullet1)
 
