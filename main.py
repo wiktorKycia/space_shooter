@@ -1,5 +1,7 @@
 import pygame
 from ships import *
+from enemies import *
+from levels import *
 
 class Game(object):
     def __init__(self):
@@ -19,6 +21,10 @@ class Game(object):
         # self.ob = Object(50, 50, 50, 50, self)
         self.player = Ship2(self)
 
+        # lists
+        self.enemies = []
+        self.block = Minilevel(self)
+        self.block.add_single(Enemy1(self, 375, 50))
         while self.isrun:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -33,10 +39,18 @@ class Game(object):
 
 
     def tick(self):
+
+        for enemy in self.enemies:
+            enemy.tick()
+
         self.player.tick()
 
     def draw(self):
         # self.ob.draw()
+
+        for enemy in self.enemies:
+            enemy.draw()
+
         self.player.draw()
 
 
