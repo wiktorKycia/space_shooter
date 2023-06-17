@@ -59,7 +59,7 @@ class Enemy1(BaseEnemy):
         if self.clock >= 1.0:
             self.clock = 0
             bullet = KineticBullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
-            super().add_bullet(bullet)
+            self.add_bullet(bullet)
 
         for bullet in self.bullets:
             if bullet.pos.y >= self.game.height:
@@ -73,6 +73,9 @@ class Enemy1(BaseEnemy):
             bullet.draw()
             if bullet.pos.y >= self.game.height:
                 self.bullets.remove(bullet)
+
+    def add_bullet(self, bullet):
+        super().add_bullet(bullet)
 
 class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
@@ -88,7 +91,7 @@ class Enemy2(BaseEnemy):
         if self.clock >= 0.75:
             self.clock = 0
             bullet = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
-            super().add_bullet(bullet)
+            self.add_bullet(bullet)
 
         for bullet in self.bullets:
             if bullet.pos.y >= self.game.height:
@@ -102,6 +105,9 @@ class Enemy2(BaseEnemy):
             bullet.draw()
             if bullet.pos.y >= self.game.height:
                 self.bullets.remove(bullet)
+
+    def add_bullet(self, bullet):
+        super().add_bullet(bullet)
 
 class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
