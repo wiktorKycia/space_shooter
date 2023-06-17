@@ -118,8 +118,8 @@ class Enemy3(BaseEnemy):
             self.clock = 0
             bullet = BlasterBullet(self.game, self.pos.x-20, self.pos.y, -self.shotforce)
             bullet1 = BlasterBullet(self.game, self.pos.x+20, self.pos.y, -self.shotforce)
-            super().add_bullet(bullet)
-            super().add_bullet(bullet1)
+            self.add_bullet(bullet)
+            self.add_bullet(bullet1)
 
         for bullet in self.bullets:
             if bullet.pos.y >= self.game.height:
@@ -133,3 +133,6 @@ class Enemy3(BaseEnemy):
             bullet.draw()
             if bullet.pos.y >= self.game.height:
                 self.bullets.remove(bullet)
+
+    def add_bullet(self, bullet):
+        super().add_bullet(bullet)
