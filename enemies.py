@@ -78,16 +78,16 @@ class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
         self.image = pygame.image.load(os.path.join("./enemies/Enemy2.png"))
-        super().__init__(self.game, self.image, x, y , 0.99, 1000, 500, 2200, 50)
+        super().__init__(self.game, self.image, x, y , 0.99, 1500, 1000, 2500, 50)
 
     def add_force(self, force):
         super().add_force(force)
 
     def tick(self):
         super().tick()
-        if self.clock >= 1.0:
+        if self.clock >= 0.75:
             self.clock = 0
-            bullet = KineticBullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
+            bullet = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
             super().add_bullet(bullet)
 
         for bullet in self.bullets:
