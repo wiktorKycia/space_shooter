@@ -39,6 +39,9 @@ class Enemy1(BaseEnemy):
         self.image = pygame.image.load(os.path.join("./enemies/Enemy1.png"))
         super().__init__(self.game, self.image, x, y , 0.99, 1000, 500, 2200, 50)
 
+    def add_force(self, force):
+        super().add_force(force)
+
     def tick(self):
         super().tick()
         if self.clock >= 1.0:
