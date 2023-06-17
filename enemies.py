@@ -73,3 +73,32 @@ class Enemy1(BaseEnemy):
             bullet.draw()
             if bullet.pos.y >= self.game.height:
                 self.bullets.remove(bullet)
+
+class Enemy2(BaseEnemy):
+    def __init__(self, game, x, y):
+        self.game = game
+        self.image = pygame.image.load(os.path.join("./enemies/Enemy2.png"))
+        super().__init__(self.game, self.image, x, y , 0.99, 1000, 500, 2200, 50)
+
+    def add_force(self, force):
+        super().add_force(force)
+
+    def tick(self):
+        super().tick()
+        if self.clock >= 1.0:
+            self.clock = 0
+            bullet = KineticBullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
+            super().add_bullet(bullet)
+
+        for bullet in self.bullets:
+            if bullet.pos.y >= self.game.height:
+                self.bullets.remove(bullet)
+            else:
+                bullet.tick()
+
+    def draw(self):
+        super().draw()
+        for bullet in self.bullets:
+            bullet.draw()
+            if bullet.pos.y >= self.game.height:
+                self.bullets.remove(bullet)
