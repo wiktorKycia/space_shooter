@@ -111,14 +111,14 @@ class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship1.png"
-        super().__init__(game, self.path, 0.98, 3500, 4000, 20000, 100)
+        super().__init__(game, self.path, 0.98, 18600, 4000, 40000, 100)
 
     def add_force(self, force):
         super().add_force(force)
     def tick(self):
         super().tick()
         pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_SPACE] and self.clock >= 0.15:
+        if pressed[pygame.K_SPACE] and self.clock >= 0.25:
             self.clock = 0
             bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
             self.bullets.append(bullet)
@@ -138,14 +138,14 @@ class Ship2(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship2.png"
-        super().__init__(game, self.path, 0.98, 4000, 3800, 25000, 100)
+        super().__init__(game, self.path, 0.98, 25000, 3800, 50000, 100)
 
     def add_force(self, force):
         super().add_force(force)
     def tick(self):
         super().tick()
         pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_SPACE] and self.clock >= 0.18:
+        if pressed[pygame.K_SPACE] and self.clock >= 0.30:
             self.clock = 0
             bullet = Bullet(self.game, self.pos.x-27, self.pos.y-15, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
             bullet1 = Bullet(self.game, self.pos.x+27, self.pos.y-15, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
