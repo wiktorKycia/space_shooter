@@ -107,11 +107,11 @@ class EnergyGunBullet(Bullet):
 
 class LaserCannonBullet(Bullet):
     def __init__(self, game, x, y, force):
-        self.width = 2
-        self.height = 25
+        self.width = 8
+        self.height = 50
         self.force = force
-        self.mass = 20
-        self.color = (140, 220, 135)
+        self.mass = 300
+        self.color = (140, 220, 220)
         self.sound = "./shot_sounds/laser-cannon.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
@@ -121,11 +121,11 @@ class LaserCannonBullet(Bullet):
 
 class LaserLightCannonBullet(Bullet):
     def __init__(self, game, x, y, force):
-        self.width = 2
-        self.height = 20
+        self.width = 6
+        self.height = 40
         self.force = force
-        self.mass = 15
-        self.color = (120, 230, 120)
+        self.mass = 250
+        self.color = (120, 230, 210)
         self.sound = "./shot_sounds/laser-cannon-light.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
