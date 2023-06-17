@@ -66,3 +66,9 @@ class Enemy1(BaseEnemy):
                 self.bullets.remove(bullet)
             else:
                 bullet.tick()
+    def draw(self):
+        super().draw()
+        for bullet in self.bullets:
+            bullet.draw()
+            if bullet.pos.y >= self.game.height:
+                self.bullets.remove(bullet)
