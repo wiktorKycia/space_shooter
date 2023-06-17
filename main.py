@@ -32,6 +32,7 @@ class Game(object):
                     pygame.quit()
                     quit()
             self.dt = self.tps_clock.tick(self.tps_max) / 100
+            self.tps_clock.tick(self.tps_max)
             self.tick()
             self.screen.fill((0, 0, 0))
             self.draw()
