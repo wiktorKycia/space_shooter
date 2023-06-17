@@ -60,3 +60,9 @@ class Enemy1(BaseEnemy):
             self.clock = 0
             bullet = KineticBullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
             super().add_bullet(bullet)
+
+        for bullet in self.bullets:
+            if bullet.pos.y >= self.game.height:
+                self.bullets.remove(bullet)
+            else:
+                bullet.tick()
