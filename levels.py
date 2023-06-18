@@ -31,3 +31,12 @@ class Minilevel():
         self.game.enemies.extend([enemy1, enemy2])
 
     def line(self, x:int, y:int, lenght:int, type:int=1):
+        match type:
+            case 1:
+                pass
+            case 2:
+                pass
+            case 3:
+                pass
+            case _:
+                pass
