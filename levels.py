@@ -14,7 +14,18 @@ class Minilevel():
     def add_single(self, enemy):
         self.game.enemies.append(enemy)
 
-    def pair(self, x, y):
-        enemy1 = Enemy1(self.game, x-50, y)
-        enemy2 = Enemy1(self.game, x+50, y)
+    def pair(self, x:int, y:int, number:int=1):
+        match number:
+            case 1:
+                enemy1 = Enemy1(self.game, x-50, y)
+                enemy2 = Enemy1(self.game, x+50, y)
+            case 2:
+                enemy1 = Enemy2(self.game, x - 50, y)
+                enemy2 = Enemy2(self.game, x + 50, y)
+            case 3:
+                enemy1 = Enemy3(self.game, x - 50, y)
+                enemy2 = Enemy3(self.game, x + 50, y)
+            case _:
+                enemy1 = Enemy1(self.game, x - 50, y)
+                enemy2 = Enemy1(self.game, x + 50, y)
         self.game.enemies.extend([enemy1, enemy2])
