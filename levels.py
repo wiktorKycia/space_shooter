@@ -34,12 +34,22 @@ class Minilevel():
         match type:
             case 1:
                 if lenght % 2 == 0:
-                    for i in range(0, lenght):
-                        enemy1 = Enemy1(self.game, x - i*50, y)
-                        enemy2 = Enemy1(self.game, x + i*50, y)
+                    enemy1 = Enemy1(self.game, x - 50, y)
+                    enemy2 = Enemy1(self.game, x + 50, y)
+                    self.game.enemies.extend([enemy1, enemy2])
+
+                    for i in range(0, int((lenght-2)/2)):
+                        enemy1 = Enemy1(self.game, x - 50 - (i+1) * 100, y)
+                        enemy2 = Enemy1(self.game, x + 50 + (i+1) * 100, y)
                         self.game.enemies.extend([enemy1, enemy2])
                 else:
-                    pass
+                    enemy1 = Enemy1(self.game, x, y)
+                    self.game.enemies.append(enemy1)
+
+                    for i in range(0, int((lenght-1)/2)):
+                        enemy2 = Enemy1(self.game, x - i * 100, y)
+                        enemy3 = Enemy1(self.game, x + i * 100, y)
+                        self.game.enemies.extend([enemy2, enemy3])
             case 2:
                 pass
             case 3:
