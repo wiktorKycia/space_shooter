@@ -89,4 +89,4 @@ class Minilevel():
             case _:
                 pass
 
-    def triangle1(self, x:int, y:int, type:int=1):
+    def triangle1(self, x:int, y:int):
