@@ -17,4 +17,4 @@ class Minilevel():
     def pair(self, x, y):
         enemy1 = Enemy1(self.game, x-20, y)
         enemy2 = Enemy1(self.game, x+20, y)
-        self.game.enemies.append([enemy1, enemy2])
+        self.game.enemies.extend(enemy1, enemy2)
