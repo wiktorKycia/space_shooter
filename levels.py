@@ -51,8 +51,40 @@ class Minilevel():
                         enemy3 = Enemy1(self.game, x + (i+1) * 100, y)
                         self.game.enemies.extend([enemy2, enemy3])
             case 2:
-                pass
+                if lenght % 2 == 0:
+                    enemy1 = Enemy2(self.game, x - 50, y)
+                    enemy2 = Enemy2(self.game, x + 50, y)
+                    self.game.enemies.extend([enemy1, enemy2])
+
+                    for i in range(0, int((lenght - 2) / 2)):
+                        enemy1 = Enemy2(self.game, x - 50 - (i + 1) * 100, y)
+                        enemy2 = Enemy2(self.game, x + 50 + (i + 1) * 100, y)
+                        self.game.enemies.extend([enemy1, enemy2])
+                else:
+                    enemy1 = Enemy2(self.game, x, y)
+                    self.game.enemies.append(enemy1)
+
+                    for i in range(0, int((lenght - 1) / 2)):
+                        enemy2 = Enemy2(self.game, x - (i + 1) * 100, y)
+                        enemy3 = Enemy2(self.game, x + (i + 1) * 100, y)
+                        self.game.enemies.extend([enemy2, enemy3])
             case 3:
-                pass
+                if lenght % 2 == 0:
+                    enemy1 = Enemy3(self.game, x - 50, y)
+                    enemy2 = Enemy3(self.game, x + 50, y)
+                    self.game.enemies.extend([enemy1, enemy2])
+
+                    for i in range(0, int((lenght - 2) / 2)):
+                        enemy1 = Enemy3(self.game, x - 50 - (i + 1) * 100, y)
+                        enemy2 = Enemy3(self.game, x + 50 + (i + 1) * 100, y)
+                        self.game.enemies.extend([enemy1, enemy2])
+                else:
+                    enemy1 = Enemy3(self.game, x, y)
+                    self.game.enemies.append(enemy1)
+
+                    for i in range(0, int((lenght - 1) / 2)):
+                        enemy2 = Enemy3(self.game, x - (i + 1) * 100, y)
+                        enemy3 = Enemy3(self.game, x + (i + 1) * 100, y)
+                        self.game.enemies.extend([enemy2, enemy3])
             case _:
                 pass
