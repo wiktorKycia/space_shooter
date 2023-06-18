@@ -33,7 +33,10 @@ class Minilevel():
     def line(self, x:int, y:int, lenght:int, type:int=1):
         match type:
             case 1:
-                pass
+                if lenght % 2 == 0:
+                    pass
+                else:
+                    pass
             case 2:
                 pass
             case 3:
