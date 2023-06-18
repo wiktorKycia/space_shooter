@@ -24,7 +24,8 @@ class Game(object):
         # lists
         self.enemies = []
         self.block = Minilevel(self)
-        self.block.line(375, 50, 8, 2)
+        self.block.triangle3(375, 100)
+        # self.block.line(375, 50, 8, 2)
         # self.block.pair(375, 50)
         # self.block.add_single(Enemy2(self, 400, 50))
         # self.block.add_single(Enemy1(self, 300, 50))
