@@ -15,6 +15,9 @@ class Bullet(object):
         self.width = width
         self.height = height
         # self.hitbox = pygame.Rect(self.pos.x - width / 2, self.pos.y - height / 2, width, height)
+        self.hitbox = pygame.Surface((self.width, self.height))
+        self.hitbox.fill(color)
+        self.hitbox.topleft = (x, y)
 
         self.mask = pygame.mask.from_surface(self.hitbox)
 
