@@ -47,8 +47,8 @@ class Minilevel():
                     self.game.enemies.append(enemy1)
 
                     for i in range(0, int((lenght-1)/2)):
-                        enemy2 = Enemy1(self.game, x - i * 100, y)
-                        enemy3 = Enemy1(self.game, x + i * 100, y)
+                        enemy2 = Enemy1(self.game, x - (i+1) * 100, y)
+                        enemy3 = Enemy1(self.game, x + (i+1) * 100, y)
                         self.game.enemies.extend([enemy2, enemy3])
             case 2:
                 pass
