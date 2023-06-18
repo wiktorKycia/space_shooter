@@ -1,4 +1,5 @@
 import pygame.time
+from ships import *
 from bullets import *
 import os
 class BaseEnemy(object):
