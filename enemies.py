@@ -48,7 +48,7 @@ class BaseEnemy(object):
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = pygame.image.load(os.path.join("./enemies/Enemy1.png"))
+        self.image = pygame.image.load(os.path.join("./enemies/Enemy1.png")).convert_alpha()
         super().__init__(self.game, self.image, x, y , 0.99, 1000, 500, 8000, 50)
 
     def add_force(self, force):
@@ -80,7 +80,7 @@ class Enemy1(BaseEnemy):
 class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = pygame.image.load(os.path.join("./enemies/Enemy2.png"))
+        self.image = pygame.image.load(os.path.join("./enemies/Enemy2.png")).convert_alpha()
         super().__init__(self.game, self.image, x, y , 0.99, 1500, 1000, 12000, 50)
 
     def add_force(self, force):
@@ -112,7 +112,7 @@ class Enemy2(BaseEnemy):
 class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = pygame.image.load(os.path.join("./enemies/Enemy3.png"))
+        self.image = pygame.image.load(os.path.join("./enemies/Enemy3.png")).convert_alpha()
         super().__init__(self.game, self.image, x, y , 0.98, 5400, 3500, 25000, 60)
 
     def add_force(self, force):
