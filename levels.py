@@ -88,3 +88,5 @@ class Minilevel():
                         self.game.enemies.extend([enemy2, enemy3])
             case _:
                 pass
+
+    def triangle1(self, x:int, y:int, type:int=1):
