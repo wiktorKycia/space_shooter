@@ -60,7 +60,8 @@ class Game(object):
         for enemy in self.enemies:
             enemy.tick()
             for bullet in enemy.bullets:
-                if self.player.mask.overlap(bullet.mask, (bullet.pos.x - self.player.pos.x, bullet.pos.y - self.player.pos.y)):
+                # print(bullet.pos, "  ", self.player.pos.x, self.player.pos.y, "   ", self.player.hitbox.x, self.player.hitbox.y)
+                if self.player.mask.overlap(bullet.mask, (bullet.pos.x - self.player.hitbox.x, bullet.pos.y - self.player.hitbox.y)):
                     print("Trafiony")
                     enemy.bullets.remove(bullet)
                     continue
