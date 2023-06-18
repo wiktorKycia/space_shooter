@@ -56,7 +56,7 @@ class Enemy1(BaseEnemy):
 
     def tick(self):
         super().tick()
-        if self.clock >= 1.0:
+        if self.clock >= 2.0:
             self.clock = 0
             bullet = KineticBullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
             self.add_bullet(bullet)
@@ -88,7 +88,7 @@ class Enemy2(BaseEnemy):
 
     def tick(self):
         super().tick()
-        if self.clock >= 0.75:
+        if self.clock >= 1.5:
             self.clock = 0
             bullet = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
             self.add_bullet(bullet)
@@ -120,10 +120,10 @@ class Enemy3(BaseEnemy):
 
     def tick(self):
         super().tick()
-        if self.clock >= 0.5:
+        if self.clock >= 1.0:
             self.clock = 0
-            bullet = BlasterBullet(self.game, self.pos.x-22, self.pos.y, -self.shotforce)
-            bullet1 = BlasterBullet(self.game, self.pos.x+22, self.pos.y, -self.shotforce)
+            bullet = EnergyGunBullet(self.game, self.pos.x-22, self.pos.y, -self.shotforce)
+            bullet1 = EnergyGunBullet(self.game, self.pos.x+22, self.pos.y, -self.shotforce)
             self.add_bullet(bullet)
             self.add_bullet(bullet1)
 
