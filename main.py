@@ -53,7 +53,7 @@ class Game(object):
                 if self.player.mask.overlap(bullet.mask, (bullet.pos.x - self.player.pos.x, bullet.pos.y - self.player.pos.y)):
                     print("Trafiony")
                     enemy.bullets.remove(bullet)
-                    break
+                    continue
                 else:
                     pass
 
