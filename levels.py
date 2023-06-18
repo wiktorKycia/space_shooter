@@ -13,3 +13,5 @@ class Minilevel():
 
     def add_single(self, enemy):
         self.game.enemies.append(enemy)
+
+    def pair(self):
