@@ -29,3 +29,5 @@ class Minilevel():
                 enemy1 = Enemy1(self.game, x - 50, y)
                 enemy2 = Enemy1(self.game, x + 50, y)
         self.game.enemies.extend([enemy1, enemy2])
+
+    def line(self, x:int, y:int, lenght:int):
