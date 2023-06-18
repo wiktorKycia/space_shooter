@@ -31,14 +31,9 @@ class Game(object):
         # self.block.add_single(Enemy2(self, 400, 50))
         # self.block.add_single(Enemy1(self, 300, 50))
         # self.block.add_single(Enemy3(self, 500, 50))
-        pygame.mouse.set_visible(True)
-        self.green = (0, 255, 0)
-        self.red = (255, 0, 0)
 
-        # mouse
-        self.mouse = pygame.Surface((10, 10))
-        self.mouse.fill(self.red)
-        self.mouse_mask = pygame.mask.from_surface(self.mouse)
+
+
 
 
         while self.isrun:
@@ -68,15 +63,7 @@ class Game(object):
                 else:
                     pass
 
-        # get the mouse position
-        pos = pygame.mouse.get_pos()
 
-        # check mask overlap
-        if self.player.mask.overlap(self.mouse_mask, (pos[0] - self.player.pos.x, pos[1] - self.player.pos.y)):
-            self.mouse.fill(self.green)
-        else:
-            self.mouse.fill(self.red)
-        self.screen.blit(self.mouse, pos)
         self.player.tick()
 
     def draw(self):
