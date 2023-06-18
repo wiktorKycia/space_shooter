@@ -95,7 +95,7 @@ class EnergyGunBullet(Bullet):
         self.width = 5
         self.height = 15
         self.force = force
-        self.mass = 200
+        self.mass = 120
         self.color = (200, 180, 180)
         self.sound = "./shot_sounds/energy-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
