@@ -50,10 +50,10 @@ class Game(object):
         for enemy in self.enemies:
             enemy.tick()
             for bullet in enemy.bullets:
-                if ship_mask.overlap(bullet_mask, (pos[0] - ship_rect.x, pos[1] - ship_rect.y)):
-                    bullet.fill(green)
+                if self.player.mask.overlap(bullet.mask, (bullet.pos.x - self.player.pos.x, bullet.pos.y - self.player.pos.y)):
+                    print("Trafiony")
                 else:
-                    bullet.fill(red)
+                    pass
 
         self.player.tick()
 
