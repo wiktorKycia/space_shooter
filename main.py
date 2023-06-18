@@ -49,6 +49,11 @@ class Game(object):
 
         for enemy in self.enemies:
             enemy.tick()
+            for bullet in enemy.bullets:
+                if ship_mask.overlap(bullet_mask, (pos[0] - ship_rect.x, pos[1] - ship_rect.y)):
+                    bullet.fill(green)
+                else:
+                    bullet.fill(red)
 
         self.player.tick()
 
