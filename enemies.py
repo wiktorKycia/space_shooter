@@ -30,6 +30,12 @@ class BaseEnemy(object):
     def tick(self):
         self.clock += self.game.dt
 
+        for bullet in self.bullets:
+            if ship_mask.overlap(bullet_mask, (pos[0] - ship_rect.x, pos[1] - ship_rect.y)):
+                bullet.fill(green)
+            else:
+                bullet.fill(red)
+
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
