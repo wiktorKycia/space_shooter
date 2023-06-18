@@ -38,7 +38,7 @@ class Bullet(object):
         # self.hitbox = pygame.Rect(self.pos.x - self.width / 2, self.pos.y - self.height / 2, self.width, self.height)
         # pygame.draw.rect(self.game.screen, self.color, self.hitbox)
         # self.hitbox.topleft = (self.pos.x, self.pos.y)
-        self.game.screen.blit(self.hitbox, (self.pos.x, self.pos.y))
+        self.game.screen.blit(self.hitbox, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
 class Kinetic60Bullet(Bullet):
     def __init__(self, game, x, y, force):
