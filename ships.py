@@ -10,6 +10,9 @@ class PlayableShip(object):
     def __init__(self, game, image_path, slip, mov_force, mass, shot_force,barrel_lenght):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
+        self.hitbox = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
+        # self.mask.set_at()
         self.width = self.image.get_width()
         self.height = self.image.get_height()
 
@@ -50,6 +53,8 @@ class PlayableShip(object):
         self.pos += self.vel * self.game.dt
         self.acc *= 0
 
+        self.hitbox.center = (self.pos.x, self.pos.y)
+
         self.clock += self.game.dt
 
         for bullet in self.bullets:
@@ -63,6 +68,7 @@ class PlayableShip(object):
             if bullet.pos.y <= 0 - bullet.height:
                 self.bullets.remove(bullet)
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
+        pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
 
 class Scout(PlayableShip):
     def __init__(self, game):

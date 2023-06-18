@@ -1,4 +1,5 @@
 import pygame.time
+from ships import *
 from bullets import *
 import os
 class BaseEnemy(object):
@@ -29,6 +30,8 @@ class BaseEnemy(object):
 
     def tick(self):
         self.clock += self.game.dt
+
+
 
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
