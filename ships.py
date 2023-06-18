@@ -12,7 +12,7 @@ class PlayableShip(object):
         self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
         self.hitbox = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-
+        # self.mask.set_at()
         self.width = self.image.get_width()
         self.height = self.image.get_height()
 
