@@ -94,3 +94,9 @@ class Minilevel():
         enemy2 = Enemy1(self.game, x + 50, y - 50)
         enemy3 = Enemy1(self.game, x, y + 50)
         self.game.enemies.extend([enemy1, enemy2, enemy3])
+
+    def triangle2(self, x:int, y:int):
+        enemy1 = Enemy1(self.game, x - 50, y - 50)
+        enemy2 = Enemy1(self.game, x + 50, y - 50)
+        enemy3 = Enemy2(self.game, x, y + 50)
+        self.game.enemies.extend([enemy1, enemy2, enemy3])
