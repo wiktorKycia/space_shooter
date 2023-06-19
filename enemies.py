@@ -3,7 +3,7 @@ from ships import *
 from bullets import *
 import os
 class BaseEnemy(object):
-    def __init__(self, game, imagepath, x, y, slip, mov_force, mass, shot_force, barrel_lenght):
+    def __init__(self, game, imagepath, x, y, slip, mov_force, mass, shot_force, barrel_lenght, health):
         self.game = game
         self.x = x
         self.y = y
@@ -27,6 +27,8 @@ class BaseEnemy(object):
 
         self.clock = 0
         self.bullets = []
+
+        self.health = health
 
     def add_force(self, force):
         self.acc += force / self.mass
@@ -56,7 +58,7 @@ class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
         self.image = "./enemies/Enemy1.png"
-        super().__init__(self.game, self.image, x, y , 0.99, 1000, 500, 8000, 50)
+        super().__init__(self.game, self.image, x, y , 0.99, 1000, 500, 8000, 50, 10000000)
 
     def add_force(self, force):
         super().add_force(force)
@@ -89,7 +91,7 @@ class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
         self.image = "./enemies/Enemy2.png"
-        super().__init__(self.game, self.image, x, y , 0.99, 1500, 1000, 12000, 50)
+        super().__init__(self.game, self.image, x, y , 0.99, 1500, 1000, 12000, 50, 100)
 
     def add_force(self, force):
         super().add_force(force)
@@ -122,7 +124,7 @@ class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
         self.image = "./enemies/Enemy3.png"
-        super().__init__(self.game, self.image, x, y , 0.98, 5400, 3500, 25000, 60)
+        super().__init__(self.game, self.image, x, y , 0.98, 5400, 3500, 25000, 60, 100)
 
     def add_force(self, force):
         super().add_force(force)

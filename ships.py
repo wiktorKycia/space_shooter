@@ -1,6 +1,7 @@
 import pygame
 from pygame import mixer
 from pygame.math import Vector2
+from other import *
 import os
 
 from bullets import *
@@ -29,6 +30,8 @@ class PlayableShip(object):
         self.barrel = barrel_lenght
         self.bullets = []
         self.clock = 0
+
+        self.hp = HP(self.game, 10000000, 200, 50, 600, 600)
 
     def add_force(self, force):
         self.acc += force / self.mass
@@ -62,6 +65,7 @@ class PlayableShip(object):
                 self.bullets.remove(bullet)
             else:
                 bullet.tick()
+        self.hp.tick()
     def draw(self):
         for bullet in self.bullets:
             bullet.draw()
@@ -69,6 +73,7 @@ class PlayableShip(object):
                 self.bullets.remove(bullet)
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
         pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
+        self.hp.draw()
 
 class Scout(PlayableShip):
     def __init__(self, game):
@@ -127,6 +132,7 @@ class Ship1(PlayableShip):
         if pressed[pygame.K_SPACE] and self.clock >= 0.25:
             self.clock = 0
             bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
+            # bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.shot_force)
             self.bullets.append(bullet)
             bullet.sound.play(0, 800)
             acc = -bullet.acc # getting initial bullet velocity
