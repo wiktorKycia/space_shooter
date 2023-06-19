@@ -63,6 +63,10 @@ class Game(object):
                 if enemy.mask.overlap(bullet.mask, (bullet.pos.x - enemy.hitbox.x, bullet.pos.y - enemy.hitbox.y)):
                     print("Przeciwnik trafiony")
                     self.player.bullets.remove(bullet)
+                    energy = (bullet.mass * bullet.vel * bullet.vel) / 2
+                    enemy.health -= energy
+                    if enemy.health <= 0:
+                        self.enemies.remove(enemy)
                     continue
 
         self.player.tick()
