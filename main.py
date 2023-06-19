@@ -60,8 +60,14 @@ class Game(object):
                     print("Trafiony")
                     enemy.bullets.remove(bullet)
                     continue
-                else:
-                    pass
+
+
+            for bullet in self.player.bullets:
+                if enemy.mask.overlap(bullet.mask, (bullet.pos.x - enemy.hitbox.x, bullet.pos.y - enemy.hitbox.y)):
+                    print("Przeciwnik trafiony")
+                    self.player.bullets.remove(bullet)
+                    continue
+
 
 
         self.player.tick()
