@@ -19,5 +19,7 @@ class HP:
 
         self.unit = self.width / self.amount
 
+        self.block = pygame.Rect(self.x, self.y, self.unit, self.height)
+
     def draw(self):
         self.game.screen.blit(self.surf, (self.x, self.y))
