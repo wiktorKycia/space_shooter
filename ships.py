@@ -132,6 +132,7 @@ class Ship1(PlayableShip):
         if pressed[pygame.K_SPACE] and self.clock >= 0.25:
             self.clock = 0
             bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
+            # bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.shot_force)
             self.bullets.append(bullet)
             bullet.sound.play(0, 800)
             acc = -bullet.acc # getting initial bullet velocity
