@@ -3,7 +3,7 @@ from ships import *
 from bullets import *
 import os
 class BaseEnemy(object):
-    def __init__(self, game, imagepath, x, y, slip, mov_force, mass, shot_force, barrel_lenght):
+    def __init__(self, game, imagepath, x, y, slip, mov_force, mass, shot_force, barrel_lenght, health):
         self.game = game
         self.x = x
         self.y = y
@@ -27,6 +27,8 @@ class BaseEnemy(object):
 
         self.clock = 0
         self.bullets = []
+
+        self.health = health
 
     def add_force(self, force):
         self.acc += force / self.mass
