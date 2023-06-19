@@ -19,10 +19,10 @@ class HP:
 
         self.unit = self.width / self.amount
 
-        self.block = pygame.Rect(0, 0, self.unit, self.height)
+        self.block = pygame.Rect(0, 0, self.unit * self.amount, self.height)
 
     def tick(self):
-        self.block = pygame.Rect(0, 0, self.unit, self.height)
+        self.block = pygame.Rect(0, 0, self.unit * self.amount, self.height)
 
     def draw(self):
         self.game.screen.blit(self.surf, (self.x - self.width/2, self.y - self.height/2))
