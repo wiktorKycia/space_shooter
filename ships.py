@@ -65,6 +65,7 @@ class PlayableShip(object):
                 self.bullets.remove(bullet)
             else:
                 bullet.tick()
+        self.hp.tick()
     def draw(self):
         for bullet in self.bullets:
             bullet.draw()
@@ -72,6 +73,7 @@ class PlayableShip(object):
                 self.bullets.remove(bullet)
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
         pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
+        self.hp.draw()
 
 class Scout(PlayableShip):
     def __init__(self, game):
