@@ -33,9 +33,6 @@ class Game(object):
         # self.block.add_single(Enemy3(self, 500, 50))
 
 
-
-
-
         while self.isrun:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -49,7 +46,6 @@ class Game(object):
             self.draw()
             pygame.display.update()
 
-
     def tick(self):
 
         for enemy in self.enemies:
@@ -62,14 +58,11 @@ class Game(object):
                     enemy.bullets.remove(bullet)
                     continue
 
-
             for bullet in self.player.bullets:
                 if enemy.mask.overlap(bullet.mask, (bullet.pos.x - enemy.hitbox.x, bullet.pos.y - enemy.hitbox.y)):
                     print("Przeciwnik trafiony")
                     self.player.bullets.remove(bullet)
                     continue
-
-
 
         self.player.tick()
 
