@@ -8,7 +8,7 @@ class BaseEnemy(object):
         self.x = x
         self.y = y
 
-        self.image = imagepath
+        self.image = pygame.image.load(os.path.join(imagepath)).convert_alpha()
         self.width = self.image.get_width()
         self.height = self.image.get_height()
 
@@ -31,8 +31,6 @@ class BaseEnemy(object):
     def tick(self):
         self.clock += self.game.dt
 
-
-
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
@@ -48,10 +46,11 @@ class BaseEnemy(object):
         force = energy / self.barrel  # calculating kickback force
         self.add_force(Vector2(force.x, force.y))
 
+
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = pygame.image.load(os.path.join("./enemies/Enemy1.png")).convert_alpha()
+        self.image = "./enemies/Enemy1.png"
         super().__init__(self.game, self.image, x, y , 0.99, 1000, 500, 8000, 50)
 
     def add_force(self, force):
@@ -80,10 +79,11 @@ class Enemy1(BaseEnemy):
     def add_bullet(self, bullet):
         super().add_bullet(bullet)
 
+
 class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = pygame.image.load(os.path.join("./enemies/Enemy2.png")).convert_alpha()
+        self.image = "./enemies/Enemy2.png"
         super().__init__(self.game, self.image, x, y , 0.99, 1500, 1000, 12000, 50)
 
     def add_force(self, force):
@@ -112,10 +112,11 @@ class Enemy2(BaseEnemy):
     def add_bullet(self, bullet):
         super().add_bullet(bullet)
 
+
 class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = pygame.image.load(os.path.join("./enemies/Enemy3.png")).convert_alpha()
+        self.image = "./enemies/Enemy3.png"
         super().__init__(self.game, self.image, x, y , 0.98, 5400, 3500, 25000, 60)
 
     def add_force(self, force):
