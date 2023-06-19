@@ -9,6 +9,7 @@ class BaseEnemy(object):
         self.y = y
 
         self.image = pygame.image.load(os.path.join(imagepath)).convert_alpha()
+        self.hitbox = self.image.get_rect()
         self.width = self.image.get_width()
         self.height = self.image.get_height()
 
