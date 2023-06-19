@@ -1,7 +1,7 @@
 import pygame
 
 class HP:
-    def __init__(self, game, width, height, x, y):
+    def __init__(self, game, width, height, x, y, color=(250, 250, 250)):
         self.game = game
 
         self.x = x
@@ -9,3 +9,5 @@ class HP:
 
         self.width = width
         self.height = height
+
+        self.color = color
