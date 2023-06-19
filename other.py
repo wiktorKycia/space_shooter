@@ -19,4 +19,4 @@ class HP:
         self.surf.fill(self.bgcolor)
 
     def draw(self):
-
+        self.game.screen.blit(self.surf, (self.x, self.y))
