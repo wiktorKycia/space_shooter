@@ -1,6 +1,7 @@
 import pygame
 from pygame import mixer
 from pygame.math import Vector2
+from other import *
 import os
 
 from bullets import *
@@ -29,6 +30,8 @@ class PlayableShip(object):
         self.barrel = barrel_lenght
         self.bullets = []
         self.clock = 0
+
+        self.hp = HP(self.game, 100, 200, 50, 700, 700)
 
     def add_force(self, force):
         self.acc += force / self.mass
