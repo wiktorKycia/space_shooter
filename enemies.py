@@ -10,6 +10,8 @@ class BaseEnemy(object):
 
         self.image = pygame.image.load(os.path.join(imagepath)).convert_alpha()
         self.hitbox = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
+
         self.width = self.image.get_width()
         self.height = self.image.get_height()
 
