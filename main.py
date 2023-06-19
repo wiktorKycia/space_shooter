@@ -63,6 +63,9 @@ class Game(object):
                 else:
                     pass
 
+            for bullet in self.player.bullets:
+                pass
+
 
         self.player.tick()
 
