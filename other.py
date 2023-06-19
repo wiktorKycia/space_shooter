@@ -12,7 +12,7 @@ class HP:
         self.height = height
 
         self.color = color
-        self.bgcolor = (color[0] - 50, color[1] - 50, color[2] - 50)
+        self.bgcolor = (color[0] - 100, color[1] - 100, color[2] - 100)
 
         self.surf = pygame.Surface((self.width, self.height))
         self.surf.fill(self.bgcolor)
