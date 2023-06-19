@@ -14,3 +14,6 @@ class HP:
 
         self.color = color
         self.bgcolor = (color[0] - 50, color[1] - 50, color[2] - 50)
+
+    def draw(self):
+
