@@ -12,7 +12,7 @@ class HP:
         self.height = height
 
         self.color = color
-        self.bgcolor = (color[0] - 100, color[1] - 100, color[2] - 100)
+        self.bgcolor = (255, 0, 0)#(color[0] - 100, color[1] - 100, color[2] - 100)
 
         self.surf = pygame.Surface((self.width, self.height))
         self.surf.fill(self.bgcolor)
@@ -20,6 +20,11 @@ class HP:
         self.unit = self.width / self.amount
 
         self.block = pygame.Rect(0, 0, self.unit * self.amount, self.height)
+
+    def decrease_by(self, amount):
+        self.amount -= amount
+        self.tick()
+        self.draw()
 
     def tick(self):
         self.block = pygame.Rect(0, 0, self.unit * self.amount, self.height)
