@@ -141,3 +141,5 @@ class Level1(Level):
     def tick(self):
         if self.check_if_all_died():
             self.point_time = pygame.time.get_ticks()
+            if self.current_time - self.point_time == 1500:
+
