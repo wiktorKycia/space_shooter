@@ -1,6 +1,4 @@
 from enemies import *
-# klasa level
-# zawiera wywołania poszczególnych metod z minilevel'a
 class Minilevel():
     def __init__(self, game):
         self.game = game
@@ -134,3 +132,6 @@ class Level:
 class Level1(Level):
     def __init__(self, game):
         super().__init__(game)
+
+    def tick(self):
+        self.check_if_all_died()
