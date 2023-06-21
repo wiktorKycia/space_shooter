@@ -134,4 +134,4 @@ class Level1(Level):
         super().__init__(game)
 
     def tick(self):
-        self.check_if_all_died()
+        if self.check_if_all_died():
