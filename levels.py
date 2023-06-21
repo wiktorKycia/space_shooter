@@ -130,3 +130,7 @@ class Level:
         if len(self.game.enemies) == 0:
             return True
         else: return False
+
+class Level1(Level):
+    def __init__(self, game):
+        super().__init__(game)
