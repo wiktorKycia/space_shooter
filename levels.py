@@ -138,7 +138,7 @@ class Level1(Level):
         self.current_time = 0
         self.point_time = 0
         self.rack = [
-            [self.block.add_single(Enemy1(self.game, self.game.width/2, 100))],
+            [self.block.add_single(Enemy1(self.game, self.game.width/2, 100)), self.block.add_single, Enemy1, self.game, self.game.width/2, 100],
             [self.block.pair(self.game.width/2, 100)],
             [self.block.line(self.game.width/2, 100, 3)]
         ]
