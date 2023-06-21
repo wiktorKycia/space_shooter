@@ -1,5 +1,5 @@
 import pygame.time
-
+from typing import *
 from enemies import *
 class Minilevel():
     def __init__(self, game):
@@ -142,6 +142,9 @@ class Level1(Level):
             [self.block.pair(self.game.width/2, 100)],
             [self.block.line(self.game.width/2, 100, 3)]
         ]
+
+    def do_method(self, action:Callable, *arguments:int):
+        return action(arguments)
 
     def tick(self):
         if self.check_if_all_died():
