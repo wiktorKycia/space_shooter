@@ -143,8 +143,10 @@ class Level1(Level):
             [self.block.add_single(Enemy1(self.game, self.game.width/2, 100)), self.block.add_single, Enemy1, self.game, self.game.width/2, 100],
             [self.block.pair(self.game.width/2, 100), self.block.pair, self.game.width/2, 100],
             [self.block.line(self.game.width/2, 100, 3), self.block.line, self.game.width/2, 100, 3]
-        ]
+        ]# TODO: skasować pierwsze elementy listy
 
+    # TODO: another method that will apply the first element of rack
+    # TODO: move do_method to Level class
     def do_method(self, action:Callable, *arguments):
         return action(arguments)
 
@@ -155,5 +157,7 @@ class Level1(Level):
             self.flag = False
             self.point_time = pygame.time.get_ticks()
             self.wave_number += 1
-        elif self.check_if_all_died() and self.flaga and self.current_time - self.point_time >= 1500:
+        elif self.check_if_all_died() and self.flag and self.current_time - self.point_time >= 1500:
+            # TODO: do_method call, iterating for a wave_number
+            pass
 
