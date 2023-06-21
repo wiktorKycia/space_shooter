@@ -120,3 +120,7 @@ class Minilevel():
         enemy4 = Enemy2(self.game, x + 80, y - 20)
         enemy5 = Enemy3(self.game, x, y)
         self.game.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5])
+
+class Level:
+    def __init__(self, game):
+        self.game = game
