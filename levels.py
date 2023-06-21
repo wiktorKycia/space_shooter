@@ -137,6 +137,7 @@ class Level1(Level):
         self.clock = pygame.time.Clock()
         self.current_time = 0
         self.point_time = 0
+        self.counter = 0
         self.rack = [
             [self.block.add_single(Enemy1(self.game, self.game.width/2, 100)), self.block.add_single, Enemy1, self.game, self.game.width/2, 100],
             [self.block.pair(self.game.width/2, 100), self.block.pair, self.game.width/2, 100],
