@@ -137,7 +137,8 @@ class Level1(Level):
         self.clock = pygame.time.Clock()
         self.current_time = 0
         self.point_time = 0
-        self.counter = 0
+        self.wave_number = 0
+        self.flag = True
         self.rack = [
             [self.block.add_single(Enemy1(self.game, self.game.width/2, 100)), self.block.add_single, Enemy1, self.game, self.game.width/2, 100],
             [self.block.pair(self.game.width/2, 100), self.block.pair, self.game.width/2, 100],
@@ -148,7 +149,11 @@ class Level1(Level):
         return action(arguments)
 
     def tick(self):
-        if self.check_if_all_died():
+        self.current_time = pygame.time.get_ticks()
+
+        if self.check_if_all_died() and self.flag:
+            self.flag = False
             self.point_time = pygame.time.get_ticks()
-            if self.current_time - self.point_time == 1500:
+            self.wave_number += 1
+        elif self.check_if_all_died() and self.flaga and self.current_time - self.point_time >= 1500:
 
