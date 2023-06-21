@@ -125,3 +125,8 @@ class Level:
     def __init__(self, game):
         self.game = game
         self.block = Minilevel(game)
+
+    def check_if_all_died(self):
+        if len(self.game.enemies) == 0:
+            return True
+        else: return False
