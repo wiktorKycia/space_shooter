@@ -1,3 +1,5 @@
+import pygame.time
+
 from enemies import *
 class Minilevel():
     def __init__(self, game):
@@ -132,6 +134,7 @@ class Level:
 class Level1(Level):
     def __init__(self, game):
         super().__init__(game)
+        self.clock = pygame.time.Clock()
 
     def tick(self):
         if self.check_if_all_died():
