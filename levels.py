@@ -146,7 +146,7 @@ class Level1(Level):
         ]
 
     def do_create_enemy(self, action, *arguments):
-        return action(arguments[0](arguments[1], arguments[2], arguments[3]))
+        return action(arguments[0][0](arguments[0][1], arguments[0][2], arguments[0][3]))
 
     # TODO: move do_method to Level class
     def do_method(self, action, *arguments):
@@ -161,10 +161,14 @@ class Level1(Level):
             self.wave_number += 1
         elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
             self.flag = True
-            if self.wave_number == 1:
-                self.do_create_enemy(self.rack[0][0], self.rack[0][1:])
-            elif self.wave_number == 2 or self.wave_number == 3:
-                self.do_method(self.rack[self.wave_number-1][0], self.rack[self.wave_number-1][1:])
-            elif self.wave_number > 3:
-                print("End of the level")
+            match self.wave_number:
+                case 0: pass
+                case 1:
+                    self.do_create_enemy(self.rack[0][0], self.rack[0][1:])
+                case 2:
+                    self.block.pair(self.rack[1][1], self.rack[1][2])
+                case 3:
+                    self.block.pair(self.rack[2][1], self.rack[2][2], self.rack[2][3])
+                case _:
+                    print("End of the level")
 
