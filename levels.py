@@ -145,7 +145,6 @@ class Level1(Level):
             [self.block.line(self.game.width/2, 100, 3), self.block.line, self.game.width/2, 100, 3]
         ]# TODO: skasować pierwsze elementy listy
 
-    # TODO: another method that will apply the first element of rack
     def do_create_enemy(self, action, *arguments):
         return action(arguments[0](arguments[1], arguments[2], arguments[3]))
 
@@ -160,7 +159,8 @@ class Level1(Level):
             self.flag = False
             self.point_time = pygame.time.get_ticks()
             self.wave_number += 1
-        elif self.check_if_all_died() and self.flag and self.current_time - self.point_time >= 1500:
+        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
+            self.flag = True
             # TODO: do_method call, iterating for a wave_number
-            pass
+
 
