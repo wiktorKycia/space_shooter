@@ -149,7 +149,7 @@ class Level1(Level):
         return action(arguments[0](arguments[1], arguments[2], arguments[3]))
 
     # TODO: move do_method to Level class
-    def do_method(self, action:Callable, *arguments):
+    def do_method(self, action, *arguments):
         return action(arguments)
 
     def tick(self):
@@ -164,5 +164,6 @@ class Level1(Level):
             # TODO: do_method call, iterating for a wave_number
             if self.wave_number == 1:
                 self.do_create_enemy(self.rack[0], self.rack[1:])
-
+            elif self.wave_number == 2 or self.wave_number == 3:
+                self.do_method(self.rack[self.wave_number-1], self.rack[1:])
 
