@@ -140,10 +140,10 @@ class Level1(Level):
         self.wave_number = 0
         self.flag = True
         self.rack = [
-            [self.block.add_single(Enemy1(self.game, self.game.width/2, 100)), self.block.add_single, Enemy1, self.game, self.game.width/2, 100],
-            [self.block.pair(self.game.width/2, 100), self.block.pair, self.game.width/2, 100],
-            [self.block.line(self.game.width/2, 100, 3), self.block.line, self.game.width/2, 100, 3]
-        ]# TODO: skasować pierwsze elementy listy
+            [ self.block.add_single, Enemy1, self.game, self.game.width/2, 100],
+            [ self.block.pair, self.game.width/2, 100],
+            [ self.block.line, self.game.width/2, 100, 3]
+        ]
 
     def do_create_enemy(self, action, *arguments):
         return action(arguments[0](arguments[1], arguments[2], arguments[3]))
@@ -162,5 +162,7 @@ class Level1(Level):
         elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
             self.flag = True
             # TODO: do_method call, iterating for a wave_number
+            if self.wave_number == 1:
+                self.do_create_enemy(self.rack[0], self.rack[1:])
 
 
