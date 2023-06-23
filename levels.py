@@ -1,6 +1,6 @@
+import pygame.time
+from typing import *
 from enemies import *
-# klasa level
-# zawiera wywołania poszczególnych metod z minilevel'a
 class Minilevel():
     def __init__(self, game):
         self.game = game
@@ -120,3 +120,55 @@ class Minilevel():
         enemy4 = Enemy2(self.game, x + 80, y - 20)
         enemy5 = Enemy3(self.game, x, y)
         self.game.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5])
+
+class Level:
+    def __init__(self, game):
+        self.game = game
+        self.block = Minilevel(game)
+
+    def check_if_all_died(self):
+        if len(self.game.enemies) == 0:
+            return True
+        else: return False
+
+class Level1(Level):
+    def __init__(self, game):
+        super().__init__(game)
+        self.clock = pygame.time.Clock()
+        self.current_time = 0
+        self.point_time = 0
+        self.wave_number = 0
+        self.flag = True
+        self.rack = [
+            [ self.block.add_single, Enemy1, self.game, self.game.width/2, 100],
+            [ self.block.pair, self.game.width/2, 100],
+            [ self.block.line, self.game.width/2, 100, 3]
+        ]
+
+    def do_create_enemy(self, action, *arguments):
+        return action(arguments[0][0](arguments[0][1], arguments[0][2], arguments[0][3]))
+
+    # TODO: move do_method to Level class
+    def do_method(self, action, *arguments):
+        return action(arguments)
+
+    def tick(self):
+        self.current_time = pygame.time.get_ticks()
+
+        if self.check_if_all_died() and self.flag:
+            self.flag = False
+            self.point_time = pygame.time.get_ticks()
+            self.wave_number += 1
+        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
+            self.flag = True
+            match self.wave_number:
+                case 0: pass
+                case 1:
+                    self.do_create_enemy(self.rack[0][0], self.rack[0][1:])
+                case 2:
+                    self.block.pair(self.rack[1][1], self.rack[1][2])
+                case 3:
+                    self.block.line(self.rack[2][1], self.rack[2][2], self.rack[2][3])
+                case _:
+                    print("End of the level")
+
