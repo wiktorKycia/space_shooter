@@ -161,7 +161,6 @@ class Level1(Level):
             self.wave_number += 1
         elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
             self.flag = True
-            # TODO: do_method call, iterating for a wave_number
             if self.wave_number == 1:
                 self.do_create_enemy(self.rack[0], self.rack[1:])
             elif self.wave_number == 2 or self.wave_number == 3:
