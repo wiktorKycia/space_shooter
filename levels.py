@@ -166,4 +166,6 @@ class Level1(Level):
                 self.do_create_enemy(self.rack[0], self.rack[1:])
             elif self.wave_number == 2 or self.wave_number == 3:
                 self.do_method(self.rack[self.wave_number-1], self.rack[1:])
+            elif self.wave_number > 3:
+                print("End of the level")
 
