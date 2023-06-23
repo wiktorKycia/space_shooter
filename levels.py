@@ -162,9 +162,9 @@ class Level1(Level):
         elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
             self.flag = True
             if self.wave_number == 1:
-                self.do_create_enemy(self.rack[0], self.rack[1:])
+                self.do_create_enemy(self.rack[0][0], self.rack[0][1:])
             elif self.wave_number == 2 or self.wave_number == 3:
-                self.do_method(self.rack[self.wave_number-1], self.rack[1:])
+                self.do_method(self.rack[self.wave_number-1][0], self.rack[self.wave_number-1][1:])
             elif self.wave_number > 3:
                 print("End of the level")
 
