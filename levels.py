@@ -168,7 +168,7 @@ class Level1(Level):
                 case 2:
                     self.block.pair(self.rack[1][1], self.rack[1][2])
                 case 3:
-                    self.block.pair(self.rack[2][1], self.rack[2][2], self.rack[2][3])
+                    self.block.line(self.rack[2][1], self.rack[2][2], self.rack[2][3])
                 case _:
                     print("End of the level")
 
