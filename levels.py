@@ -146,6 +146,9 @@ class Level1(Level):
         ]# TODO: skasować pierwsze elementy listy
 
     # TODO: another method that will apply the first element of rack
+    def do_create_enemy(self, action, *arguments):
+        return action(arguments[0](arguments[1], arguments[2], arguments[3]))
+
     # TODO: move do_method to Level class
     def do_method(self, action:Callable, *arguments):
         return action(arguments)
