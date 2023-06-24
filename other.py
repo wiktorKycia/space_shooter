@@ -30,6 +30,5 @@ class HP:
 
     def draw(self):
         # self.game.screen.blit(self.surf, (self.x - self.width/2, self.y - self.height/2))
-        print(self.block.width, self.amount, self.unit)
         pygame.draw.rect(self.game.screen, self.bgcolor, self.back)
         pygame.draw.rect(self.game.screen, self.color, self.block)
