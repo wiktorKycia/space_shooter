@@ -39,9 +39,12 @@ class Game(object):
                     self.isrun = False
             self.dt = self.tps_clock.get_time() / 1000
             self.tps_clock.tick(self.tps_max)
-            self.screen.fill((0, 0, 0))
-            self.tick()
-            self.draw()
+            match self.showing:
+                case "game":
+                    self.screen.fill((0, 0, 0))
+                    self.tick()
+                    self.draw()
+                case _: pass
             pygame.display.update()
         pygame.quit()
         quit()
