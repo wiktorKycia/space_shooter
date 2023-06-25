@@ -34,7 +34,8 @@ class HP:
         pygame.draw.rect(self.game.screen, self.color, self.block)
 
 class DeluxeHP:
-    def __init__(self):
+    def __init__(self, game):
+        self.game = game
         self.current_hp = 200
         self.hp = 500
         self.max_hp = 1000
