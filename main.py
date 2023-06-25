@@ -18,7 +18,6 @@ class Game(object):
         self.isrun = True
 
         #loading objects
-        # self.ob = Object(50, 50, 50, 50, self)
         self.player = Ship2(self)
 
         # lists
@@ -51,9 +50,7 @@ class Game(object):
         for enemy in self.enemies:
             enemy.tick()
             for bullet in enemy.bullets:
-                # print(bullet.pos, "  ", self.player.pos.x, self.player.pos.y, "   ", self.player.hitbox.x, self.player.hitbox.y)
                 if self.player.mask.overlap(bullet.mask, (bullet.pos.x - self.player.hitbox.x, bullet.pos.y - self.player.hitbox.y)):
-                    print("Trafiony")
                     energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
                     self.player.hp.get_damage(energy)
                     enemy.bullets.remove(bullet)
@@ -61,7 +58,6 @@ class Game(object):
 
             for bullet in self.player.bullets:
                 if enemy.mask.overlap(bullet.mask, (bullet.pos.x - enemy.hitbox.x, bullet.pos.y - enemy.hitbox.y)):
-                    print("Przeciwnik trafiony")
                     self.player.bullets.remove(bullet)
                     energy = (bullet.mass * bullet.vel * bullet.vel) / 2
                     enemy.health -= energy
@@ -73,7 +69,6 @@ class Game(object):
         self.level1.tick()
 
     def draw(self):
-        # self.ob.draw()
 
         for enemy in self.enemies:
             enemy.draw()
