@@ -55,7 +55,7 @@ class Game(object):
                 if self.player.mask.overlap(bullet.mask, (bullet.pos.x - self.player.hitbox.x, bullet.pos.y - self.player.hitbox.y)):
                     print("Trafiony")
                     energy = (bullet.mass * bullet.vel * bullet.vel) / 2
-                    self.player.hp.decrease_by(energy)
+                    self.player.hp.get_damage(100)
                     enemy.bullets.remove(bullet)
                     continue
 

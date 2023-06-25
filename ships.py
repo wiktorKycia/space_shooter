@@ -31,7 +31,7 @@ class PlayableShip(object):
         self.bullets = []
         self.clock = 0
 
-        self.hp = HP(self.game, 10000000, 200, 50, 600, 600)
+        self.hp = DeluxeHP(self.game)#, 10000000, 200, 50, 600, 600)
 
     def add_force(self, force):
         self.acc += force / self.mass
@@ -73,7 +73,7 @@ class PlayableShip(object):
                 self.bullets.remove(bullet)
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
         pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
-        self.hp.draw()
+        # self.hp.draw()
 
 class Scout(PlayableShip):
     def __init__(self, game):
