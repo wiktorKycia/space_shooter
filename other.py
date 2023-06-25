@@ -41,3 +41,15 @@ class DeluxeHP:
         self.bar_length = 400
         self.health_ratio = self.max_hp / self.bar_length
         self.change_speed = 5
+
+    def get_damage(self, amount):
+        if self.hp > 0:
+            self.hp -= amount
+        if self.hp < 0:
+            self.hp = 0
+
+    def get_health(self, amount):
+        if self.hp < self.max_hp:
+            self.hp += amount
+        if self.hp > self.max_hp:
+            self.hp = self.max_hp
