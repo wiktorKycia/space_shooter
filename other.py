@@ -42,7 +42,7 @@ class DeluxeHP:
 
         self.bar_length = width
         self.health_ratio = self.max_hp / self.bar_length
-        self.change_speed = 5
+        self.change_speed = 50000
 
         self.height = height
         self.x = x
@@ -96,8 +96,8 @@ class DeluxeHP:
         else:
             health_bar_width = int(self.current_hp / self.health_ratio)
             health_bar = pygame.Rect(self.x, self.y, health_bar_width, self.height)
-            transition_bar = pygame.Rect(health_bar.right, self.y, transition_width, self.height)
+            # transition_bar = pygame.Rect(health_bar.right, self.y, transition_width, self.height)
 
             pygame.draw.rect(self.game.screen, self.color, health_bar)
-            pygame.draw.rect(self.game.screen, transition_color, transition_bar)
+            # pygame.draw.rect(self.game.screen, transition_color, transition_bar)
             pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.bar_length, self.height), 2)
