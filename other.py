@@ -42,7 +42,7 @@ class DeluxeHP:
 
         self.bar_length = width
         self.health_ratio = self.max_hp / self.bar_length
-        self.change_speed = 100
+        self.change_speed = 500
 
         self.height = height
         self.x = x
@@ -67,6 +67,7 @@ class DeluxeHP:
 
         if self.current_hp < self.hp:
             self.current_hp += self.change_speed
+            if self.current_hp > self.hp: self.current_hp = self.hp
             transition_width = int((self.hp - self.current_hp) / self.health_ratio)
             transition_color = (0, 255, 0)
 
@@ -81,6 +82,7 @@ class DeluxeHP:
 
         elif self.current_hp > self.hp:
             self.current_hp -= self.change_speed
+            if self.current_hp < self.hp: self.current_hp = self.hp
             transition_width = int((self.current_hp - self.hp) / self.health_ratio)
             transition_color = (255, 255, 0)
 
