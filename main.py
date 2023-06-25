@@ -16,6 +16,7 @@ class Game(object):
         self.dt = 0.0
         #running
         self.isrun = True
+        self.showing = "game"
 
         #loading objects
         self.player = Ship2(self)
