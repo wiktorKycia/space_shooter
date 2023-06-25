@@ -139,18 +139,7 @@ class Level1(Level):
         self.point_time = 0
         self.wave_number = 0
         self.flag = True
-        self.rack = [
-            [ self.block.add_single, Enemy1, self.game, self.game.width/2, 100],
-            [ self.block.pair, self.game.width/2, 100],
-            [ self.block.line, self.game.width/2, 100, 3]
-        ]
 
-    def do_create_enemy(self, action, *arguments):
-        return action(arguments[0][0](arguments[0][1], arguments[0][2], arguments[0][3]))
-
-    # TODO: move do_method to Level class
-    def do_method(self, action, *arguments):
-        return action(arguments)
 
     def tick(self):
         self.current_time = pygame.time.get_ticks()
@@ -164,11 +153,11 @@ class Level1(Level):
             match self.wave_number:
                 case 0: pass
                 case 1:
-                    self.do_create_enemy(self.rack[0][0], self.rack[0][1:])
+                    self.block.add_single(Enemy3(self.game, self.game.width/2, 100))
                 case 2:
-                    self.block.pair(self.rack[1][1], self.rack[1][2])
+                    self.block.pair(self.game.width / 2, 100, 2)
                 case 3:
-                    self.block.line(self.rack[2][1], self.rack[2][2], self.rack[2][3])
+                    self.block.line(self.game.width/2, 100, 3, 1)
                 case _:
                     print("End of the level")
 

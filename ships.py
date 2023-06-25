@@ -31,7 +31,7 @@ class PlayableShip(object):
         self.bullets = []
         self.clock = 0
 
-        self.hp = DeluxeHP(self.game, 10000000, 10, 700, 350, 30)
+        self.hp = DeluxeHP(self.game, 1000000, 10, 700, 350, 30)
 
     def add_force(self, force):
         self.acc += force / self.mass
@@ -122,7 +122,7 @@ class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship1.png"
-        super().__init__(game, self.path, 0.98, 18600, 4000, 40000, 100)
+        super().__init__(game, self.path, 0.98, 186, 40, 400, 10)
 
     def add_force(self, force):
         super().add_force(force)
@@ -131,7 +131,7 @@ class Ship1(PlayableShip):
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_SPACE] and self.clock >= 0.25:
             self.clock = 0
-            bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
+            bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.shot_force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
             # bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.shot_force)
             self.bullets.append(bullet)
             bullet.sound.play(0, 800)
@@ -150,7 +150,7 @@ class Ship2(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship2.png"
-        super().__init__(game, self.path, 0.98, 25000, 3800, 50000, 100)
+        super().__init__(game, self.path, 0.98, 250, 38, 500, 10)
 
     def add_force(self, force):
         super().add_force(force)
@@ -159,8 +159,8 @@ class Ship2(PlayableShip):
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_SPACE] and self.clock >= 0.30:
             self.clock = 0
-            bullet = Bullet(self.game, self.pos.x-27, self.pos.y-15, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
-            bullet1 = Bullet(self.game, self.pos.x+27, self.pos.y-15, 5, 50, self.shot_force, 50, (0, 200, 230), './shot_sounds/blaster.mp3')
+            bullet = Bullet(self.game, self.pos.x-27, self.pos.y-15, 5, 50, self.shot_force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
+            bullet1 = Bullet(self.game, self.pos.x+27, self.pos.y-15, 5, 50, self.shot_force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
             self.bullets.append(bullet)
             self.bullets.append(bullet1)
             bullet.sound.play(0, 650)

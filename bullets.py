@@ -45,7 +45,7 @@ class Kinetic60Bullet(Bullet):
         self.width = 2
         self.height = 2
         self.force = force
-        self.mass = 40
+        self.mass = 4.0
         self.color = (200, 210, 55)
         self.sound = "./shot_sounds/M60-single.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -59,7 +59,7 @@ class Kinetic9Bullet(Bullet):
         self.width = 3
         self.height = 6
         self.force = force
-        self.mass = 65
+        self.mass = 6.5
         self.color = (90, 90, 100)
         self.sound = "./shot_sounds/gunshot.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -73,7 +73,7 @@ class KineticBullet(Bullet):
         self.width = 2
         self.height = 4
         self.force = force
-        self.mass = 50
+        self.mass = 5.0
         self.color = (130, 130, 120)
         self.sound = "./shot_sounds/kinetic-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -88,7 +88,7 @@ class BlasterBullet(Bullet):
         self.width = 4
         self.height = 10
         self.force = force
-        self.mass = 100
+        self.mass = 10.0
         self.color = (175, 210, 190)
         self.sound = "./shot_sounds/blaster.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -102,7 +102,7 @@ class EnergyGunBullet(Bullet):
         self.width = 5
         self.height = 15
         self.force = force
-        self.mass = 120
+        self.mass = 12.0
         self.color = (200, 180, 180)
         self.sound = "./shot_sounds/energy-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -117,7 +117,7 @@ class LaserCannonBullet(Bullet):
         self.width = 8
         self.height = 50
         self.force = force
-        self.mass = 300
+        self.mass = 30.0
         self.color = (140, 220, 220)
         self.sound = "./shot_sounds/laser-cannon.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -131,7 +131,7 @@ class LaserLightCannonBullet(Bullet):
         self.width = 6
         self.height = 40
         self.force = force
-        self.mass = 250
+        self.mass = 25.0
         self.color = (120, 230, 210)
         self.sound = "./shot_sounds/laser-cannon-light.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -146,7 +146,7 @@ class LaserLightGunBullet(Bullet):
         self.width = 3
         self.height = 8
         self.force = force
-        self.mass = 30
+        self.mass = 3.0
         self.color = (150, 210, 150)
         self.sound = "./shot_sounds/laser-light-gun.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -160,7 +160,7 @@ class LaserMediumGunBullet(Bullet):
         self.width = 4
         self.height = 10
         self.force = force
-        self.mass = 60
+        self.mass = 6.0
         self.color = (150, 210, 150)
         self.sound = "./shot_sounds/laser-medium-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -174,7 +174,7 @@ class LaserHeavyGunBullet(Bullet):
         self.width = 4
         self.height = 12
         self.force = force
-        self.mass = 100
+        self.mass = 10.0
         self.color = (150, 210, 150)
         self.sound = "./shot_sounds/laser-heavy-gun.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -188,7 +188,7 @@ class LaserLongGunBullet(Bullet):
         self.width = 4
         self.height = 40
         self.force = force
-        self.mass = 90
+        self.mass = 9.0
         self.color = (150, 210, 150)
         self.sound = "./shot_sounds/laser-long-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
