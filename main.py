@@ -41,8 +41,8 @@ class Game(object):
                     quit()
             self.dt = self.tps_clock.get_time() / 1000
             self.tps_clock.tick(self.tps_max)
-            self.tick()
             self.screen.fill((0, 0, 0))
+            self.tick()
             self.draw()
             pygame.display.update()
 
