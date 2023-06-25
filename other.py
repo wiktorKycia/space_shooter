@@ -32,3 +32,7 @@ class HP:
         # self.game.screen.blit(self.surf, (self.x - self.width/2, self.y - self.height/2))
         pygame.draw.rect(self.game.screen, self.bgcolor, self.back)
         pygame.draw.rect(self.game.screen, self.color, self.block)
+
+class DeluxeHP:
+    def __init__(self):
+        pass
