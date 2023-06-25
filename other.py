@@ -53,3 +53,44 @@ class DeluxeHP:
             self.hp += amount
         if self.hp > self.max_hp:
             self.hp = self.max_hp
+
+    def tick(self):
+        transition_width = 0
+        transition_color = (255, 0, 0)
+
+        if self.current_hp < self.hp:
+            self.current_hp += self.change_speed
+            transition_width = int((self.hp - self.current_hp) / self.health_ratio)
+            transition_color = (0, 255, 0)
+
+            health_bar_width = int(self.current_hp / self.health_ratio)
+            health_bar = pygame.Rect(10, 45, health_bar_width, 25)
+            transition_bar = pygame.Rect(health_bar.right, 45, transition_width, 25)
+
+            pygame.draw.rect(screen, (255, 0, 0), health_bar)
+            pygame.draw.rect(screen, transition_color, transition_bar)
+            pygame.draw.rect(screen, (255, 255, 255), (10, 45, self.bar_length, 25), 2)
+
+
+        elif self.current_hp > self.hp:
+            self.current_hp -= self.change_speed
+            transition_width = int((self.current_hp - self.hp) / self.health_ratio)
+            transition_color = (255, 255, 0)
+
+            health_bar_width = int(self.hp / self.health_ratio)
+            health_bar = pygame.Rect(10, 45, health_bar_width, 25)
+            transition_bar = pygame.Rect(health_bar.right, 45, transition_width, 25)
+
+            pygame.draw.rect(screen, (255, 0, 0), health_bar)
+            pygame.draw.rect(screen, transition_color, transition_bar)
+            pygame.draw.rect(screen, (255, 255, 255), (10, 45, self.bar_length, 25), 2)
+
+
+        else:
+            health_bar_width = int(self.current_hp / self.health_ratio)
+            health_bar = pygame.Rect(10, 45, health_bar_width, 25)
+            transition_bar = pygame.Rect(health_bar.right, 45, transition_width, 25)
+
+            pygame.draw.rect(screen, (255, 0, 0), health_bar)
+            pygame.draw.rect(screen, transition_color, transition_bar)
+            pygame.draw.rect(screen, (255, 255, 255), (10, 45, self.bar_length, 25), 2)
