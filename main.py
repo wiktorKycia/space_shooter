@@ -19,7 +19,7 @@ class Game(object):
 
         #loading objects
         # self.ob = Object(50, 50, 50, 50, self)
-        self.player = Ship1(self)
+        self.player = Ship2(self)
 
         # lists
         self.enemies = []
