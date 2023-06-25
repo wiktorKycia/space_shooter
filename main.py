@@ -41,8 +41,8 @@ class Game(object):
                     quit()
             self.dt = self.tps_clock.get_time() / 1000
             self.tps_clock.tick(self.tps_max)
-            self.tick()
             self.screen.fill((0, 0, 0))
+            self.tick()
             self.draw()
             pygame.display.update()
 
@@ -54,8 +54,8 @@ class Game(object):
                 # print(bullet.pos, "  ", self.player.pos.x, self.player.pos.y, "   ", self.player.hitbox.x, self.player.hitbox.y)
                 if self.player.mask.overlap(bullet.mask, (bullet.pos.x - self.player.hitbox.x, bullet.pos.y - self.player.hitbox.y)):
                     print("Trafiony")
-                    energy = (bullet.mass * bullet.vel * bullet.vel) / 2
-                    self.player.hp.decrease_by(energy)
+                    energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+                    self.player.hp.get_damage(energy)
                     enemy.bullets.remove(bullet)
                     continue
 
