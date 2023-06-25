@@ -35,4 +35,9 @@ class HP:
 
 class DeluxeHP:
     def __init__(self):
-        pass
+        self.current_hp = 200
+        self.hp = 500
+        self.max_hp = 1000
+        self.bar_length = 400
+        self.health_ratio = self.max_hp / self.bar_length
+        self.change_speed = 5
