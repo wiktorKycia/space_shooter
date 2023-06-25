@@ -68,9 +68,9 @@ class DeluxeHP:
             health_bar = pygame.Rect(10, 45, health_bar_width, 25)
             transition_bar = pygame.Rect(health_bar.right, 45, transition_width, 25)
 
-            pygame.draw.rect(screen, (255, 0, 0), health_bar)
-            pygame.draw.rect(screen, transition_color, transition_bar)
-            pygame.draw.rect(screen, (255, 255, 255), (10, 45, self.bar_length, 25), 2)
+            pygame.draw.rect(self.game.screen, (255, 0, 0), health_bar)
+            pygame.draw.rect(self.game.screen, transition_color, transition_bar)
+            pygame.draw.rect(self.game.screen, (255, 255, 255), (10, 45, self.bar_length, 25), 2)
 
 
         elif self.current_hp > self.hp:
@@ -82,9 +82,9 @@ class DeluxeHP:
             health_bar = pygame.Rect(10, 45, health_bar_width, 25)
             transition_bar = pygame.Rect(health_bar.right, 45, transition_width, 25)
 
-            pygame.draw.rect(screen, (255, 0, 0), health_bar)
-            pygame.draw.rect(screen, transition_color, transition_bar)
-            pygame.draw.rect(screen, (255, 255, 255), (10, 45, self.bar_length, 25), 2)
+            pygame.draw.rect(self.game.screen, (255, 0, 0), health_bar)
+            pygame.draw.rect(self.game.screen, transition_color, transition_bar)
+            pygame.draw.rect(self.game.screen, (255, 255, 255), (10, 45, self.bar_length, 25), 2)
 
 
         else:
@@ -92,6 +92,6 @@ class DeluxeHP:
             health_bar = pygame.Rect(10, 45, health_bar_width, 25)
             transition_bar = pygame.Rect(health_bar.right, 45, transition_width, 25)
 
-            pygame.draw.rect(screen, (255, 0, 0), health_bar)
-            pygame.draw.rect(screen, transition_color, transition_bar)
-            pygame.draw.rect(screen, (255, 255, 255), (10, 45, self.bar_length, 25), 2)
+            pygame.draw.rect(self.game.screen, (255, 0, 0), health_bar)
+            pygame.draw.rect(self.game.screen, transition_color, transition_bar)
+            pygame.draw.rect(self.game.screen, (255, 255, 255), (10, 45, self.bar_length, 25), 2)
