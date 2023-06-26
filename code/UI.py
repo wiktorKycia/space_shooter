@@ -56,3 +56,13 @@ class ResumeMenu:
         pass
     def draw_menu(self):
         pass
+
+class SettingsMenu:
+    def __init__(self, game):
+        self.game = game
+        self.buttons = []
+
+    def tick_menu(self):
+        pass
+    def draw_menu(self):
+        pass
