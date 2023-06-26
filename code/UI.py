@@ -10,3 +10,4 @@ class Button():
         self.rect.center = (x, y)
 
     def draw(self, surface):
+        pos = pygame.mouse.get_pos()
