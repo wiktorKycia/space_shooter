@@ -28,3 +28,6 @@ class Button:
 
 class MainMenu:
     def __init__(self, game):
+        self.game = game
+        # TODO: create more buttons, for example: play_button
+        self.buttons = []
