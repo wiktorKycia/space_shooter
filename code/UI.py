@@ -13,3 +13,5 @@ class Button():
         pos = pygame.mouse.get_pos()
         # check if the rect collides with the mouse
         if self.rect.collidepoint(pos):
+            # check if the mouse is clicked
+            if pygame.mouse.get_pressed()[0] == 1:
