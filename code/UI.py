@@ -31,3 +31,8 @@ class MainMenu:
         self.game = game
         # TODO: create more buttons, for example: play_button
         self.buttons = []
+
+    def tick_menu(self):
+        pass
+    def draw_menu(self):
+        pass
