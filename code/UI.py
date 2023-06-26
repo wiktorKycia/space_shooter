@@ -12,7 +12,7 @@ class Button():
         self.rect.center = (x, y)
         self.clicked = False
 
-    def draw(self, surface):
+    def check_click(self):
         pos = pygame.mouse.get_pos()
         # check if the rect collides with the mouse
         if self.rect.collidepoint(pos):
@@ -21,4 +21,7 @@ class Button():
                 self.clicked = True
         if pygame.mouse.get_pressed()[0] == 0:
             self.clicked = False
+        return self.clicked
+
+    def draw(self, surface):
         surface.blit(self.image, (self.x - self.width/2, self.y - self.height/2))
