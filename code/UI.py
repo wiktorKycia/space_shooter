@@ -1,7 +1,7 @@
 import pygame
 
 class Button():
-    def __init__(self, game, x, y, image, scale):
+    def __init__(self, game, x:int, y:int, image:pygame.image, scale:float = 1.0):
         self.game = game
         self.x = x
         self.y = y
