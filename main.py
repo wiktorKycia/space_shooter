@@ -1,7 +1,7 @@
 import pygame
-from ships import *
-from enemies import *
-from levels import *
+from code.ships import *
+from code.enemies import *
+from code.levels import *
 
 class Game(object):
     def __init__(self):
