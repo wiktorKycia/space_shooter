@@ -5,4 +5,6 @@ class Button():
         self.game = game
         self.x = x
         self.y = y
-        self.image = image
+        width = image.get_width()
+        height = image.get_height()
+        self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
