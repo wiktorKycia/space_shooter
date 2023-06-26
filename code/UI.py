@@ -11,3 +11,5 @@ class Button():
 
     def draw(self, surface):
         pos = pygame.mouse.get_pos()
+        # check if the rect collides with the mouse
+        if self.rect.collidepoint(pos):
