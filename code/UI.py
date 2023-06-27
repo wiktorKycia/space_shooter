@@ -82,6 +82,8 @@ class GameMenu:
                         self.button_hangar,
                         self.button_shop
                         ]
+        self.background = pygame.image.load("./images/background.png").convert_alpha()
+
 
     def tick_menu(self):
         for button in self.buttons:
