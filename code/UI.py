@@ -113,7 +113,7 @@ class GameMenu:
             button.draw(self.game.screen)
         self.ship.draw()
         self.game.screen.blit(self.coin, (450, 300))
-        write(self.game, self.game.player.coins, 500, 300, 36, (200, 200, 200))
+        write(self.game, str(self.game.player.coins), 500, 300, 36, (200, 200, 200))
 
         write(self.game, f"Health points: {str(self.game.player.current_ship.hp.max_hp)}", 50, 300, 28, (200, 200, 200))
         write(self.game, f"Shot force: {str(self.game.player.current_ship.shot_force)}", 50, 350, 28, (200, 200, 200))
