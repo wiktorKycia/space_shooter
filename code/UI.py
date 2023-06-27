@@ -93,7 +93,12 @@ class GameMenu:
                         ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
         self.ship = Ship1(self.game)
+
+        # coin
         self.coin = pygame.image.load("./images/coin.png").convert_alpha()
+        width = self.coin.get_width()
+        height = self.coin.get_height()
+        self.coin = pygame.transform.scale(self.coin, (int(width * 4), int(height * 4)))
 
 
     def tick_menu(self):
