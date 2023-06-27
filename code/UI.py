@@ -26,10 +26,13 @@ class Button:
         self.rect.center = (x, y)
         self.clicked = False
 
+        self.img = self.image
+
     def check_click(self):
         pos = pygame.mouse.get_pos()
         # check if the rect collides with the mouse
         if self.rect.collidepoint(pos):
+            self.img = self.image2
             # check if the mouse is clicked
             if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
                 self.clicked = True
@@ -38,7 +41,7 @@ class Button:
         return self.clicked
 
     def draw(self, surface):
-        surface.blit(self.image, (self.x - self.width/2, self.y - self.height/2))
+        surface.blit(self.img, (self.x - self.width/2, self.y - self.height/2))
 
 class MainMenu:
     def __init__(self, game):
