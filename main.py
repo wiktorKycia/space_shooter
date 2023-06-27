@@ -36,6 +36,7 @@ class Game(object):
 
         # menus/|\interfaces
         self.mainmenu = MainMenu(self)
+        self.gamemenu = GameMenu(self)
 
         while self.isrun:
             for event in pygame.event.get():
@@ -47,6 +48,9 @@ class Game(object):
                 case "mainmenu":
                     self.mainmenu.tick_menu()
                     self.mainmenu.draw_menu()
+                case "gamemenu":
+                    self.gamemenu.tick_menu()
+                    self.gamemenu.draw_menu()
                 case "game":
                     self.screen.fill((0, 0, 0))
                     self.tick()
