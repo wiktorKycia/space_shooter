@@ -84,9 +84,13 @@ class GameMenu:
                         ]
 
     def tick_menu(self):
-        pass
+        for button in self.buttons:
+            if button.check_click():
+                self.game.showing = "game"
     def draw_menu(self):
-        pass
+        self.game.screen.blit(self.background, (0, 0))
+        for button in self.buttons:
+            button.draw(self.game.screen)
 
 class ResumeMenu:
     def __init__(self, game):
