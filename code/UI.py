@@ -75,7 +75,13 @@ class GameMenu:
         self.button_ship = Button(game, size[0]/2, size[1]/2, "./images/button_ship.png", 1.0, "./images/button_ship_hover.png")
         self.button_hangar = Button(game, size[0]/2, size[1]/2, "./images/button_hangar.png", 1.0, "./images/button_hangar_hover.png")
         self.button_shop = Button(game, size[0]/2, size[1]/2, "./images/button_shop.png", 1.0, "./images/button_shop_hover.png")
-        self.buttons = []
+        self.buttons = [self.button_endless,
+                        self.button_levels,
+                        self.button_two_players,
+                        self.button_ship,
+                        self.button_hangar,
+                        self.button_shop
+                        ]
 
     def tick_menu(self):
         pass
