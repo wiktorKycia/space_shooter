@@ -21,7 +21,7 @@ class Game(object):
 
         #loading objects
         self.player = Ship2(self)
-
+        # self.shp = Ship(self, 20, 20, "./ships/ship1.png")
         # lists
         self.enemies = []
         # self.block = MiniLevel(self)
@@ -79,6 +79,7 @@ class Game(object):
             enemy.draw()
 
         self.player.draw()
+        # self.shp.draw()
 
 
 if __name__ == "__main__":
