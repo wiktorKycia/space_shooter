@@ -61,6 +61,7 @@ class MainMenu:
                 print("I'm clicked!")
 
     def draw_menu(self):
+        self.game.screen.blit(self.background, (0, 0))
         for button in self.buttons:
             button.draw(self.game.screen)
 
