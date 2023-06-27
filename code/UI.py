@@ -1,13 +1,15 @@
 import pygame
+import os
 
 class Button:
-    def __init__(self, game, x:int, y:int, image:pygame.image, scale:float = 1.0):
+    def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0):
         self.game = game
         self.x = x
         self.y = y
-        self.width = image.get_width()
-        self.height = image.get_height()
-        self.image = pygame.transform.scale(image, (int(self.width * scale), int(self.height * scale)))
+        self.image = pygame.image.load(os.path.join(image)).convert_alpha()
+        width = self.image.get_width()
+        height = self.image.get_height()
+        self.image = pygame.transform.scale(self.image, (int(width * scale), int(height * scale)))
         self.width = self.image.get_width()
         self.height = self.image.get_height()
         self.rect = self.image.get_rect()
