@@ -115,6 +115,11 @@ class GameMenu:
         self.game.screen.blit(self.coin, (450, 300))
         write(self.game, self.game.player.coins, 500, 300, 36, (200, 200, 200))
 
+        write(self.game, f"Health points: {self.game.player.current_ship.hp.max_hp}", 50, 300, 28, (200, 200, 200))
+        write(self.game, f"Shot force: {self.game.player.current_ship.shot_force}", 50, 350, 28, (200, 200, 200))
+        write(self.game, f"Moving force: {self.game.player.current_ship.mov_force}", 50, 400, 28, (200, 200, 200))
+        write(self.game, f"Mass: {self.game.player.current_ship.mass}", 50, 450, 28, (200, 200, 200))
+
 class ResumeMenu:
     def __init__(self, game):
         self.game = game
