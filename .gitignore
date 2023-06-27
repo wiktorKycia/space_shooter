@@ -1,8 +1,8 @@
 .idea/
 __pycache__
 venv
-images
-ship1.xcf
+images/the chosen ones
+images/ship1.xcf
 explsion_sounds
 tests/
 plans/
