@@ -35,6 +35,7 @@ class Game(object):
         self.level1 = Level1(self)
 
         # menus/|\interfaces
+        self.mainmenu = MainMenu(self)
 
         while self.isrun:
             for event in pygame.event.get():
@@ -44,7 +45,8 @@ class Game(object):
             self.tps_clock.tick(self.tps_max)
             match self.showing:
                 case "mainmenu":
-                    pass
+                    self.mainmenu.tick_menu()
+                    self.mainmenu.draw_menu()
                 case "game":
                     self.screen.fill((0, 0, 0))
                     self.tick()
