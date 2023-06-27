@@ -47,7 +47,7 @@ class MainMenu:
     def __init__(self, game):
         self.game = game
         size = game.screen.get_size()
-        self.button_play = Button(game, size[0]/2, size[1]/2, "./images/button_play.png", 1.0)
+        self.button_play = Button(game, size[0]/2, size[1]/2, "./images/button_play.png", 1.0, "./images/button_play_hover.png")
         self.buttons = [self.button_play]
 
     def tick_menu(self):
