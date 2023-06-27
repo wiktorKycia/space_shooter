@@ -2,16 +2,26 @@ import pygame
 import os
 
 class Button:
-    def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0):
+    def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
         self.game = game
         self.x = x
         self.y = y
+
         self.image = pygame.image.load(os.path.join(image)).convert_alpha()
+
         width = self.image.get_width()
         height = self.image.get_height()
+
         self.image = pygame.transform.scale(self.image, (int(width * scale), int(height * scale)))
+
+        # create an image2 if the path is not empty
+        if not image2 == "":
+            self.image2 = pygame.image.load(os.path.join(image2)).convert_alpha()
+            self.image2 = pygame.transform.scale(self.image2, (int(width * scale), int(height * scale)))
+
         self.width = self.image.get_width()
         self.height = self.image.get_height()
+
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.clicked = False
