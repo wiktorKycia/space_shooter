@@ -2,9 +2,9 @@ from code.ships import *
 import pygame
 import os
 
-def write(game, text, x, y, font_size, font_style="Arial Black", is_centered=False,):
+def write(game, text, x, y, font_size, color=(0, 0, 0), font_style="Arial", is_centered=False,):
     font = pygame.font.SysFont(font_style, font_size)
-    rend = font.render(text, True, (255, 100, 100))
+    rend = font.render(text, True, color)
     if is_centered is True:
         x = (game.width - rend.get_rect().width)/2
         y = (game.height - rend.get_rect().height)/2
@@ -98,7 +98,7 @@ class GameMenu:
         self.coin = pygame.image.load("./images/coin.png").convert_alpha()
         width = self.coin.get_width()
         height = self.coin.get_height()
-        self.coin = pygame.transform.scale(self.coin, (int(width * 4), int(height * 4)))
+        self.coin = pygame.transform.scale(self.coin, (int(width * 5), int(height * 5)))
 
 
     def tick_menu(self):
@@ -112,6 +112,7 @@ class GameMenu:
             button.draw(self.game.screen)
         self.ship.draw()
         self.game.screen.blit(self.coin, (450, 300))
+        write(self.game, "1 000 000", 500, 300, 36, (200, 200, 200))
 
 class ResumeMenu:
     def __init__(self, game):
