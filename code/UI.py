@@ -57,7 +57,7 @@ class MainMenu:
 
     def draw_menu(self):
         for button in self.buttons:
-            button.draw()
+            button.draw(self.game.screen)
 
 class GameMenu:
     def __init__(self, game):
