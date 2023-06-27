@@ -69,12 +69,12 @@ class GameMenu:
     def __init__(self, game):
         self.game = game
         size = game.screen.get_size()
-        self.button_endless = Button(game, size[0]/2, size[1]/2, "./images/button_endless.png", 1.0, "./images/button_endless_hover.png")
-        self.button_levels = Button(game, size[0]/2, size[1]/2, "./images/button_levels.png", 1.0, "./images/button_levels_hover.png")
-        self.button_two_players = Button(game, size[0]/2, size[1]/2, "./images/button_two_players.png", 1.0, "./images/button_two_players_hover.png")
-        self.button_ship = Button(game, size[0]/2, size[1]/2, "./images/button_ship.png", 1.0, "./images/button_ship_hover.png")
-        self.button_hangar = Button(game, size[0]/2, size[1]/2, "./images/button_hangar.png", 1.0, "./images/button_hangar_hover.png")
-        self.button_shop = Button(game, size[0]/2, size[1]/2, "./images/button_shop.png", 1.0, "./images/button_shop_hover.png")
+        self.button_endless = Button(game, size[0]/5, size[1]/5, "./images/button_endless.png", 1.0, "./images/button_endless_hover.png")
+        self.button_levels = Button(game, size[0]/2, size[1]/5, "./images/button_levels.png", 1.0, "./images/button_levels_hover.png")
+        self.button_two_players = Button(game, size[0]*4/5, size[1]/5, "./images/button_two_players.png", 1.0, "./images/button_two_players_hover.png")
+        self.button_ship = Button(game, size[0]/4, self.game.height-50, "./images/button_ship.png", 1.0, "./images/button_ship_hover.png")
+        self.button_hangar = Button(game, size[0]/2, self.game.height-50, "./images/button_hangar.png", 1.0, "./images/button_hangar_hover.png")
+        self.button_shop = Button(game, size[0]*3/4, self.game.height-50, "./images/button_shop.png", 1.0, "./images/button_shop_hover.png")
         self.buttons = [self.button_endless,
                         self.button_levels,
                         self.button_two_players,
@@ -88,7 +88,8 @@ class GameMenu:
     def tick_menu(self):
         for button in self.buttons:
             if button.check_click():
-                self.game.showing = "game"
+                print("click")
+                # self.game.showing = "game"
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
         for button in self.buttons:
