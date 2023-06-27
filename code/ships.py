@@ -74,49 +74,6 @@ class PlayableShip(object):
         pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
         # self.hp.draw()
 
-class Scout(PlayableShip):
-    def __init__(self, game):
-        self.game = game
-        self.path = "./ships/statek1.png"
-        super().__init__(self.game, self.path, 0.99, 1000, 2000, 1500, 10)
-        # # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
-    def add_force(self, force):
-        super().add_force(force)
-    def tick(self):
-        super().tick()
-        pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_SPACE] and self.clock >= 0.15:
-            self.clock = 0
-            bullet = Bullet(self.game, self.pos.x, self.pos.y, 2, 10, self.shot_force, 20, (230, 0, 0),
-                            './shot_sounds/blaster.mp3')
-            self.bullets.append(bullet)
-            bullet.sound.play(0, 800)
-            acc = -bullet.acc  # getting initial bullet velocity
-            vel = (bullet.mass * acc) / self.mass
-            # getting initial velocity from zasada zachowania pędu
-            vel.x *= vel.x
-            vel.y *= vel.y
-            energy = (self.mass * vel) / 2  # calculating kinetic energy
-            force = energy / self.barrel  # calculating kickback force
-            self.add_force(Vector2(force.x, force.y))
-    def draw(self):
-        super().draw()
-        # #Base polygon
-        # self.points = [Vector2(0, -26), Vector2(20, 12), Vector2(0, 24), Vector2(-20, 12)]
-        #
-        # #Rotate polygon
-        # angle = self.vel.angle_to(Vector2(0, 1)) # kąt między wektorem prędkości, a linią poziomą
-        # self.points = [p.rotate(angle) for p in self.points]
-        #
-        # # Fix y axis
-        # self.points = [Vector2(p.x, p.y * -1) for p in self.points]
-        #
-        # #Add current position
-        # self.points = [self.pos + p for p in self.points]
-        #
-        # #draw polygon
-        # pygame.draw.polygon(self.game.screen, (255, 255, 255), self.points)
-
 class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
