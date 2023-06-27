@@ -58,7 +58,7 @@ class MainMenu:
     def tick_menu(self):
         for button in self.buttons:
             if button.check_click():
-                print("I'm clicked!")
+                self.game.showing = "game"
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
