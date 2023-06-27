@@ -6,6 +6,9 @@ from code import *
 
 mixer.init()
 
+class Ship(object):
+    def __init__(self, game, x, y, imgae_path):
+
 class PlayableShip(object):
     def __init__(self, game, image_path, slip, mov_force, mass, shot_force,barrel_lenght):
         self.game = game
