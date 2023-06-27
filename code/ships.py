@@ -15,8 +15,8 @@ class Ship(object):
         width = self.image.get_width()
         height = self.image.get_height()
         self.image = pygame.transform.scale(self.image, (int(width * scale), int(height * scale)))
-        self.width = image_path.get_width()
-        self.height = image_path.get_height()
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
 
     def tick(self):
         pass
