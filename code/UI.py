@@ -1,3 +1,4 @@
+from code.ships import *
 import pygame
 import os
 
@@ -83,6 +84,7 @@ class GameMenu:
                         self.button_shop
                         ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
+        self.ship = Ship1(self.game)
 
 
     def tick_menu(self):
@@ -94,6 +96,7 @@ class GameMenu:
         self.game.screen.blit(self.background, (0, 0))
         for button in self.buttons:
             button.draw(self.game.screen)
+        self.ship.draw()
 
 class ResumeMenu:
     def __init__(self, game):
