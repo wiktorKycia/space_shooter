@@ -112,7 +112,7 @@ class GameMenu:
             button.draw(self.game.screen)
         self.ship.draw()
         self.game.screen.blit(self.coin, (450, 300))
-        write(self.game, "1 000 000", 500, 300, 36, (200, 200, 200))
+        write(self.game, "1 000 000", 500, 300, 36, (200, 200, 200)) # TODO: change the string to an amount of player's coins
 
 class ResumeMenu:
     def __init__(self, game):
