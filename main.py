@@ -17,7 +17,7 @@ class Game(object):
         self.dt = 0.0
         #running
         self.isrun = True
-        self.showing = "game"
+        self.showing = "mainmenu"
 
         #loading objects
         self.player = Ship2(self)
@@ -34,6 +34,8 @@ class Game(object):
         # self.block.add_single(Enemy3(self, 500, 50))
         self.level1 = Level1(self)
 
+        # menus/|\interfaces
+
         while self.isrun:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -41,6 +43,8 @@ class Game(object):
             self.dt = self.tps_clock.get_time() / 1000
             self.tps_clock.tick(self.tps_max)
             match self.showing:
+                case "mainmenu":
+                    pass
                 case "game":
                     self.screen.fill((0, 0, 0))
                     self.tick()
