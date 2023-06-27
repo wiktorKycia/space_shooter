@@ -2,6 +2,14 @@ from code.ships import *
 import pygame
 import os
 
+def write(game, text, x, y, font_size, font_style="Arial Black", is_centered=False,):
+    font = pygame.font.SysFont(font_style, font_size)
+    rend = font.render(text, True, (255, 100, 100))
+    if is_centered is True:
+        x = (game.width - rend.get_rect().width)/2
+        y = (game.height - rend.get_rect().height)/2
+    game.screen.blit(rend, (x, y))
+
 class Button:
     def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
         self.game = game
