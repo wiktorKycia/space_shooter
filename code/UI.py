@@ -46,15 +46,18 @@ class Button:
 class MainMenu:
     def __init__(self, game):
         self.game = game
-        # TODO: create more buttons, for example: play_button
         size = game.screen.get_size()
         self.button_play = Button(game, size[0]/2, size[1]/2, "./images/button_play.png", 1.0)
-        self.buttons = []
+        self.buttons = [self.button_play]
 
     def tick_menu(self):
-        pass
+        for button in self.buttons:
+            if button.check_click():
+                print("I'm clicked!")
+
     def draw_menu(self):
-        pass
+        for button in self.buttons:
+            button.draw()
 
 class GameMenu:
     def __init__(self, game):
