@@ -22,7 +22,7 @@ class Ship(object):
         pass
 
     def draw(self):
-
+        self.game.screen.blit(self.image, (self.x - self.width/2, self.y - self.height/2))
 
 class PlayableShip(object):
     def __init__(self, game, image_path, slip, mov_force, mass, shot_force,barrel_lenght):
