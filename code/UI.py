@@ -68,6 +68,13 @@ class MainMenu:
 class GameMenu:
     def __init__(self, game):
         self.game = game
+        size = game.screen.get_size()
+        self.button_endless = Button(game, size[0]/2, size[1]/2, "./images/button_endless.png", 1.0, "./images/button_endless_hover.png")
+        self.button_levels = Button(game, size[0]/2, size[1]/2, "./images/button_levels.png", 1.0, "./images/button_levels_hover.png")
+        self.button_two_players = Button(game, size[0]/2, size[1]/2, "./images/button_two_players.png", 1.0, "./images/button_two_players_hover.png")
+        self.button_ship = Button(game, size[0]/2, size[1]/2, "./images/button_ship.png", 1.0, "./images/button_ship_hover.png")
+        self.button_hangar = Button(game, size[0]/2, size[1]/2, "./images/button_hangar.png", 1.0, "./images/button_hangar_hover.png")
+        self.button_shop = Button(game, size[0]/2, size[1]/2, "./images/button_shop.png", 1.0, "./images/button_shop_hover.png")
         self.buttons = []
 
     def tick_menu(self):
