@@ -111,7 +111,7 @@ class GameMenu:
         for button in self.buttons:
             button.draw(self.game.screen)
         self.ship.draw()
-        self.game.screen.blit(self.coin, (600, 400))
+        self.game.screen.blit(self.coin, (450, 300))
 
 class ResumeMenu:
     def __init__(self, game):
