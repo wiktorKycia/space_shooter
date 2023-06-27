@@ -61,7 +61,7 @@ class Game(object):
                     continue
 
             for bullet in self.player.bullets:
-                if enemy.mask.overlap(bullet.mask, (bullet.pos.x - enemy.hitbox.x, bullet.pos.y - enemy.hitbox.y)):
+                if enemy.mask.overlap(bullet.mask, (bullet.pos.x - bullet.width/2 - enemy.hitbox.x, bullet.pos.y - bullet.height/2 - enemy.hitbox.y)):
                     self.player.bullets.remove(bullet)
                     energy = (bullet.mass * bullet.vel * bullet.vel) / 2
                     enemy.health -= energy
