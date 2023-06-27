@@ -2,6 +2,7 @@ import pygame
 from code.ships import *
 from code.enemies import *
 from code.levels import *
+from code import *
 
 class Game(object):
     def __init__(self):
@@ -23,7 +24,7 @@ class Game(object):
 
         # lists
         self.enemies = []
-        # self.block = Minilevel(self)
+        # self.block = MiniLevel(self)
         # self.block.triangle4(int(750/2), 100)
         # self.block.triangle4(int(750/2 + 150), 100)
         # self.block.line(375, 50, 8, 2)

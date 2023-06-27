@@ -1,7 +1,7 @@
 import pygame.time
-from typing import *
-from enemies import *
-class Minilevel():
+from code.enemies import *
+
+class MiniLevel:
     def __init__(self, game):
         self.game = game
 
@@ -124,7 +124,7 @@ class Minilevel():
 class Level:
     def __init__(self, game):
         self.game = game
-        self.block = Minilevel(game)
+        self.block = MiniLevel(game)
 
     def check_if_all_died(self):
         if len(self.game.enemies) == 0:
