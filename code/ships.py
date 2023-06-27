@@ -14,7 +14,7 @@ class Ship(object):
         self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
         width = self.image.get_width()
         height = self.image.get_height()
-        self.image = pygame.transform.scale(image_path, (int(width * scale), int(height * scale)))
+        self.image = pygame.transform.scale(self.image, (int(width * scale), int(height * scale)))
         self.width = image_path.get_width()
         self.height = image_path.get_height()
 
