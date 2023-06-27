@@ -1,4 +1,5 @@
 from code.ships import *
+from code.player import *
 import pygame
 import os
 
