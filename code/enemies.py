@@ -1,7 +1,7 @@
 import pygame.time
-from ships import *
 from code.bullets import *
 import os
+
 class BaseEnemy(object):
     def __init__(self, game, imagepath, x, y, slip, mov_force, mass, shot_force, barrel_lenght, health):
         self.game = game
