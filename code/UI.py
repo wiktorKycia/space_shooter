@@ -8,6 +8,8 @@ class Button:
         self.width = image.get_width()
         self.height = image.get_height()
         self.image = pygame.transform.scale(image, (int(self.width * scale), int(self.height * scale)))
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.clicked = False

@@ -7,7 +7,16 @@ from code import *
 mixer.init()
 
 class Ship(object):
-    def __init__(self, game, x, y, imgae_path):
+    def __init__(self, game, x, y, image_path, scale=1.0):
+        self.game = game
+        self.x = x
+        self.y = y
+        self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
+        width = self.image.get_width()
+        height = self.image.get_height()
+        self.image = pygame.transform.scale(image_path, (int(width * scale), int(height * scale)))
+        self.width = image_path.get_width()
+        self.height = image_path.get_height()
 
 class PlayableShip(object):
     def __init__(self, game, image_path, slip, mov_force, mass, shot_force,barrel_lenght):
