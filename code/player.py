@@ -11,3 +11,10 @@ class Player(object):
 
     def add_coins(self, amount:int):
         self.coins += amount
+
+    def add_new_ship(self, ship):
+        for sh in self.ships:
+            if sh.type() == ship.type():
+                print("You cannot add the ship to the list, you have this model!")
+
+        self.ships.append(ship)
