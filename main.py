@@ -20,6 +20,7 @@ class Game(object):
 
         #loading objects
         self.player = Player(self)
+        self.mouse = Mouse(self)
 
         #levels
         self.level1 = Level1(self)

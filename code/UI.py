@@ -33,7 +33,6 @@ class NoImageButton:
         self.rect.topleft = (x - width/2, y - height/2)
 
         self.text = text
-        self.clicked = False
 
     def check_click(self):
         action = False
@@ -44,16 +43,12 @@ class NoImageButton:
             write_on_surface(self.surf, self.text, 0, 0, 28, (250, 250, 250), True)
 
             # check if the mouse is clicked
-            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-                print("click")
-                self.clicked = True
+            if self.game.mouse.click():
                 action = True
                 # return action
         elif not self.rect.collidepoint(pos):
             self.surf.fill((30, 30, 30))
             write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
-        elif pygame.mouse.get_pressed()[0] == 0:
-            self.clicked = False
         return action
 
     def draw(self, surface):
@@ -95,7 +90,6 @@ class Button:
 
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
-        self.clicked = False
 
         self.img = self.image
 
@@ -106,13 +100,11 @@ class Button:
         if self.rect.collidepoint(pos):
             self.img = self.image2
             # check if the mouse is clicked
-            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-                self.clicked = True
+            if self.game.mouse.click():
                 action = True
         elif not self.rect.collidepoint(pos):
             self.img = self.image
-        elif pygame.mouse.get_pressed()[0] == 0:
-            self.clicked = False
+
         return action
 
     def draw(self, surface):
@@ -161,6 +153,9 @@ class GameMenu:
         self.background = pygame.image.load("./images/background.png").convert_alpha()
         self.ship = self.game.player.current_ship
         self.ship.pos = Vector2(self.game.width/2, self.game.height/2)
+        self.ship.vel = Vector2(0, 0)
+        self.ship.acc = Vector2(0, 0)
+        self.ship.bullets.clear()
 
         # coin
         self.coin = pygame.image.load("./images/coin.png").convert_alpha()
@@ -172,10 +167,7 @@ class GameMenu:
     def tick_menu(self):
         if self.button_levels.check_click():
             self.game.showing = "levelsmenu"
-        # for button in self.buttons:
-        #     if button.check_click():
-        #         print("click")
-                # self.game.showing = "game"
+
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
         for button in self.buttons:
@@ -202,12 +194,9 @@ class LevelsMenu:
                 self.buttons.append(LevelButton(self.game, self.game.width*4/5, self._calculate_level_y(i+1), 200, 100, i+1))
 
     def tick_menu(self):
-        # if self.buttons[0].check_click():
-        #     self.game.showing = "game"
         for i, button in enumerate(self.buttons):
             # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
-                print("="*150)
                 self.game.level_pointer = i
                 self.game.showing = "game"
 
