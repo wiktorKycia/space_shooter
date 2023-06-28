@@ -61,7 +61,7 @@ class LevelButton(NoImageButton):
         self.text = f"Level {str(level_id)}"
         super().__init__(game, x, y, width, height, self.text)
     def check_click(self):
-        super().check_click()
+        return super().check_click()
     def draw(self, surface):
         super().draw(surface)
 
