@@ -54,6 +54,9 @@ class NoImageButton:
         pygame.draw.rect(self.surf, (250, 250, 250), self.rect, 1)
         write_on_surface(self.surf, self.text, 0, 0, 18, (200, 200, 200), True)
 
+
+class LevelButton(NoImageButton):
+
 class Button:
     def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
         self.game = game
