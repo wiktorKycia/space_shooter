@@ -122,6 +122,10 @@ class MainMenu:
     def __init__(self, game):
         self.game = game
         size = game.screen.get_size()
+
+        self.title_image = pygame.image.load("./images/Game_title.png")
+        self.title_image = pygame.transform.scale(self.title_image, (int(self.title_image.get_width() * 5), int(self.title_image.get_height() * 5)))
+
         self.button_play = Button(game, size[0]/2, size[1]/2, "./images/button_play.png", 1.0, "./images/button_play_hover.png")
         self.buttons = [self.button_play]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
