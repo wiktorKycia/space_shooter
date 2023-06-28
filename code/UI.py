@@ -40,7 +40,8 @@ class NoImageButton:
         pos = pygame.mouse.get_pos()
         # check if the rect collides with the mouse
         if self.rect.collidepoint(pos):
-            # self.surf.fill((100, 100, 100))
+            self.surf.fill((100, 100, 100))
+            write_on_surface(self.surf, self.text, 0, 0, 28, (250, 250, 250), True)
 
             # check if the mouse is clicked
             if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
@@ -48,8 +49,9 @@ class NoImageButton:
                 self.clicked = True
                 action = True
                 # return action
-        # else:
-        #     self.surf.fill((30, 30, 30))
+        elif not self.rect.collidepoint(pos):
+            self.surf.fill((30, 30, 30))
+            write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
         elif pygame.mouse.get_pressed()[0] == 0:
             self.clicked = False
         return action
