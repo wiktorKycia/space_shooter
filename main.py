@@ -12,6 +12,8 @@ class Game(object):
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.tps_clock = pygame.time.Clock()
         self.dt = 0.0
+        pygame.display.set_caption("Planet defender")
+
         #running
         self.isrun = True
         self.showing = "mainmenu"
