@@ -194,8 +194,10 @@ class LevelsMenu:
                 self.buttons.append(LevelButton(self.game, self.game.width*4/5, self._calculate_level_y(i+1), 200, 100, i+1))
 
     def tick_menu(self):
-        for button in self.buttons:
-            print(button.check_click())
+        # if self.buttons[0].check_click():
+        #     self.game.showing = "game"
+        for i, button in enumerate(self.buttons):
+            # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
                 print("="*150)
                 self.game.showing = "game"
