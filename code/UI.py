@@ -120,6 +120,10 @@ class GameMenu:
         write(self.game, f"Moving force: {str(self.game.player.current_ship.mov_force)}", 50, 400, 28, (200, 200, 200))
         write(self.game, f"Mass: {str(self.game.player.current_ship.mass)}", 50, 450, 28, (200, 200, 200))
 
+class LevelsMenu:
+    def __init__(self, game):
+        self.game = game
+
 class ResumeMenu:
     def __init__(self, game):
         self.game = game
