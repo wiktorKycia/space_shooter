@@ -196,11 +196,11 @@ class LevelsMenu:
     def draw_menu(self):
         for button in self.buttons:
             if button.level_id % 3 == 1:
-                button.draw(self.game.screen, self.game.width/4, self._calculate_level_y(button.level_id))
+                button.draw(self.game.screen, self.game.width/5, self._calculate_level_y(button.level_id))
             if button.level_id % 3 == 2:
                 button.draw(self.game.screen, self.game.width/2, self._calculate_level_y(button.level_id))
             if button.level_id % 3 == 0:
-                button.draw(self.game.screen, self.game.width*3/4, self._calculate_level_y(button.level_id))
+                button.draw(self.game.screen, self.game.width*4/5, self._calculate_level_y(button.level_id))
 
 class ResumeMenu:
     def __init__(self, game):
