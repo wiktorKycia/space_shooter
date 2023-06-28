@@ -33,6 +33,7 @@ class NoImageButton:
         self.rect.center = (x, y)
 
         self.text = text
+        self.clicked = False
 
     def check_click(self):
         action = False
