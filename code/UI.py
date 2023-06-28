@@ -40,13 +40,11 @@ class NoImageButton:
         pos = pygame.mouse.get_pos()
         # check if the rect collides with the mouse
         if self.rect.collidepoint(pos):
-            self.img = self.image2
             # check if the mouse is clicked
             if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
                 self.clicked = True
                 action = True
-        else:
-            self.img = self.image
+
         if pygame.mouse.get_pressed()[0] == 0:
             self.clicked = False
         return action
