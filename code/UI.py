@@ -26,7 +26,7 @@ class NoImageButton:
         self.height = height
 
         self.surf = pygame.Surface((width, height))
-        self.surf.fill((0, 0, 0))
+        self.surf.fill((30, 30, 30))
         self.rect = self.surf.get_rect()
 
         self.text = text
@@ -50,7 +50,7 @@ class NoImageButton:
         surface.blit(self.surf, (x - self.width/2, y - self.height/2))
         self.rect.center = (x, y)
         pygame.draw.rect(self.surf, (250, 250, 250), self.rect, 1)
-        write_on_surface(self.surf, self.text, 0, 0, 18, (200, 200, 200), True)
+        write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
 
 
 class LevelButton(NoImageButton):
