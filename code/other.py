@@ -103,3 +103,8 @@ class DeluxeHP:
             pygame.draw.rect(self.game.screen, self.color, health_bar)
             # pygame.draw.rect(self.game.screen, transition_color, transition_bar)
             pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.bar_length, self.height), 2)
+
+
+class Mouse:
+    def __init__(self, game):
+        self.game = game
