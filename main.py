@@ -21,11 +21,12 @@ class Game(object):
 
         #levels
         self.level1 = Level1(self)
-        self.level2 = Level1(self)
+        self.level2 = Level2(self)
+        self.level3 = Level3(self)
 
         # lists
         self.enemies = []
-        self.levels = [self.level1, self.level2]
+        self.levels = [self.level1, self.level2, self.level3]
 
         # menus/interfaces
         self.mainmenu = MainMenu(self)
