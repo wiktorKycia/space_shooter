@@ -56,6 +56,9 @@ class NoImageButton:
 
 
 class LevelButton(NoImageButton):
+    def __init__(self, game,  x, y, width, height, id_l:int):
+        self.text = f"Level {str(id_l)}"
+        super().__init__(game, x, y, width, height, self.text)
 
 class Button:
     def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
