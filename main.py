@@ -39,6 +39,7 @@ class Game(object):
                     self.isrun = False
             self.dt = self.tps_clock.get_time() / 1000
             self.tps_clock.tick(self.tps_max)
+            self.screen.fill((0, 0, 0))
             match self.showing:
                 case "mainmenu":
                     self.mainmenu.tick_menu()
@@ -50,7 +51,7 @@ class Game(object):
                     self.levelsmenu.tick_menu()
                     self.levelsmenu.draw_menu()
                 case "game":
-                    self.screen.fill((0, 0, 0))
+
                     self.tick()
                     self.draw()
                 case _: pass
