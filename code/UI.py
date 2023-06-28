@@ -35,7 +35,20 @@ class NoImageButton:
         self.text = text
 
     def check_click(self):
-        pass
+        action = False
+        pos = pygame.mouse.get_pos()
+        # check if the rect collides with the mouse
+        if self.rect.collidepoint(pos):
+            self.img = self.image2
+            # check if the mouse is clicked
+            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+                self.clicked = True
+                action = True
+        else:
+            self.img = self.image
+        if pygame.mouse.get_pressed()[0] == 0:
+            self.clicked = False
+        return action
 
     def draw(self, surface):
         self.game.screen.blit(self.surf, (self.x - self.width/2, self.y - self.height/2))
