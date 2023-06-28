@@ -108,12 +108,14 @@ class DeluxeHP:
 class Mouse:
     def __init__(self, game):
         self.game = game
-        self.clicked = False
         self.click_counter = 0
 
     def click(self, button=0):
-        if pygame.mouse.get_pressed()[button] == 1 and not self.clicked:
-            self.clicked = True
+        if pygame.mouse.get_pressed()[button] == 1 and self.click_counter == 0:
+            self.click_counter += 1
+            return True
+        elif pygame.mouse.get_pressed()[button] == 0:
+            self.click_counter = 0
         else:
-            self.clicked = False
-        return self.clicked
+            self.click_counter += 1
+        return False
