@@ -153,9 +153,9 @@ class Level1(Level):
             match self.wave_number:
                 case 0: pass
                 case 1:
-                    self.block.add_single(Enemy3(self.game, self.game.width/2, 100))
+                    self.block.add_single(Enemy1(self.game, self.game.width/2, 100))
                 case 2:
-                    self.block.pair(self.game.width / 2, 100, 2)
+                    self.block.pair(self.game.width / 2, 100, 1)
                 case 3:
                     self.block.line(self.game.width/2, 100, 3, 1)
                 case _:
