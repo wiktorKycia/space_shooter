@@ -27,6 +27,8 @@ class NoImageButton:
         self.width = width
         self.height = height
 
+    def draw(self, surface):
+
 class Button:
     def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
         self.game = game
