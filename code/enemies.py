@@ -1,4 +1,6 @@
 import pygame.time
+
+import code
 from code import *
 import os
 
@@ -28,7 +30,7 @@ class BaseEnemy(object):
         self.clock = 0
         self.bullets = []
 
-        self.hp = DeluxeHP(self.game, health, self.pos.x, self.pos.y-50, 50, 10)
+        self.hp = code.other.DeluxeHP(self.game, health, self.pos.x - self.width/2, self.pos.y-50, 50, 10)
 
     def add_force(self, force):
         self.acc += force / self.mass
