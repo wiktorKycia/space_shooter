@@ -161,3 +161,33 @@ class Level1(Level):
                 case _:
                     print("End of the level")
 
+class Level2(Level):
+    def __init__(self, game):
+        super().__init__(game)
+        self.clock = pygame.time.Clock()
+        self.current_time = 0
+        self.point_time = 0
+        self.wave_number = 0
+        self.flag = True
+
+
+    def tick(self):
+        self.current_time = pygame.time.get_ticks()
+
+        if self.check_if_all_died() and self.flag:
+            self.flag = False
+            self.point_time = pygame.time.get_ticks()
+            self.wave_number += 1
+        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
+            self.flag = True
+            match self.wave_number:
+                case 0: pass
+                case 1:
+                    self.block.pair(self.game.width / 2, 100, 1)
+                case 2:
+                    self.block.triangle1(self.game.width/2, 100)
+                case 3:
+                    self.block.line(self.game.width/2, 100, 4, 1)
+                case _:
+                    print("End of the level")
+
