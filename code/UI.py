@@ -177,6 +177,8 @@ class LevelsMenu:
     def __init__(self, game):
         self.game = game
         self.buttons = []
+        for i, level in enumerate(self.game.levels):
+            self.buttons.append(LevelButton(self.game, 0, 0, 200, 100, i+1))
 
     def tick_menu(self):
         pass
