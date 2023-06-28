@@ -11,6 +11,59 @@ def write(game, text, x, y, font_size, color=(0, 0, 0), font_style="Arial", is_c
         y = (game.height - rend.get_rect().height)/2
     game.screen.blit(rend, (x, y))
 
+def write_on_surface(surface, text, x, y, font_size, color=(0, 0, 0), is_centered=False, font_style='Arial'):
+    font = pygame.font.SysFont(font_style, font_size)
+    rend = font.render(text, True, color)
+    if is_centered is True:
+        x = (surface.width - rend.get_rect().width) / 2
+        y = (surface.height - rend.get_rect().height) / 2
+    surface.blit(rend, (x, y))
+
+class NoImageButton:
+    def __init__(self, game, x, y, width, height, text):
+        self.game = game
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
+        self.surf = pygame.Surface((width, height))
+        self.surf.fill((0, 0, 0))
+        self.rect = self.surf.get_rect()
+        self.rect.center = (x, y)
+
+        self.text = text
+        self.clicked = False
+
+    def check_click(self):
+        action = False
+        pos = pygame.mouse.get_pos()
+        # check if the rect collides with the mouse
+        if self.rect.collidepoint(pos):
+            # check if the mouse is clicked
+            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+                self.clicked = True
+                action = True
+
+        if pygame.mouse.get_pressed()[0] == 0:
+            self.clicked = False
+        return action
+
+    def draw(self, surface):
+        surface.blit(self.surf, (self.x - self.width/2, self.y - self.height/2))
+        pygame.draw.rect(self.surf, (250, 250, 250), self.rect, 1)
+        write_on_surface(self.surf, self.text, 0, 0, 18, (200, 200, 200), True)
+
+
+class LevelButton(NoImageButton):
+    def __init__(self, game,  x, y, width, height, id_l:int):
+        self.text = f"Level {str(id_l)}"
+        super().__init__(game, x, y, width, height, self.text)
+    def check_click(self):
+        super().check_click()
+    def draw(self, surface):
+        super().draw(surface)
+
 class Button:
     def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
         self.game = game
@@ -123,6 +176,12 @@ class GameMenu:
 class LevelsMenu:
     def __init__(self, game):
         self.game = game
+
+    def tick_menu(self):
+        pass
+
+    def draw_menu(self):
+        pass
 
 class ResumeMenu:
     def __init__(self, game):
