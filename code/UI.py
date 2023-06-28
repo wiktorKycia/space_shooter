@@ -28,12 +28,14 @@ class NoImageButton:
         self.height = height
 
         self.surf = pygame.Surface((width, height))
+        self.surf.fill((0, 0, 0))
         self.rect = self.surf.get_rect()
 
     def tick(self):
         pass
 
     def draw(self, surface):
+        self.game.screen.blit(self.surf, (self.x - self.width/2, self.y - self.height/2))
 
 class Button:
     def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
