@@ -32,6 +32,8 @@ class Game(object):
         self.levels = [self.level1, self.level2, self.level3]
         self.level_pointer = 0
 
+        self.other_bullets = []
+
         # menus/interfaces
         self.mainmenu = MainMenu(self)
         self.gamemenu = GameMenu(self)
