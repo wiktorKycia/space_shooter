@@ -20,6 +20,7 @@ class Game(object):
 
         #loading objects
         self.player = Player(self)
+        self.mouse = Mouse(self)
 
         #levels
         self.level1 = Level1(self)
@@ -37,6 +38,9 @@ class Game(object):
         self.levelsmenu = LevelsMenu(self)
 
         while self.isrun:
+            if self.mouse.click():
+                print("click")
+            else: print("not click")
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.isrun = False
