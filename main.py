@@ -32,6 +32,8 @@ class Game(object):
         self.levels = [self.level1, self.level2, self.level3]
         self.level_pointer = 0
 
+        self.other_bullets = []
+
         # menus/interfaces
         self.mainmenu = MainMenu(self)
         self.gamemenu = GameMenu(self)
@@ -80,8 +82,19 @@ class Game(object):
                     energy = (bullet.mass * bullet.vel * bullet.vel) / 2
                     enemy.health -= energy
                     if enemy.health <= 0:
+                        self.other_bullets.extend(enemy.bullets)
                         self.enemies.remove(enemy)
                     continue
+
+        for bullet in self.other_bullets:
+            bullet.tick()
+            bullet.draw()
+            if self.player.current_ship.mask.overlap(bullet.mask, (
+            bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
+                energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+                self.player.current_ship.hp.get_damage(energy)
+                self.other_bullets.remove(bullet)
+                continue
 
         self.player.current_ship.tick()
         self.levels[self.level_pointer].tick()
