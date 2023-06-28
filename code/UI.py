@@ -180,7 +180,9 @@ class LevelsMenu:
             self.buttons.append(LevelButton(self.game, 200, 100, i+1))
 
     def tick_menu(self):
-        pass
+        for button in self.buttons:
+            if button.check_click():
+                self.game.showing = "game"
 
     def _calculate_level_y(self, level_id):
         a = level_id % 3
