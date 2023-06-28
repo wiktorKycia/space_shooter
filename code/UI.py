@@ -177,6 +177,12 @@ class LevelsMenu:
     def __init__(self, game):
         self.game = game
 
+    def tick_menu(self):
+        pass
+
+    def draw_menu(self):
+        pass
+
 class ResumeMenu:
     def __init__(self, game):
         self.game = game
