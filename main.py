@@ -40,24 +40,20 @@ class Game(object):
             self.dt = self.tps_clock.get_time() / 1000
             self.tps_clock.tick(self.tps_max)
             self.screen.fill((0, 0, 0))
+
             match self.showing:
                 case "mainmenu":
                     self.mainmenu.tick_menu()
                     self.mainmenu.draw_menu()
-                    continue
                 case "gamemenu":
                     self.gamemenu.tick_menu()
                     self.gamemenu.draw_menu()
-                    continue
                 case "levelsmenu":
                     self.levelsmenu.tick_menu()
                     self.levelsmenu.draw_menu()
-                    continue
                 case "game":
-
                     self.tick()
                     self.draw()
-                    continue
                 case _: pass
             pygame.display.update()
         pygame.quit()
