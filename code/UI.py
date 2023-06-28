@@ -160,6 +160,7 @@ class GameMenu:
                         ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
         self.ship = self.game.player.current_ship
+        self.ship.pos = Vector2(self.game.width/2, self.game.height/2)
 
         # coin
         self.coin = pygame.image.load("./images/coin.png").convert_alpha()
