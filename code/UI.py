@@ -30,6 +30,7 @@ class NoImageButton:
         self.surf = pygame.Surface((width, height))
         self.surf.fill((30, 30, 30))
         self.rect = self.surf.get_rect()
+        self.rect.topleft = (0, 0)
 
         self.text = text
         self.clicked = False
@@ -48,22 +49,21 @@ class NoImageButton:
             self.clicked = False
         return action
 
-    def draw(self, surface, x, y):
-        surface.blit(self.surf, (x - self.width/2, y - self.height/2))
-        self.rect.center = (x, y)
+    def draw(self, surface):
+        surface.blit(self.surf, (self.x - self.width / 2, self.y - self.height / 2))
         pygame.draw.rect(self.surf, (250, 250, 250), self.rect, 1)
         write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
 
 
 class LevelButton(NoImageButton):
-    def __init__(self, game, width, height, level_id:int):
+    def __init__(self, game, x, y, width, height, level_id:int):
         self.level_id = level_id
         self.text = f"Level {str(level_id)}"
-        super().__init__(game, width, height, self.text)
+        super().__init__(game, x, y, width, height, self.text)
     def check_click(self):
         super().check_click()
-    def draw(self, surface, x, y):
-        super().draw(surface, x, y)
+    def draw(self, surface):
+        super().draw(surface)
 
 class Button:
     def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
@@ -181,7 +181,12 @@ class LevelsMenu:
         self.game = game
         self.buttons = []
         for i, level in enumerate(self.game.levels):
-            self.buttons.append(LevelButton(self.game, 200, 100, i+1))
+            if (i+1) % 3 == 1:
+                self.buttons.append(LevelButton(self.game, self.game.width/5, self._calculate_level_y(i+1), 200, 100, i+1))
+            elif (i+1) % 3 == 2:
+                self.buttons.append(LevelButton(self.game, self.game.width/2, self._calculate_level_y(i+1), 200, 100, i+1))
+            elif (i+1) % 3 == 0:
+                self.buttons.append(LevelButton(self.game, self.game.width*4/5, self._calculate_level_y(i+1), 200, 100, i+1))
 
     def tick_menu(self):
         for button in self.buttons:
@@ -197,12 +202,13 @@ class LevelsMenu:
 
     def draw_menu(self):
         for button in self.buttons:
-            if button.level_id % 3 == 1:
-                button.draw(self.game.screen, self.game.width/5, self._calculate_level_y(button.level_id))
-            if button.level_id % 3 == 2:
-                button.draw(self.game.screen, self.game.width/2, self._calculate_level_y(button.level_id))
-            if button.level_id % 3 == 0:
-                button.draw(self.game.screen, self.game.width*4/5, self._calculate_level_y(button.level_id))
+            button.draw(self.game.screen)
+        #     if button.level_id % 3 == 1:
+        #         button.draw(self.game.screen, self.game.width/5, self._calculate_level_y(button.level_id))
+        #     if button.level_id % 3 == 2:
+        #         button.draw(self.game.screen, self.game.width/2, self._calculate_level_y(button.level_id))
+        #     if button.level_id % 3 == 0:
+        #         button.draw(self.game.screen, self.game.width*4/5, self._calculate_level_y(button.level_id))
 
 class ResumeMenu:
     def __init__(self, game):
