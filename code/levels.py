@@ -183,11 +183,11 @@ class Level2(Level):
             match self.wave_number:
                 case 0: pass
                 case 1:
-                    self.block.add_single(Enemy1(self.game, self.game.width/2, 100))
-                case 2:
                     self.block.pair(self.game.width / 2, 100, 1)
+                case 2:
+                    self.block.triangle1(self.game.width/2, 100)
                 case 3:
-                    self.block.line(self.game.width/2, 100, 3, 1)
+                    self.block.line(self.game.width/2, 100, 4, 1)
                 case _:
                     print("End of the level")
 
