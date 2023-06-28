@@ -1,7 +1,7 @@
 import pygame.time
-from ships import *
-from bullets import *
+from code.bullets import *
 import os
+
 class BaseEnemy(object):
     def __init__(self, game, imagepath, x, y, slip, mov_force, mass, shot_force, barrel_lenght, health):
         self.game = game
@@ -39,7 +39,7 @@ class BaseEnemy(object):
 
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
-        pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
+        # pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
 
     def add_bullet(self, bullet):
         self.bullets.append(bullet)

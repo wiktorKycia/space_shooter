@@ -103,3 +103,19 @@ class DeluxeHP:
             pygame.draw.rect(self.game.screen, self.color, health_bar)
             # pygame.draw.rect(self.game.screen, transition_color, transition_bar)
             pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.bar_length, self.height), 2)
+
+
+class Mouse:
+    def __init__(self, game):
+        self.game = game
+        self.click_counter = 0
+
+    def click(self, button=0):
+        if pygame.mouse.get_pressed()[button] == 1 and self.click_counter == 0:
+            self.click_counter += 1
+            return True
+        elif pygame.mouse.get_pressed()[button] == 0:
+            self.click_counter = 0
+        else:
+            self.click_counter += 1
+        return False

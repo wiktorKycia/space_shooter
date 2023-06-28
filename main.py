@@ -1,7 +1,5 @@
 import pygame
-from ships import *
-from enemies import *
-from levels import *
+from code import *
 
 class Game(object):
     def __init__(self):
@@ -14,23 +12,30 @@ class Game(object):
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.tps_clock = pygame.time.Clock()
         self.dt = 0.0
+        pygame.display.set_caption("Planet defender")
+
         #running
         self.isrun = True
+        self.showing = "mainmenu"
 
         #loading objects
-        self.player = Ship2(self)
+        self.player = Player(self)
+        self.mouse = Mouse(self)
+
+        #levels
+        self.level1 = Level1(self)
+        self.level2 = Level2(self)
+        self.level3 = Level3(self)
 
         # lists
         self.enemies = []
-        # self.block = Minilevel(self)
-        # self.block.triangle4(int(750/2), 100)
-        # self.block.triangle4(int(750/2 + 150), 100)
-        # self.block.line(375, 50, 8, 2)
-        # self.block.pair(375, 50)
-        # self.block.add_single(Enemy2(self, 400, 50))
-        # self.block.add_single(Enemy1(self, 300, 50))
-        # self.block.add_single(Enemy3(self, 500, 50))
-        self.level1 = Level1(self)
+        self.levels = [self.level1, self.level2, self.level3]
+        self.level_pointer = 0
+
+        # menus/interfaces
+        self.mainmenu = MainMenu(self)
+        self.gamemenu = GameMenu(self)
+        self.levelsmenu = LevelsMenu(self)
 
         while self.isrun:
             for event in pygame.event.get():
@@ -39,8 +44,21 @@ class Game(object):
             self.dt = self.tps_clock.get_time() / 1000
             self.tps_clock.tick(self.tps_max)
             self.screen.fill((0, 0, 0))
-            self.tick()
-            self.draw()
+
+            match self.showing:
+                case "mainmenu":
+                    self.mainmenu.tick_menu()
+                    self.mainmenu.draw_menu()
+                case "gamemenu":
+                    self.gamemenu.tick_menu()
+                    self.gamemenu.draw_menu()
+                case "levelsmenu":
+                    self.levelsmenu.tick_menu()
+                    self.levelsmenu.draw_menu()
+                case "game":
+                    self.tick()
+                    self.draw()
+                case _: pass
             pygame.display.update()
         pygame.quit()
         quit()
@@ -50,30 +68,30 @@ class Game(object):
         for enemy in self.enemies:
             enemy.tick()
             for bullet in enemy.bullets:
-                if self.player.mask.overlap(bullet.mask, (bullet.pos.x - self.player.hitbox.x, bullet.pos.y - self.player.hitbox.y)):
+                if self.player.current_ship.mask.overlap(bullet.mask, (bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
                     energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                    self.player.hp.get_damage(energy)
+                    self.player.current_ship.hp.get_damage(energy)
                     enemy.bullets.remove(bullet)
                     continue
 
-            for bullet in self.player.bullets:
-                if enemy.mask.overlap(bullet.mask, (bullet.pos.x - enemy.hitbox.x, bullet.pos.y - enemy.hitbox.y)):
-                    self.player.bullets.remove(bullet)
+            for bullet in self.player.current_ship.bullets:
+                if enemy.mask.overlap(bullet.mask, (bullet.pos.x - bullet.width/2 - enemy.hitbox.x, bullet.pos.y - bullet.height/2 - enemy.hitbox.y)):
+                    self.player.current_ship.bullets.remove(bullet)
                     energy = (bullet.mass * bullet.vel * bullet.vel) / 2
                     enemy.health -= energy
                     if enemy.health <= 0:
                         self.enemies.remove(enemy)
                     continue
 
-        self.player.tick()
-        self.level1.tick()
+        self.player.current_ship.tick()
+        self.levels[self.level_pointer].tick()
 
     def draw(self):
 
         for enemy in self.enemies:
             enemy.draw()
 
-        self.player.draw()
+        self.player.current_ship.draw()
 
 
 if __name__ == "__main__":

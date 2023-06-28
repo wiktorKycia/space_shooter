@@ -1,8 +1,8 @@
 import pygame
 from pygame import mixer
 from pygame.math import Vector2
-import os
 mixer.init()
+
 class Bullet(object):
     def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255), sound=None):
         self.pos = Vector2(x, y)

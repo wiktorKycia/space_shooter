@@ -1,7 +1,7 @@
 import pygame.time
-from typing import *
-from enemies import *
-class Minilevel():
+from code.enemies import *
+
+class MiniLevel:
     def __init__(self, game):
         self.game = game
 
@@ -124,7 +124,7 @@ class Minilevel():
 class Level:
     def __init__(self, game):
         self.game = game
-        self.block = Minilevel(game)
+        self.block = MiniLevel(game)
 
     def check_if_all_died(self):
         if len(self.game.enemies) == 0:
@@ -153,11 +153,75 @@ class Level1(Level):
             match self.wave_number:
                 case 0: pass
                 case 1:
-                    self.block.add_single(Enemy3(self.game, self.game.width/2, 100))
+                    self.block.add_single(Enemy1(self.game, self.game.width/2, 100))
                 case 2:
-                    self.block.pair(self.game.width / 2, 100, 2)
+                    self.block.pair(self.game.width / 2, 100, 1)
                 case 3:
                     self.block.line(self.game.width/2, 100, 3, 1)
                 case _:
-                    print("End of the level")
+                    self.game.showing = "gamemenu"
+                    self.game.gamemenu.__init__(self.game)
 
+class Level2(Level):
+    def __init__(self, game):
+        super().__init__(game)
+        self.clock = pygame.time.Clock()
+        self.current_time = 0
+        self.point_time = 0
+        self.wave_number = 0
+        self.flag = True
+
+
+    def tick(self):
+        self.current_time = pygame.time.get_ticks()
+
+        if self.check_if_all_died() and self.flag:
+            self.flag = False
+            self.point_time = pygame.time.get_ticks()
+            self.wave_number += 1
+        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
+            self.flag = True
+            match self.wave_number:
+                case 0: pass
+                case 1:
+                    self.block.pair(self.game.width / 2, 100, 1)
+                case 2:
+                    self.block.triangle1(self.game.width/2, 100)
+                case 3:
+                    self.block.line(self.game.width/2, 100, 4, 1)
+                case _:
+                    self.game.showing = "gamemenu"
+                    self.game.gamemenu.__init__(self.game)
+
+class Level3(Level):
+    def __init__(self, game):
+        super().__init__(game)
+        self.clock = pygame.time.Clock()
+        self.current_time = 0
+        self.point_time = 0
+        self.wave_number = 0
+        self.flag = True
+
+
+    def tick(self):
+        self.current_time = pygame.time.get_ticks()
+
+        if self.check_if_all_died() and self.flag:
+            self.flag = False
+            self.point_time = pygame.time.get_ticks()
+            self.wave_number += 1
+        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
+            self.flag = True
+            match self.wave_number:
+                case 0: pass
+                case 1:
+                    self.block.add_single(Enemy2(self.game, self.game.width/2, 100))
+                case 2:
+                    self.block.line(self.game.width/2, 100, 3)
+                case 3:
+                    self.block.triangle2(self.game.width/2, 100)
+                case 4:
+                    self.block.pair(self.game.width/2, 150)
+                case _:
+                    self.game.showing = "gamemenu"
+                    self.game.gamemenu.__init__(self.game)
