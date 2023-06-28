@@ -11,6 +11,67 @@ def write(game, text, x, y, font_size, color=(0, 0, 0), font_style="Arial", is_c
         y = (game.height - rend.get_rect().height)/2
     game.screen.blit(rend, (x, y))
 
+def write_on_surface(surface, text, x, y, font_size, color=(0, 0, 0), is_centered=False, font_style='Arial'):
+    font = pygame.font.SysFont(font_style, font_size)
+    rend = font.render(text, True, color)
+    if is_centered is True:
+        x = (surface.get_rect().width - rend.get_rect().width) / 2
+        y = (surface.get_rect().height - rend.get_rect().height) / 2
+    surface.blit(rend, (x, y))
+
+class NoImageButton:
+    def __init__(self, game, x, y, width, height, text):
+        self.game = game
+        self.y = y
+        self.x = x
+        self.width = width
+        self.height = height
+
+        self.surf = pygame.Surface((width, height))
+        self.surf.fill((30, 30, 30))
+        self.rect = self.surf.get_rect()
+        self.rect.topleft = (x - width/2, y - height/2)
+
+        self.text = text
+        self.clicked = False
+
+    def check_click(self):
+        action = False
+        pos = pygame.mouse.get_pos()
+        # check if the rect collides with the mouse
+        if self.rect.collidepoint(pos):
+            self.surf.fill((100, 100, 100))
+            write_on_surface(self.surf, self.text, 0, 0, 28, (250, 250, 250), True)
+
+            # check if the mouse is clicked
+            if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+                print("click")
+                self.clicked = True
+                action = True
+                # return action
+        elif not self.rect.collidepoint(pos):
+            self.surf.fill((30, 30, 30))
+            write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
+        elif pygame.mouse.get_pressed()[0] == 0:
+            self.clicked = False
+        return action
+
+    def draw(self, surface):
+        surface.blit(self.surf, (self.x - self.width / 2, self.y - self.height / 2))
+        pygame.draw.rect(surface, (250, 250, 250), self.rect, 1)
+        write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
+
+
+class LevelButton(NoImageButton):
+    def __init__(self, game, x, y, width, height, level_id:int):
+        self.level_id = level_id
+        self.text = f"Level {str(level_id)}"
+        super().__init__(game, x, y, width, height, self.text)
+    # def check_click(self):
+    #     return super().check_click()
+    def draw(self, surface):
+        super().draw(surface)
+
 class Button:
     def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
         self.game = game
@@ -48,9 +109,9 @@ class Button:
             if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
                 self.clicked = True
                 action = True
-        else:
+        elif not self.rect.collidepoint(pos):
             self.img = self.image
-        if pygame.mouse.get_pressed()[0] == 0:
+        elif pygame.mouse.get_pressed()[0] == 0:
             self.clicked = False
         return action
 
@@ -103,9 +164,11 @@ class GameMenu:
 
 
     def tick_menu(self):
-        for button in self.buttons: # TODO: delete for loop, diversify the buttons
-            if button.check_click():
-                print("click")
+        if self.button_levels.check_click():
+            self.game.showing = "levelsmenu"
+        # for button in self.buttons:
+        #     if button.check_click():
+        #         print("click")
                 # self.game.showing = "game"
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
@@ -119,6 +182,45 @@ class GameMenu:
         write(self.game, f"Shot force: {str(self.game.player.current_ship.shot_force)}", 50, 350, 28, (200, 200, 200))
         write(self.game, f"Moving force: {str(self.game.player.current_ship.mov_force)}", 50, 400, 28, (200, 200, 200))
         write(self.game, f"Mass: {str(self.game.player.current_ship.mass)}", 50, 450, 28, (200, 200, 200))
+
+class LevelsMenu:
+    def __init__(self, game):
+        self.game = game
+        self.buttons = []
+        for i, level in enumerate(self.game.levels):
+            if (i+1) % 3 == 1:
+                self.buttons.append(LevelButton(self.game, self.game.width/5, self._calculate_level_y(i+1), 200, 100, i+1))
+            elif (i+1) % 3 == 2:
+                self.buttons.append(LevelButton(self.game, self.game.width/2, self._calculate_level_y(i+1), 200, 100, i+1))
+            elif (i+1) % 3 == 0:
+                self.buttons.append(LevelButton(self.game, self.game.width*4/5, self._calculate_level_y(i+1), 200, 100, i+1))
+
+    def tick_menu(self):
+        # if self.buttons[0].check_click():
+        #     self.game.showing = "game"
+        for i, button in enumerate(self.buttons):
+            # tu nie może być printa sprawdzającego check_click()
+            if button.check_click():
+                print("="*150)
+                self.game.level_pointer = i
+                self.game.showing = "game"
+
+    def _calculate_level_y(self, level_id):
+        a = level_id % 3
+        if a == 0: a = 3
+        b = level_id - a
+        y = 100 + b * 50
+        return y
+
+    def draw_menu(self):
+        for button in self.buttons:
+            button.draw(self.game.screen)
+        #     if button.level_id % 3 == 1:
+        #         button.draw(self.game.screen, self.game.width/5, self._calculate_level_y(button.level_id))
+        #     if button.level_id % 3 == 2:
+        #         button.draw(self.game.screen, self.game.width/2, self._calculate_level_y(button.level_id))
+        #     if button.level_id % 3 == 0:
+        #         button.draw(self.game.screen, self.game.width*4/5, self._calculate_level_y(button.level_id))
 
 class ResumeMenu:
     def __init__(self, game):

@@ -18,22 +18,21 @@ class Game(object):
 
         #loading objects
         self.player = Player(self)
-        # self.shp = Ship(self, 20, 20, "./ships/ship1.png")
+
+        #levels
+        self.level1 = Level1(self)
+        self.level2 = Level2(self)
+        self.level3 = Level3(self)
+
         # lists
         self.enemies = []
-        # self.block = MiniLevel(self)
-        # self.block.triangle4(int(750/2), 100)
-        # self.block.triangle4(int(750/2 + 150), 100)
-        # self.block.line(375, 50, 8, 2)
-        # self.block.pair(375, 50)
-        # self.block.add_single(Enemy2(self, 400, 50))
-        # self.block.add_single(Enemy1(self, 300, 50))
-        # self.block.add_single(Enemy3(self, 500, 50))
-        self.level1 = Level1(self)
+        self.levels = [self.level1, self.level2, self.level3]
+        self.level_pointer = 0
 
-        # menus/|\interfaces
+        # menus/interfaces
         self.mainmenu = MainMenu(self)
         self.gamemenu = GameMenu(self)
+        self.levelsmenu = LevelsMenu(self)
 
         while self.isrun:
             for event in pygame.event.get():
@@ -41,6 +40,8 @@ class Game(object):
                     self.isrun = False
             self.dt = self.tps_clock.get_time() / 1000
             self.tps_clock.tick(self.tps_max)
+            self.screen.fill((0, 0, 0))
+
             match self.showing:
                 case "mainmenu":
                     self.mainmenu.tick_menu()
@@ -48,8 +49,10 @@ class Game(object):
                 case "gamemenu":
                     self.gamemenu.tick_menu()
                     self.gamemenu.draw_menu()
+                case "levelsmenu":
+                    self.levelsmenu.tick_menu()
+                    self.levelsmenu.draw_menu()
                 case "game":
-                    self.screen.fill((0, 0, 0))
                     self.tick()
                     self.draw()
                 case _: pass
@@ -78,7 +81,7 @@ class Game(object):
                     continue
 
         self.player.current_ship.tick()
-        self.level1.tick()
+        self.levels[self.level_pointer].tick()
 
     def draw(self):
 
@@ -86,7 +89,6 @@ class Game(object):
             enemy.draw()
 
         self.player.current_ship.draw()
-        # self.shp.draw()
 
 
 if __name__ == "__main__":
