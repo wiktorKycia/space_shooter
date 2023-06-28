@@ -159,7 +159,7 @@ class Level1(Level):
                 case 3:
                     self.block.line(self.game.width/2, 100, 3, 1)
                 case _:
-                    print("End of the level")
+                    self.game.showing = "gamemenu"
 
 class Level2(Level):
     def __init__(self, game):
@@ -189,7 +189,7 @@ class Level2(Level):
                 case 3:
                     self.block.line(self.game.width/2, 100, 4, 1)
                 case _:
-                    print("End of the level")
+                    self.game.showing = "gamemenu"
 
 class Level3(Level):
     def __init__(self, game):
@@ -221,4 +221,4 @@ class Level3(Level):
                 case 4:
                     self.block.pair(self.game.width/2, 150)
                 case _:
-                    print("End of the level")
+                    self.game.showing = "gamemenu"
