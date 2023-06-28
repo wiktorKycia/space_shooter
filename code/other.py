@@ -110,4 +110,9 @@ class Mouse:
         self.game = game
         self.clicked = False
 
-    def click(self):
+    def click(self, button=0):
+        if pygame.mouse.get_pressed()[button] == 1 and not self.clicked:
+            self.clicked = True
+        else:
+            self.clicked = False
+        return self.clicked
