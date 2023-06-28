@@ -1,7 +1,4 @@
 import pygame
-from code.ships import *
-from code.enemies import *
-from code.levels import *
 from code import *
 
 class Game(object):
@@ -20,7 +17,7 @@ class Game(object):
         self.showing = "mainmenu"
 
         #loading objects
-        self.player = Ship2(self)
+        self.player = Player(self)
         # self.shp = Ship(self, 20, 20, "./ships/ship1.png")
         # lists
         self.enemies = []
@@ -36,6 +33,7 @@ class Game(object):
 
         # menus/|\interfaces
         self.mainmenu = MainMenu(self)
+        self.gamemenu = GameMenu(self)
 
         while self.isrun:
             for event in pygame.event.get():
@@ -47,6 +45,9 @@ class Game(object):
                 case "mainmenu":
                     self.mainmenu.tick_menu()
                     self.mainmenu.draw_menu()
+                case "gamemenu":
+                    self.gamemenu.tick_menu()
+                    self.gamemenu.draw_menu()
                 case "game":
                     self.screen.fill((0, 0, 0))
                     self.tick()
@@ -61,22 +62,22 @@ class Game(object):
         for enemy in self.enemies:
             enemy.tick()
             for bullet in enemy.bullets:
-                if self.player.mask.overlap(bullet.mask, (bullet.pos.x - self.player.hitbox.x, bullet.pos.y - self.player.hitbox.y)):
+                if self.player.current_ship.mask.overlap(bullet.mask, (bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
                     energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                    self.player.hp.get_damage(energy)
+                    self.player.current_ship.hp.get_damage(energy)
                     enemy.bullets.remove(bullet)
                     continue
 
-            for bullet in self.player.bullets:
+            for bullet in self.player.current_ship.bullets:
                 if enemy.mask.overlap(bullet.mask, (bullet.pos.x - bullet.width/2 - enemy.hitbox.x, bullet.pos.y - bullet.height/2 - enemy.hitbox.y)):
-                    self.player.bullets.remove(bullet)
+                    self.player.current_ship.bullets.remove(bullet)
                     energy = (bullet.mass * bullet.vel * bullet.vel) / 2
                     enemy.health -= energy
                     if enemy.health <= 0:
                         self.enemies.remove(enemy)
                     continue
 
-        self.player.tick()
+        self.player.current_ship.tick()
         self.level1.tick()
 
     def draw(self):
@@ -84,7 +85,7 @@ class Game(object):
         for enemy in self.enemies:
             enemy.draw()
 
-        self.player.draw()
+        self.player.current_ship.draw()
         # self.shp.draw()
 
 
