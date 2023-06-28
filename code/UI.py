@@ -20,17 +20,14 @@ def write_on_surface(surface, text, x, y, font_size, color=(0, 0, 0), is_centere
     surface.blit(rend, (x, y))
 
 class NoImageButton:
-    def __init__(self, game, x, y, width, height, text):
+    def __init__(self, game, width, height, text):
         self.game = game
-        self.x = x
-        self.y = y
         self.width = width
         self.height = height
 
         self.surf = pygame.Surface((width, height))
         self.surf.fill((0, 0, 0))
         self.rect = self.surf.get_rect()
-        self.rect.center = (x, y)
 
         self.text = text
         self.clicked = False
@@ -49,8 +46,9 @@ class NoImageButton:
             self.clicked = False
         return action
 
-    def draw(self, surface):
-        surface.blit(self.surf, (self.x - self.width/2, self.y - self.height/2))
+    def draw(self, surface, x, y):
+        surface.blit(self.surf, (x - self.width/2, y - self.height/2))
+        self.rect.center = (x, y)
         pygame.draw.rect(self.surf, (250, 250, 250), self.rect, 1)
         write_on_surface(self.surf, self.text, 0, 0, 18, (200, 200, 200), True)
 
