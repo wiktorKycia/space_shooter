@@ -86,6 +86,15 @@ class Game(object):
                         self.enemies.remove(enemy)
                     continue
 
+        for bullet in self.other_bullets:
+            bullet.tick()
+            if self.player.current_ship.mask.overlap(bullet.mask, (
+            bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
+                energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+                self.player.current_ship.hp.get_damage(energy)
+                self.other_bullets.remove(bullet)
+                continue
+
         self.player.current_ship.tick()
         self.levels[self.level_pointer].tick()
 
