@@ -88,6 +88,7 @@ class Game(object):
 
         for bullet in self.other_bullets:
             bullet.tick()
+            bullet.draw()
             if self.player.current_ship.mask.overlap(bullet.mask, (
             bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
                 energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
