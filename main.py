@@ -44,20 +44,20 @@ class Game(object):
                 case "mainmenu":
                     self.mainmenu.tick_menu()
                     self.mainmenu.draw_menu()
-                    break
+                    continue
                 case "gamemenu":
                     self.gamemenu.tick_menu()
                     self.gamemenu.draw_menu()
-                    break
+                    continue
                 case "levelsmenu":
                     self.levelsmenu.tick_menu()
                     self.levelsmenu.draw_menu()
-                    break
+                    continue
                 case "game":
 
                     self.tick()
                     self.draw()
-                    break
+                    continue
                 case _: pass
             pygame.display.update()
         pygame.quit()

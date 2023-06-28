@@ -40,18 +40,23 @@ class NoImageButton:
         pos = pygame.mouse.get_pos()
         # check if the rect collides with the mouse
         if self.rect.collidepoint(pos):
+            # self.surf.fill((100, 100, 100))
+
             # check if the mouse is clicked
             if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+                print("click")
                 self.clicked = True
                 action = True
-
-        if pygame.mouse.get_pressed()[0] == 0:
+                # return action
+        # else:
+        #     self.surf.fill((30, 30, 30))
+        elif pygame.mouse.get_pressed()[0] == 0:
             self.clicked = False
         return action
 
     def draw(self, surface):
         surface.blit(self.surf, (self.x - self.width / 2, self.y - self.height / 2))
-        pygame.draw.rect(self.surf, (250, 250, 250), self.rect, 1)
+        pygame.draw.rect(surface, (250, 250, 250), self.rect, 1)
         write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
 
 
@@ -60,8 +65,8 @@ class LevelButton(NoImageButton):
         self.level_id = level_id
         self.text = f"Level {str(level_id)}"
         super().__init__(game, x, y, width, height, self.text)
-    def check_click(self):
-        return super().check_click()
+    # def check_click(self):
+    #     return super().check_click()
     def draw(self, surface):
         super().draw(surface)
 
@@ -190,7 +195,9 @@ class LevelsMenu:
 
     def tick_menu(self):
         for button in self.buttons:
+            print(button.check_click())
             if button.check_click():
+                print("="*150)
                 self.game.showing = "game"
 
     def _calculate_level_y(self, level_id):
