@@ -155,6 +155,8 @@ class GameMenu:
 
 
     def tick_menu(self):
+        if self.button_levels:
+            self.game.showing = "levelsmenu"
         for button in self.buttons: # TODO: delete for loop, diversify the buttons
             if button.check_click():
                 print("click")
