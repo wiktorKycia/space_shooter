@@ -27,6 +27,9 @@ class NoImageButton:
         self.width = width
         self.height = height
 
+        self.surf = pygame.Surface((width, height))
+        self.rect = self.surf.get_rect()
+
     def tick(self):
         pass
 
