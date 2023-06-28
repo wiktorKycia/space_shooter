@@ -1,5 +1,5 @@
 import pygame.time
-from code.bullets import *
+from code import *
 import os
 
 class BaseEnemy(object):
@@ -28,7 +28,7 @@ class BaseEnemy(object):
         self.clock = 0
         self.bullets = []
 
-        self.health = health
+        self.hp = DeluxeHP(self.game, health, self.pos.x, self.pos.y-50, 50, 10)
 
     def add_force(self, force):
         self.acc += force / self.mass
@@ -36,6 +36,7 @@ class BaseEnemy(object):
     def tick(self):
         self.clock += self.game.dt
         self.hitbox.center = (self.pos.x, self.pos.y)
+        self.hp.tick()
 
     def draw(self):
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
