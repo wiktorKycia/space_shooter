@@ -50,7 +50,7 @@ class NoImageButton:
         return action
 
     def draw(self, surface):
-        self.game.screen.blit(self.surf, (self.x - self.width/2, self.y - self.height/2))
+        surface.blit(self.surf, (self.x - self.width/2, self.y - self.height/2))
         pygame.draw.rect(self.surf, (250, 250, 250), self.rect, 1)
         write_on_surface(self.surf, self.text, 0, 0, 18, (200, 200, 200), True)
 
@@ -59,6 +59,10 @@ class LevelButton(NoImageButton):
     def __init__(self, game,  x, y, width, height, id_l:int):
         self.text = f"Level {str(id_l)}"
         super().__init__(game, x, y, width, height, self.text)
+    def check_click(self):
+        super().check_click()
+    def draw(self, surface):
+        super().draw(surface)
 
 class Button:
     def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
