@@ -54,8 +54,9 @@ class NoImageButton:
 
 
 class LevelButton(NoImageButton):
-    def __init__(self, game, width, height, id_l:int):
-        self.text = f"Level {str(id_l)}"
+    def __init__(self, game, width, height, level_id:int):
+        self.level_id = level_id
+        self.text = f"Level {str(level_id)}"
         super().__init__(game, width, height, self.text)
     def check_click(self):
         super().check_click()
