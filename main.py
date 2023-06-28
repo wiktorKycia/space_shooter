@@ -38,9 +38,6 @@ class Game(object):
         self.levelsmenu = LevelsMenu(self)
 
         while self.isrun:
-            if self.mouse.click():
-                print("click")
-            else: print("not click")
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.isrun = False
