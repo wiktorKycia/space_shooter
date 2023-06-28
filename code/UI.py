@@ -34,7 +34,7 @@ class NoImageButton:
 
         self.text = text
 
-    def tick(self):
+    def check_click(self):
         pass
 
     def draw(self, surface):
