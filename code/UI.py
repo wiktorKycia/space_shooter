@@ -54,13 +54,13 @@ class NoImageButton:
 
 
 class LevelButton(NoImageButton):
-    def __init__(self, game,  x, y, width, height, id_l:int):
+    def __init__(self, game, width, height, id_l:int):
         self.text = f"Level {str(id_l)}"
-        super().__init__(game, x, y, width, height, self.text)
+        super().__init__(game, width, height, self.text)
     def check_click(self):
         super().check_click()
-    def draw(self, surface):
-        super().draw(surface)
+    def draw(self, surface, x, y):
+        super().draw(surface, x, y)
 
 class Button:
     def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
@@ -176,7 +176,7 @@ class LevelsMenu:
         self.game = game
         self.buttons = []
         for i, level in enumerate(self.game.levels):
-            self.buttons.append(LevelButton(self.game, 0, 0, 200, 100, i+1))
+            self.buttons.append(LevelButton(self.game, 200, 100, i+1))
 
     def tick_menu(self):
         pass
