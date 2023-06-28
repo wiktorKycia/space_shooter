@@ -30,7 +30,7 @@ class NoImageButton:
         self.surf = pygame.Surface((width, height))
         self.surf.fill((30, 30, 30))
         self.rect = self.surf.get_rect()
-        self.rect.topleft = (0, 0)
+        self.rect.topleft = (x - width/2, y - height/2)
 
         self.text = text
         self.clicked = False
