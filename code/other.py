@@ -108,3 +108,6 @@ class DeluxeHP:
 class Mouse:
     def __init__(self, game):
         self.game = game
+        self.clicked = False
+
+    def click(self):
