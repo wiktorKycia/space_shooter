@@ -153,6 +153,9 @@ class GameMenu:
         self.background = pygame.image.load("./images/background.png").convert_alpha()
         self.ship = self.game.player.current_ship
         self.ship.pos = Vector2(self.game.width/2, self.game.height/2)
+        self.ship.vel = Vector2(0, 0)
+        self.ship.acc = Vector2(0, 0)
+        self.ship.bullets.clear()
 
         # coin
         self.coin = pygame.image.load("./images/coin.png").convert_alpha()
@@ -164,10 +167,7 @@ class GameMenu:
     def tick_menu(self):
         if self.button_levels.check_click():
             self.game.showing = "levelsmenu"
-        # for button in self.buttons:
-        #     if button.check_click():
-        #         print("click")
-                # self.game.showing = "game"
+
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
         for button in self.buttons:
@@ -194,12 +194,9 @@ class LevelsMenu:
                 self.buttons.append(LevelButton(self.game, self.game.width*4/5, self._calculate_level_y(i+1), 200, 100, i+1))
 
     def tick_menu(self):
-        # if self.buttons[0].check_click():
-        #     self.game.showing = "game"
         for i, button in enumerate(self.buttons):
             # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
-                print("="*150)
                 self.game.level_pointer = i
                 self.game.showing = "game"
 
