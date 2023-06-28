@@ -82,6 +82,7 @@ class Game(object):
                     energy = (bullet.mass * bullet.vel * bullet.vel) / 2
                     enemy.health -= energy
                     if enemy.health <= 0:
+                        self.other_bullets.extend(enemy.bullets)
                         self.enemies.remove(enemy)
                     continue
 
