@@ -27,6 +27,7 @@ class Game(object):
         # lists
         self.enemies = []
         self.levels = [self.level1, self.level2, self.level3]
+        self.level_pointer = 0
 
         # menus/interfaces
         self.mainmenu = MainMenu(self)
@@ -80,7 +81,7 @@ class Game(object):
                     continue
 
         self.player.current_ship.tick()
-        self.level1.tick()
+        self.levels[self.level_pointer].tick()
 
     def draw(self):
 
