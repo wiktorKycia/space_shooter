@@ -18,20 +18,16 @@ class Game(object):
 
         #loading objects
         self.player = Player(self)
-        # self.shp = Ship(self, 20, 20, "./ships/ship1.png")
+
+        #levels
+        self.level1 = Level1(self)
+        self.level2 = Level1(self)
+
         # lists
         self.enemies = []
-        # self.block = MiniLevel(self)
-        # self.block.triangle4(int(750/2), 100)
-        # self.block.triangle4(int(750/2 + 150), 100)
-        # self.block.line(375, 50, 8, 2)
-        # self.block.pair(375, 50)
-        # self.block.add_single(Enemy2(self, 400, 50))
-        # self.block.add_single(Enemy1(self, 300, 50))
-        # self.block.add_single(Enemy3(self, 500, 50))
-        self.level1 = Level1(self)
+        self.levels = [self.level1, self.level2]
 
-        # menus/|\interfaces
+        # menus/interfaces
         self.mainmenu = MainMenu(self)
         self.gamemenu = GameMenu(self)
 
