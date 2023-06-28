@@ -20,7 +20,7 @@ def write_on_surface(surface, text, x, y, font_size, color=(0, 0, 0), is_centere
     surface.blit(rend, (x, y))
 
 class NoImageButton:
-    def __init__(self, game, x, y, width, height):
+    def __init__(self, game, x, y, width, height, text):
         self.game = game
         self.x = x
         self.y = y
