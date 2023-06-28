@@ -27,6 +27,9 @@ class NoImageButton:
         self.width = width
         self.height = height
 
+    def tick(self):
+        pass
+
     def draw(self, surface):
 
 class Button:
