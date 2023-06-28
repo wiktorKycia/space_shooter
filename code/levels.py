@@ -191,6 +191,7 @@ class Level2(Level):
                     self.block.line(self.game.width/2, 100, 4, 1)
                 case _:
                     self.game.showing = "gamemenu"
+                    self.game.gamemenu.__init__(self.game)
 
 class Level3(Level):
     def __init__(self, game):
@@ -223,3 +224,4 @@ class Level3(Level):
                     self.block.pair(self.game.width/2, 150)
                 case _:
                     self.game.showing = "gamemenu"
+                    self.game.gamemenu.__init__(self.game)
