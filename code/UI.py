@@ -15,8 +15,8 @@ def write_on_surface(surface, text, x, y, font_size, color=(0, 0, 0), is_centere
     font = pygame.font.SysFont(font_style, font_size)
     rend = font.render(text, True, color)
     if is_centered is True:
-        x = (surface.width - rend.get_rect().width) / 2
-        y = (surface.height - rend.get_rect().height) / 2
+        x = (surface.get_rect().width - rend.get_rect().width) / 2
+        y = (surface.get_rect().height - rend.get_rect().height) / 2
     surface.blit(rend, (x, y))
 
 class NoImageButton:
