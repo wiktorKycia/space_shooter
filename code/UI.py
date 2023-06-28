@@ -124,7 +124,7 @@ class MainMenu:
         size = game.screen.get_size()
 
         self.title_image = pygame.image.load("./images/Game_title.png")
-        self.title_image = pygame.transform.scale(self.title_image, (int(self.title_image.get_width() * 5), int(self.title_image.get_height() * 5)))
+        self.title_image = pygame.transform.scale(self.title_image, (int(self.title_image.get_width() * 2), int(self.title_image.get_height() * 2)))
 
         self.button_play = Button(game, size[0]/2, size[1]/2, "./images/button_play.png", 1.0, "./images/button_play_hover.png")
         self.buttons = [self.button_play]
@@ -137,6 +137,7 @@ class MainMenu:
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
+        self.game.screen.blit(self.title_image, (self.game.width/2 - self.title_image.get_width()/2, 150 - self.title_image.get_height()/2))
         for button in self.buttons:
             button.draw(self.game.screen)
 
