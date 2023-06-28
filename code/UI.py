@@ -11,6 +11,7 @@ def write(game, text, x, y, font_size, color=(0, 0, 0), font_style="Arial", is_c
         y = (game.height - rend.get_rect().height)/2
     game.screen.blit(rend, (x, y))
 
+def write_on_surface():
 
 class NoImageButton:
     def __init__(self, game, x, y, width, height):
