@@ -3,6 +3,7 @@ from pygame import mixer
 from pygame.math import Vector2
 import os
 from code import *
+from code.other import *
 
 mixer.init()
 
@@ -48,7 +49,7 @@ class PlayableShip(object):
         self.bullets = []
         self.clock = 0
 
-        self.hp = DeluxeHP(self.game, 1000000, 10, 700, 350, 30)
+        self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
 
     def add_force(self, force):
         self.acc += force / self.mass
