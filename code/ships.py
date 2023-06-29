@@ -60,13 +60,13 @@ class PlayableShip(object):
         # Input
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_w]:
-            self.add_force(Vector2(0, -self.mov_force))
+            self.add_force(Vector2(0, -self.shot_force))
         if pressed[pygame.K_s]:
-            self.add_force(Vector2(0, self.mov_force))
+            self.add_force(Vector2(0, self.shot_force))
         if pressed[pygame.K_d]:
-            self.add_force(Vector2(self.mov_force, 0))
+            self.add_force(Vector2(self.shot_force, 0))
         if pressed[pygame.K_a]:
-            self.add_force(Vector2(-self.mov_force, 0))
+            self.add_force(Vector2(-self.shot_force, 0))
 
         # Physics
         self.vel *= self.slip
@@ -110,7 +110,7 @@ class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship1.png"
-        super().__init__(game, self.path, 0.98, 186, 40, 400, 10)
+        super().__init__(game, self.path, 0.98, 186, 100, 400, 10)
 
     def add_force(self, force):
         super().add_force(force)
