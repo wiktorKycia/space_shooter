@@ -75,8 +75,10 @@ class PlayableShip(object):
         self.vel += self.acc
 
         # Limiting speed
-        if self.vel.x > self.max_speed:
+        if self.vel.x > self.max_speed: # right
             self.vel = Vector2(self.max_speed, self.vel.y)
+        elif self.vel.x < -self.max_speed: # left
+            self.vel = Vector2(-self.max_speed, self.vel.y)
 
         self.pos += self.vel * self.game.dt
         self.acc *= 0
