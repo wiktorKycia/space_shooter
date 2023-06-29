@@ -24,7 +24,7 @@ class Kinetic60Gun:
         self.pos = self.ship.pos + self.translation
         # self.rect.center = self.pos
         pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_e] and self.clock > 0.5:
+        if pressed[self.key] and self.clock > self.interval:
             self.clock = 0
             print("E")
 
