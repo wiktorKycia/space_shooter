@@ -4,6 +4,7 @@ from pygame.math import Vector2
 import os
 from code import *
 from code.other import *
+from code.cannons import *
 
 mixer.init()
 
@@ -51,6 +52,8 @@ class PlayableShip(object):
         self.max_speed = max_speed
 
         self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
+
+        self.cannon = Kinetic60Gun(self.game, self, self.pos.x+50, self.pos.y, self.force, 0.25)
 
     def add_force(self, force):
         self.acc += force / self.mass
