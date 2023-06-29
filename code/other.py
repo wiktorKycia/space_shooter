@@ -75,12 +75,12 @@ class DeluxeHP:
             transition_color = (0, 255, 0)
 
             health_bar_width = int(self.current_hp / self.health_ratio)
-            health_bar = pygame.Rect(self.x, self.y, health_bar_width, self.height)
-            transition_bar = pygame.Rect(health_bar.right, self.y, transition_width, self.height)
+            health_bar = pygame.Rect(self.x - self.bar_length/2, self.y - self.height/2, health_bar_width, self.height)
+            transition_bar = pygame.Rect(health_bar.right, self.y - self.height/2, transition_width, self.height)
 
             pygame.draw.rect(self.game.screen, self.color, health_bar)
             pygame.draw.rect(self.game.screen, transition_color, transition_bar)
-            pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.bar_length, self.height), 2)
+            pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x - self.bar_length/2, self.y - self.height/2, self.bar_length, self.height), 2)
 
 
         elif self.current_hp > self.hp:
@@ -90,22 +90,22 @@ class DeluxeHP:
             transition_color = (255, 255, 0)
 
             health_bar_width = int(self.hp / self.health_ratio)
-            health_bar = pygame.Rect(self.x, self.y, health_bar_width, self.height)
-            transition_bar = pygame.Rect(health_bar.right, self.y, transition_width, self.height)
+            health_bar = pygame.Rect(self.x - self.bar_length/2, self.y - self.height/2, health_bar_width, self.height)
+            transition_bar = pygame.Rect(health_bar.right, self.y - self.height/2, transition_width, self.height)
 
             pygame.draw.rect(self.game.screen, self.color, health_bar)
             pygame.draw.rect(self.game.screen, transition_color, transition_bar)
-            pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.bar_length, self.height), 2)
+            pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x - self.bar_length/2, self.y - self.height/2, self.bar_length, self.height), 2)
 
 
         else:
             health_bar_width = int(self.current_hp / self.health_ratio)
-            health_bar = pygame.Rect(self.x, self.y, health_bar_width, self.height)
+            health_bar = pygame.Rect(self.x - self.bar_length/2, self.y - self.height/2, health_bar_width, self.height)
             # transition_bar = pygame.Rect(health_bar.right, self.y, transition_width, self.height)
 
             pygame.draw.rect(self.game.screen, self.color, health_bar)
             # pygame.draw.rect(self.game.screen, transition_color, transition_bar)
-            pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.bar_length, self.height), 2)
+            pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x - self.bar_length/2, self.y - self.height/2, self.bar_length, self.height), 2)
 
 
 class Mouse:
