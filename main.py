@@ -84,7 +84,7 @@ class Game(object):
                     if enemy.hp.hp <= 0:
                         self.other_bullets.extend(enemy.bullets)
                         self.enemies.remove(enemy)
-                        continue
+                        break
                     continue
 
         for bullet in self.other_bullets:
