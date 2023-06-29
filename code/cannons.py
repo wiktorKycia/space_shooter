@@ -53,7 +53,7 @@ class Kinetic60Gun(BaseCannon):
 
     def shot(self):
         bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
-        bullet.sound.play(0, 800)
+        bullet.sound.play(0, 120)
         self.ship.bullets.append(bullet)
         self.ship.add_force(self.calculate_kickback_force(bullet))
 
