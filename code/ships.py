@@ -26,7 +26,7 @@ class Ship(object):
         self.game.screen.blit(self.image, (self.x - self.width/2, self.y - self.height/2))
 
 class PlayableShip(object):
-    def __init__(self, game, image_path, slip, mass, force,barrel_lenght):
+    def __init__(self, game, image_path, slip, mass, force, barrel_length):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
         self.hitbox = self.image.get_rect()
@@ -44,7 +44,7 @@ class PlayableShip(object):
         self.acc = Vector2(0, 0)
 
         self.force = force
-        self.barrel = barrel_lenght
+        self.barrel = barrel_length
         self.bullets = []
         self.clock = 0
 
