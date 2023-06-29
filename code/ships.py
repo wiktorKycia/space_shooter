@@ -26,7 +26,7 @@ class Ship(object):
         self.game.screen.blit(self.image, (self.x - self.width/2, self.y - self.height/2))
 
 class PlayableShip(object):
-    def __init__(self, game, image_path, slip, mass, force, barrel_length):
+    def __init__(self, game, image_path, slip, max_speed, mass, force, barrel_length):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
         self.hitbox = self.image.get_rect()
@@ -48,7 +48,7 @@ class PlayableShip(object):
         self.bullets = []
         self.clock = 0
 
-        self.max_speed = 150
+        self.max_speed = max_speed
 
         self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
 
@@ -109,7 +109,7 @@ class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship1.png"
-        super().__init__(game, self.path, 0.98, 100, 400, 10)
+        super().__init__(game, self.path, 0.98, 150, 100, 400, 10)
 
     def add_force(self, force):
         super().add_force(force)
@@ -137,7 +137,7 @@ class Ship2(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship2.png"
-        super().__init__(game, self.path, 0.98, 38, 500, 10)
+        super().__init__(game, self.path, 0.98, 170, 38, 500, 10)
 
     def add_force(self, force):
         super().add_force(force)
