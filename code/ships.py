@@ -26,7 +26,7 @@ class Ship(object):
         self.game.screen.blit(self.image, (self.x - self.width/2, self.y - self.height/2))
 
 class PlayableShip(object):
-    def __init__(self, game, image_path, slip, mass, shot_force,barrel_lenght):
+    def __init__(self, game, image_path, slip, mass, force,barrel_lenght):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
         self.hitbox = self.image.get_rect()
@@ -43,7 +43,7 @@ class PlayableShip(object):
         self.vel = Vector2(0, 0)
         self.acc = Vector2(0, 0)
 
-        self.shot_force = shot_force
+        self.force = force
         self.barrel = barrel_lenght
         self.bullets = []
         self.clock = 0
@@ -59,13 +59,13 @@ class PlayableShip(object):
         # Input
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_w]:
-            self.add_force(Vector2(0, -self.shot_force))
+            self.add_force(Vector2(0, -self.force))
         if pressed[pygame.K_s]:
-            self.add_force(Vector2(0, self.shot_force))
+            self.add_force(Vector2(0, self.force))
         if pressed[pygame.K_d]:
-            self.add_force(Vector2(self.shot_force, 0))
+            self.add_force(Vector2(self.force, 0))
         if pressed[pygame.K_a]:
-            self.add_force(Vector2(-self.shot_force, 0))
+            self.add_force(Vector2(-self.force, 0))
 
         # Physics
         self.vel *= self.slip
@@ -118,7 +118,7 @@ class Ship1(PlayableShip):
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_SPACE] and self.clock >= 0.25:
             self.clock = 0
-            bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.shot_force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
+            bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
             # bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.shot_force)
             self.bullets.append(bullet)
             bullet.sound.play(0, 800)
@@ -146,8 +146,8 @@ class Ship2(PlayableShip):
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_SPACE] and self.clock >= 0.30:
             self.clock = 0
-            bullet = Bullet(self.game, self.pos.x-27, self.pos.y-15, 5, 50, self.shot_force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
-            bullet1 = Bullet(self.game, self.pos.x+27, self.pos.y-15, 5, 50, self.shot_force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
+            bullet = Bullet(self.game, self.pos.x-27, self.pos.y-15, 5, 50, self.force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
+            bullet1 = Bullet(self.game, self.pos.x+27, self.pos.y-15, 5, 50, self.force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
             self.bullets.append(bullet)
             self.bullets.append(bullet1)
             bullet.sound.play(0, 650)
