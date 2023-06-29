@@ -15,4 +15,4 @@ class Kinetic60Gun:
         pass
 
     def tick(self):
-        pass
+        self.clock += self.game.dt
