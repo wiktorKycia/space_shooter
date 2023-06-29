@@ -160,8 +160,6 @@ class Level1(Level):
                     self.block.line(self.game.width/2, 100, 3, 1)
                 case _:
                     self.game.showing = "gamemenu"
-                    self.game.other_bullets.clear()
-                    self.game.player.current_ship.hp.maximise_hp()
                     self.game.gamemenu.__init__(self.game)
 
 class Level2(Level):
@@ -193,8 +191,6 @@ class Level2(Level):
                     self.block.line(self.game.width/2, 100, 4, 1)
                 case _:
                     self.game.showing = "gamemenu"
-                    self.game.other_bullets.clear()
-                    self.game.player.current_ship.hp.maximise_hp()
                     self.game.gamemenu.__init__(self.game)
 
 class Level3(Level):
@@ -228,6 +224,4 @@ class Level3(Level):
                     self.block.pair(self.game.width/2, 150)
                 case _:
                     self.game.showing = "gamemenu"
-                    self.game.other_bullets.clear()
-                    self.game.player.current_ship.hp.maximise_hp()
                     self.game.gamemenu.__init__(self.game)

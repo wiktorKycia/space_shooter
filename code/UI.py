@@ -156,6 +156,8 @@ class GameMenu:
         self.ship.vel = Vector2(0, 0)
         self.ship.acc = Vector2(0, 0)
         self.ship.bullets.clear()
+        self.ship.hp.maximise_hp()
+        self.game.other_bullets.clear()
 
         # coin
         self.coin = pygame.image.load("./images/coin.png").convert_alpha()
