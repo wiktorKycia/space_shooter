@@ -58,30 +58,9 @@ class Kinetic60Gun(BaseCannon):
         self.ship.add_force(self.calculate_kickback_force(bullet))
 
     def calculate_kickback_force(self, bullet):
-        acc = -bullet.acc  # getting initial bullet velocity
-        try: # time that bullet spent in the barrel
-            tim = Vector2(math.sqrt(2 * self.barrel / acc.x), math.sqrt(2 * self.barrel / acc.y))
-        except ZeroDivisionError:
-            if acc.x == 0:
-                tim = Vector2(0, math.sqrt(2 * self.barrel / acc.y))
-            elif acc.y == 0:
-                tim = Vector2(math.sqrt(2 * self.barrel / acc.x), 0)
-        vel1 = Vector2(acc.x * tim.x, acc.y * tim.y)        # getting vel of the bullet after escaping from barrel
-        vel = (bullet.mass * vel1) / self.ship.mass # getting initial velocity from zasada zachowania pędu
-        vel.x *= vel.x
-        vel.y *= vel.y
-        energy = (self.ship.mass * vel) / 2  # calculating kinetic energy
-        force = energy / self.barrel  # calculating kickback force
-        return force
+        return super().calculate_kickback_force(bullet)
     def tick(self):
-        self.clock += self.game.dt
-        self.pos = self.ship.pos + self.translation
-        # self.rect.center = self.pos
-        pressed = pygame.key.get_pressed()
-        if pressed[self.key] and self.clock > self.interval:
-            self.clock = 0
-            self.shot()
-
+        super().tick()
 
     def draw(self):
         # pygame.draw.rect(self.game.screen, (255, 255, 255), self.rect)
