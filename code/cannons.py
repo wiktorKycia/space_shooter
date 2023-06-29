@@ -8,6 +8,8 @@ class Kinetic60Gun:
         self.interval = interval
         self.key = key
 
+        self.clock = 0
+
     def shot(self):
         pass
 
