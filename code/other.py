@@ -49,6 +49,9 @@ class DeluxeHP:
         self.y = y
         self.color = color
 
+    def maximise_hp(self):
+        self.hp = self.max_hp
+
     def get_damage(self, amount):
         if self.hp > 0:
             self.hp -= amount
