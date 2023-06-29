@@ -106,6 +106,7 @@ class PlayableShip(object):
             if bullet.pos.y <= 0 - bullet.height:
                 self.bullets.remove(bullet)
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
+        self.cannon.draw()
         # pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
         # self.hp.draw()
 
