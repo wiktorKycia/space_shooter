@@ -53,7 +53,7 @@ class PlayableShip(object):
 
         self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
 
-        self.cannon = Kinetic60Gun(self.game, self, self.pos.x+50, self.pos.y, self.force, 0.25)
+        self.cannon = Kinetic60Gun(self.game, self, Vector2(0, -20), self.force, 0.25)
 
     def add_force(self, force):
         self.acc += force / self.mass
