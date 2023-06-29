@@ -1,5 +1,5 @@
 import pygame
-
+import math
 from code.bullets import *
 
 class Kinetic60Gun:
@@ -23,11 +23,13 @@ class Kinetic60Gun:
 
     def calculate_kickback_force(self, bullet):
         acc = -bullet.acc  # getting initial bullet velocity
-        vel = (bullet.mass * acc) / self.mass
+        tim = math.sqrt(2 * self.barrel / acc)  # time that bullet spent in the barrel
+        vel1 = acc * tim        # getting vel of the bullet after escaping from barrel
+        vel = (bullet.mass * vel1) / self.ship.mass
         # getting initial velocity from zasada zachowania pędu
         vel.x *= vel.x
         vel.y *= vel.y
-        energy = (self.mass * vel) / 2  # calculating kinetic energy
+        energy = (self.ship.mass * vel) / 2  # calculating kinetic energy
         force = energy / self.barrel  # calculating kickback force
         return force
     def tick(self):
