@@ -21,7 +21,7 @@ class Kinetic60Gun:
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
 
-    def calculate_kickback_force(self):
+    def calculate_kickback_force(self, bullet):
         acc = -bullet.acc  # getting initial bullet velocity
         vel = (bullet.mass * acc) / self.mass
         # getting initial velocity from zasada zachowania pędu
