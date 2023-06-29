@@ -17,7 +17,8 @@ class Kinetic60Gun:
         # self.rect = pygame.Rect(self.pos.x - 5, self.pos.y - 10, 10, 20)
 
     def shot(self):
-        pass
+        bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
+        self.ship.bullets.append(bullet)
 
     def tick(self):
         self.clock += self.game.dt
