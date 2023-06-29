@@ -1,7 +1,8 @@
 from code.bullets import *
 
 class Kinetic60Gun:
-    def __init__(self, x, y, force, interval, key=pygame.K_SPACE):
+    def __init__(self, game, x, y, force, interval, key=pygame.K_SPACE):
+        self.game = game
         self.x = x
         self.y = y
         self.force = force
