@@ -27,7 +27,7 @@ class Kinetic60Gun:
         pressed = pygame.key.get_pressed()
         if pressed[self.key] and self.clock > self.interval:
             self.clock = 0
-            print("E")
+            self.shot()
 
 
     def draw(self):
