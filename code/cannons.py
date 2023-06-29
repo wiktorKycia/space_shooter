@@ -14,7 +14,7 @@ class Kinetic60Gun:
 
         self.clock = 0
 
-        self.rect = pygame.Rect(self.pos.x - 10, self.pos.y - 10, 20, 20)
+        self.rect = pygame.Rect(self.pos.x - 5, self.pos.y - 10, 10, 20)
 
     def shot(self):
         pass
