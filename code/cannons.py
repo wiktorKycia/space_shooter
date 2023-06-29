@@ -23,3 +23,6 @@ class Kinetic60Gun:
     def tick(self):
         self.clock += self.game.dt
 
+    def draw(self):
+        pygame.draw.rect(self.game.screen, (255, 255, 255), self.rect)
+
