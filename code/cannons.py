@@ -18,6 +18,7 @@ class Kinetic60Gun:
 
     def shot(self):
         bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
+        bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
 
     def tick(self):
