@@ -3,12 +3,11 @@ import pygame
 from code.bullets import *
 
 class Kinetic60Gun:
-    def __init__(self, game, ship, x, y, force, interval, key=pygame.K_SPACE):
+    def __init__(self, game, ship, translation:Vector2, force:int , interval:float, key=pygame.K_SPACE):
         self.game = game
         self.ship = ship
-        self.pos = Vector2(x, y)
-        self.x = x
-        self.y = y
+        self.pos = ship.pos
+        self.translation = translation
         self.force = force
         self.interval = interval
         self.key = key
