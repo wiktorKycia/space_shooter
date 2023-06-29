@@ -24,14 +24,14 @@ class Kinetic60Gun:
 
     def calculate_kickback_force(self, bullet):
         acc = -bullet.acc  # getting initial bullet velocity
-        tim = math.sqrt(2 * self.barrel / acc)  # time that bullet spent in the barrel
+        tim = Vector2(math.sqrt(2 * self.barrel / acc.x), math.sqrt(2 * self.barrel / acc.y))  # time that bullet spent in the barrel
         vel1 = acc * tim        # getting vel of the bullet after escaping from barrel
-        vel = (bullet.mass * vel1) / self.ship.mass
-        # getting initial velocity from zasada zachowania pędu
+        vel = (bullet.mass * vel1) / self.ship.mass # getting initial velocity from zasada zachowania pędu
         vel.x *= vel.x
         vel.y *= vel.y
         energy = (self.ship.mass * vel) / 2  # calculating kinetic energy
         force = energy / self.barrel  # calculating kickback force
+        print(type(force))
         return force
     def tick(self):
         self.clock += self.game.dt
