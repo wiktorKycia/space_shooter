@@ -49,6 +49,8 @@ class PlayableShip(object):
         self.bullets = []
         self.clock = 0
 
+        self.max_speed = 2
+
         self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
 
     def add_force(self, force):
