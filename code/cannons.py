@@ -1,8 +1,9 @@
 from code.bullets import *
 
 class Kinetic60Gun:
-    def __init__(self, game, x, y, force, interval, key=pygame.K_SPACE):
+    def __init__(self, game, ship, x, y, force, interval, key=pygame.K_SPACE):
         self.game = game
+        self.ship = ship
         self.x = x
         self.y = y
         self.force = force
@@ -16,3 +17,4 @@ class Kinetic60Gun:
 
     def tick(self):
         self.clock += self.game.dt
+
