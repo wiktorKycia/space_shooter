@@ -4,6 +4,7 @@ from pygame.math import Vector2
 import os
 from code import *
 from code.other import *
+from code.cannons import *
 
 mixer.init()
 
@@ -52,6 +53,8 @@ class PlayableShip(object):
 
         self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
 
+        self.cannon = Kinetic60Gun(self.game, self, Vector2(0, -20), self.force, 0.25)
+
     def add_force(self, force):
         self.acc += force / self.mass
 
@@ -96,12 +99,14 @@ class PlayableShip(object):
             else:
                 bullet.tick()
         self.hp.tick()
+        self.cannon.tick()
     def draw(self):
         for bullet in self.bullets:
             bullet.draw()
             if bullet.pos.y <= 0 - bullet.height:
                 self.bullets.remove(bullet)
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
+        self.cannon.draw()
         # pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
         # self.hp.draw()
 
