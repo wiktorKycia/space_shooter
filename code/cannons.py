@@ -20,6 +20,7 @@ class Kinetic60Gun:
         bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
+        self.ship.add_force(self.calculate_kickback_force(bullet))
 
     def calculate_kickback_force(self, bullet):
         acc = -bullet.acc  # getting initial bullet velocity
