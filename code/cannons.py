@@ -22,8 +22,13 @@ class Kinetic60Gun:
         self.ship.bullets.append(bullet)
 
     def calculate_kickback_force(self):
-
-
+        acc = -bullet.acc  # getting initial bullet velocity
+        vel = (bullet.mass * acc) / self.mass
+        # getting initial velocity from zasada zachowania pędu
+        vel.x *= vel.x
+        vel.y *= vel.y
+        energy = (self.mass * vel) / 2  # calculating kinetic energy
+        force = energy / self.barrel  # calculating kickback force
     def tick(self):
         self.clock += self.game.dt
         self.pos = self.ship.pos + self.translation
