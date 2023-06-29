@@ -2,8 +2,8 @@ import pygame
 import math
 from code.bullets import *
 
-class Kinetic60Gun:
-    def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
+class BaseCannon:
+    def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length, key=pygame.K_SPACE):
         self.game = game
         self.ship = ship
         self.pos = ship.pos
@@ -13,14 +13,10 @@ class Kinetic60Gun:
         self.key = key
 
         self.clock = 0
-        self.barrel = 100
-        # self.rect = pygame.Rect(self.pos.x - 5, self.pos.y - 10, 10, 20)
+        self.barrel = barrel_length
 
     def shot(self):
-        bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
-        bullet.sound.play(0, 800)
-        self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        pass
 
     def calculate_kickback_force(self, bullet):
         acc = -bullet.acc  # getting initial bullet velocity
@@ -38,6 +34,7 @@ class Kinetic60Gun:
         energy = (self.ship.mass * vel) / 2  # calculating kinetic energy
         force = energy / self.barrel  # calculating kickback force
         return force
+
     def tick(self):
         self.clock += self.game.dt
         self.pos = self.ship.pos + self.translation
@@ -47,6 +44,23 @@ class Kinetic60Gun:
             self.clock = 0
             self.shot()
 
+class Kinetic60Gun(BaseCannon):
+    def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
+        self.barrel = 100
+        super().__init__(game, ship, translation, force, interval, self.barrel, key)
+
+        # self.rect = pygame.Rect(self.pos.x - 5, self.pos.y - 10, 10, 20)
+
+    def shot(self):
+        bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
+        bullet.sound.play(0, 800)
+        self.ship.bullets.append(bullet)
+        self.ship.add_force(self.calculate_kickback_force(bullet))
+
+    def calculate_kickback_force(self, bullet):
+        return super().calculate_kickback_force(bullet)
+    def tick(self):
+        super().tick()
 
     def draw(self):
         # pygame.draw.rect(self.game.screen, (255, 255, 255), self.rect)
