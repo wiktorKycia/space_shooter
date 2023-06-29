@@ -99,6 +99,7 @@ class PlayableShip(object):
             else:
                 bullet.tick()
         self.hp.tick()
+        self.cannon.tick()
     def draw(self):
         for bullet in self.bullets:
             bullet.draw()
