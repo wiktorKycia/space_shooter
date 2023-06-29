@@ -23,6 +23,11 @@ class Kinetic60Gun:
         self.clock += self.game.dt
         self.pos = self.ship.pos + self.translation
         # self.rect.center = self.pos
+        pressed = pygame.key.get_pressed()
+        if pressed[pygame.K_e] and self.clock > 0.5:
+            self.clock = 0
+            print("E")
+
 
     def draw(self):
         # pygame.draw.rect(self.game.screen, (255, 255, 255), self.rect)
