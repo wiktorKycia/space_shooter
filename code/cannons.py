@@ -1,3 +1,5 @@
+import pygame
+
 from code.bullets import *
 
 class Kinetic60Gun:
@@ -12,6 +14,8 @@ class Kinetic60Gun:
         self.key = key
 
         self.clock = 0
+
+        self.rect = pygame.Rect(self.pos.x - 10, self.pos.y - 10, 20, 20)
 
     def shot(self):
         pass
