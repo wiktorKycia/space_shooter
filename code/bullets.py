@@ -45,7 +45,7 @@ class Kinetic60Bullet(Bullet):
         self.width = 2
         self.height = 2
         self.force = force
-        self.mass = 4.0
+        self.mass = 1.0
         self.color = (200, 210, 55)
         self.sound = "./shot_sounds/M60-single.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
