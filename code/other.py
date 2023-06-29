@@ -42,7 +42,7 @@ class DeluxeHP:
 
         self.bar_length = width
         self.health_ratio = self.max_hp / self.bar_length
-        self.change_speed = 10000
+        self.change_speed = 5000
 
         self.height = height
         self.x = x
