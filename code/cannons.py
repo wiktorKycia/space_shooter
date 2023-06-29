@@ -7,3 +7,9 @@ class Kinetic60Gun:
         self.force = force
         self.interval = interval
         self.key = key
+
+    def shot(self):
+        pass
+
+    def tick(self):
+        pass
