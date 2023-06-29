@@ -29,6 +29,7 @@ class Kinetic60Gun:
         vel.y *= vel.y
         energy = (self.mass * vel) / 2  # calculating kinetic energy
         force = energy / self.barrel  # calculating kickback force
+        return force
     def tick(self):
         self.clock += self.game.dt
         self.pos = self.ship.pos + self.translation
