@@ -21,6 +21,9 @@ class Kinetic60Gun:
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
 
+    def calculate_kickback_force(self):
+
+
     def tick(self):
         self.clock += self.game.dt
         self.pos = self.ship.pos + self.translation
