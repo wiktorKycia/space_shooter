@@ -95,7 +95,7 @@ class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
         self.image = "./enemies/Enemy2.png"
-        super().__init__(self.game, self.image, x, y , 0.99, 150, 100, 1200, 5, 10)
+        super().__init__(self.game, self.image, x, y , 0.99, 150, 100, 1200, 5, 250000)
 
     def add_force(self, force):
         super().add_force(force)
@@ -128,7 +128,7 @@ class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
         self.image = "./enemies/Enemy3.png"
-        super().__init__(self.game, self.image, x, y , 0.98, 540, 350, 2500, 6, 10)
+        super().__init__(self.game, self.image, x, y , 0.98, 540, 350, 2500, 6, 450000)
 
     def add_force(self, force):
         super().add_force(force)
