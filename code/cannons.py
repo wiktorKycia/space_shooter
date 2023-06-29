@@ -24,7 +24,13 @@ class Kinetic60Gun:
 
     def calculate_kickback_force(self, bullet):
         acc = -bullet.acc  # getting initial bullet velocity
-        tim = Vector2(math.sqrt(2 * self.barrel / acc.x), math.sqrt(2 * self.barrel / acc.y))  # time that bullet spent in the barrel
+        try: # time that bullet spent in the barrel
+            tim = Vector2(math.sqrt(2 * self.barrel / acc.x), math.sqrt(2 * self.barrel / acc.y))
+        except ZeroDivisionError:
+            if acc.x == 0:
+                tim = Vector2(0, math.sqrt(2 * self.barrel / acc.y))
+            elif acc.y == 0:
+                tim = Vector2(math.sqrt(2 * self.barrel / acc.x), 0)
         vel1 = acc * tim        # getting vel of the bullet after escaping from barrel
         vel = (bullet.mass * vel1) / self.ship.mass # getting initial velocity from zasada zachowania pędu
         vel.x *= vel.x
