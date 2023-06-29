@@ -180,7 +180,7 @@ class GameMenu:
 
         write(self.game, f"Health points: {str(self.game.player.current_ship.hp.max_hp)}", 50, 300, 28, (200, 200, 200))
         write(self.game, f"Force: {str(self.game.player.current_ship.force)}", 50, 350, 28, (200, 200, 200))
-        write(self.game, f"Mass: {str(self.game.player.current_ship.mass)}", 50, 450, 28, (200, 200, 200))
+        write(self.game, f"Mass: {str(self.game.player.current_ship.mass)}", 50, 400, 28, (200, 200, 200))
 
 class LevelsMenu:
     def __init__(self, game):
