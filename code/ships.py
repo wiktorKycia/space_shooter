@@ -27,7 +27,7 @@ class Ship(object):
         self.game.screen.blit(self.image, (self.x - self.width/2, self.y - self.height/2))
 
 class PlayableShip(object):
-    def __init__(self, game, image_path, slip, max_speed, mass, force, barrel_length):
+    def __init__(self, game, image_path, slip, max_speed, mass, force):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
         self.hitbox = self.image.get_rect()
@@ -45,7 +45,6 @@ class PlayableShip(object):
         self.acc = Vector2(0, 0)
 
         self.force = force
-        self.barrel = barrel_length
         self.bullets = []
         self.clock = 0
 
@@ -53,7 +52,8 @@ class PlayableShip(object):
 
         self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
 
-        self.cannon = Kinetic60Gun(self.game, self, Vector2(0, -20), self.force, 0.25)
+        self.cannon = Kinetic60Gun(self.game, self, Vector2(20, -20), self.force, 0.02)
+        self.cannon2 = Kinetic60Gun(self.game, self, Vector2(-20, -20), self.force, 0.02)
 
     def add_force(self, force):
         self.acc += force / self.mass
@@ -100,6 +100,7 @@ class PlayableShip(object):
                 bullet.tick()
         self.hp.tick()
         self.cannon.tick()
+        self.cannon2.tick()
     def draw(self):
         for bullet in self.bullets:
             bullet.draw()
@@ -107,6 +108,7 @@ class PlayableShip(object):
                 self.bullets.remove(bullet)
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
         self.cannon.draw()
+        self.cannon2.draw()
         # pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
         # self.hp.draw()
 
@@ -114,27 +116,12 @@ class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship1.png"
-        super().__init__(game, self.path, 0.98, 150, 100, 400, 10)
+        super().__init__(game, self.path, 0.98, 150, 100, 400)
 
     def add_force(self, force):
         super().add_force(force)
     def tick(self):
         super().tick()
-        pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_SPACE] and self.clock >= 0.25:
-            self.clock = 0
-            bullet = Bullet(self.game, self.pos.x, self.pos.y, 5, 50, self.force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
-            # bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.shot_force)
-            self.bullets.append(bullet)
-            bullet.sound.play(0, 800)
-            acc = -bullet.acc # getting initial bullet velocity
-            vel = (bullet.mass * acc) / self.mass
-                # getting initial velocity from zasada zachowania pędu
-            vel.x *= vel.x
-            vel.y *= vel.y
-            energy = (self.mass * vel) / 2 # calculating kinetic energy
-            force = energy / self.barrel # calculating kickback force
-            self.add_force(Vector2(force.x, force.y))
     def draw(self):
         super().draw()
 
@@ -142,30 +129,12 @@ class Ship2(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship2.png"
-        super().__init__(game, self.path, 0.98, 170, 38, 500, 10)
+        super().__init__(game, self.path, 0.98, 170, 38, 500)
 
     def add_force(self, force):
         super().add_force(force)
     def tick(self):
         super().tick()
-        pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_SPACE] and self.clock >= 0.30:
-            self.clock = 0
-            bullet = Bullet(self.game, self.pos.x-27, self.pos.y-15, 5, 50, self.force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
-            bullet1 = Bullet(self.game, self.pos.x+27, self.pos.y-15, 5, 50, self.force, 0.5, (0, 200, 230), './shot_sounds/blaster.mp3')
-            self.bullets.append(bullet)
-            self.bullets.append(bullet1)
-            bullet.sound.play(0, 650)
-            bullet1.sound.play(0, 650)
-            acc = -bullet.acc # getting initial bullet velocity
-            vel = (bullet.mass * acc) / self.mass
-                # getting initial velocity from zasada zachowania pędu
-            vel.x *= vel.x
-            vel.y *= vel.y
-            energy = (self.mass * vel) / 2 # calculating kinetic energy
-            force = energy / self.barrel # calculating kickback force
-            self.add_force(Vector2(force.x, force.y))
-            self.add_force(Vector2(force.x, force.y))
     def draw(self):
         super().draw()
 
