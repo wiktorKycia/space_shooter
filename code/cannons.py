@@ -3,7 +3,7 @@ import math
 from code.bullets import *
 
 class Kinetic60Gun:
-    def __init__(self, game, ship, translation:Vector2, force:int, barrel_length:int, interval:float, key=pygame.K_SPACE):
+    def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
         self.game = game
         self.ship = ship
         self.pos = ship.pos
@@ -13,7 +13,7 @@ class Kinetic60Gun:
         self.key = key
 
         self.clock = 0
-        self.barrel = barrel_length
+        self.barrel = 100
         # self.rect = pygame.Rect(self.pos.x - 5, self.pos.y - 10, 10, 20)
 
     def shot(self):
