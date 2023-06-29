@@ -44,8 +44,9 @@ class BaseCannon:
             self.clock = 0
             self.shot()
 
-class Kinetic60Gun:
+class Kinetic60Gun(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
+        super().__init__(game, ship, translation, force, interval, pygame.K_SPACE)
         self.game = game
         self.ship = ship
         self.pos = ship.pos
