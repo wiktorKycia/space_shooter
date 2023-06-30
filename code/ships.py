@@ -97,8 +97,7 @@ class PlayableShip(object):
                 self.bullets.remove(bullet)
             else:
                 bullet.tick()
-        self.hp.tick()
-        self.cannon.tick()
+
     def draw(self):
         for bullet in self.bullets:
             bullet.draw()
@@ -110,12 +109,16 @@ class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship1.png"
+        self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
+        self.cannon = Blaster(self.game, self, Vector2(0, -20), self.force, 0.3)
         super().__init__(game, self.path, 0.98, 150, 100, 1000)
 
     def add_force(self, force):
         super().add_force(force)
     def tick(self):
         super().tick()
+        self.hp.tick()
+        self.cannon.tick()
     def draw(self):
         super().draw()
 
