@@ -85,11 +85,11 @@ class KineticBullet(Bullet):
 
 class BlasterBullet(Bullet):
     def __init__(self, game, x, y, force):
-        self.width = 4
-        self.height = 10
+        self.width = 5
+        self.height = 25
         self.force = force
-        self.mass = 10.0
-        self.color = (175, 210, 190)
+        self.mass = 5.0
+        self.color = (120, 230, 180)
         self.sound = "./shot_sounds/blaster.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
