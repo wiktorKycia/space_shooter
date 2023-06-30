@@ -110,7 +110,7 @@ class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship1.png"
-        super().__init__(game, self.path, 0.98, 150, 100, 400)
+        super().__init__(game, self.path, 0.98, 150, 100, 1000)
 
     def add_force(self, force):
         super().add_force(force)
