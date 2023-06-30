@@ -128,8 +128,8 @@ class Ship2(PlayableShip):
         self.path = "./ships/ship2.png"
         self.hp = DeluxeHP(self.game, 900000, 200, 700, 350, 30)
         super().__init__(game, self.path, 0.98, 170, 75, 1250)
-        self.cannon = LaserCannon(self.game, self, Vector2(27, -20), self.force, 0.5)
-        self.cannon2 = LaserCannon(self.game, self, Vector2(-27, -20), self.force, 0.5)
+        self.cannon = LaserLightCannon(self.game, self, Vector2(27, -20), self.force, 0.5)
+        self.cannon2 = LaserLightCannon(self.game, self, Vector2(-27, -20), self.force, 0.5)
 
     def add_force(self, force):
         super().add_force(force)
