@@ -52,8 +52,8 @@ class PlayableShip(object):
 
         self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
 
-        self.cannon = Kinetic60Gun(self.game, self, Vector2(20, -20), self.force, 0.03)
-        self.cannon2 = Kinetic60Gun(self.game, self, Vector2(-20, -20), self.force, 0.03)
+        self.cannon = Kinetic9Gun(self.game, self, Vector2(20, -20), self.force, 0.3)
+        self.cannon2 = Kinetic9Gun(self.game, self, Vector2(-20, -20), self.force, 0.3)
 
     def add_force(self, force):
         self.acc += force / self.mass
@@ -107,8 +107,8 @@ class PlayableShip(object):
             if bullet.pos.y <= 0 - bullet.height:
                 self.bullets.remove(bullet)
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
-        self.cannon.draw()
-        self.cannon2.draw()
+        # self.cannon.draw()
+        # self.cannon2.draw()
         # pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
         # self.hp.draw()
 
