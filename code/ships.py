@@ -116,12 +116,11 @@ class Ship1(PlayableShip):
     def add_force(self, force):
         super().add_force(force)
     def tick(self):
-
+        self.hp.tick()
         super().tick()
         self.cannon.tick()
     def draw(self):
         super().draw()
-        self.hp.tick()
 
 class Ship2(PlayableShip):
     def __init__(self, game):
@@ -135,11 +134,10 @@ class Ship2(PlayableShip):
     def add_force(self, force):
         super().add_force(force)
     def tick(self):
-
+        self.hp.tick()
         super().tick()
         self.cannon.tick()
         self.cannon2.tick()
     def draw(self):
         super().draw()
-        self.hp.tick()
 
