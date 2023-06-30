@@ -65,3 +65,5 @@ class Kinetic60Gun(BaseCannon):
     def draw(self):
         # pygame.draw.rect(self.game.screen, (255, 255, 255), self.rect)
         pass
+
+class Kinetic9Gun(BaseCannon):
