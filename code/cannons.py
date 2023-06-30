@@ -123,7 +123,7 @@ class LaserCannon(BaseCannon):
 
 class LaserLightCannon(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
-        self.barrel = 200
+        self.barrel = 150
         super().__init__(game, ship, translation, force, interval, self.barrel, key)
 
     def shot(self):
