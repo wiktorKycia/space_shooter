@@ -29,7 +29,7 @@ class Bullet(object):
             self.sound.set_volume(0.1)
     def tick(self):
         # Physics
-        self.vel *= 0.999
+        self.vel *= 0.9995
 
         self.vel += self.acc
         self.pos += self.vel * self.game.dt
