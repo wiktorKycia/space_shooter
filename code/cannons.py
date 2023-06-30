@@ -67,3 +67,12 @@ class Kinetic60Gun(BaseCannon):
         pass
 
 class Kinetic9Gun(BaseCannon):
+    def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
+        self.barrel = 50
+        super().__init__(game, ship, translation, force, interval, self.barrel, key)
+
+    def shot(self):
+        bullet = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
+        bullet.sound.play(0, 800)
+        self.ship.bullets.append(bullet)
+        self.ship.add_force(self.calculate_kickback_force(bullet))
