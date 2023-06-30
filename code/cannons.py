@@ -105,7 +105,29 @@ class EnergyGun(BaseCannon):
         super().__init__(game, ship, translation, force, interval, self.barrel, key)
 
     def shot(self):
-        bullet = BlasterBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
+        bullet = EnergyGunBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
+        bullet.sound.play(0, 800)
+        self.ship.bullets.append(bullet)
+        self.ship.add_force(self.calculate_kickback_force(bullet))
+
+class LaserCannon(BaseCannon):
+    def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
+        self.barrel = 200
+        super().__init__(game, ship, translation, force, interval, self.barrel, key)
+
+    def shot(self):
+        bullet = LaserCannonBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
+        bullet.sound.play(0, 800)
+        self.ship.bullets.append(bullet)
+        self.ship.add_force(self.calculate_kickback_force(bullet))
+
+class LaserLightCannon(BaseCannon):
+    def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
+        self.barrel = 200
+        super().__init__(game, ship, translation, force, interval, self.barrel, key)
+
+    def shot(self):
+        bullet = LaserLightCannonBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
         self.ship.add_force(self.calculate_kickback_force(bullet))
