@@ -59,7 +59,7 @@ class Kinetic9Bullet(Bullet):
         self.width = 3
         self.height = 6
         self.force = force
-        self.mass = 0.65
+        self.mass = 1.3
         self.color = (90, 90, 100)
         self.sound = "./shot_sounds/gunshot.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -73,7 +73,7 @@ class KineticBullet(Bullet):
         self.width = 2
         self.height = 4
         self.force = force
-        self.mass = 5.0
+        self.mass = 2.0
         self.color = (130, 130, 120)
         self.sound = "./shot_sounds/kinetic-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
