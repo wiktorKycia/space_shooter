@@ -437,11 +437,10 @@ class Level9(Level):
                     self.block.line(self.game.width / 2, 100, 7)
                     self.block.line(self.game.width / 2, 200, 7)
                 case 4:
-                    self.block.triangle2(self.game.width / 4, 150)
-                    self.block.triangle2(self.game.width * 3 / 4, 150)
-                # case 5:
-                #     self.block.pair(self.game.width*3/4, 100, 2)
-                #     self.block.pair(self.game.width/4, 100, 2)
+                    self.block.triangle3(self.game.width / 4, 150)
+                    self.block.triangle3(self.game.width * 3 / 4, 150)
+                case 5:
+                    self.block.triangle5(self.game.width/2, 150)
                 case _:
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
