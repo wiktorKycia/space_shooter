@@ -367,7 +367,7 @@ class Level7(Level):
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
 
-class Level7(Level):
+class Level8(Level):
     def __init__(self, game):
         super().__init__(game)
         self.clock = pygame.time.Clock()
@@ -388,9 +388,7 @@ class Level7(Level):
             match self.wave_number:
                 case 0: pass
                 case 1:
-                    self.block.triangle2(self.game.width / 5, 100)
-                    self.block.line(self.game.width / 2, 100, 3)
-                    self.block.triangle2(self.game.width * 4 / 5, 100)
+                    self.block.add_single(Enemy3(self.game, self.game.width/2, 150))
                 case 2:
                     self.block.line(self.game.width / 2, 100, 6, 2)
                 case 3:
