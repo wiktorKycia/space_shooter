@@ -27,7 +27,8 @@ class Game(object):
         self.levels = [
             Level1(self), Level2(self), Level3(self),
             Level4(self), Level5(self), Level6(self),
-            Level7(self), Level8(self), Level9(self)
+            Level7(self), Level8(self), Level9(self),
+            Level10(self)
         ]
         self.level_pointer = 0
 
