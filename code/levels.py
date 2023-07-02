@@ -467,7 +467,9 @@ class Level10(Level):
             match self.wave_number:
                 case 0: pass
                 case 1:
-                    self.block.triangle4(self.game.width/2, 150)
+                    self.block.line(self.game.width / 2, 50, 6)
+                    self.block.line(self.game.width / 2, 150, 6)
+                    self.block.line(self.game.width / 2, 250, 6)
                 case 2:
                     self.block.add_single(Enemy3(self.game, self.game.width / 2, 150))
                     self.block.add_single(Enemy2(self.game, self.game.width / 4, 100))
