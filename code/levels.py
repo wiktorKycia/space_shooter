@@ -350,8 +350,9 @@ class Level7(Level):
             match self.wave_number:
                 case 0: pass
                 case 1:
-                    self.block.triangle3(self.game.width*4/5, 100)
-                    self.block.triangle3(self.game.width/5, 100)
+                    self.block.triangle2(self.game.width / 5, 100)
+                    self.block.line(self.game.width / 2, 100, 3)
+                    self.block.triangle2(self.game.width * 4 / 5, 100)
                 case 2:
                     self.block.triangle2(self.game.width/2, 100)
                     self.block.triangle2(self.game.width/5, 100)
