@@ -113,6 +113,15 @@ class Ship0(PlayableShip):
         super().__init__(game, self.path, 0.98, 120, 40, 250)
         self.cannon = KineticGun(self.game, self, Vector2(0, -10), self.force, 0.3)
 
+    def add_force(self, force):
+        super().add_force(force)
+    def tick(self):
+        self.hp.tick()
+        super().tick()
+        self.cannon.tick()
+    def draw(self):
+        super().draw()
+
 class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
