@@ -26,7 +26,8 @@ class Game(object):
         self.enemies = []
         self.levels = [
             Level1(self), Level2(self), Level3(self),
-            Level4(self), Level5(self), Level6(self)
+            Level4(self), Level5(self), Level6(self),
+            Level7(self)
         ]
         self.level_pointer = 0
 
