@@ -50,9 +50,6 @@ class PlayableShip(object):
 
         self.max_speed = max_speed
 
-        self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
-
-        self.cannon = Blaster(self.game, self, Vector2(0, -20), self.force, 0.3)
 
     def add_force(self, force):
         self.acc += force / self.mass
