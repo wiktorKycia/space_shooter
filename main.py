@@ -22,15 +22,12 @@ class Game(object):
         self.player = Player(self)
         self.mouse = Mouse(self)
 
-        #levels
-        self.level1 = Level1(self)
-        self.level2 = Level2(self)
-        self.level3 = Level3(self)
-        self.level4 = Level4(self)
-
         # lists
         self.enemies = []
-        self.levels = [self.level1, self.level2, self.level3, self.level4]
+        self.levels = [
+            Level1(self), Level2(self), Level3(self),
+            Level4(self), Level5(self)
+        ]
         self.level_pointer = 0
 
         self.other_bullets = []
