@@ -254,7 +254,7 @@ class Level4(Level):
                     self.block.pair(self.game.width/2, 100, 2)
                 case 5:
                     self.block.line(self.game.width / 2, 100, 3)
-                    self.block.triangle1(self.game.width / 2, 150)
+                    self.block.triangle1(self.game.width / 2, 200)
                 case _:
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
