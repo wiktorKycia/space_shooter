@@ -309,7 +309,7 @@ class Level6(Level):
             self.flag = False
             self.point_time = pygame.time.get_ticks()
             self.wave_number += 1
-        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
+        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1400:
             self.flag = True
             match self.wave_number:
                 case 0: pass
