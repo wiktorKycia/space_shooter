@@ -162,9 +162,10 @@ class Ship3(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship3.png"
-        self.hp = DeluxeHP(self.game, 500000, 200, 700, 350, 30)
-        super().__init__(game, self.path, 0.98, 120, 40, 250)
-        self.cannon = KineticGun(self.game, self, Vector2(0, -10), self.force, 0.6)
+        self.hp = DeluxeHP(self.game, 2000000, 200, 700, 350, 30)
+        super().__init__(game, self.path, 0.98, 200, 200, 5000)
+        self.cannon = Blaster(self.game, self, Vector2(-30, -30), self.force, 0.4)
+        self.cannon2 = Blaster(self.game, self, Vector2(30, -30), self.force, 0.4)
 
     def add_force(self, force):
         super().add_force(force)
@@ -172,6 +173,7 @@ class Ship3(PlayableShip):
         self.hp.tick()
         super().tick()
         self.cannon.tick()
+        self.cannon2.tick()
     def draw(self):
         super().draw()
 
