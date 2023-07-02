@@ -1,13 +1,14 @@
 import pygame
 import os
 from code import *
+from code.ships import *
 
 class Player(object):
     def __init__(self, game, coins=1500):
         self.game = game
         self.coins = coins
         self.ships = []
-        self.add_new_ship(Ship5(self.game))
+        self.add_new_ship(Ship3(self.game))
         self.current_ship = self.ships[0]
 
     def add_coins(self, amount:int):
