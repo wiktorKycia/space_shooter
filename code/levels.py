@@ -444,3 +444,42 @@ class Level9(Level):
                 case _:
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
+
+
+class Level10(Level):
+    def __init__(self, game):
+        super().__init__(game)
+        self.clock = pygame.time.Clock()
+        self.current_time = 0
+        self.point_time = 0
+        self.wave_number = 0
+        self.flag = True
+
+    def tick(self):
+        self.current_time = pygame.time.get_ticks()
+
+        if self.check_if_all_died() and self.flag:
+            self.flag = False
+            self.point_time = pygame.time.get_ticks()
+            self.wave_number += 1
+        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1400:
+            self.flag = True
+            match self.wave_number:
+                case 0: pass
+                case 1:
+                    self.block.triangle4(self.game.width/2, 150)
+                case 2:
+                    self.block.add_single(Enemy3(self.game, self.game.width / 2, 150))
+                    self.block.add_single(Enemy2(self.game, self.game.width / 4, 100))
+                    self.block.add_single(Enemy2(self.game, self.game.width * 3 / 4, 100))
+                case 3:
+                    self.block.line(self.game.width / 2, 100, 7)
+                    self.block.line(self.game.width / 2, 200, 7)
+                case 4:
+                    self.block.triangle3(self.game.width / 4, 150)
+                    self.block.triangle3(self.game.width * 3 / 4, 150)
+                case 5:
+                    self.block.triangle5(self.game.width/2, 150)
+                case _:
+                    self.game.showing = "gamemenu"
+                    self.game.gamemenu.__init__(self.game)
