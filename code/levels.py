@@ -356,8 +356,8 @@ class Level7(Level):
                 case 2:
                     self.block.line(self.game.width / 2, 100, 6, 2)
                 case 3:
-                    self.block.line(self.game.width / 2, 100, 3)
-                    self.block.line(self.game.width / 2, 200, 3)
+                    self.block.line(self.game.width / 2, 100, 5)
+                    self.block.line(self.game.width / 2, 200, 5)
                 case 4:
                     self.block.line(self.game.width / 2, 100, 3, 5)
                 case _:
