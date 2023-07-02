@@ -1,8 +1,9 @@
 import pygame.time
-
+import pygame.math
 import code
 from code import *
 from code.other import *
+from code.bullets import *
 import os
 
 class BaseEnemy(object):
