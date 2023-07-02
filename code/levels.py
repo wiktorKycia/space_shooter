@@ -286,7 +286,7 @@ class Level5(Level):
                 case 3:
                     self.block.line(self.game.width / 2, 100, 8)
                 case 4:
-                    self.block.pair(self.game.width/2, 100, 2)
+                    self.block.pair(self.game.width/2, 150, 2)
                 case 5:
                     self.block.line(self.game.width / 2, 100, 3)
                     self.block.triangle1(self.game.width / 2, 200)
