@@ -324,9 +324,7 @@ class Level6(Level):
                     self.block.line(self.game.width / 2, 100, 3)
                     self.block.line(self.game.width / 2, 200, 3)
                 case 4:
-                    self.block.pair(self.game.width/2, 150, 2)
-                case 5:
-                    self.block.line(self.game.width / 2, 100, 3, 2)
+                    self.block.line(self.game.width / 2, 100, 3, 5)
                 case _:
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
