@@ -206,10 +206,10 @@ class Ship5(PlayableShip):
         self.path = "./ships/ship5.png"
         self.hp = DeluxeHP(self.game, 3500000, 200, 700, 350, 30)
         super().__init__(game, self.path, 0.98, 100, 500, 1000)
-        self.cannon = Blaster(self.game, self, Vector2(-25, -35), self.force, 0.4)
-        self.cannon2 = Blaster(self.game, self, Vector2(25, -35), self.force, 0.4)
-        self.cannon3 = Blaster(self.game, self, Vector2(-47, -30), self.force, 0.4)
-        self.cannon4 = Blaster(self.game, self, Vector2(47, -30), self.force, 0.4)
+        self.cannon = Blaster(self.game, self, Vector2(-60, -30), self.force, 0.4)
+        self.cannon2 = Blaster(self.game, self, Vector2(60, -30), self.force, 0.4)
+        self.cannon3 = Blaster(self.game, self, Vector2(-100, -30), self.force, 0.4)
+        self.cannon4 = Blaster(self.game, self, Vector2(100, -30), self.force, 0.4)
 
     def add_force(self, force):
         super().add_force(force)
