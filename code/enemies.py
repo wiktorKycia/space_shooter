@@ -1,8 +1,9 @@
 import pygame.time
-
+import pygame.math
 import code
 from code import *
 from code.other import *
+from code.bullets import *
 import os
 
 class BaseEnemy(object):
@@ -62,7 +63,7 @@ class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
         self.image = "./enemies/Enemy1.png"
-        super().__init__(self.game, self.image, x, y , 0.99, 100, 50, 200, 5, 100000)
+        super().__init__(self.game, self.image, x, y , 0.99, 100, 50, 400, 5, 100000)
 
     def add_force(self, force):
         super().add_force(force)
