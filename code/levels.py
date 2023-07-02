@@ -140,7 +140,6 @@ class Level1(Level):
         self.wave_number = 0
         self.flag = True
 
-
     def tick(self):
         self.current_time = pygame.time.get_ticks()
 
@@ -171,7 +170,6 @@ class Level2(Level):
         self.wave_number = 0
         self.flag = True
 
-
     def tick(self):
         self.current_time = pygame.time.get_ticks()
 
@@ -201,7 +199,6 @@ class Level3(Level):
         self.point_time = 0
         self.wave_number = 0
         self.flag = True
-
 
     def tick(self):
         self.current_time = pygame.time.get_ticks()
@@ -235,7 +232,6 @@ class Level4(Level):
         self.wave_number = 0
         self.flag = True
 
-
     def tick(self):
         self.current_time = pygame.time.get_ticks()
 
@@ -248,13 +244,17 @@ class Level4(Level):
             match self.wave_number:
                 case 0: pass
                 case 1:
-                    self.block.add_single(Enemy2(self.game, self.game.width/2, 100))
+                    self.block.line(self.game.width / 2, 100, 3)
                 case 2:
-                    self.block.line(self.game.width/2, 100, 3)
+                    self.block.triangle1(self.game.width/4, 100)
+                    self.block.triangle1(self.game.width*3/4, 100)
                 case 3:
-                    self.block.triangle2(self.game.width/2, 100)
+                    self.block.line(self.game.width / 2, 100, 6)
                 case 4:
-                    self.block.pair(self.game.width/2, 150)
+                    self.block.pair(self.game.width/2, 100, 2)
+                case 5:
+                    self.block.line(self.game.width / 2, 100, 3)
+                    self.block.triangle1(self.game.width / 2, 150)
                 case _:
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
