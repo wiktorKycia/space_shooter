@@ -106,6 +106,7 @@ class Game(object):
             enemy.draw()
 
         self.player.current_ship.draw()
+        self.player.current_ship.hp.tick()
 
 
 if __name__ == "__main__":

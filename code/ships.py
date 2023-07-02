@@ -52,7 +52,7 @@ class PlayableShip(object):
 
         self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
 
-        self.cannon = KineticGun(self.game, self, Vector2(0, -20), self.force, 0.3)
+        self.cannon = Blaster(self.game, self, Vector2(0, -20), self.force, 0.3)
 
     def add_force(self, force):
         self.acc += force / self.mass
@@ -97,8 +97,7 @@ class PlayableShip(object):
                 self.bullets.remove(bullet)
             else:
                 bullet.tick()
-        self.hp.tick()
-        self.cannon.tick()
+
     def draw(self):
         for bullet in self.bullets:
             bullet.draw()
@@ -110,12 +109,16 @@ class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship1.png"
-        super().__init__(game, self.path, 0.98, 150, 100, 400)
+        self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
+        super().__init__(game, self.path, 0.98, 150, 100, 1000)
+        self.cannon = Blaster(self.game, self, Vector2(0, -20), self.force, 0.3)
 
     def add_force(self, force):
         super().add_force(force)
     def tick(self):
+        self.hp.tick()
         super().tick()
+        self.cannon.tick()
     def draw(self):
         super().draw()
 
@@ -123,12 +126,18 @@ class Ship2(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./ships/ship2.png"
-        super().__init__(game, self.path, 0.98, 170, 38, 500)
+        self.hp = DeluxeHP(self.game, 900000, 200, 700, 350, 30)
+        super().__init__(game, self.path, 0.98, 170, 75, 1250)
+        self.cannon = LaserLightCannon(self.game, self, Vector2(27, -20), self.force, 0.5)
+        self.cannon2 = LaserLightCannon(self.game, self, Vector2(-27, -20), self.force, 0.5)
 
     def add_force(self, force):
         super().add_force(force)
     def tick(self):
+        self.hp.tick()
         super().tick()
+        self.cannon.tick()
+        self.cannon2.tick()
     def draw(self):
         super().draw()
 

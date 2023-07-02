@@ -29,7 +29,7 @@ class Bullet(object):
             self.sound.set_volume(0.1)
     def tick(self):
         # Physics
-        self.vel *= 0.999
+        self.vel *= 0.9995
 
         self.vel += self.acc
         self.pos += self.vel * self.game.dt
@@ -85,11 +85,11 @@ class KineticBullet(Bullet):
 
 class BlasterBullet(Bullet):
     def __init__(self, game, x, y, force):
-        self.width = 4
-        self.height = 10
+        self.width = 5
+        self.height = 25
         self.force = force
-        self.mass = 10.0
-        self.color = (175, 210, 190)
+        self.mass = 5.0
+        self.color = (120, 230, 180)
         self.sound = "./shot_sounds/blaster.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
@@ -102,8 +102,8 @@ class EnergyGunBullet(Bullet):
         self.width = 5
         self.height = 15
         self.force = force
-        self.mass = 12.0
-        self.color = (200, 180, 180)
+        self.mass = 7.0
+        self.color = (230, 150, 150)
         self.sound = "./shot_sounds/energy-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
@@ -114,10 +114,10 @@ class EnergyGunBullet(Bullet):
 
 class LaserCannonBullet(Bullet):
     def __init__(self, game, x, y, force):
-        self.width = 8
+        self.width = 4
         self.height = 50
         self.force = force
-        self.mass = 30.0
+        self.mass = 10.0
         self.color = (140, 220, 220)
         self.sound = "./shot_sounds/laser-cannon.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
@@ -128,10 +128,10 @@ class LaserCannonBullet(Bullet):
 
 class LaserLightCannonBullet(Bullet):
     def __init__(self, game, x, y, force):
-        self.width = 6
+        self.width = 4
         self.height = 40
         self.force = force
-        self.mass = 25.0
+        self.mass = 8.0
         self.color = (120, 230, 210)
         self.sound = "./shot_sounds/laser-cannon-light.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
