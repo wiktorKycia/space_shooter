@@ -471,9 +471,7 @@ class Level10(Level):
                     self.block.line(self.game.width / 2, 150, 6)
                     self.block.line(self.game.width / 2, 250, 6)
                 case 2:
-                    self.block.add_single(Enemy3(self.game, self.game.width / 2, 150))
-                    self.block.add_single(Enemy2(self.game, self.game.width / 4, 100))
-                    self.block.add_single(Enemy2(self.game, self.game.width * 3 / 4, 100))
+                    self.block.pair(self.game.width/2, 150, 3)
                 case 3:
                     self.block.line(self.game.width / 2, 100, 7)
                     self.block.line(self.game.width / 2, 200, 7)
