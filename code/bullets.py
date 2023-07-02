@@ -86,7 +86,7 @@ class KineticBullet(Bullet):
 class BlasterBullet(Bullet):
     def __init__(self, game, x, y, force):
         self.width = 5
-        self.height = 25
+        self.height = 30
         self.force = force
         self.mass = 5.0
         self.color = (120, 230, 180)
