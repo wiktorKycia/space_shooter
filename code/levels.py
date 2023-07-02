@@ -475,10 +475,10 @@ class Level10(Level):
                 case 3:
                     self.block.line(self.game.width / 2, 100, 8, 2)
                 case 4:
-                    self.block.triangle3(self.game.width / 4, 150)
-                    self.block.triangle3(self.game.width * 3 / 4, 150)
-                case 5:
-                    self.block.triangle5(self.game.width/2, 150)
+                    self.block.triangle5(self.game.width/5, 150)
+                    self.block.triangle5(self.game.width*4/5, 150)
+                # case 5:
+                #     self.block.triangle5(self.game.width/2, 150)
                 case _:
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
