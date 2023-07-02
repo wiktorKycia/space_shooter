@@ -434,8 +434,8 @@ class Level9(Level):
                     self.block.add_single(Enemy2(self.game, self.game.width / 4, 100))
                     self.block.add_single(Enemy2(self.game, self.game.width * 3 / 4, 100))
                 case 3:
-                    self.block.line(self.game.width / 2, 100, 3, 2)
-                    self.block.line(self.game.width / 2, 200, 3, 2)
+                    self.block.line(self.game.width / 2, 100, 7)
+                    self.block.line(self.game.width / 2, 200, 7)
                 case 4:
                     self.block.triangle2(self.game.width / 4, 150)
                     self.block.triangle2(self.game.width * 3 / 4, 150)
