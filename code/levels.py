@@ -473,8 +473,7 @@ class Level10(Level):
                 case 2:
                     self.block.pair(self.game.width/2, 150, 3)
                 case 3:
-                    self.block.line(self.game.width / 2, 100, 7)
-                    self.block.line(self.game.width / 2, 200, 7)
+                    self.block.line(self.game.width / 2, 100, 8, 2)
                 case 4:
                     self.block.triangle3(self.game.width / 4, 150)
                     self.block.triangle3(self.game.width * 3 / 4, 150)
