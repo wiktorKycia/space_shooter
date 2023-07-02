@@ -105,6 +105,10 @@ class PlayableShip(object):
                 self.bullets.remove(bullet)
         self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
 
+class Ship0(PlayableShip):
+    def __init__(self, game):
+
+
 class Ship1(PlayableShip):
     def __init__(self, game):
         self.game = game
