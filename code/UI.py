@@ -1,6 +1,7 @@
 from code.ships import *
 from code.player import *
 import pygame
+from pygame.math import *
 import os
 
 def write(game, text, x, y, font_size, color=(0, 0, 0), font_style="Arial", is_centered=False,):
@@ -143,6 +144,7 @@ class GameMenu:
         self.button_ship = Button(game, size[0]/4, self.game.height-50, "./images/button_ship.png", 1.0, "./images/button_ship_hover.png")
         self.button_hangar = Button(game, size[0]/2, self.game.height-50, "./images/button_hangar.png", 1.0, "./images/button_hangar_hover.png")
         self.button_shop = Button(game, size[0]*3/4, self.game.height-50, "./images/button_shop.png", 1.0, "./images/button_shop_hover.png")
+        self.button_back = Button(game, 700, 50, "./images/button_back.png", 1.0, "./images/button_back_hover.png")
         self.buttons = [self.button_endless,
                         self.button_levels,
                         self.button_two_players,
@@ -169,6 +171,8 @@ class GameMenu:
     def tick_menu(self):
         if self.button_levels.check_click():
             self.game.showing = "levelsmenu"
+        elif self.button_back.check_click():
+            self.game.showing = "mainmenu"
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
