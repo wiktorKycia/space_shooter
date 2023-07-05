@@ -196,7 +196,8 @@ class GameMenu:
 class LevelsMenu:
     def __init__(self, game):
         self.game = game
-        self.buttons = []
+        self.button_back = Button(game, 50, 700, "./images/button_back.png", 1.0, "./images/button_back_hover.png")
+        self.buttons = [self.button_back]
         for i, level in enumerate(self.game.levels):
             if (i+1) % 3 == 1:
                 self.buttons.append(LevelButton(self.game, self.game.width/5, self._calculate_level_y(i+1), 200, 100, i+1))
@@ -206,6 +207,8 @@ class LevelsMenu:
                 self.buttons.append(LevelButton(self.game, self.game.width*4/5, self._calculate_level_y(i+1), 200, 100, i+1))
 
     def tick_menu(self):
+        if self.button_back.check_click():
+            self.game.showing = "gamemenu"
         for i, button in enumerate(self.buttons):
             # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
