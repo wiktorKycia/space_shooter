@@ -213,7 +213,7 @@ class LevelsMenu:
             # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
                 self.game.level_pointer = i
-                self.game.levels[self.game.level_pointer].__init__(self.game)
+                self.game.levels[self.game.level_pointer-1].__init__(self.game)
                 self.game.showing = "game"
 
     def _calculate_level_y(self, level_id):
