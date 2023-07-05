@@ -1,6 +1,7 @@
 from code.ships import *
 from code.player import *
 import pygame
+from pygame.math import *
 import os
 
 def write(game, text, x, y, font_size, color=(0, 0, 0), font_style="Arial", is_centered=False,):
@@ -119,13 +120,18 @@ class MainMenu:
         self.title_image = pygame.transform.scale(self.title_image, (int(self.title_image.get_width() * 2), int(self.title_image.get_height() * 2)))
 
         self.button_play = Button(game, size[0]/2, size[1]/2, "./images/button_play.png", 1.0, "./images/button_play_hover.png")
-        self.buttons = [self.button_play]
+        self.button_exit = Button(game, 50, 700, "./images/button_exit.png", 1.0, "./images/button_exit_hover.png")
+        self.buttons = [
+            self.button_play,
+            self.button_exit
+        ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
 
     def tick_menu(self):
-        for button in self.buttons:
-            if button.check_click():
-                self.game.showing = "gamemenu"
+        if self.button_play.check_click():
+            self.game.showing = "gamemenu"
+        elif self.button_exit.check_click():
+            self.game.isrun = False
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
@@ -143,12 +149,15 @@ class GameMenu:
         self.button_ship = Button(game, size[0]/4, self.game.height-50, "./images/button_ship.png", 1.0, "./images/button_ship_hover.png")
         self.button_hangar = Button(game, size[0]/2, self.game.height-50, "./images/button_hangar.png", 1.0, "./images/button_hangar_hover.png")
         self.button_shop = Button(game, size[0]*3/4, self.game.height-50, "./images/button_shop.png", 1.0, "./images/button_shop_hover.png")
-        self.buttons = [self.button_endless,
+        self.button_back = Button(game, 50, 700, "./images/button_back.png", 1.0, "./images/button_back_hover.png")
+        self.buttons = [
+                        self.button_endless,
                         self.button_levels,
                         self.button_two_players,
                         self.button_ship,
                         self.button_hangar,
-                        self.button_shop
+                        self.button_shop,
+                        self.button_back
                         ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
         self.ship = self.game.player.current_ship
@@ -169,6 +178,8 @@ class GameMenu:
     def tick_menu(self):
         if self.button_levels.check_click():
             self.game.showing = "levelsmenu"
+        elif self.button_back.check_click():
+            self.game.showing = "mainmenu"
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
