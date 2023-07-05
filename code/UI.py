@@ -121,7 +121,10 @@ class MainMenu:
 
         self.button_play = Button(game, size[0]/2, size[1]/2, "./images/button_play.png", 1.0, "./images/button_play_hover.png")
         self.button_exit = Button(game, 700, 50, "./images/button_exit.png", 1.0, "./images/button_exit_hover.png")
-        self.buttons = [self.button_play]
+        self.buttons = [
+            self.button_play,
+            self.button_exit
+        ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
 
     def tick_menu(self):
@@ -147,12 +150,14 @@ class GameMenu:
         self.button_hangar = Button(game, size[0]/2, self.game.height-50, "./images/button_hangar.png", 1.0, "./images/button_hangar_hover.png")
         self.button_shop = Button(game, size[0]*3/4, self.game.height-50, "./images/button_shop.png", 1.0, "./images/button_shop_hover.png")
         self.button_back = Button(game, 700, 50, "./images/button_back.png", 1.0, "./images/button_back_hover.png")
-        self.buttons = [self.button_endless,
+        self.buttons = [
+                        self.button_endless,
                         self.button_levels,
                         self.button_two_players,
                         self.button_ship,
                         self.button_hangar,
-                        self.button_shop
+                        self.button_shop,
+                        self.button_back
                         ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
         self.ship = self.game.player.current_ship
