@@ -120,13 +120,15 @@ class MainMenu:
         self.title_image = pygame.transform.scale(self.title_image, (int(self.title_image.get_width() * 2), int(self.title_image.get_height() * 2)))
 
         self.button_play = Button(game, size[0]/2, size[1]/2, "./images/button_play.png", 1.0, "./images/button_play_hover.png")
+        self.button_exit = Button(game, 700, 50, "./images/button_exit.png", 1.0, "./images/button_exit_hover.png")
         self.buttons = [self.button_play]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
 
     def tick_menu(self):
-        for button in self.buttons:
-            if button.check_click():
-                self.game.showing = "gamemenu"
+        if self.button_play.check_click():
+            self.game.showing = "gamemenu"
+        elif self.button_exit.check_click():
+            self.game.isrun = False
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
