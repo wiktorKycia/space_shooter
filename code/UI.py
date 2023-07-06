@@ -224,7 +224,7 @@ class LevelsMenu:
         return y
 
     def draw_menu(self):
-        self.button_back.draw()
+        self.button_back.draw(self.game.screen)
         for button in self.buttons:
             button.draw(self.game.screen)
         #     if button.level_id % 3 == 1:
