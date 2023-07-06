@@ -220,7 +220,7 @@ class LevelsMenu:
         a = level_id % 3
         if a == 0: a = 3
         b = level_id - a
-        y = 100 + b * 50
+        y = 80 + b * 40
         return y
 
     def draw_menu(self):
