@@ -47,7 +47,7 @@ class Kinetic60Bullet(Bullet):
         self.force = force
         self.mass = 1.0
         self.color = (200, 210, 55)
-        self.sound = "./shot_sounds/M60-single.wav"
+        self.sound = "./sounds/shot_sounds/M60-single.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
@@ -61,7 +61,7 @@ class Kinetic9Bullet(Bullet):
         self.force = force
         self.mass = 1.3
         self.color = (90, 90, 100)
-        self.sound = "./shot_sounds/gunshot.wav"
+        self.sound = "./sounds/shot_sounds/gunshot.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
@@ -75,7 +75,7 @@ class KineticBullet(Bullet):
         self.force = force
         self.mass = 2.0
         self.color = (130, 130, 120)
-        self.sound = "./shot_sounds/kinetic-gun.mp3"
+        self.sound = "./sounds/shot_sounds/kinetic-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
@@ -90,7 +90,7 @@ class BlasterBullet(Bullet):
         self.force = force
         self.mass = 5.0
         self.color = (120, 230, 180)
-        self.sound = "./shot_sounds/blaster.mp3"
+        self.sound = "./sounds/shot_sounds/blaster.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
@@ -104,7 +104,7 @@ class EnergyGunBullet(Bullet):
         self.force = force
         self.mass = 7.0
         self.color = (230, 150, 150)
-        self.sound = "./shot_sounds/energy-gun.mp3"
+        self.sound = "./sounds/shot_sounds/energy-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
@@ -119,7 +119,7 @@ class LaserCannonBullet(Bullet):
         self.force = force
         self.mass = 50.0
         self.color = (140, 220, 220)
-        self.sound = "./shot_sounds/laser-cannon.wav"
+        self.sound = "./sounds/shot_sounds/laser-cannon.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
@@ -133,7 +133,7 @@ class LaserLightCannonBullet(Bullet):
         self.force = force
         self.mass = 8.0
         self.color = (120, 230, 210)
-        self.sound = "./shot_sounds/laser-cannon-light.mp3"
+        self.sound = "./sounds/shot_sounds/laser-cannon-light.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
@@ -148,7 +148,7 @@ class LaserLightGunBullet(Bullet):
         self.force = force
         self.mass = 3.0
         self.color = (150, 210, 150)
-        self.sound = "./shot_sounds/laser-light-gun.wav"
+        self.sound = "./sounds/shot_sounds/laser-light-gun.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
@@ -162,7 +162,7 @@ class LaserMediumGunBullet(Bullet):
         self.force = force
         self.mass = 6.0
         self.color = (150, 210, 150)
-        self.sound = "./shot_sounds/laser-medium-gun.mp3"
+        self.sound = "./sounds/shot_sounds/laser-medium-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
@@ -176,7 +176,7 @@ class LaserHeavyGunBullet(Bullet):
         self.force = force
         self.mass = 10.0
         self.color = (150, 210, 150)
-        self.sound = "./shot_sounds/laser-heavy-gun.wav"
+        self.sound = "./sounds/shot_sounds/laser-heavy-gun.wav"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()
@@ -190,7 +190,7 @@ class LaserLongGunBullet(Bullet):
         self.force = force
         self.mass = 9.0
         self.color = (150, 210, 150)
-        self.sound = "./shot_sounds/laser-long-gun.mp3"
+        self.sound = "./sounds/shot_sounds/laser-long-gun.mp3"
         super().__init__(game, x, y, self.width, self.height, self.force, self.mass, self.color, self.sound)
     def tick(self):
         super().tick()

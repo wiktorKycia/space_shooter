@@ -119,8 +119,8 @@ class MainMenu:
         self.title_image = pygame.image.load("./images/Game_title.png")
         self.title_image = pygame.transform.scale(self.title_image, (int(self.title_image.get_width() * 2), int(self.title_image.get_height() * 2)))
 
-        self.button_play = Button(game, size[0]/2, size[1]/2, "./images/button_play.png", 1.0, "./images/button_play_hover.png")
-        self.button_exit = Button(game, 50, 700, "./images/button_exit.png", 1.0, "./images/button_exit_hover.png")
+        self.button_play = Button(game, size[0]/2, size[1]/2, "./images/buttons/button_play.png", 1.0, "./images/buttons/button_play_hover.png")
+        self.button_exit = Button(game, 50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png")
         self.buttons = [
             self.button_play,
             self.button_exit
@@ -143,13 +143,13 @@ class GameMenu:
     def __init__(self, game):
         self.game = game
         size = game.screen.get_size()
-        self.button_endless = Button(game, size[0]/5, size[1]/5, "./images/button_endless.png", 1.0, "./images/button_endless_hover.png")
-        self.button_levels = Button(game, size[0]/2, size[1]/5, "./images/button_levels.png", 1.0, "./images/button_levels_hover.png")
-        self.button_two_players = Button(game, size[0]*4/5, size[1]/5, "./images/button_two_players.png", 1.0, "./images/button_two_players_hover.png")
-        self.button_ship = Button(game, size[0]/4, self.game.height-50, "./images/button_ship.png", 1.0, "./images/button_ship_hover.png")
-        self.button_hangar = Button(game, size[0]/2, self.game.height-50, "./images/button_hangar.png", 1.0, "./images/button_hangar_hover.png")
-        self.button_shop = Button(game, size[0]*3/4, self.game.height-50, "./images/button_shop.png", 1.0, "./images/button_shop_hover.png")
-        self.button_back = Button(game, 50, 700, "./images/button_back.png", 1.0, "./images/button_back_hover.png")
+        self.button_endless = Button(game, size[0]/5, size[1]/5, "./images/buttons/button_endless.png", 1.0, "./images/buttons/button_endless_hover.png")
+        self.button_levels = Button(game, size[0]/2, size[1]/5, "./images/buttons/button_levels.png", 1.0, "./images/buttons/button_levels_hover.png")
+        self.button_two_players = Button(game, size[0]*4/5, size[1]/5, "./images/buttons/button_two_players.png", 1.0, "./images/buttons/button_two_players_hover.png")
+        self.button_ship = Button(game, size[0]/4, self.game.height-50, "./images/buttons/button_ship.png", 1.0, "./images/buttons/button_ship_hover.png")
+        self.button_hangar = Button(game, size[0]/2, self.game.height-50, "./images/buttons/button_hangar.png", 1.0, "./images/buttons/button_hangar_hover.png")
+        self.button_shop = Button(game, size[0]*3/4, self.game.height-50, "./images/buttons/button_shop.png", 1.0, "./images/buttons/button_shop_hover.png")
+        self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
         self.buttons = [
                         self.button_endless,
                         self.button_levels,
@@ -196,8 +196,8 @@ class GameMenu:
 class LevelsMenu:
     def __init__(self, game):
         self.game = game
-        self.button_back = Button(game, 50, 700, "./images/button_back.png", 1.0, "./images/button_back_hover.png")
-        self.buttons = [self.button_back]
+        self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
+        self.buttons = []
         for i, level in enumerate(self.game.levels):
             if (i+1) % 3 == 1:
                 self.buttons.append(LevelButton(self.game, self.game.width/5, self._calculate_level_y(i+1), 200, 100, i+1))
@@ -224,6 +224,7 @@ class LevelsMenu:
         return y
 
     def draw_menu(self):
+        self.button_back.draw(self.game.screen)
         for button in self.buttons:
             button.draw(self.game.screen)
         #     if button.level_id % 3 == 1:
