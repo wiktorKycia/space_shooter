@@ -197,7 +197,7 @@ class LevelsMenu:
     def __init__(self, game):
         self.game = game
         self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
-        self.buttons = [self.button_back]
+        self.buttons = []
         for i, level in enumerate(self.game.levels):
             if (i+1) % 3 == 1:
                 self.buttons.append(LevelButton(self.game, self.game.width/5, self._calculate_level_y(i+1), 200, 100, i+1))
@@ -224,6 +224,7 @@ class LevelsMenu:
         return y
 
     def draw_menu(self):
+        self.button_back.draw()
         for button in self.buttons:
             button.draw(self.game.screen)
         #     if button.level_id % 3 == 1:
