@@ -245,8 +245,8 @@ class HangarMenu:
 
     def draw_menu(self):
         for i, ship in enumerate(self.game.player.ships):
-            ship.pos.x = 100 + 50 * i
-            ship.pos.y = 200
+            ship.pos.x = 100 + 150 * i
+            ship.pos.y = 150
             ship.draw()
         self.game.player.current_ship.hitbox.center = (self.game.player.current_ship.pos.x, self.game.player.current_ship.pos.y)
         pygame.draw.rect(self.game.screen, (255, 255, 255), self.game.player.current_ship.hitbox, 1)
