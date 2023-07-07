@@ -45,8 +45,8 @@ class BaseCannon:
             self.shot()
 
 class BaseShotGun:
-    def __init__(self):
-        pass
+    def __init__(self, game):
+        self.game = game
 
 class Kinetic60Gun(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
