@@ -40,6 +40,10 @@ class Bullet(object):
         # self.hitbox.topleft = (self.pos.x, self.pos.y)
         self.game.screen.blit(self.hitbox, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
+class ShotGunBullet:
+    def __init__(self):
+
+
 class Kinetic60Bullet(Bullet):
     def __init__(self, game, x, y, force):
         self.width = 2
