@@ -252,6 +252,7 @@ class HangarMenu:
             ship.draw()
         self.game.player.current_ship.hitbox.center = (self.game.player.current_ship.pos.x, self.game.player.current_ship.pos.y)
         pygame.draw.rect(self.game.screen, (255, 255, 255), self.game.player.current_ship.hitbox, 1)
+        self.button_back.draw(self.game.screen)
 
 class ResumeMenu:
     def __init__(self, game):
