@@ -234,6 +234,10 @@ class LevelsMenu:
         #     if button.level_id % 3 == 0:
         #         button.draw(self.game.screen, self.game.width*4/5, self._calculate_level_y(button.level_id))
 
+class HangarMenu:
+    def __init__(self, game):
+        self.game = game
+
 class ResumeMenu:
     def __init__(self, game):
         self.game = game
