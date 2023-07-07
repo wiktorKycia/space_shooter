@@ -180,11 +180,14 @@ class GameMenu:
             self.game.showing = "levelsmenu"
         elif self.button_back.check_click():
             self.game.showing = "mainmenu"
+        elif self.button_hangar.check_click():
+            self.game.showing = "hangar"
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
         for button in self.buttons:
             button.draw(self.game.screen)
+        self.ship.pos = Vector2(self.game.width / 2, self.game.height / 2)
         self.ship.draw()
         self.game.screen.blit(self.coin, (450, 300))
         write(self.game, str(self.game.player.coins), 500, 300, 36, (200, 200, 200))
@@ -233,6 +236,47 @@ class LevelsMenu:
         #         button.draw(self.game.screen, self.game.width/2, self._calculate_level_y(button.level_id))
         #     if button.level_id % 3 == 0:
         #         button.draw(self.game.screen, self.game.width*4/5, self._calculate_level_y(button.level_id))
+
+class HangarMenu:
+    def __init__(self, game):
+        self.game = game
+        self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
+        self.button_next = Button(game, 720, 250, "./images/buttons/button_next.png", 1.0, "./images/buttons/button_next_hover.png")
+        self.button_prev = Button(game, 30, 250, "./images/buttons/button_prev.png", 1.0, "./images/buttons/button_prev_hover.png")
+        self.translation = 0
+
+    def tick_menu(self):
+        if self.button_back.check_click():
+            # self.game.player.current_ship.pos = Vector2(self.game.width / 2, self.game.height / 2)
+            self.game.showing = "gamemenu"
+            self.game.gamemenu.__init__(self.game)
+        elif self.button_next.check_click():
+            self.translation -= 50
+        elif self.button_prev.check_click():
+            self.translation += 50
+
+        for i, ship in enumerate(self.game.player.ships):
+            action = False
+            pos = pygame.mouse.get_pos()
+            # check if the ship collides with the mouse
+            if ship.mask.overlap(self.game.mouse.mask, (pos[0] - ship.hitbox.x, pos[1] - ship.hitbox.y)):
+                # check if the mouse is clicked
+                if self.game.mouse.click():
+                    action = True
+            if action:
+                self.game.player.current_ship = self.game.player.ships[i]
+
+    def draw_menu(self):
+        for i, ship in enumerate(self.game.player.ships):
+            ship.pos.x = 100 + 150 * i + self.translation
+            ship.pos.y = 150
+            ship.hitbox.center = (ship.pos.x, ship.pos.y)
+            ship.draw()
+        self.game.player.current_ship.hitbox.center = (self.game.player.current_ship.pos.x, self.game.player.current_ship.pos.y)
+        pygame.draw.rect(self.game.screen, (255, 255, 255), self.game.player.current_ship.hitbox, 1)
+        self.button_back.draw(self.game.screen)
+        self.button_next.draw(self.game.screen)
+        self.button_prev.draw(self.game.screen)
 
 class ResumeMenu:
     def __init__(self, game):
