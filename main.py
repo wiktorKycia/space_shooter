@@ -58,6 +58,9 @@ class Game(object):
                 case "levelsmenu":
                     self.levelsmenu.tick_menu()
                     self.levelsmenu.draw_menu()
+                case "hangar":
+                    self.hangar.tick_menu()
+                    self.hangar.draw_menu()
                 case "game":
                     self.tick()
                     self.draw()
