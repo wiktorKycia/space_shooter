@@ -112,6 +112,9 @@ class Mouse:
     def __init__(self, game):
         self.game = game
         self.click_counter = 0
+        self.surf = pygame.Surface((1, 1))
+        self.surf.fill((0, 0, 0))
+        self.mask = pygame.mask.from_surface(self.surf)
 
     def click(self, button=0):
         if pygame.mouse.get_pressed()[button] == 1 and self.click_counter == 0:
