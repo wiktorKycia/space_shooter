@@ -203,11 +203,12 @@ class Ship5(PlayableShip):
         self.game = game
         self.path = "./images/ships/ship5.png"
         self.hp = DeluxeHP(self.game, 6000000, 200, 700, 350, 30)
-        super().__init__(game, self.path, 0.98, 150, 1500, 15000)
-        self.cannon = LaserCannon(self.game, self, Vector2(-60, -30), self.force, 0.7)
-        self.cannon2 = LaserCannon(self.game, self, Vector2(60, -30), self.force, 0.7)
-        self.cannon3 = LaserCannon(self.game, self, Vector2(-100, -30), self.force, 0.7)
-        self.cannon4 = LaserCannon(self.game, self, Vector2(100, -30), self.force, 0.7)
+        super().__init__(game, self.path, 0.98, 250, 15, 150)
+        # self.cannon = LaserCannon(self.game, self, Vector2(-60, -30), self.force, 0.7)
+        # self.cannon2 = LaserCannon(self.game, self, Vector2(60, -30), self.force, 0.7)
+        # self.cannon3 = LaserCannon(self.game, self, Vector2(-100, -30), self.force, 0.7)
+        # self.cannon4 = LaserCannon(self.game, self, Vector2(100, -30), self.force, 0.7)
+        self.cannon = ShotGun1(self.game, self, Vector2(0, 0), self.force, 0.5)
 
     def add_force(self, force):
         super().add_force(force)
@@ -215,9 +216,10 @@ class Ship5(PlayableShip):
         self.hp.tick()
         super().tick()
         self.cannon.tick()
-        self.cannon2.tick()
-        self.cannon3.tick()
-        self.cannon4.tick()
+        # self.cannon.tick()
+        # self.cannon2.tick()
+        # self.cannon3.tick()
+        # self.cannon4.tick()
     def draw(self):
         super().draw()
 

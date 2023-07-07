@@ -42,7 +42,7 @@ class Bullet(object):
 
 class ShotGunBullet:
     def __init__(self):
-
+        pass
 
 class Kinetic60Bullet(Bullet):
     def __init__(self, game, x, y, force):

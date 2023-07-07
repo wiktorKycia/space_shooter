@@ -92,7 +92,16 @@ class ShotGun1(BaseShotGun):
         super().__init__(game, ship, translation, force, interval, self.barrel, key)
 
     def shot(self):
-        bullet = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
+        # force1 = self.ship.force.rotate(20)
+        # force2 = self.ship.force.rotate(-20)
+        bullet1 = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
+        bullet2 = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
+        bullet1.acc.rotate(20)
+        bullet2.acc.rotate(-20)
+        self.ship.bullets.append(bullet1)
+        self.ship.add_force(self.calculate_kickback_force(bullet1))
+        self.ship.bullets.append(bullet2)
+        self.ship.add_force(self.calculate_kickback_force(bullet2))
 
 
 class Kinetic60Gun(BaseCannon):
