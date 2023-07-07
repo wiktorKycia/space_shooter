@@ -86,10 +86,13 @@ class BaseShotGun:
             self.clock = 0
             self.shot()
 
-class ShotGun1:
+class ShotGun1(BaseShotGun):
     def __init__(self, game, ship, translation, force, interval, key=pygame.K_SPACE):
         self.barrel = 50
         super().__init__(game, ship, translation, force, interval, self.barrel, key)
+
+    def shot(self):
+        bullet = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
 
 
 class Kinetic60Gun(BaseCannon):
