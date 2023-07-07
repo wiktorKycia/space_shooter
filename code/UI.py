@@ -187,6 +187,7 @@ class GameMenu:
         self.game.screen.blit(self.background, (0, 0))
         for button in self.buttons:
             button.draw(self.game.screen)
+        self.ship.pos = Vector2(self.game.width / 2, self.game.height / 2)
         self.ship.draw()
         self.game.screen.blit(self.coin, (450, 300))
         write(self.game, str(self.game.player.coins), 500, 300, 36, (200, 200, 200))
@@ -256,7 +257,6 @@ class HangarMenu:
                     action = True
             if action:
                 self.game.player.current_ship = self.game.player.ships[i]
-
 
     def draw_menu(self):
         for i, ship in enumerate(self.game.player.ships):
