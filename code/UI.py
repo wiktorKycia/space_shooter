@@ -242,7 +242,8 @@ class HangarMenu:
         self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
 
     def tick_menu(self):
-        pass
+        if self.button_back.check_click():
+            self.game.showing = "gamemenu"
 
     def draw_menu(self):
         for i, ship in enumerate(self.game.player.ships):
