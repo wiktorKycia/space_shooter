@@ -96,6 +96,10 @@ class ShotGun1(BaseShotGun):
         force2 = self.ship.force.rotate(-20)
         bullet1 = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, force1)
         bullet2 = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, force2)
+        self.ship.bullets.append(bullet1)
+        self.ship.add_force(self.calculate_kickback_force(bullet1))
+        self.ship.bullets.append(bullet2)
+        self.ship.add_force(self.calculate_kickback_force(bullet2))
 
 
 class Kinetic60Gun(BaseCannon):
