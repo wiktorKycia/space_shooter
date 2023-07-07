@@ -254,15 +254,13 @@ class HangarMenu:
                 # check if the mouse is clicked
                 if self.game.mouse.click():
                     action = True
-                    print("click!")
-            # elif not self.rect.collidepoint(pos):
-            #     self.img = self.image
 
 
     def draw_menu(self):
         for i, ship in enumerate(self.game.player.ships):
             ship.pos.x = 100 + 150 * i
             ship.pos.y = 150
+            ship.hitbox.center = (ship.pos.x, ship.pos.y)
             ship.draw()
         self.game.player.current_ship.hitbox.center = (self.game.player.current_ship.pos.x, self.game.player.current_ship.pos.y)
         pygame.draw.rect(self.game.screen, (255, 255, 255), self.game.player.current_ship.hitbox, 1)
