@@ -248,7 +248,8 @@ class HangarMenu:
             ship.pos.x = 100 + 50 * i
             ship.pos.y = 200
             ship.draw()
-        pygame.draw.rect(self.game.screen, (255, 255, 255), self.game.player.current_ship.hitbox)
+        self.game.player.current_ship.hitbox.center = (self.game.player.current_ship.pos.x, self.game.player.current_ship.pos.y)
+        pygame.draw.rect(self.game.screen, (255, 255, 255), self.game.player.current_ship.hitbox, 1)
 
 class ResumeMenu:
     def __init__(self, game):
