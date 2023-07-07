@@ -79,6 +79,20 @@ class ShotGunBullet:
         # self.hitbox.topleft = (self.pos.x, self.pos.y)
         self.game.screen.blit(self.hitbox, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
 
+class ShotGunBullet1(ShotGunBullet):
+    def __init__(self, game, x, y, force, angle):
+        self.width = 3
+        self.height = 6
+        self.force = force
+        self.mass = 1.3
+        self.color = (90, 90, 100)
+        self.sound = "./sounds/shot_sounds/gunshot.wav"
+        super().__init__(game, x, y, self.width, self.height, self.force, self.mass, angle, self.color, self.sound)
+    def tick(self):
+        super().tick()
+    def draw(self):
+        super().draw()
+
 class Kinetic60Bullet(Bullet):
     def __init__(self, game, x, y, force):
         self.width = 2
