@@ -38,6 +38,7 @@ class Game(object):
         self.mainmenu = MainMenu(self)
         self.gamemenu = GameMenu(self)
         self.levelsmenu = LevelsMenu(self)
+        self.hangar = HangarMenu(self)
 
         while self.isrun:
             for event in pygame.event.get():
