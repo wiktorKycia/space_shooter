@@ -243,12 +243,16 @@ class HangarMenu:
         self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
         self.button_next = Button(game, 720, 250, "./images/buttons/button_next.png", 1.0, "./images/buttons/button_next_hover.png")
         self.button_prev = Button(game, 30, 250, "./images/buttons/button_prev.png", 1.0, "./images/buttons/button_prev_hover.png")
+        self.translation = 0
 
     def tick_menu(self):
         if self.button_back.check_click():
             # self.game.player.current_ship.pos = Vector2(self.game.width / 2, self.game.height / 2)
             self.game.showing = "gamemenu"
             self.game.gamemenu.__init__(self.game)
+        elif self.button_next.check_click():
+            self.translation -= 50
+
         for i, ship in enumerate(self.game.player.ships):
             action = False
             pos = pygame.mouse.get_pos()
@@ -262,7 +266,7 @@ class HangarMenu:
 
     def draw_menu(self):
         for i, ship in enumerate(self.game.player.ships):
-            ship.pos.x = 100 + 150 * i
+            ship.pos.x = 100 + 150 * i + self.translation
             ship.pos.y = 150
             ship.hitbox.center = (ship.pos.x, ship.pos.y)
             ship.draw()
