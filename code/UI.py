@@ -239,6 +239,7 @@ class LevelsMenu:
 class HangarMenu:
     def __init__(self, game):
         self.game = game
+        self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
 
     def tick_menu(self):
         pass
