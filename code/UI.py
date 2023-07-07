@@ -250,13 +250,14 @@ class HangarMenu:
             action = False
             pos = pygame.mouse.get_pos()
             # check if the ship collides with the mouse
-            if ship.mask:
-
+            if ship.mask.overlap(self.game.mouse.mask, (pos[0] - ship.hitbox.x, pos[1] - ship.hitbox.y)):
                 # check if the mouse is clicked
                 if self.game.mouse.click():
                     action = True
-            elif not self.rect.collidepoint(pos):
-                self.img = self.image
+                    print("click!")
+            # elif not self.rect.collidepoint(pos):
+            #     self.img = self.image
+
 
     def draw_menu(self):
         for i, ship in enumerate(self.game.player.ships):
