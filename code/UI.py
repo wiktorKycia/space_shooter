@@ -241,8 +241,8 @@ class HangarMenu:
     def __init__(self, game):
         self.game = game
         self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
-        self.button_next = Button(game, 30, 250, "./images/buttons/button_next.png", 1.0, "./images/buttons/button_next_hover.png")
-        self.button_prev = Button(game, 720, 250, "./images/buttons/button_prev.png", 1.0, "./images/buttons/button_prev_hover.png")
+        self.button_next = Button(game, 720, 250, "./images/buttons/button_next.png", 1.0, "./images/buttons/button_next_hover.png")
+        self.button_prev = Button(game, 30, 250, "./images/buttons/button_prev.png", 1.0, "./images/buttons/button_prev_hover.png")
 
     def tick_menu(self):
         if self.button_back.check_click():
