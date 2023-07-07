@@ -242,7 +242,11 @@ class HangarMenu:
         pass
 
     def draw_menu(self):
-        pass
+        for i, ship in enumerate(self.game.player.ships):
+            ship.pos.x = 100 + 50 * i
+            ship.pos.y = 200
+            ship.draw()
+        pygame.draw.rect(self.game.screen, (255, 255, 255), self.game.player.current_ship.hitbox)
 
 class ResumeMenu:
     def __init__(self, game):
