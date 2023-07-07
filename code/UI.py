@@ -246,6 +246,17 @@ class HangarMenu:
             # self.game.player.current_ship.pos = Vector2(self.game.width / 2, self.game.height / 2)
             self.game.showing = "gamemenu"
             self.game.gamemenu.__init__(self.game)
+        for i, ship in enumerate(self.game.player.ships):
+            action = False
+            pos = pygame.mouse.get_pos()
+            # check if the ship collides with the mouse
+            if ship.mask:
+
+                # check if the mouse is clicked
+                if self.game.mouse.click():
+                    action = True
+            elif not self.rect.collidepoint(pos):
+                self.img = self.image
 
     def draw_menu(self):
         for i, ship in enumerate(self.game.player.ships):
