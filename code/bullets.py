@@ -41,13 +41,13 @@ class Bullet(object):
         self.game.screen.blit(self.hitbox, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
 class ShotGunBullet:
-    def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255), sound=None):
+    def __init__(self, game, x, y, width, height, force, mass, angle,color=(255, 255, 255), sound=None):
         self.pos = Vector2(x, y)
         self.vel = Vector2(0, 0)
 
         self.mass = mass
         acc = int(force / mass)
-        self.acc = Vector2(0, -acc)
+        self.acc = Vector2(0, -acc).rotate(angle)
 
         self.width = width
         self.height = height
