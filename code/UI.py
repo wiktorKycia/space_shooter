@@ -244,6 +244,7 @@ class HangarMenu:
     def tick_menu(self):
         if self.button_back.check_click():
             self.game.showing = "gamemenu"
+            self.game.gamemenu.__init__()
 
     def draw_menu(self):
         for i, ship in enumerate(self.game.player.ships):
