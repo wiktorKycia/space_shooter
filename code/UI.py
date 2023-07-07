@@ -243,8 +243,9 @@ class HangarMenu:
 
     def tick_menu(self):
         if self.button_back.check_click():
+            # self.game.player.current_ship.pos = Vector2(self.game.width / 2, self.game.height / 2)
             self.game.showing = "gamemenu"
-            self.game.gamemenu.__init__()
+            self.game.gamemenu.__init__(self.game)
 
     def draw_menu(self):
         for i, ship in enumerate(self.game.player.ships):
