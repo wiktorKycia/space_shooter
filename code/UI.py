@@ -254,6 +254,8 @@ class HangarMenu:
                 # check if the mouse is clicked
                 if self.game.mouse.click():
                     action = True
+            if action:
+                self.game.player.current_ship = self.game.player.ships[i]
 
 
     def draw_menu(self):
