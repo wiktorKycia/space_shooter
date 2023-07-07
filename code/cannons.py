@@ -45,8 +45,7 @@ class BaseCannon:
             self.shot()
 
 class BaseShotGun:
-    def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length,
-                 key=pygame.K_SPACE):
+    def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length, key=pygame.K_SPACE):
         self.game = game
         self.ship = ship
         self.pos = ship.pos
@@ -86,6 +85,8 @@ class BaseShotGun:
         if pressed[self.key] and self.clock > self.interval:
             self.clock = 0
             self.shot()
+
+class ShotGun1:
 
 class Kinetic60Gun(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
