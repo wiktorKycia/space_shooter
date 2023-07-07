@@ -180,6 +180,8 @@ class GameMenu:
             self.game.showing = "levelsmenu"
         elif self.button_back.check_click():
             self.game.showing = "mainmenu"
+        elif self.button_hangar.check_click():
+            self.game.showing = "hangar"
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
