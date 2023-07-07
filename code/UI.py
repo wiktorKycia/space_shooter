@@ -252,6 +252,8 @@ class HangarMenu:
             self.game.gamemenu.__init__(self.game)
         elif self.button_next.check_click():
             self.translation -= 50
+        elif self.button_prev.check_click():
+            self.translation += 50
 
         for i, ship in enumerate(self.game.player.ships):
             action = False
