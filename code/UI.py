@@ -285,7 +285,10 @@ class PauseMenu:
         self.button_exit = Button(self.game, self.game.width/2, self.game.height/2-100, "./images/buttons/button_exit2.png", 1.0, "./images/buttons/button_exit2_hover.png")
         self.button_resume = Button(self.game, self.game.width/2, self.game.height/2+100, "./images/buttons/button_resume.png", 1.0, "./images/buttons/button_resume_hover.png")
     def tick_menu(self):
-        pass
+        if self.button_exit.check_click():
+            self.game.showing = "levelsmenu"
+        elif self.button_resume.check_click():
+            self.game.showing = "game"
     def draw_menu(self):
        self.button_exit.draw(self.game.screen)
        self.button_resume.draw(self.game.screen)
