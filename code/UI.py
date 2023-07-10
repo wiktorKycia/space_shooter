@@ -281,7 +281,6 @@ class HangarMenu:
 class PauseMenu:
     def __init__(self, game):
         self.game = game
-        self.buttons = []
         self.button_exit = Button(self.game, self.game.width/2, self.game.height/2-100, "./images/buttons/button_exit2.png", 1.0, "./images/buttons/button_exit2_hover.png")
         self.button_resume = Button(self.game, self.game.width/2, self.game.height/2+100, "./images/buttons/button_resume.png", 1.0, "./images/buttons/button_resume_hover.png")
     def tick_menu(self):
