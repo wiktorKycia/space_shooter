@@ -287,7 +287,8 @@ class PauseMenu:
     def tick_menu(self):
         pass
     def draw_menu(self):
-        pass
+       self.button_exit.draw(self.game.screen)
+       self.button_resume.draw(self.game.screen)
 
 class SettingsMenu:
     def __init__(self, game):
