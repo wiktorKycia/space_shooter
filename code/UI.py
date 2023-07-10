@@ -215,6 +215,12 @@ class LevelsMenu:
             self.game.showing = "gamemenu"
 
         if pygame.key.get_pressed()[pygame.K_p] == 1 and self.click_P_counter == 0:
+            self.click_P_counter += 1
+            self.game.showing = "pausemenu"
+        elif pygame.key.get_pressed()[pygame.K_p] == 0:
+            self.click_P_counter = 0
+        else:
+            self.click_P_counter += 1
 
         for i, button in enumerate(self.buttons):
             # tu nie może być printa sprawdzającego check_click()
