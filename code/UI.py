@@ -213,6 +213,9 @@ class LevelsMenu:
     def tick_menu(self):
         if self.button_back.check_click():
             self.game.showing = "gamemenu"
+
+        if pygame.key.get_pressed()[pygame.K_p]:
+
         for i, button in enumerate(self.buttons):
             # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
