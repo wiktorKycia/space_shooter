@@ -31,6 +31,7 @@ class Game(object):
             Level10(self)
         ]
         self.level_pointer = 0
+        self.click_P_counter = 0
 
         self.other_bullets = []
 
@@ -39,6 +40,7 @@ class Game(object):
         self.gamemenu = GameMenu(self)
         self.levelsmenu = LevelsMenu(self)
         self.hangar = HangarMenu(self)
+        self.pausemenu = PauseMenu(self)
 
         while self.isrun:
             for event in pygame.event.get():
@@ -61,6 +63,9 @@ class Game(object):
                 case "hangar":
                     self.hangar.tick_menu()
                     self.hangar.draw_menu()
+                case "pausemenu":
+                    self.pausemenu.tick_menu()
+                    self.pausemenu.draw_menu()
                 case "game":
                     self.tick()
                     self.draw()
@@ -103,6 +108,14 @@ class Game(object):
 
         self.player.current_ship.tick()
         self.levels[self.level_pointer].tick()
+
+        if pygame.key.get_pressed()[pygame.K_p] == 1 and self.click_P_counter == 0:
+            self.click_P_counter += 1
+            self.showing = "pausemenu"
+        elif pygame.key.get_pressed()[pygame.K_p] == 0:
+            self.click_P_counter = 0
+        else:
+            self.click_P_counter += 1
 
     def draw(self):
 

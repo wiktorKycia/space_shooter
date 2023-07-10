@@ -201,6 +201,7 @@ class LevelsMenu:
         self.game = game
         self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
         self.buttons = []
+
         for i, level in enumerate(self.game.levels):
             if (i+1) % 3 == 1:
                 self.buttons.append(LevelButton(self.game, self.game.width/5, self._calculate_level_y(i+1), 200, 100, i+1))
@@ -278,15 +279,19 @@ class HangarMenu:
         self.button_next.draw(self.game.screen)
         self.button_prev.draw(self.game.screen)
 
-class ResumeMenu:
+class PauseMenu:
     def __init__(self, game):
         self.game = game
-        self.buttons = []
-
+        self.button_exit = Button(self.game, self.game.width/2, self.game.height/2-100, "./images/buttons/button_exit2.png", 2.0, "./images/buttons/button_exit2_hover.png")
+        self.button_resume = Button(self.game, self.game.width/2, self.game.height/2+100, "./images/buttons/button_resume.png", 2.0, "./images/buttons/button_resume_hover.png")
     def tick_menu(self):
-        pass
+        if self.button_exit.check_click():
+            self.game.showing = "levelsmenu"
+        elif self.button_resume.check_click():
+            self.game.showing = "game"
     def draw_menu(self):
-        pass
+       self.button_exit.draw(self.game.screen)
+       self.button_resume.draw(self.game.screen)
 
 class SettingsMenu:
     def __init__(self, game):
