@@ -201,7 +201,7 @@ class LevelsMenu:
         self.game = game
         self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
         self.buttons = []
-        self.click_P_counter = 0
+
         for i, level in enumerate(self.game.levels):
             if (i+1) % 3 == 1:
                 self.buttons.append(LevelButton(self.game, self.game.width/5, self._calculate_level_y(i+1), 200, 100, i+1))
@@ -213,15 +213,6 @@ class LevelsMenu:
     def tick_menu(self):
         if self.button_back.check_click():
             self.game.showing = "gamemenu"
-
-        if pygame.key.get_pressed()[pygame.K_p] == 1 and self.click_P_counter == 0:
-            self.click_P_counter += 1
-            self.game.showing = "pausemenu"
-        elif pygame.key.get_pressed()[pygame.K_p] == 0:
-            self.click_P_counter = 0
-        else:
-            self.click_P_counter += 1
-
         for i, button in enumerate(self.buttons):
             # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
