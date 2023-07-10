@@ -278,7 +278,7 @@ class HangarMenu:
         self.button_next.draw(self.game.screen)
         self.button_prev.draw(self.game.screen)
 
-class ResumeMenu:
+class PauseMenu:
     def __init__(self, game):
         self.game = game
         self.buttons = []
