@@ -5,6 +5,7 @@ import os
 from code import *
 from code.other import *
 from code.cannons import *
+from code.maneuvering_cannons import *
 
 mixer.init()
 
@@ -126,8 +127,15 @@ class Ship1(PlayableShip):
         self.hp = DeluxeHP(self.game, 1000000, 200, 700, 350, 30)
         super().__init__(game, self.path, 0.98, 150, 100, 1000)
         # self.cannon = Blaster(self.game, self, Vector2(0, -20), self.force, 0.3)
-        self.cannon = Kinetic60Gun(self.game, self, Vector2(0, -20), self.force, 0.1)
-
+        # self.cannon = Kinetic60Gun(self.game, self, Vector2(0, -20), self.force, 0.1)
+        self.cannon = ManeuveringBulletsLauncher(
+            game=self.game,
+            ship=self,
+            translation=Vector2(0, -30),
+            force=self.force,
+            interval=0.7,
+            key=pygame.K_KP_0 # numpad 0
+        )
     def add_force(self, force):
         super().add_force(force)
     def tick(self):
