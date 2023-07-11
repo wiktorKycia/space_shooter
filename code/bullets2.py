@@ -30,5 +30,14 @@ class ManeuveringBullet:
 
         self.maneuvering = False
 
+    def tick(self):
+        if self.maneuvering:
+            pass
+        else:
+            self.vel *= 0.9995
+            self.vel += self.acc
+            self.pos += self.vel * self.game.dt
+            self.acc *= 0
+
     def draw(self):
         self.game.screen.blit(self.hitbox, (self.pos.x - self.width/2, self.pos.y - self.height/2))
