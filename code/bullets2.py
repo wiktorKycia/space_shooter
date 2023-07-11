@@ -42,7 +42,8 @@ class ManeuveringBullet:
 
     def tick(self):
         if self.maneuvering:
-            pass
+            if self.enemy in self.game.enemies:
+                pass
         else:
             self.vel *= 0.9995
             self.vel += self.acc
