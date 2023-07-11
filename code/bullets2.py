@@ -44,6 +44,7 @@ class ManeuveringBullet:
         if self.maneuvering:
             if self.enemy in self.game.enemies:
                 pass
+            else: self.maneuvering = False
         else:
             self.vel *= 0.9995
             self.vel += self.acc
