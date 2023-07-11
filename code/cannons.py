@@ -91,14 +91,15 @@ class BaseShotGun:
         self.pos = self.ship.pos + self.translation
         # self.rect.center = self.pos
         pressed = pygame.key.get_pressed()
-        if pressed[self.key] and self.clock > self.interval:
+        if pressed[self.key] and self.clock > self.interval and self.magazine > 0:
+            self.magazine -= 1
             self.clock = 0
             self.shot()
 
 class ShotGun1(BaseShotGun):
     def __init__(self, game, ship, translation, force, interval, key=pygame.K_SPACE):
         self.barrel = 50
-        super().__init__(game, ship, translation, force, interval, self.barrel, key)
+        super().__init__(game, ship, translation, force, interval, self.barrel, 8, key)
 
     def shot(self):
         # force1 = self.ship.force.rotate(20)
