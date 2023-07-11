@@ -45,6 +45,11 @@ class ManeuveringBullet:
             if self.enemy in self.game.enemies:
                 vector = Vector2(self.enemy.pos.x - self.pos.x, self.enemy.pos.y - self.pos.y)
                 angle = self.vel.angle_to(vector) / 2
+                self.vel.rotate(angle)
+                self.vel *= 0.9995
+                self.vel += self.acc
+                self.pos += self.vel * self.game.dt
+                self.acc *= 0
             else: self.maneuvering = False
         else:
             self.vel *= 0.9995
