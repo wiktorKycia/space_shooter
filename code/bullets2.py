@@ -9,6 +9,8 @@ class ManeuveringBullet:
 
         self.x = x
         self.y = y
+        self.pos = Vector2(x, y)
+        self.vel = Vector2(0, 0)
 
         self.width = width
         self.height = height
