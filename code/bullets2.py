@@ -12,13 +12,16 @@ class ManeuveringBullet:
         self.pos = Vector2(x, y)
         self.vel = Vector2(0, 0)
 
-        self.width = width
-        self.height = height
-
         self.force = force
         self.mass = mass
         acc = int(force / mass)
         self.acc = Vector2(0, -acc)
+
+        self.width = width
+        self.height = height
+        self.hitbox = pygame.Surface((self.width, self.height))
+        self.hitbox.fill(color)
+        self.mask = pygame.mask.from_surface(self.hitbox)
 
         self.color = color
         if sound is not None:
