@@ -111,6 +111,7 @@ class ShotGun1(BaseShotGun):
         self.ship.bullets.append(bullet3)
         self.ship.bullets.append(bullet4)
         self.ship.bullets.append(bullet5)
+        self.ship.acc += self.calculate_kickback_force(bullet1, bullet1.acc.angle_to((0, -1)))
         bullet1.sound.play(0, 800)
         bullet2.sound.play(0, 800)
         bullet3.sound.play(0, 800)
