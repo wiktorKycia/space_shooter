@@ -60,7 +60,7 @@ class BaseShotGun:
     def shot(self):
         pass
 
-    def calculate_kickback_force(self, bullet):
+    def calculate_kickback_force(self, bullet, angle):
         acc = -bullet.acc  # getting initial bullet velocity
         try:  # time that bullet spent in the barrel
             tim = Vector2(math.sqrt(2 * self.barrel / acc.x), math.sqrt(2 * self.barrel / acc.y))
