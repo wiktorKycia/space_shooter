@@ -30,13 +30,15 @@ class ManeuveringBullet:
 
         self.maneuvering = False
         enemies_distances = []
-        for enemy in self.game.enemies:
-            vector = Vector2(enemy.pos.x - self.pos.x, enemy.pos.y - self.pos.y)
-            distance = vector.magnitude()
-            enemies_distances.append(distance)
+        if len(self.game.enemies) != 0:
+            for enemy in self.game.enemies:
+                vector = Vector2(enemy.pos.x - self.pos.x, enemy.pos.y - self.pos.y)
+                distance = vector.magnitude()
+                enemies_distances.append(distance)
 
-        enemy_index = enemies_distances.index(min(enemies_distances))
-        self.enemy = self.game.enemies[enemy_index]
+            enemy_index = enemies_distances.index(min(enemies_distances))
+            self.enemy = self.game.enemies[enemy_index]
+            self.maneuvering = True
 
     def tick(self):
         if self.maneuvering:
