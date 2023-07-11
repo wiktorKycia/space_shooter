@@ -19,9 +19,10 @@ class ManeuveringBullet:
 
         self.width = width
         self.height = height
+        self.image = pygame.image.load("./images/bullet.png").convert_alpha()
         self.hitbox = pygame.Surface((self.width, self.height))
         self.hitbox.fill(color)
-        self.mask = pygame.mask.from_surface(self.hitbox)
+        self.mask = pygame.mask.from_surface(self.image)
 
         self.color = color
         if sound is not None:
@@ -59,4 +60,5 @@ class ManeuveringBullet:
             else: self.maneuvering = False
 
     def draw(self):
-        self.game.screen.blit(self.hitbox, (self.pos.x - self.width/2, self.pos.y - self.height/2))
+        image2 = pygame.transform.rotate(self.image, self.vel.angle_to(Vector2(0, -1)))
+        self.game.screen.blit(image2, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
