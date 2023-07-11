@@ -17,6 +17,8 @@ class ManeuveringBullet:
 
         self.force = force
         self.mass = mass
+        acc = int(force / mass)
+        self.acc = Vector2(0, -acc)
 
         self.color = color
         if sound is not None:
