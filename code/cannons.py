@@ -56,6 +56,7 @@ class BaseShotGun:
 
         self.clock = 0
         self.barrel = barrel_length
+        self.magazine_size = magazine_size
         self.magazine = magazine_size
 
     def shot(self):
