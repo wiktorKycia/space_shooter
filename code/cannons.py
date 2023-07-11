@@ -45,7 +45,7 @@ class BaseCannon:
             self.shot()
 
 class BaseShotGun:
-    def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length, key=pygame.K_SPACE):
+    def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length, magazine_size, magazine_reload_time, key=pygame.K_SPACE):
         self.game = game
         self.ship = ship
         self.pos = ship.pos
@@ -56,6 +56,11 @@ class BaseShotGun:
 
         self.clock = 0
         self.barrel = barrel_length
+
+        self.magazine_size = magazine_size
+        self.magazine = magazine_size
+        self.reload_time = magazine_reload_time
+        self.reload_clock = 0
 
     def shot(self):
         pass
@@ -86,17 +91,22 @@ class BaseShotGun:
 
     def tick(self):
         self.clock += self.game.dt
+        self.reload_clock += self.game.dt
         self.pos = self.ship.pos + self.translation
         # self.rect.center = self.pos
         pressed = pygame.key.get_pressed()
-        if pressed[self.key] and self.clock > self.interval:
+        if pressed[self.key] and self.clock > self.interval and self.magazine > 0:
+            self.magazine -= 1
             self.clock = 0
             self.shot()
+        if self.reload_clock > self.reload_time and self.magazine < self.magazine_size:
+            self.magazine += 1
+            self.reload_clock = 0
 
 class ShotGun1(BaseShotGun):
     def __init__(self, game, ship, translation, force, interval, key=pygame.K_SPACE):
         self.barrel = 50
-        super().__init__(game, ship, translation, force, interval, self.barrel, key)
+        super().__init__(game, ship, translation, force, interval, self.barrel, 5, 1.5, key)
 
     def shot(self):
         # force1 = self.ship.force.rotate(20)
