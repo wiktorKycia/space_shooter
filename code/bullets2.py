@@ -29,6 +29,7 @@ class ManeuveringBullet:
             self.sound.set_volume(0.1)
 
         self.maneuvering = False
+        self.enemies_distances = []
 
     def tick(self):
         if self.maneuvering:
