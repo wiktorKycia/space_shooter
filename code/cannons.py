@@ -60,22 +60,29 @@ class BaseShotGun:
     def shot(self):
         pass
 
-    def calculate_kickback_force(self, bullet):
-        acc = -bullet.acc  # getting initial bullet velocity
-        try:  # time that bullet spent in the barrel
-            tim = Vector2(math.sqrt(2 * self.barrel / acc.x), math.sqrt(2 * self.barrel / acc.y))
-        except ZeroDivisionError:
-            if acc.x == 0:
-                tim = Vector2(0, math.sqrt(2 * self.barrel / acc.y))
-            elif acc.y == 0:
-                tim = Vector2(math.sqrt(2 * self.barrel / acc.x), 0)
-        vel1 = Vector2(acc.x * tim.x, acc.y * tim.y)  # getting vel of the bullet after escaping from barrel
-        vel = (bullet.mass * vel1) / self.ship.mass  # getting initial velocity from zasada zachowania pędu
-        vel.x *= vel.x
-        vel.y *= vel.y
-        energy = (self.ship.mass * vel) / 2  # calculating kinetic energy
-        force = energy / self.barrel  # calculating kickback force
-        return force
+    # def calculate_kickback_force(self, bullet, angle):
+    #     acc = bullet.acc  # getting initial bullet velocity
+    #     try:  # time that bullet spent in the barrel
+    #         print(2 * self.barrel / acc.x)
+    #         print(2 * self.barrel / acc.y)
+    #
+    #         tim = Vector2(math.sqrt(2 * self.barrel / acc.x), math.sqrt(2 * self.barrel / acc.y))
+    #     except ZeroDivisionError:
+    #         if acc.x == 0:
+    #             tim = Vector2(0, math.sqrt(2 * self.barrel / acc.y))
+    #         elif acc.y == 0:
+    #             tim = Vector2(math.sqrt(2 * self.barrel / acc.x), 0)
+    #     vel1 = Vector2(acc.x * tim.x, acc.y * tim.y)  # getting vel of the bullet after escaping from barrel
+    #     vel = (bullet.mass * vel1) / self.ship.mass  # getting initial velocity from zasada zachowania pędu
+    #     vel.x *= vel.x
+    #     vel.y *= vel.y
+    #     energy = (self.ship.mass * vel) / 2  # calculating kinetic energy
+    #     force = energy / self.barrel  # calculating kickback force
+    #     # returning final_acc
+    #     final_acc = Vector2(force.x, force.y)
+    #     final_acc.rotate(angle)
+    #
+    #     return final_acc
 
     def tick(self):
         self.clock += self.game.dt
@@ -107,6 +114,7 @@ class ShotGun1(BaseShotGun):
         self.ship.bullets.append(bullet3)
         self.ship.bullets.append(bullet4)
         self.ship.bullets.append(bullet5)
+        # self.ship.acc += self.calculate_kickback_force(bullet1, bullet1.acc.angle_to((0, -1)))
         bullet1.sound.play(0, 800)
         bullet2.sound.play(0, 800)
         bullet3.sound.play(0, 800)
