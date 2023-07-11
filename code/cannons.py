@@ -75,7 +75,11 @@ class BaseShotGun:
         vel.y *= vel.y
         energy = (self.ship.mass * vel) / 2  # calculating kinetic energy
         force = energy / self.barrel  # calculating kickback force
-        return force
+        # returning final_acc
+        final_acc = Vector2(force.x, force.y)
+        final_acc.rotate(angle)
+
+        return final_acc
 
     def tick(self):
         self.clock += self.game.dt
