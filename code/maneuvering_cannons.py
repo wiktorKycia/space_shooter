@@ -21,6 +21,6 @@ class ManeuveringBulletsLauncher:
         pressed = pygame.key.get_pressed()
         if pressed[self.key] and self.clock > self.interval:
             self.clock = 0
-            bullet = ManeuveringBullet(self.game, self.pos.x, self.pos.y, 10, 50, self.ship.force, 10.0, (255, 255, 0), "./sounds/shot_sounds/blaster.mp3")
+            bullet = ManeuveringBullet(self.game, self.pos.x, self.pos.y, 5, 25, self.ship.force, 5.0, (255, 255, 0), "./sounds/shot_sounds/blaster.mp3")
             bullet.sound.play(0, 800)
             self.ship.bullets.append(bullet)

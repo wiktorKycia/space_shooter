@@ -134,7 +134,7 @@ class Ship1(PlayableShip):
             translation=Vector2(0, -30),
             force=self.force,
             interval=0.7,
-            key=pygame.K_KP_0 # numpad 0
+            key=pygame.K_SPACE
         )
     def add_force(self, force):
         super().add_force(force)
