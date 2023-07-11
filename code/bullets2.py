@@ -49,13 +49,12 @@ class ManeuveringBullet:
         if self.maneuvering:
             if self.enemy in self.game.enemies:
                 vector = Vector2(self.enemy.pos.x - self.pos.x, self.enemy.pos.y - self.pos.y)
-                print(self.vel.angle_to(vector), end=" ")
-                angle = self.vel.angle_to(vector) / 100
-                print(angle, end=" ")
-                self.vel.rotate_ip(angle)
-                print(self.vel.angle_to(vector))
-                # print(dir(self.vel))
-                # self.hitbox= pygame.transform.rotate(self.hitbox,angle)
+                angle = self.vel.angle_to(vector)
+                if angle > 180:
+                    angle = -angle
+                if angle < -180:
+                    angle = -angle
+                self.vel.rotate_ip(angle/100)
 
             else: self.maneuvering = False
 
