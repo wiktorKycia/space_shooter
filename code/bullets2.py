@@ -29,11 +29,14 @@ class ManeuveringBullet:
             self.sound.set_volume(0.1)
 
         self.maneuvering = False
-        self.enemies_distances = []
+        enemies_distances = []
         for enemy in self.game.enemies:
             vector = Vector2(enemy.pos.x - self.pos.x, enemy.pos.y - self.pos.y)
             distance = vector.magnitude()
-            self.enemies_distances.append(distance)
+            enemies_distances.append(distance)
+
+        enemy_index = enemies_distances.index(min(enemies_distances))
+        self.enemy = self.game.enemies[enemy_index]
 
     def tick(self):
         if self.maneuvering:
