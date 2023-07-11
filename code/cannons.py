@@ -101,11 +101,12 @@ class BaseShotGun:
             self.shot()
         if self.reload_clock > self.reload_time and self.magazine < self.magazine_size:
             self.magazine += 1
+            self.reload_clock = 0
 
 class ShotGun1(BaseShotGun):
     def __init__(self, game, ship, translation, force, interval, key=pygame.K_SPACE):
         self.barrel = 50
-        super().__init__(game, ship, translation, force, interval, self.barrel, 8, 1.0, key)
+        super().__init__(game, ship, translation, force, interval, self.barrel, 5, 1.5, key)
 
     def shot(self):
         # force1 = self.ship.force.rotate(20)
