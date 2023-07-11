@@ -27,3 +27,6 @@ class ManeuveringBullet:
         if sound is not None:
             self.sound = mixer.Sound(sound)
             self.sound.set_volume(0.1)
+
+    def draw(self):
+        self.game.screen.blit(self.hitbox, (self.pos.x - self.width/2, self.pos.y - self.height/2))
