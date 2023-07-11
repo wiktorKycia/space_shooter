@@ -105,7 +105,7 @@ class BaseShotGun:
 class ShotGun1(BaseShotGun):
     def __init__(self, game, ship, translation, force, interval, key=pygame.K_SPACE):
         self.barrel = 50
-        super().__init__(game, ship, translation, force, interval, self.barrel, 8, key)
+        super().__init__(game, ship, translation, force, interval, self.barrel, 8, 1.0, key)
 
     def shot(self):
         # force1 = self.ship.force.rotate(20)
