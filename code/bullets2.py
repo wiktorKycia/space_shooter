@@ -29,8 +29,8 @@ class ManeuveringBullet:
             self.sound.set_volume(0.1)
 
         self.maneuvering = False
-        enemies_distances = []
         if len(self.game.enemies) != 0:
+            enemies_distances = []
             for enemy in self.game.enemies:
                 vector = Vector2(enemy.pos.x - self.pos.x, enemy.pos.y - self.pos.y)
                 distance = vector.magnitude()
