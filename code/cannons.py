@@ -60,6 +60,7 @@ class BaseShotGun:
         self.magazine_size = magazine_size
         self.magazine = magazine_size
         self.reload_time = magazine_reload_time
+        self.reload_clock = 0
 
     def shot(self):
         pass
@@ -90,6 +91,7 @@ class BaseShotGun:
 
     def tick(self):
         self.clock += self.game.dt
+        self.reload_clock += self.game.dt
         self.pos = self.ship.pos + self.translation
         # self.rect.center = self.pos
         pressed = pygame.key.get_pressed()
@@ -97,6 +99,8 @@ class BaseShotGun:
             self.magazine -= 1
             self.clock = 0
             self.shot()
+        if self.reload_clock > self.reload_time and self.magazine < self.magazine_size:
+            self.magazine += 1
 
 class ShotGun1(BaseShotGun):
     def __init__(self, game, ship, translation, force, interval, key=pygame.K_SPACE):
