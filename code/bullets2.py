@@ -43,7 +43,8 @@ class ManeuveringBullet:
     def tick(self):
         if self.maneuvering:
             if self.enemy in self.game.enemies:
-                pass
+                vector = Vector2(self.enemy.pos.x - self.pos.x, self.enemy.pos.y - self.pos.y)
+                angle = self.vel.angle_to(vector) / 2
             else: self.maneuvering = False
         else:
             self.vel *= 0.9995
