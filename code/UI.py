@@ -182,6 +182,8 @@ class GameMenu:
             self.game.showing = "mainmenu"
         elif self.button_hangar.check_click():
             self.game.showing = "hangar"
+        elif self.button_two_players.check_click():
+            self.game.showing = "twoplayers"
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
