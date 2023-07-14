@@ -1,5 +1,7 @@
 import pygame
 from code.ships import PlayableShip
+from code.other import DeluxeHP
+from code.cannons import *
 
 
 class Player1(PlayableShip):
