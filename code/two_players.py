@@ -6,6 +6,7 @@ from code.cannons import *
 
 class Player1(PlayableShip):
     def __init__(self, game):
+        self.hp = DeluxeHP(self.game, 1000000, 120, 700, 200, 20)
         super().__init__(game, "./images/SpaceShips2/spaceship_small_blue.png", 0.98, 200, 100, 2000)
 
     def tick(self):
