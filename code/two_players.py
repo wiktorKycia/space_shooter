@@ -20,6 +20,7 @@ class Player1(PlayableShip):
 
 class Player2(PlayableShip):
     def __init__(self, game):
+        self.hp = DeluxeHP(self.game, 1000000, 120, 30, 200, 20)
         super().__init__(game, "./images/SpaceShips2/spaceship_small_red.png", 0.98, 200, 100, 2000)
 
     def tick(self):
