@@ -11,7 +11,9 @@ class Player1(PlayableShip):
         self.cannon = KineticGun(game, self, Vector2(0, 20), self.force, 0.5)
 
     def tick(self):
+        self.hp.tick()
         super().tick()
+        self.cannon.tick()
 
     def draw(self):
         super().draw()
