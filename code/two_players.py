@@ -68,3 +68,5 @@ class Player2(PlayableShip):
 class TwoPlayersGame:
     def __init__(self, game):
         self.game = game
+        self.player1 = Player1(self.game)
+        self.player2 = Player2(self.game)
