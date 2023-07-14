@@ -96,3 +96,5 @@ class TwoPlayersGame:
     def draw(self):
         self.player1.draw()
         self.player2.draw()
+        self.player1.hp.tick()
+        self.player2.hp.tick()
