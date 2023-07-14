@@ -84,6 +84,15 @@ class TwoPlayersGame:
                 self.player2.hp.get_damage(energy)
                 continue
 
+        for bullet in self.player2.bullets:
+            bullet.tick()
+            bullet.draw()
+            if self.player1.mask.overlap(bullet.mask, (
+            bullet.pos.x - self.player1.hitbox.x, bullet.pos.y - self.player1.hitbox.y)):
+                energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+                self.player1.hp.get_damage(energy)
+                continue
+
     def draw(self):
         self.player1.draw()
         self.player2.draw()
