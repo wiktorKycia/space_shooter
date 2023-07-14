@@ -67,4 +67,4 @@ class Player2(PlayableShip):
 
 class TwoPlayersGame:
     def __init__(self, game):
-        pass
+        self.game = game
