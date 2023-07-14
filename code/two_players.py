@@ -70,3 +70,11 @@ class TwoPlayersGame:
         self.game = game
         self.player1 = Player1(self.game)
         self.player2 = Player2(self.game)
+
+    def tick(self):
+        self.player1.tick()
+        self.player2.tick()
+
+    def draw(self):
+        self.player1.draw()
+        self.player2.draw()
