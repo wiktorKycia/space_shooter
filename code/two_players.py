@@ -9,6 +9,8 @@ class Player1(PlayableShip):
     def tick(self):
         super().tick()
 
+    def draw(self):
+        super().draw()
 
 class Player2(PlayableShip):
     def __init__(self, game):
