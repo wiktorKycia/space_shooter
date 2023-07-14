@@ -64,6 +64,7 @@ class Player2(PlayableShip):
                 self.bullets.remove(bullet)
             else:
                 bullet.tick()
+        self.cannon.tick()
 
 class TwoPlayersGame:
     def __init__(self, game):
