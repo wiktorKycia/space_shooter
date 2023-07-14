@@ -21,7 +21,7 @@ class Player1(PlayableShip):
 class Player2(PlayableShip):
     def __init__(self, game):
         self.hp = DeluxeHP(game, 1000000, 120, 30, 200, 20)
-        super().__init__(game, "./images/SpaceShips2/spaceship_small_red.png", 0.98, 200, 100, 1000)
+        super().__init__(game, "./images/SpaceShips2/spaceship_small_red_reversed.png", 0.98, 200, 100, 1000)
         self.cannon = KineticGun(game, self, Vector2(0, 20), self.force, 0.5, pygame.K_RSHIFT)
 
     def tick(self):
