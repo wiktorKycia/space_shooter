@@ -1,6 +1,6 @@
 import pygame
-
-import code.two_players
+from code.UI import *
+from code.two_players import *
 from code import *
 
 class Game(object):
@@ -43,7 +43,7 @@ class Game(object):
         self.levelsmenu = LevelsMenu(self)
         self.hangar = HangarMenu(self)
         self.pausemenu = PauseMenu(self)
-        self.twoplayersgame = code.two_players.TwoPlayersGame(self)
+        self.twoplayersgame = TwoPlayersGame(self)
 
         while self.isrun:
             for event in pygame.event.get():
