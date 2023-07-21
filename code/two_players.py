@@ -1,4 +1,6 @@
 import pygame
+
+import code.UI
 from code.ships import PlayableShip
 from code.other import DeluxeHP
 from code.cannons import *
@@ -74,6 +76,8 @@ class TwoPlayersGame:
 
         self.click_P_counter = 0
 
+        self.pausemenu = code.UI.PauseMenu(game, "twoplayersmenu", "gamemenu")
+
     def tick(self):
         self.player1.tick()
         self.player2.tick()
@@ -98,7 +102,7 @@ class TwoPlayersGame:
 
         if pygame.key.get_pressed()[pygame.K_p] == 1 and self.click_P_counter == 0:
             self.click_P_counter += 1
-            self.game.showing = "pausemenu"
+            self.game.showing = "twoplayers_pausemenu"
         elif pygame.key.get_pressed()[pygame.K_p] == 0:
             self.click_P_counter = 0
         else:
