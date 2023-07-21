@@ -1,4 +1,6 @@
 import pygame
+from code.UI import *
+from code.two_players import *
 from code import *
 
 class Game(object):
@@ -41,6 +43,7 @@ class Game(object):
         self.levelsmenu = LevelsMenu(self)
         self.hangar = HangarMenu(self)
         self.pausemenu = PauseMenu(self)
+        self.twoplayersgame = TwoPlayersGame(self)
 
         while self.isrun:
             for event in pygame.event.get():
@@ -69,6 +72,12 @@ class Game(object):
                 case "game":
                     self.tick()
                     self.draw()
+                case "twoplayers":
+                    self.twoplayersgame.tick()
+                    self.twoplayersgame.draw()
+                case "twoplayers_pausemenu":
+                    self.twoplayersgame.pausemenu.tick_menu()
+                    self.twoplayersgame.pausemenu.draw_menu()
                 case _: pass
             pygame.display.update()
         pygame.quit()

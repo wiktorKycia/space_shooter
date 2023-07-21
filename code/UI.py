@@ -182,6 +182,8 @@ class GameMenu:
             self.game.showing = "mainmenu"
         elif self.button_hangar.check_click():
             self.game.showing = "hangar"
+        elif self.button_two_players.check_click():
+            self.game.showing = "twoplayers"
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
@@ -280,15 +282,17 @@ class HangarMenu:
         self.button_prev.draw(self.game.screen)
 
 class PauseMenu:
-    def __init__(self, game):
+    def __init__(self, game, resume_button_menu="game", exit_button_menu="levelsmenu"):
         self.game = game
+        self.resume_button_menu = resume_button_menu
+        self.exit_button_menu = exit_button_menu
         self.button_exit = Button(self.game, self.game.width/2, self.game.height/2-100, "./images/buttons/button_exit2.png", 2.0, "./images/buttons/button_exit2_hover.png")
         self.button_resume = Button(self.game, self.game.width/2, self.game.height/2+100, "./images/buttons/button_resume.png", 2.0, "./images/buttons/button_resume_hover.png")
     def tick_menu(self):
         if self.button_exit.check_click():
-            self.game.showing = "levelsmenu"
+            self.game.showing = self.exit_button_menu
         elif self.button_resume.check_click():
-            self.game.showing = "game"
+            self.game.showing = self.resume_button_menu
     def draw_menu(self):
        self.button_exit.draw(self.game.screen)
        self.button_resume.draw(self.game.screen)
