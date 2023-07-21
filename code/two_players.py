@@ -76,7 +76,7 @@ class TwoPlayersGame:
 
         self.click_P_counter = 0
 
-        self.pausemenu = code.UI.PauseMenu(game, "twoplayersmenu", "gamemenu")
+        self.pausemenu = code.UI.PauseMenu(game, "twoplayers", "gamemenu")
 
     def tick(self):
         self.player1.tick()
