@@ -75,6 +75,9 @@ class Game(object):
                 case "twoplayers":
                     self.twoplayersgame.tick()
                     self.twoplayersgame.draw()
+                case "twoplayers_pausemenu":
+                    self.twoplayersgame.pausemenu.tick_menu()
+                    self.twoplayersgame.pausemenu.draw_menu()
                 case _: pass
             pygame.display.update()
         pygame.quit()
