@@ -96,6 +96,14 @@ class TwoPlayersGame:
                 self.player1.hp.get_damage(energy)
                 continue
 
+        if pygame.key.get_pressed()[pygame.K_p] == 1 and self.click_P_counter == 0:
+            self.click_P_counter += 1
+            self.game.showing = "pausemenu"
+        elif pygame.key.get_pressed()[pygame.K_p] == 0:
+            self.click_P_counter = 0
+        else:
+            self.click_P_counter += 1
+
     def draw(self):
         self.player1.draw()
         self.player2.draw()
