@@ -72,6 +72,8 @@ class TwoPlayersGame:
         self.player1 = Player1(self.game)
         self.player2 = Player2(self.game)
 
+        self.click_P_counter = 0
+
     def tick(self):
         self.player1.tick()
         self.player2.tick()
