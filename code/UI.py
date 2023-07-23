@@ -20,53 +20,11 @@ def write_on_surface(surface, text, x, y, font_size, color=(0, 0, 0), is_centere
         y = (surface.get_rect().height - rend.get_rect().height) / 2
     surface.blit(rend, (x, y))
 
-class NoImageButton:
-    def __init__(self, game, x, y, width, height, text):
-        self.game = game
-        self.y = y
-        self.x = x
-        self.width = width
-        self.height = height
-
-        self.surf = pygame.Surface((width, height))
-        self.surf.fill((30, 30, 30))
-        self.rect = self.surf.get_rect()
-        self.rect.topleft = (x - width/2, y - height/2)
-
-        self.text = text
-
-    def check_click(self):
-        action = False
-        pos = pygame.mouse.get_pos()
-        # check if the rect collides with the mouse
-        if self.rect.collidepoint(pos):
-            self.surf.fill((100, 100, 100))
-            write_on_surface(self.surf, self.text, 0, 0, 28, (250, 250, 250), True)
-
-            # check if the mouse is clicked
-            if self.game.mouse.click():
-                action = True
-                # return action
-        elif not self.rect.collidepoint(pos):
-            self.surf.fill((30, 30, 30))
-            write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
-        return action
-
-    def draw(self, surface):
-        surface.blit(self.surf, (self.x - self.width / 2, self.y - self.height / 2))
-        pygame.draw.rect(surface, (250, 250, 250), self.rect, 1)
-        write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
-
-
-class LevelButton(NoImageButton):
+class LevelButton(TextButton):
     def __init__(self, game, x, y, width, height, level_id:int):
         self.level_id = level_id
         self.text = f"Level {str(level_id)}"
         super().__init__(game, x, y, width, height, self.text)
-    # def check_click(self):
-    #     return super().check_click()
-    def draw(self, surface):
-        super().draw(surface)
 
 class Button(Clickable):
     def __init__(self, game, x:int, y:int, path:str, scale:float = 1.0, path2:str=""):
