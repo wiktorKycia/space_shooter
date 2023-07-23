@@ -56,7 +56,7 @@ class MainMenu:
         self.game.screen.blit(self.background, (0, 0))
         self.game.screen.blit(self.title_image, (self.game.width/2 - self.title_image.get_width()/2, 150 - self.title_image.get_height()/2))
         for button in self.buttons:
-            button.draw(self.game.screen)
+            button.draw()
 
 class GameMenu:
     def __init__(self, game):
@@ -107,7 +107,7 @@ class GameMenu:
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
         for button in self.buttons:
-            button.draw(self.game.screen)
+            button.draw()
         self.ship.pos = Vector2(self.game.width / 2, self.game.height / 2)
         self.ship.draw()
         self.game.screen.blit(self.coin, (450, 300))
@@ -149,9 +149,9 @@ class LevelsMenu:
         return y
 
     def draw_menu(self):
-        self.button_back.draw(self.game.screen)
+        self.button_back.draw()
         for button in self.buttons:
-            button.draw(self.game.screen)
+            button.draw()
         #     if button.level_id % 3 == 1:
         #         button.draw(self.game.screen, self.game.width/5, self._calculate_level_y(button.level_id))
         #     if button.level_id % 3 == 2:
@@ -196,9 +196,9 @@ class HangarMenu:
             ship.draw()
         self.game.player.current_ship.hitbox.center = (self.game.player.current_ship.pos.x, self.game.player.current_ship.pos.y)
         pygame.draw.rect(self.game.screen, (255, 255, 255), self.game.player.current_ship.hitbox, 1)
-        self.button_back.draw(self.game.screen)
-        self.button_next.draw(self.game.screen)
-        self.button_prev.draw(self.game.screen)
+        self.button_back.draw()
+        self.button_next.draw()
+        self.button_prev.draw()
 
 class PauseMenu:
     def __init__(self, game, resume_button_menu="game", exit_button_menu="levelsmenu"):
@@ -213,8 +213,8 @@ class PauseMenu:
         elif self.button_resume.check_click():
             self.game.showing = self.resume_button_menu
     def draw_menu(self):
-       self.button_exit.draw(self.game.screen)
-       self.button_resume.draw(self.game.screen)
+       self.button_exit.draw()
+       self.button_resume.draw()
 
 class SettingsMenu:
     def __init__(self, game):
