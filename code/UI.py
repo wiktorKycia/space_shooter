@@ -1,9 +1,8 @@
 from code.ships import *
 from code.player import *
-from code.general import *
+from code.general import TextButton, Clickable
 import pygame
 from pygame.math import *
-import os
 
 def write(game, text, x, y, font_size, color=(0, 0, 0), font_style="Arial", is_centered=False,):
     font = pygame.font.SysFont(font_style, font_size)
