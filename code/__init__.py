@@ -36,3 +36,5 @@ class UnClickable(StaticObject):
 
     def draw(self):
         self.game.screen.blit(self.surf, (self.x, self.y))
+
+class TextObject(UnClickable):
