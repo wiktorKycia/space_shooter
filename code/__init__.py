@@ -11,11 +11,14 @@ from code.ships import *
 from code.two_players import *
 from code.UI import *
 
+from abc import ABC, abstractmethod
 
-class MainObject(object):
+class MainObject(object, ABC):
     def __init__(self):
         pass
+    @abstractmethod
     def tick(self):
         pass
+    @abstractmethod
     def draw(self):
         pass
