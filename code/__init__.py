@@ -51,6 +51,8 @@ class TextObject(UnClickable):
         return rend
 
 class ImageObject(UnClickable):
-    def __init__(self, game, x, y, path):
+    def __init__(self, game, x, y, path, scale=1.0):
         self.image = pygame.image.load(path)
+        if scale != 1.0:
+            self.image = pygame.transform.scale_by(self.image, scale)
         super().__init__(game, x, y, self.image)
