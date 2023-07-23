@@ -10,3 +10,7 @@ from code.player import *
 from code.ships import *
 from code.two_players import *
 from code.UI import *
+
+
+class MainObject(object):
+    pass
