@@ -29,6 +29,7 @@ class StaticObject(MainObject):
         self.x = x
         self.y = y
 
+
 class UnClickable(StaticObject):
     def __init__(self, game, x, y, surf):
         super().__init__(game, x, y)
@@ -56,3 +57,6 @@ class ImageObject(UnClickable):
         if scale != 1.0:
             self.image = pygame.transform.scale_by(self.image, scale)
         super().__init__(game, x, y, self.image)
+
+
+class Clickable(StaticObject):
