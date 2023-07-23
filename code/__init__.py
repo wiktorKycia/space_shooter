@@ -73,3 +73,20 @@ class Clickable(StaticObject):
 
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
+
+        # current image
+        self.img = self.image
+
+    def check_click(self):
+        action = False
+        pos = pygame.mouse.get_pos()
+        # check if the rect collides with the mouse
+        if self.rect.collidepoint(pos):
+            self.img = self.image2
+            # check if the mouse is clicked
+            if self.game.mouse.click():
+                action = True
+        elif not self.rect.collidepoint(pos):
+            self.img = self.image
+
+        return action
