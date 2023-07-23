@@ -100,7 +100,7 @@ class Clickable(StaticObject):
     def draw(self):
         self.game.screen.blit(self.img, (self.x - self.width/2, self.y - self.height/2))
 
-class LevelButton(StaticObject):
+class TextButton(StaticObject):
     def __init__(self, game, x, y, width, height, text):
         super().__init__(game, x, y)
         self.width = width
