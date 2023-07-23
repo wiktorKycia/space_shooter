@@ -28,3 +28,4 @@ class StaticObject(MainObject):
         self.x = x
         self.y = y
 
+class UnClickable(StaticObject):
