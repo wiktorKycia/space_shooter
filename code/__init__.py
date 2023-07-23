@@ -24,3 +24,7 @@ class MainObject(object, ABC):
         pass
 
 class StaticObject(MainObject):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
