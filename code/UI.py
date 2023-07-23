@@ -1,6 +1,6 @@
 from code.ships import *
 from code.player import *
-from code.general import TextButton, Clickable
+from code.general import *
 import pygame
 from pygame.math import *
 
