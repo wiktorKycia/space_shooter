@@ -38,3 +38,6 @@ class UnClickable(StaticObject):
         self.game.screen.blit(self.surf, (self.x, self.y))
 
 class TextObject(UnClickable):
+    def __init__(self, game, x, y, ):
+        self.text =
+        super().__init__(game, x, y, )
