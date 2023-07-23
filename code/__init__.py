@@ -51,3 +51,6 @@ class TextObject(UnClickable):
         return rend
 
 class ImageObject(UnClickable):
+    def __init__(self, game, x, y, path):
+        self.image = pygame.image.load(path)
+        super().__init__(game, x, y, self.image)
