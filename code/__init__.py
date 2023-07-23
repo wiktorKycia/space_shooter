@@ -51,6 +51,9 @@ class TextObject(UnClickable):
             self.y = (self.game.height - rend.get_rect().height) / 2
         return rend
 
+    def draw(self):
+        self.game.screen.blit(self.text, (self.x - self.text.get_width()/2, self.y - self.text.get_height()/2))
+
 class ImageObject(UnClickable):
     def __init__(self, game, x, y, path, scale=1.0):
         self.image = pygame.image.load(path)
