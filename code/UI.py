@@ -68,48 +68,9 @@ class LevelButton(NoImageButton):
     def draw(self, surface):
         super().draw(surface)
 
-class Button:
-    def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
-        self.game = game
-        self.x = x
-        self.y = y
-
-        self.image = pygame.image.load(os.path.join(image)).convert_alpha()
-
-        width = self.image.get_width()
-        height = self.image.get_height()
-
-        self.image = pygame.transform.scale(self.image, (int(width * scale), int(height * scale)))
-
-        # create an image2 if the path is not empty
-        if not image2 == "":
-            self.image2 = pygame.image.load(os.path.join(image2)).convert_alpha()
-            self.image2 = pygame.transform.scale(self.image2, (int(width * scale), int(height * scale)))
-
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
-
-        self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
-
-        self.img = self.image
-
-    def check_click(self):
-        action = False
-        pos = pygame.mouse.get_pos()
-        # check if the rect collides with the mouse
-        if self.rect.collidepoint(pos):
-            self.img = self.image2
-            # check if the mouse is clicked
-            if self.game.mouse.click():
-                action = True
-        elif not self.rect.collidepoint(pos):
-            self.img = self.image
-
-        return action
-
-    def draw(self, surface):
-        surface.blit(self.img, (self.x - self.width/2, self.y - self.height/2))
+class Button(Clickable):
+    def __init__(self, game, x:int, y:int, path:str, scale:float = 1.0, path2:str=""):
+        super().__init__(game, x, y, path, scale, path2)
 
 class MainMenu:
     def __init__(self, game):
