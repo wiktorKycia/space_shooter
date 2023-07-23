@@ -101,3 +101,14 @@ class Clickable(StaticObject):
         self.game.screen.blit(self.img, (self.x - self.width/2, self.y - self.height/2))
 
 class LevelButton(StaticObject):
+    def __init__(self, game, x, y, width, height, text):
+        super().__init__(game, x, y)
+        self.width = width
+        self.height = height
+
+        self.surf = pygame.Surface((width, height))
+        self.surf.fill((30, 30, 30))
+        self.rect = self.surf.get_rect()
+        self.rect.topleft = (x - width/2, y - height/2)
+
+        self.text = text
