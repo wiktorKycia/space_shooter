@@ -35,3 +35,4 @@ class UnClickable(StaticObject):
         self.surf = surf
 
     def draw(self):
+        self.game.screen.blit(self.surf, (self.x, self.y))
