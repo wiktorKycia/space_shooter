@@ -49,3 +49,5 @@ class TextObject(UnClickable):
             self.x = (self.game.width - rend.get_rect().width) / 2
             self.y = (self.game.height - rend.get_rect().height) / 2
         return rend
+
+class ImageObject(UnClickable):
