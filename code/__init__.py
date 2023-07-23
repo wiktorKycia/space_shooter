@@ -90,3 +90,6 @@ class Clickable(StaticObject):
             self.img = self.image
 
         return action
+
+    def draw(self):
+        self.game.screen.blit(self.img, (self.x - self.width/2, self.y - self.height/2))
