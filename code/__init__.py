@@ -22,3 +22,5 @@ class MainObject(object, ABC):
     @abstractmethod
     def draw(self):
         pass
+
+class StaticObject(MainObject):
