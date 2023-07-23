@@ -29,5 +29,6 @@ class StaticObject(MainObject):
         self.y = y
 
 class UnClickable(StaticObject):
-    def __init__(self, x, y):
+    def __init__(self, x, y, surf):
         super().__init__(x, y)
+        self.surf = surf
