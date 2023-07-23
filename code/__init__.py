@@ -112,3 +112,20 @@ class TextButton(StaticObject):
         self.rect.topleft = (x - width/2, y - height/2)
 
         self.text = text
+
+    def check_click(self):
+        action = False
+        pos = pygame.mouse.get_pos()
+        # check if the rect collides with the mouse
+        if self.rect.collidepoint(pos):
+            self.surf.fill((100, 100, 100))
+            write_on_surface(self.surf, self.text, 0, 0, 28, (250, 250, 250), True)
+
+            # check if the mouse is clicked
+            if self.game.mouse.click():
+                action = True
+                # return action
+        elif not self.rect.collidepoint(pos):
+            self.surf.fill((30, 30, 30))
+            write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
+        return action
