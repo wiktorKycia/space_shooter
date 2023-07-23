@@ -23,14 +23,15 @@ class MainObject(object):
         pass
 
 class StaticObject(MainObject):
-    def __init__(self, x, y):
+    def __init__(self, game, x, y):
         super().__init__()
+        self.game = game
         self.x = x
         self.y = y
 
 class UnClickable(StaticObject):
-    def __init__(self, x, y, surf):
-        super().__init__(x, y)
+    def __init__(self, game, x, y, surf):
+        super().__init__(game, x, y)
         self.surf = surf
 
     def draw(self):
