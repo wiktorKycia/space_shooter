@@ -61,6 +61,9 @@ class ImageObject(UnClickable):
             self.image = pygame.transform.scale_by(self.image, scale)
         super().__init__(game, x, y, self.image)
 
+    def draw(self):
+        self.game.screen.blit(self.image, (self.x - self.image.get_width() / 2, self.y - self.image.get_height() / 2))
+
 
 class Clickable(StaticObject):
     def __init__(self, game, x, y, path, scale=1.0, path2=""):
