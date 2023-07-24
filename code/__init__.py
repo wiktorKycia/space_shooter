@@ -162,3 +162,6 @@ class HasHealth(DynamicObject):
 
     def tick(self):
         self.hp.tick()
+
+class NoMoving(DynamicObject):
+    def __init__(self):
