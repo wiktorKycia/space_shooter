@@ -134,3 +134,6 @@ class TextButton(StaticObject):
         self.game.screen.blit(self.surf, (self.x - self.width / 2, self.y - self.height / 2))
         pygame.draw.rect(self.game.screen, (250, 250, 250), self.rect, 1)
         write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
+
+
+class DynamicObject(MainObject):
