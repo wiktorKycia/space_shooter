@@ -178,4 +178,8 @@ class Moving(DynamicObject):
 
 class ShootingDownNoMove(HasHealth, NoMoving):
     def __init__(self, game, x, y, path, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50):
-        super().__init__(game, x, y, path, hp_amount, hp_x, hp_y, hp_width, hp_height)
+        NoMoving.__init__(self, game, x, y, path)
+        hp_x = self.pos.x + hp_x
+        hp_y = self.pos.y + hp_y
+
+        super().__init__(hp_amount, hp_x, hp_y, hp_width, hp_height)
