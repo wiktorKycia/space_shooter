@@ -137,3 +137,5 @@ class TextButton(StaticObject):
 
 
 class DynamicObject(MainObject):
+    def __init__(self, game, x, y, path):
+        super().__init__()
