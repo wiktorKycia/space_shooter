@@ -143,3 +143,6 @@ class DynamicObject(MainObject):
         self.x = x
         self.y = y
         self.image = pygame.image.load(path)
+
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
