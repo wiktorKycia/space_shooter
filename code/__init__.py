@@ -172,3 +172,6 @@ class Moving(DynamicObject):
         self.acc = Vector2(0, 0)
 
         self.mass = mass
+
+    def add_force(self, force):
+        self.acc += force / self.mass
