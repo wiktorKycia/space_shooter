@@ -175,3 +175,6 @@ class Moving(DynamicObject):
 
     def add_force(self, force):
         self.acc += force / self.mass
+
+class ShootingDownNoMove(NoMoving, HasHealth):
+
