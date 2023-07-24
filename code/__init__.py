@@ -168,4 +168,6 @@ class NoMoving(DynamicObject):
 class Moving(DynamicObject):
     def __init__(self, game, x, y, path):
         super().__init__(game, x, y, path)
+        self.vel = Vector2(0, 0)
+        self.acc = Vector2(0, 0)
 
