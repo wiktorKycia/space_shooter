@@ -139,3 +139,7 @@ class TextButton(StaticObject):
 class DynamicObject(MainObject):
     def __init__(self, game, x, y, path):
         super().__init__()
+        self.game = game
+        self.x = x
+        self.y = y
+        self.image = pygame.image.load(path)
