@@ -1,3 +1,5 @@
+import queue
+
 import pygame
 # from code.bullets import *
 # from code.bullets2 import *
@@ -149,3 +151,6 @@ class DynamicObject(MainObject):
 
         self.hitbox = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
+
+    def draw(self):
+        self.game.screen.blit(self.image, (self.x - self.width/2, self.y - self.height/2))
