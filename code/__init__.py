@@ -1,6 +1,5 @@
-import queue
-
 import pygame
+from pygame.math import Vector2
 # from code.bullets import *
 # from code.bullets2 import *
 # from code.cannons import *
@@ -142,8 +141,7 @@ class DynamicObject(MainObject):
     def __init__(self, game, x, y, path):
         super().__init__()
         self.game = game
-        self.x = x
-        self.y = y
+        self.pos = Vector2(x, y)
         self.image = pygame.image.load(path).convert_alpha()
 
         self.width = self.image.get_width()
@@ -153,7 +151,7 @@ class DynamicObject(MainObject):
         self.mask = pygame.mask.from_surface(self.image)
 
     def draw(self):
-        self.game.screen.blit(self.image, (self.x - self.width/2, self.y - self.height/2))
+        self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
 class HasHealth(DynamicObject):
     def __init__(self, game, x, y, path, hp_amount, hp_x, hp_y, hp_width, hp_height):
