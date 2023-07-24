@@ -154,8 +154,8 @@ class DynamicObject(MainObject):
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
 class HasHealth(DynamicObject):
-    def __init__(self, game, x, y, path, hp_amount, hp_x, hp_y, hp_width, hp_height):
-        super().__init__(game, x, y, path)
+    def __init__(self, hp_amount, hp_x, hp_y, hp_width, hp_height):
+        # super().__init__(game, x, y, path)
         self.hp = DeluxeHP(self.game, amount=hp_amount, x=hp_x, y=hp_y, width=hp_width, height=hp_height)
 
     def tick(self):
