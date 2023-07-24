@@ -166,4 +166,6 @@ class NoMoving(DynamicObject):
         super().__init__(game, x, y, path)
 
 class Moving(DynamicObject):
+    def __init__(self, game, x, y, path):
+        super().__init__(game, x, y, path)
 
