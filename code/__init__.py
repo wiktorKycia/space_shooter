@@ -7,7 +7,7 @@ import pygame
 # from code.enemies import *
 # from code.levels import *
 # from code.maneuvering_cannons import *
-# from code.other import *
+from code.other import *
 # from code.player import *
 # from code.ships import *
 # from code.two_players import *
@@ -154,3 +154,11 @@ class DynamicObject(MainObject):
 
     def draw(self):
         self.game.screen.blit(self.image, (self.x - self.width/2, self.y - self.height/2))
+
+class HasHealth(DynamicObject):
+    def __init__(self, game, x, y, path, hp_amount, hp_x, hp_y, hp_width, hp_height):
+        super().__init__(game, x, y, path)
+        self.hp = DeluxeHP(self.game, amount=hp_amount, x=hp_x, y=hp_y, width=hp_width, height=hp_height)
+
+    def tick(self):
+        self.hp.tick()
