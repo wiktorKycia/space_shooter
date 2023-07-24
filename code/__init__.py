@@ -146,3 +146,6 @@ class DynamicObject(MainObject):
 
         self.width = self.image.get_width()
         self.height = self.image.get_height()
+
+        self.hitbox = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
