@@ -176,7 +176,6 @@ class Moving(DynamicObject):
     def add_force(self, force):
         self.acc += force / self.mass
 
-class ShootingDownNoMove(NoMoving, HasHealth):
-    def __init__(self, game, x, y, path, hp_amount, hp_width, hp_height):
-
-        super().__init__(game, x, y, path)
+class ShootingDownNoMove(HasHealth, NoMoving):
+    def __init__(self, game, x, y, path, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50):
+        super().__init__(game, x, y, path, hp_amount, hp_x, hp_y, hp_width, hp_height)
