@@ -183,3 +183,5 @@ class ShootingDownNoMove(HasHealth, NoMoving):
         hp_y = self.pos.y + hp_y
 
         super().__init__(hp_amount, hp_x, hp_y, hp_width, hp_height)
+
+class ShootingDown(Moving):
