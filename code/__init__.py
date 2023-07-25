@@ -191,6 +191,25 @@ class Moving(DynamicObject):
     def add_force(self, force):
         self.acc += force / self.mass
 
+    def tick(self):
+        # Physics
+        self.vel *= self.slip
+        self.vel += self.acc
+
+        # Limiting speed
+        if self.vel.x > self.max_speed:  # right
+            self.vel = Vector2(self.max_speed, self.vel.y)
+        elif self.vel.x < -self.max_speed:  # left
+            self.vel = Vector2(-self.max_speed, self.vel.y)
+        if self.vel.y > self.max_speed:  # up
+            self.vel = Vector2(self.vel.x, self.max_speed)
+        elif self.vel.y < -self.max_speed:  # down
+            self.vel = Vector2(self.vel.x, -self.max_speed)
+
+        self.pos += self.vel * self.game.dt
+        self.acc *= 0
+        super().tick()
+
 class ShootingDownNoMove(HasHealth, NoMoving):
     def __init__(self, game, x, y, path, shot_force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50):
         NoMoving.__init__(self, game, x, y, path)
