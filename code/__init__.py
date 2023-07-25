@@ -227,3 +227,4 @@ class ShootingDown(Moving, HasHealth):
         hp_y = self.pos.y + hp_y
 
         self.shot_force = shot_force
+        HasHealth.__init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height)
