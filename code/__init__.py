@@ -226,5 +226,9 @@ class ShootingDown(Moving, HasHealth):
         hp_x = self.pos.x + hp_x
         hp_y = self.pos.y + hp_y
 
-        self.shot_force = shot_force
+        self.shot_force = -shot_force
         HasHealth.__init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height)
+
+    def tick(self):
+        super().tick()
+        HasHealth.tick(self)
