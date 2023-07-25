@@ -232,3 +232,7 @@ class ShootingDown(Moving, HasHealth):
     def tick(self):
         super().tick()
         HasHealth.tick(self)
+
+    def draw(self):
+        super().draw()
+        HasHealth.draw(self)
