@@ -164,6 +164,10 @@ class HasHealth:
         self.clock += self.game.dt
         self.hp.tick()
 
+    def draw(self):
+        for bullet in self.bullets:
+            bullet.draw()
+
 class NoMoving(DynamicObject):
     def __init__(self, game, x, y, path):
         super().__init__(game, x, y, path)
