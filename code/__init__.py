@@ -198,4 +198,5 @@ class ShootingDownNoMove(HasHealth, NoMoving):
 
         super().__init__(hp_amount, hp_x, hp_y, hp_width, hp_height)
 
-class ShootingDown(Moving): pass
+class ShootingDown(Moving, HasHealth):
+    def __init__(self, game, x, y, path, mass, shot_force):
