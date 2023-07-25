@@ -223,3 +223,7 @@ class ShootingDownNoMove(HasHealth, NoMoving):
 class ShootingDown(Moving, HasHealth):
     def __init__(self, game, x, y, path, mass, max_speed, shot_force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50):
         super().__init__(game, x, y, path, mass, max_speed)
+        hp_x = self.pos.x + hp_x
+        hp_y = self.pos.y + hp_y
+
+        self.shot_force = shot_force
