@@ -161,6 +161,7 @@ class HasHealth:
         self.clock = 0
 
     def tick(self):
+        self.clock += self.game.dt
         self.hp.tick()
 
 class NoMoving(DynamicObject):
