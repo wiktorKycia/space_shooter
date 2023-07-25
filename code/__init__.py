@@ -155,8 +155,9 @@ class DynamicObject(MainObject):
 
 class HasHealth:
     def __init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height):
-        # super().__init__(game, x, y, path)
         self.hp = DeluxeHP(game, amount=hp_amount, x=hp_x, y=hp_y, width=hp_width, height=hp_height)
+        self.bullets = []
+        self.clock = 0
 
     def tick(self):
         self.hp.tick()
@@ -184,4 +185,4 @@ class ShootingDownNoMove(HasHealth, NoMoving):
 
         super().__init__(hp_amount, hp_x, hp_y, hp_width, hp_height)
 
-class ShootingDown(Moving):
+class ShootingDown(Moving): pass
