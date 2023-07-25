@@ -163,6 +163,8 @@ class HasHealth:
     def tick(self):
         self.clock += self.game.dt
         self.hp.tick()
+        for bullet in self.bullets:
+            bullet.tick()
 
     def draw(self):
         for bullet in self.bullets:
