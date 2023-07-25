@@ -189,10 +189,12 @@ class Moving(DynamicObject):
         self.acc += force / self.mass
 
 class ShootingDownNoMove(HasHealth, NoMoving):
-    def __init__(self, game, x, y, path, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50):
+    def __init__(self, game, x, y, path, shot_force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50):
         NoMoving.__init__(self, game, x, y, path)
         hp_x = self.pos.x + hp_x
         hp_y = self.pos.y + hp_y
+
+        self.shot_force = -shot_force
 
         super().__init__(hp_amount, hp_x, hp_y, hp_width, hp_height)
 
