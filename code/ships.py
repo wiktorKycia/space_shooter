@@ -12,32 +12,9 @@ mixer.init()
 
 
 class PlayableShip(ShootingUp):
-    def __init__(self, game, image_path, slip, max_speed, mass, force):
-        self.game = game
-        self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
-        self.hitbox = self.image.get_rect()
-        self.mask = pygame.mask.from_surface(self.image)
-        # self.mask.set_at()
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
-
-        self.slip = slip
-        self.mass = mass
-
+    def __init__(self, game, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, slip):
         size = self.game.screen.get_size()
-        self.pos = Vector2(size[0] / 2, size[1] / 2)
-        self.vel = Vector2(0, 0)
-        self.acc = Vector2(0, 0)
-
-        self.force = force
-        self.bullets = []
-        self.clock = 0
-
-        self.max_speed = max_speed
-
-
-    def add_force(self, force):
-        self.acc += force / self.mass
+        super().__init__(game, size[0]/2, size[1]/2, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, False, slip)
 
     def tick(self):
         # Input
@@ -51,41 +28,10 @@ class PlayableShip(ShootingUp):
         if pressed[pygame.K_a]:
             self.add_force(Vector2(-self.force, 0))
 
-        # Physics
-        self.vel *= self.slip
-        self.vel -= Vector2(0, 0)
-
-        self.vel += self.acc
-
-        # Limiting speed
-        if self.vel.x > self.max_speed: # right
-            self.vel = Vector2(self.max_speed, self.vel.y)
-        elif self.vel.x < -self.max_speed: # left
-            self.vel = Vector2(-self.max_speed, self.vel.y)
-        if self.vel.y > self.max_speed: # up
-            self.vel = Vector2(self.vel.x, self.max_speed)
-        elif self.vel.y < -self.max_speed:  # down
-            self.vel = Vector2(self.vel.x, -self.max_speed)
-
-        self.pos += self.vel * self.game.dt
-        self.acc *= 0
-
-        self.hitbox.center = (self.pos.x, self.pos.y)
-
-        self.clock += self.game.dt
-
-        for bullet in self.bullets:
-            if bullet.pos.y <= -bullet.height:
-                self.bullets.remove(bullet)
-            else:
-                bullet.tick()
+        super().tick()
 
     def draw(self):
-        for bullet in self.bullets:
-            bullet.draw()
-            if bullet.pos.y <= 0 - bullet.height:
-                self.bullets.remove(bullet)
-        self.game.screen.blit(self.image, (self.pos.x - self.width / 2, self.pos.y - self.height / 2))
+        super().draw()
 
 class Ship0(PlayableShip):
     def __init__(self, game):
