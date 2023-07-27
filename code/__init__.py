@@ -247,3 +247,11 @@ class ShootingUp(Moving, HasHealth):
             hp_y = self.pos.y + hp_y
         HasHealth.__init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height)
 
+    def tick(self):
+        super().tick()
+        HasHealth.tick(self)
+
+    def draw(self):
+        super().draw()
+        HasHealth.draw(self)
+
