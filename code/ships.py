@@ -9,23 +9,6 @@ from code.maneuvering_cannons import *
 
 mixer.init()
 
-class Ship(object):
-    def __init__(self, game, x, y, image_path, scale=1.0):
-        self.game = game
-        self.x = x
-        self.y = y
-        self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
-        width = self.image.get_width()
-        height = self.image.get_height()
-        self.image = pygame.transform.scale(self.image, (int(width * scale), int(height * scale)))
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
-
-    def tick(self):
-        pass
-
-    def draw(self):
-        self.game.screen.blit(self.image, (self.x - self.width/2, self.y - self.height/2))
 
 class PlayableShip(object):
     def __init__(self, game, image_path, slip, max_speed, mass, force):
