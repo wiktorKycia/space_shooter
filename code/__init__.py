@@ -211,22 +211,23 @@ class Moving(DynamicObject):
         super().tick()
 
 class ShootingDownNoMove(HasHealth, NoMoving):
-    def __init__(self, game, x, y, path, shot_force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50):
+    def __init__(self, game, x, y, path, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50):
         NoMoving.__init__(self, game, x, y, path)
         hp_x = self.pos.x + hp_x
         hp_y = self.pos.y + hp_y
 
-        self.shot_force = -shot_force
+        self.force = -force
 
         super().__init__(hp_amount, hp_x, hp_y, hp_width, hp_height)
 
 class ShootingDown(Moving, HasHealth):
-    def __init__(self, game, x, y, path, mass, max_speed, shot_force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50, slip=0.98):
+    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50, hp_relative=False, slip=0.98):
         super().__init__(game, x, y, path, mass, max_speed, slip)
-        hp_x = self.pos.x + hp_x
-        hp_y = self.pos.y + hp_y
+        if hp_relative:  # ! może być błąd z hp_x i hp_y
+            hp_x = self.pos.x + hp_x
+            hp_y = self.pos.y + hp_y
 
-        self.shot_force = -shot_force
+        self.force = -force
         HasHealth.__init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height)
 
     def tick(self):
@@ -238,9 +239,9 @@ class ShootingDown(Moving, HasHealth):
         HasHealth.draw(self)
 
 class ShootingUp(Moving, HasHealth):
-    def __init__(self, game, x, y, path, mass, max_speed, shot_force, hp_amount, hp_width, hp_height, hp_x, hp_y, hp_relative=False, slip=0.98):
+    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, hp_relative=False, slip=0.98):
         super().__init__(game, x, y, path, mass, max_speed, slip)
-        self.shot_force = shot_force
+        self.force = force
         if hp_relative: # ! może być błąd z hp_x i hp_y
             hp_x = self.pos.x + hp_x
             hp_y = self.pos.y + hp_y
