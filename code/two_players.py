@@ -19,6 +19,7 @@ class Player1(PlayableShip):
             hp_x=110, hp_y=730
         )
         self.cannon = KineticGun(game, self, Vector2(0, 20), self.force, 0.5, pygame.K_LSHIFT)
+        self.pos = Vector2(350, 600)
 
     def tick(self):
         super().tick()
