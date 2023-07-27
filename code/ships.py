@@ -6,11 +6,12 @@ from code import *
 from code.other import *
 from code.cannons import *
 from code.maneuvering_cannons import *
+from code import ShootingUp
 
 mixer.init()
 
 
-class PlayableShip(object):
+class PlayableShip(ShootingUp):
     def __init__(self, game, image_path, slip, max_speed, mass, force):
         self.game = game
         self.image = pygame.image.load(os.path.join(image_path)).convert_alpha()
