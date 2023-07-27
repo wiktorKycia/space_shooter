@@ -30,13 +30,13 @@ class Player2(ShootingDown):
         # Input
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_UP]:
-            self.add_force(Vector2(0, -self.force))
-        if pressed[pygame.K_DOWN]:
             self.add_force(Vector2(0, self.force))
+        if pressed[pygame.K_DOWN]:
+            self.add_force(Vector2(0, -self.force))
         if pressed[pygame.K_RIGHT]:
-            self.add_force(Vector2(self.force, 0))
-        if pressed[pygame.K_LEFT]:
             self.add_force(Vector2(-self.force, 0))
+        if pressed[pygame.K_LEFT]:
+            self.add_force(Vector2(self.force, 0))
 
         super().tick()
         self.cannon.tick()
