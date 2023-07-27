@@ -236,3 +236,5 @@ class ShootingDown(Moving, HasHealth):
     def draw(self):
         super().draw()
         HasHealth.draw(self)
+
+class ShootingUp(Moving, HasHealth):
