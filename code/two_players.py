@@ -38,34 +38,7 @@ class Player2(ShootingDown):
         if pressed[pygame.K_LEFT]:
             self.add_force(Vector2(-self.force, 0))
 
-        # Physics
-        self.vel *= self.slip
-        self.vel -= Vector2(0, 0)
-
-        self.vel += self.acc
-
-        # Limiting speed
-        if self.vel.x > self.max_speed:  # right
-            self.vel = Vector2(self.max_speed, self.vel.y)
-        elif self.vel.x < -self.max_speed:  # left
-            self.vel = Vector2(-self.max_speed, self.vel.y)
-        if self.vel.y > self.max_speed:  # up
-            self.vel = Vector2(self.vel.x, self.max_speed)
-        elif self.vel.y < -self.max_speed:  # down
-            self.vel = Vector2(self.vel.x, -self.max_speed)
-
-        self.pos += self.vel * self.game.dt
-        self.acc *= 0
-
-        self.hitbox.center = (self.pos.x, self.pos.y)
-
-        self.clock += self.game.dt
-
-        for bullet in self.bullets:
-            if bullet.pos.y <= -bullet.height:
-                self.bullets.remove(bullet)
-            else:
-                bullet.tick()
+        super().tick()
         self.cannon.tick()
 
 class TwoPlayersGame:
