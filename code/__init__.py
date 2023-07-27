@@ -221,8 +221,8 @@ class ShootingDownNoMove(HasHealth, NoMoving):
         super().__init__(hp_amount, hp_x, hp_y, hp_width, hp_height)
 
 class ShootingDown(Moving, HasHealth):
-    def __init__(self, game, x, y, path, mass, max_speed, shot_force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50):
-        super().__init__(game, x, y, path, mass, max_speed)
+    def __init__(self, game, x, y, path, mass, max_speed, shot_force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50, slip=0.98):
+        super().__init__(game, x, y, path, mass, max_speed, slip)
         hp_x = self.pos.x + hp_x
         hp_y = self.pos.y + hp_y
 
@@ -238,3 +238,5 @@ class ShootingDown(Moving, HasHealth):
         HasHealth.draw(self)
 
 class ShootingUp(Moving, HasHealth):
+    def __init__(self, game, x, y, path, mass, max_speed, shot_force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50, slip=0.98):
+
