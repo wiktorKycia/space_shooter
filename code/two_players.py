@@ -22,8 +22,16 @@ class Player1(PlayableShip):
 
 class Player2(ShootingDown):
     def __init__(self, game):
-        super().__init__(game, 350, 150, "./images/SpaceShips2/spaceship_small_red_reversed.png",
-                         150, 200, 2000, 2000000, 200, 20, 10, 10)
+        super().__init__(game=game,
+                         x=350,
+                         y=150,
+                         path="./images/SpaceShips2/spaceship_small_red_reversed.png",
+                         mass=150,
+                         max_speed=200,
+                         force=2000,
+                         hp_amount=2000000,
+                         hp_width=200, hp_height=20,
+                         hp_x=110, hp_y=20)
         self.cannon = KineticGun(game, self, Vector2(0, 20), self.force, 0.5, pygame.K_RSHIFT)
 
     def tick(self):
