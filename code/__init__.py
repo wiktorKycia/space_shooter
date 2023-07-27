@@ -238,5 +238,5 @@ class ShootingDown(Moving, HasHealth):
         HasHealth.draw(self)
 
 class ShootingUp(Moving, HasHealth):
-    def __init__(self, game, x, y, path, mass, max_speed, shot_force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50, slip=0.98):
-
+    def __init__(self, game, x, y, path, mass, max_speed, shot_force, hp_amount, hp_width, hp_height, hp_x, hp_y, hp_relative=False, slip=0.98):
+        super().__init__(game, x, y, path, max_speed, slip)
