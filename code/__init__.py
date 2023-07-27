@@ -244,4 +244,5 @@ class ShootingUp(Moving, HasHealth):
         if hp_relative:
             hp_x = self.pos.x + hp_x
             hp_y = self.pos.y + hp_y
+        HasHealth.__init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height)
 
