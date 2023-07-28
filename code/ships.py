@@ -117,7 +117,15 @@ class Ship4(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./images/ships/ship4.png"
-        super().__init__(game, self.path, 0.98, 100, 500, 5000)
+        super().__init__(
+            game, self.path,
+            mass=500,
+            max_speed=100,
+            force=5000,
+            hp_amount=3500000,
+            hp_height=25, hp_width=300,
+            hp_x=165, hp_y=710
+        )
         self.cannon = Blaster(self.game, self, Vector2(-25, -35), self.force, 0.4)
         self.cannon2 = Blaster(self.game, self, Vector2(25, -35), self.force, 0.4)
         self.cannon3 = Blaster(self.game, self, Vector2(-47, -30), self.force, 0.4)
