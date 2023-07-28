@@ -7,7 +7,7 @@ from code.bullets import *
 import os
 
 class BaseEnemy(ShootingDownNoMove):
-    def __init__(self, game,  x, y, path, force, hp_amount, hp_width=50, hp_height=5):
+    def __init__(self, game, x, y, path, force, hp_amount, hp_width=50, hp_height=5):
         super().__init__(game, x, y, path, force, hp_amount, hp_width, hp_height)
 
     def add_bullet(self, bullet):
@@ -48,7 +48,7 @@ class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
         self.path = "./enemies/Enemy3.png"
-        super().__init__(self.game, self.image, x, y , 0.98, 540, 350, 1200, 6, 4500000)
+        super().__init__(self.game, x, y, self.path, force=1000, hp_amount=500000)
 
     def tick(self):
         super().tick()
