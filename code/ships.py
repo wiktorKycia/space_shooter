@@ -204,3 +204,8 @@ class Ship8(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
+        self.cannon1 = Kinetic60Gun(self.game, self, Vector2(-30, 0), self.force, 0.3)
+        self.cannon2 = Kinetic60Gun(self.game, self, Vector2(-15, 15), self.force, 0.3)
+        self.cannon3 = Kinetic60Gun(self.game, self, Vector2(0, 30), self.force, 0.3)
+        self.cannon4 = Kinetic60Gun(self.game, self, Vector2(15, 15), self.force, 0.3)
+        self.cannon5 = Kinetic60Gun(self.game, self, Vector2(30, 0), self.force, 0.3)
