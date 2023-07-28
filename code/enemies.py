@@ -7,32 +7,20 @@ from code.bullets import *
 import os
 
 class BaseEnemy(ShootingDownNoMove):
-    def __init__(self, game, imagepath, x, y, slip, mov_force, mass, shot_force, barrel_lenght, health):
-
-
-    def add_force(self, force):
-        self.acc += force / self.mass
-
-    def tick(self):
-        self.clock += self.game.dt
-        self.hitbox.center = (self.pos.x, self.pos.y)
-        self.hp.tick()
-
-    def draw(self):
-        self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
-        # pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
+    def __init__(self, game,  x, y, path, force, hp_amount, hp_width=50, hp_height=5):
+        super().__init__(game, x, y, path, force, hp_amount, hp_width, hp_height)
 
     def add_bullet(self, bullet):
         self.bullets.append(bullet)
         bullet.sound.play(0, 800)
-        acc = -bullet.acc  # getting initial bullet velocity
-        vel = (bullet.mass * acc) / self.mass
-        # getting initial velocity from zasada zachowania pędu
-        vel.x *= vel.x
-        vel.y *= vel.y
-        energy = (self.mass * vel) / 2  # calculating kinetic energy
-        force = energy / self.barrel  # calculating kickback force
-        self.add_force(Vector2(force.x, force.y))
+        # acc = -bullet.acc  # getting initial bullet velocity
+        # vel = (bullet.mass * acc) / self.mass
+        # # getting initial velocity from zasada zachowania pędu
+        # vel.x *= vel.x
+        # vel.y *= vel.y
+        # energy = (self.mass * vel) / 2  # calculating kinetic energy
+        # force = energy / self.barrel  # calculating kickback force
+        # self.add_force(Vector2(force.x, force.y))
 
 
 class Enemy1(BaseEnemy):
