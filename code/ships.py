@@ -142,7 +142,15 @@ class Ship5(PlayableShip):
     def __init__(self, game):
         self.game = game
         self.path = "./images/ships/ship5.png"
-        super().__init__(game, self.path, 0.98, 250, 40, 600)
+        super().__init__(
+            game, self.path,
+            mass=40,
+            max_speed=250,
+            force=600,
+            hp_amount=1500000,
+            hp_height=25, hp_width=300,
+            hp_x=165, hp_y=710
+        )
         self.cannon = ShotGun1(self.game, self, Vector2(0, 0), self.force, 0.5)
 
     def tick(self):
