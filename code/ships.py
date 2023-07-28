@@ -209,3 +209,11 @@ class Ship8(PlayableShip):
         self.cannon3 = Kinetic60Gun(self.game, self, Vector2(0, 30), self.force, 0.3)
         self.cannon4 = Kinetic60Gun(self.game, self, Vector2(15, 15), self.force, 0.3)
         self.cannon5 = Kinetic60Gun(self.game, self, Vector2(30, 0), self.force, 0.3)
+
+    def tick(self):
+        super().tick()
+        self.cannon1.tick()
+        self.cannon2.tick()
+        self.cannon3.tick()
+        self.cannon4.tick()
+        self.cannon5.tick()
