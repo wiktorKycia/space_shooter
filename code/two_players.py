@@ -8,12 +8,20 @@ from code.cannons import *
 
 class Player1(PlayableShip):
     def __init__(self, game):
-        self.hp = DeluxeHP(game, 1000000, 120, 700, 200, 20)
-        super().__init__(game, "./images/SpaceShips2/spaceship_small_blue.png", 0.98, 200, 100, 1000)
+        super().__init__(
+            game=game,
+            path="./images/SpaceShips2/spaceship_small_blue.png",
+            mass=150,
+            max_speed=200,
+            force=2000,
+            hp_amount=2000000,
+            hp_width=200, hp_height=20,
+            hp_x=110, hp_y=730
+        )
         self.cannon = KineticGun(game, self, Vector2(0, 20), self.force, 0.5, pygame.K_LSHIFT)
+        self.pos = Vector2(350, 600)
 
     def tick(self):
-        self.hp.tick()
         super().tick()
         self.cannon.tick()
 
