@@ -17,35 +17,17 @@ class BaseEnemy(ShootingDownNoMove):
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = "./enemies/Enemy1.png"
-        super().__init__(self.game, self.image, x, y , 0.99, 100, 50, 400, 5, 100000)
-
-    def add_force(self, force):
-        super().add_force(force)
+        self.path = "./enemies/Enemy1.png"
+        super().__init__(
+            game, x, y, self.path, force=500, hp_amount=100000
+        )
 
     def tick(self):
         super().tick()
         if self.clock >= 2.0:
             self.clock = 0
-            bullet = KineticBullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
+            bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
             self.add_bullet(bullet)
-
-        for bullet in self.bullets:
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
-            else:
-                bullet.tick()
-
-    def draw(self):
-        super().draw()
-        for bullet in self.bullets:
-            bullet.draw()
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
-
-    def add_bullet(self, bullet):
-        super().add_bullet(bullet)
-
 
 class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
