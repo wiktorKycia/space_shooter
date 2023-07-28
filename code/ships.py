@@ -13,7 +13,7 @@ mixer.init()
 
 class PlayableShip(ShootingUp):
     def __init__(self, game, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, slip=0.98):
-        size = self.game.screen.get_size()
+        size = game.screen.get_size()
         super().__init__(game, size[0]/2, size[1]/2, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, False, slip)
 
     def tick(self):
