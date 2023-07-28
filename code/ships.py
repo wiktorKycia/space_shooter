@@ -176,3 +176,14 @@ class Ship6(PlayableShip):
         super().tick()
         self.cannon.tick()
 
+class Ship7(PlayableShip):
+    def __init__(self, game):
+        super().__init__(
+            game, "./images/ships/ship7.png",
+            mass=260,
+            max_speed=300,
+            force=2500,
+            hp_amount=4800000,
+            hp_height=25, hp_width=300,
+            hp_x=165, hp_y=710
+        )
