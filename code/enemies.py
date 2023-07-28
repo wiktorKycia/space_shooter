@@ -13,15 +13,6 @@ class BaseEnemy(ShootingDownNoMove):
     def add_bullet(self, bullet):
         self.bullets.append(bullet)
         bullet.sound.play(0, 800)
-        # acc = -bullet.acc  # getting initial bullet velocity
-        # vel = (bullet.mass * acc) / self.mass
-        # # getting initial velocity from zasada zachowania pędu
-        # vel.x *= vel.x
-        # vel.y *= vel.y
-        # energy = (self.mass * vel) / 2  # calculating kinetic energy
-        # force = energy / self.barrel  # calculating kickback force
-        # self.add_force(Vector2(force.x, force.y))
-
 
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
