@@ -6,33 +6,9 @@ from code.other import *
 from code.bullets import *
 import os
 
-class BaseEnemy(object):
+class BaseEnemy(ShootingDownNoMove):
     def __init__(self, game, imagepath, x, y, slip, mov_force, mass, shot_force, barrel_lenght, health):
-        self.game = game
-        self.x = x
-        self.y = y
 
-        self.image = pygame.image.load(os.path.join(imagepath)).convert_alpha()
-        self.hitbox = self.image.get_rect()
-        self.mask = pygame.mask.from_surface(self.image)
-
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
-
-        self.slip = slip
-        self.movforce = mov_force
-        self.mass = mass
-        self.shotforce = shot_force
-        self.barrel = barrel_lenght
-
-        self.acc = Vector2(0, 0)
-        self.vel = Vector2(0, 0)
-        self.pos = Vector2(x, y)
-
-        self.clock = 0
-        self.bullets = []
-
-        self.hp = DeluxeHP(self.game, health, self.pos.x, self.pos.y-50, 50, 10)
 
     def add_force(self, force):
         self.acc += force / self.mass
@@ -129,7 +105,7 @@ class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
         self.image = "./enemies/Enemy3.png"
-        super().__init__(self.game, self.image, x, y , 0.98, 540, 350, 600, 6, 450000)
+        super().__init__(self.game, self.image, x, y , 0.98, 540, 350, 1200, 6, 4500000)
 
     def add_force(self, force):
         super().add_force(force)
