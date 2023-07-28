@@ -20,7 +20,7 @@ class Enemy1(BaseEnemy):
         self.path = "./enemies/Enemy1.png"
         super().__init__(
             game, x, y, self.path, force=500, hp_amount=100000
-        )
+        )#
 
     def tick(self):
         super().tick()
