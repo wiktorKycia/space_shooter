@@ -157,3 +157,22 @@ class Ship5(PlayableShip):
         super().tick()
         self.cannon.tick()
 
+class Ship6(PlayableShip):
+    def __init__(self, game):
+        self.game = game
+        self.path = "./images/ships/excalibur.png"
+        super().__init__(
+            game, self.path,
+            mass=400,
+            max_speed=200,
+            force=4500,
+            hp_amount=5000000,
+            hp_height=25, hp_width=300,
+            hp_x=165, hp_y=710
+        )
+        self.cannon = LaserHeavyGun(game, self, Vector2(0, 0), self.force, 0.1)
+
+    def tick(self):
+        super().tick()
+        self.cannon.tick()
+
