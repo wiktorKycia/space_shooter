@@ -20,7 +20,7 @@ class Enemy1(BaseEnemy):
         self.path = "./enemies/Enemy1.png"
         super().__init__(
             game, x, y, self.path, force=500, hp_amount=100000
-        )#
+        )
 
     def tick(self):
         super().tick()
@@ -32,11 +32,8 @@ class Enemy1(BaseEnemy):
 class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = "./enemies/Enemy2.png"
+        self.path = "./enemies/Enemy2.png"
         super().__init__(self.game, self.image, x, y , 0.99, 150, 100, 350, 5, 250000)
-
-    def add_force(self, force):
-        super().add_force(force)
 
     def tick(self):
         super().tick()
@@ -45,31 +42,11 @@ class Enemy2(BaseEnemy):
             bullet = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
             self.add_bullet(bullet)
 
-        for bullet in self.bullets:
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
-            else:
-                bullet.tick()
-
-    def draw(self):
-        super().draw()
-        for bullet in self.bullets:
-            bullet.draw()
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
-
-    def add_bullet(self, bullet):
-        super().add_bullet(bullet)
-
-
 class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = "./enemies/Enemy3.png"
+        self.path = "./enemies/Enemy3.png"
         super().__init__(self.game, self.image, x, y , 0.98, 540, 350, 1200, 6, 4500000)
-
-    def add_force(self, force):
-        super().add_force(force)
 
     def tick(self):
         super().tick()
@@ -79,19 +56,3 @@ class Enemy3(BaseEnemy):
             bullet1 = EnergyGunBullet(self.game, self.pos.x+22, self.pos.y, -self.shotforce)
             self.add_bullet(bullet)
             self.add_bullet(bullet1)
-
-        for bullet in self.bullets:
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
-            else:
-                bullet.tick()
-
-    def draw(self):
-        super().draw()
-        for bullet in self.bullets:
-            bullet.draw()
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
-
-    def add_bullet(self, bullet):
-        super().add_bullet(bullet)
