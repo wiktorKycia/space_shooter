@@ -187,3 +187,8 @@ class Ship7(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
+        self.cannon = Blaster(game, self, Vector2(0,0), self.force, 0.25)
+
+    def tick(self):
+        super().tick()
+        self.cannon.tick()
