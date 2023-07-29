@@ -210,15 +210,23 @@ class Moving(DynamicObject):
         self.acc *= 0
         super().tick()
 
-class ShootingDownNoMove(HasHealth, NoMoving):
+class ShootingDownNoMove(NoMoving, HasHealth):
     def __init__(self, game, x, y, path, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50):
-        NoMoving.__init__(self, game, x, y, path)
+        super().__init__(game, x, y, path)
         hp_x = self.pos.x + hp_x
         hp_y = self.pos.y + hp_y
 
         self.force = -force
 
-        super().__init__(hp_amount, hp_x, hp_y, hp_width, hp_height)
+        HasHealth.__init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height)
+
+    def tick(self):
+        super().tick()
+        HasHealth.tick(self)
+
+    def draw(self):
+        super().draw()
+        HasHealth.draw(self)
 
 class ShootingDown(Moving, HasHealth):
     def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50, hp_relative=False, slip=0.98):
