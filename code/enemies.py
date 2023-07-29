@@ -7,7 +7,7 @@ from code.bullets import *
 import os
 
 class BaseEnemy(ShootingDownNoMove):
-    def __init__(self, game, x, y, path, force, hp_amount, hp_width=50, hp_height=5):
+    def __init__(self, game, x, y, path, force, hp_amount, hp_width=50, hp_height=10):
         super().__init__(game, x, y, path, force, hp_amount, hp_width, hp_height)
 
     def add_bullet(self, bullet):
