@@ -83,4 +83,7 @@ class Bouncer1(MovingEnemy):
 
     def tick(self):
         self.move_clock += self.game.dt
+        if self.move_clock > 0.5:
+            self.move_clock = 0
+            self.do_move()
         super().tick()
