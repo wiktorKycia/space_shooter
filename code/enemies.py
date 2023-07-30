@@ -78,6 +78,9 @@ class Bouncer1(MovingEnemy):
             hp_amount=2000000
         )
 
-    def tick(self):
+    def do_move(self):
+        pass
 
+    def tick(self):
+        self.move_clock += self.game.dt
         super().tick()
