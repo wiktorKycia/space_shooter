@@ -66,6 +66,10 @@ class MovingEnemy(ShootingDown):
         super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True, slip=0.99)
         self.move_clock = 0
 
+    def add_bullet(self, bullet):
+        self.bullets.append(bullet)
+        bullet.sound.play(0, 800)
+
 
 class Bouncer1(MovingEnemy):
     def __init__(self, game, x, y):
@@ -103,3 +107,6 @@ class Bouncer1(MovingEnemy):
             self.move_clock = 0
             self.do_move()
         super().tick()
+        if self.clock > 0.2:
+            bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.force)
+            self.add_bullet(bullet)
