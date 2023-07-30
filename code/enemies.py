@@ -74,7 +74,7 @@ class Bouncer1(MovingEnemy):
             "./enemies/bouncer1.png",
             mass=60,
             max_speed=200,
-            force=500,
+            force=1500,
             hp_amount=2000000
         )
 
