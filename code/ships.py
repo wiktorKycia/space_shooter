@@ -199,16 +199,16 @@ class Ship8(PlayableShip):
             game, "./images/ships/ship8.png",
             mass=800,
             max_speed=250,
-            force=6000,
+            force=2000,
             hp_amount=6000000,
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
-        self.cannon1 = Kinetic60Gun(self.game, self, Vector2(-40, 0), self.force, 0.3)
-        self.cannon2 = Kinetic60Gun(self.game, self, Vector2(-20, -20), self.force, 0.3)
-        self.cannon3 = Kinetic60Gun(self.game, self, Vector2(0, -40), self.force, 0.3)
-        self.cannon4 = Kinetic60Gun(self.game, self, Vector2(20, -20), self.force, 0.3)
-        self.cannon5 = Kinetic60Gun(self.game, self, Vector2(40, 0), self.force, 0.3)
+        self.cannon1 = Kinetic60Gun(self.game, self, Vector2(-40, 0), self.force, 0.03)
+        self.cannon2 = Kinetic60Gun(self.game, self, Vector2(-20, -20), self.force, 0.03)
+        self.cannon3 = Kinetic60Gun(self.game, self, Vector2(0, -40), self.force, 0.03)
+        self.cannon4 = Kinetic60Gun(self.game, self, Vector2(20, -20), self.force, 0.03)
+        self.cannon5 = Kinetic60Gun(self.game, self, Vector2(40, 0), self.force, 0.03)
 
     def tick(self):
         super().tick()
