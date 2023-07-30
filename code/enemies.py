@@ -79,6 +79,7 @@ class Bouncer1(MovingEnemy):
         )
 
     def do_move(self):
+        angle = 0
         if self.pos.x < 350 and self.pos.y < 150: #top left
             angle = random.randint(1, 89)
         if self.pos.x > 350 and self.pos.y < 150: #top right
