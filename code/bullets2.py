@@ -54,7 +54,7 @@ class ManeuveringBullet:
                     angle = -angle
                 if angle < -180:
                     angle = -angle
-                self.vel.rotate_ip(angle/100)
+                self.vel.rotate_ip(angle/10)
 
             else: self.maneuvering = False
 

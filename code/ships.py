@@ -53,7 +53,7 @@ class Ship1(PlayableShip):
             path=self.path,
             mass=100,
             max_speed=150,
-            force=400,
+            force=4000,
             hp_amount=1000000,
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710

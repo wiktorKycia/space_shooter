@@ -76,9 +76,9 @@ class Bouncer1(MovingEnemy):
         super().__init__(
             game, x, y,
             "./enemies/bouncer1.png",
-            mass=60,
+            mass=2,
             max_speed=200,
-            force=6000,
+            force=1500,
             hp_amount=2000000
         )
 
@@ -107,6 +107,7 @@ class Bouncer1(MovingEnemy):
             self.move_clock = 0
             self.do_move()
         super().tick()
-        if self.clock > 0.2:
-            bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.force)
+        if self.clock > 1.5:
+            self.clock = 0
+            bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
             self.add_bullet(bullet)
