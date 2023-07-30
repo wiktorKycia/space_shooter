@@ -79,7 +79,14 @@ class Bouncer1(MovingEnemy):
         )
 
     def do_move(self):
-        pass
+        if self.pos.x < 350 and self.pos.y < 150: #top left
+            self.acc.rotate(random.randint(1, 89))
+        if self.pos.x > 350 and self.pos.y < 150: #top right
+            self.acc.rotate(random.randint(1, 89))
+        if self.pos.x < 350 and self.pos.y > 150: # bottom left
+            self.acc.rotate(random.randint(1, 89))
+        if self.pos.x > 350 and self.pos.y > 150: # bottom right
+            self.acc.rotate(random.randint(1, 89))
 
     def tick(self):
         self.move_clock += self.game.dt
