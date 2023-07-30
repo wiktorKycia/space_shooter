@@ -65,3 +65,15 @@ class MovingEnemy(ShootingDown):
     def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10):
         super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True, slip=0.99)
         self.move_clock = 0
+
+
+class Bouncer1(MovingEnemy):
+    def __init__(self, game, x, y):
+        super().__init__(
+            game, x, y,
+            "./enemies/bouncer1.png",
+            mass=60,
+            max_speed=200,
+            force=500,
+            hp_amount=2000000
+        )
