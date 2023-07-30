@@ -94,7 +94,7 @@ class Bouncer1(MovingEnemy):
         if angle < -180:
             angle = -angle
 
-        self.acc.rotate(angle)
+        self.vel.rotate_ip(angle)
         self.add_force(Vector2(0, self.force))
 
     def tick(self):
