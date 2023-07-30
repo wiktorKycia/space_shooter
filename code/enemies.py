@@ -98,6 +98,8 @@ class Bouncer1(MovingEnemy):
         self.add_force(Vector2(0, self.force))
 
     def tick(self):
+        self.hp.x = self.pos.x
+        self.hp.y = self.pos.y - 50
         self.move_clock += self.game.dt
         if self.move_clock > 0.5:
             self.move_clock = 0
