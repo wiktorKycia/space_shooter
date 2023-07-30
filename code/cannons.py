@@ -144,7 +144,7 @@ class Kinetic60Gun(BaseCannon):
         bullet = Kinetic60Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 120)
         self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        # self.ship.add_force(self.calculate_kickback_force(bullet))
 
     def calculate_kickback_force(self, bullet):
         return super().calculate_kickback_force(bullet)
@@ -164,7 +164,7 @@ class Kinetic9Gun(BaseCannon):
         bullet = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        # self.ship.add_force(self.calculate_kickback_force(bullet))
 
 class KineticGun(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
@@ -175,7 +175,7 @@ class KineticGun(BaseCannon):
         bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        # self.ship.add_force(self.calculate_kickback_force(bullet))
 
 class Blaster(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
@@ -186,7 +186,7 @@ class Blaster(BaseCannon):
         bullet = BlasterBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        # self.ship.add_force(self.calculate_kickback_force(bullet))
 
 class EnergyGun(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
@@ -197,7 +197,7 @@ class EnergyGun(BaseCannon):
         bullet = EnergyGunBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        # self.ship.add_force(self.calculate_kickback_force(bullet))
 
 class LaserCannon(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
@@ -208,7 +208,7 @@ class LaserCannon(BaseCannon):
         bullet = LaserCannonBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        # self.ship.add_force(self.calculate_kickback_force(bullet))
 
 class LaserLightCannon(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
@@ -219,7 +219,7 @@ class LaserLightCannon(BaseCannon):
         bullet = LaserLightCannonBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        # self.ship.add_force(self.calculate_kickback_force(bullet))
 
 class LaserLightGun(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
@@ -230,7 +230,7 @@ class LaserLightGun(BaseCannon):
         bullet = LaserLightGunBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        # self.ship.add_force(self.calculate_kickback_force(bullet))
 
 class LaserMediumGun(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
@@ -241,7 +241,7 @@ class LaserMediumGun(BaseCannon):
         bullet = LaserMediumGunBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        # self.ship.add_force(self.calculate_kickback_force(bullet))
 
 class LaserHeavyGun(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
@@ -252,7 +252,7 @@ class LaserHeavyGun(BaseCannon):
         bullet = LaserHeavyGunBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        # self.ship.add_force(self.calculate_kickback_force(bullet))
 
 class LaserLongGun(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
@@ -263,4 +263,4 @@ class LaserLongGun(BaseCannon):
         bullet = LaserLongGunBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
-        self.ship.add_force(self.calculate_kickback_force(bullet))
+        # self.ship.add_force(self.calculate_kickback_force(bullet))
