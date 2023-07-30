@@ -77,3 +77,7 @@ class Bouncer1(MovingEnemy):
             force=500,
             hp_amount=2000000
         )
+
+    def tick(self):
+
+        super().tick()
