@@ -505,7 +505,7 @@ class Level11(Level):
             match self.wave_number:
                 case 0: pass
                 case 1:
-                    self.block.add_single(Bouncer1(self.game, 200, 100))
+                    self.block.add_single(Bouncer1(self.game, 300, 200))
                 case _:
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)

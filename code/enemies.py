@@ -74,28 +74,26 @@ class Bouncer1(MovingEnemy):
             "./enemies/bouncer1.png",
             mass=60,
             max_speed=200,
-            force=1500,
+            force=6000,
             hp_amount=2000000
         )
 
     def do_move(self):
         angle = 0
-        if self.pos.x < 350 and self.pos.y < 150: #top left
-            angle = random.randint(1, 89)
-        if self.pos.x > 350 and self.pos.y < 150: #top right
-            angle = random.randint(1, 89)
+        if self.pos.x < 350 and self.pos.y < 150: # top left
+            angle = random.randint(91, 180)
+        if self.pos.x > 350 and self.pos.y < 150: # top right
+            angle = random.randint(180, 270)
         if self.pos.x < 350 and self.pos.y > 150: # bottom left
-            angle = random.randint(1, 89)
+            angle = random.randint(1, 90)
         if self.pos.x > 350 and self.pos.y > 150: # bottom right
-            angle = random.randint(1, 89)
-
+            angle = random.randint(270, 360)
         if angle > 180:
             angle = -angle
         if angle < -180:
             angle = -angle
-
-        self.vel.rotate_ip(angle)
         self.add_force(Vector2(0, self.force))
+        self.acc.rotate_ip(angle)
 
     def tick(self):
         self.hp.x = self.pos.x
