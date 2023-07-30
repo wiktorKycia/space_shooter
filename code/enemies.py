@@ -61,3 +61,5 @@ class Enemy3(BaseEnemy):
 
 
 class MovingEnemy(ShootingDown):
+    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10):
+        super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True, slip=0.99)
