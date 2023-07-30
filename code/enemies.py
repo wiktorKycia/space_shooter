@@ -58,3 +58,6 @@ class Enemy3(BaseEnemy):
             bullet1 = EnergyGunBullet(self.game, self.pos.x+22, self.pos.y, self.force)
             self.add_bullet(bullet)
             self.add_bullet(bullet1)
+
+
+class MovingEnemy(ShootingDown):
