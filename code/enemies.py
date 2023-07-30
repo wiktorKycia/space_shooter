@@ -95,7 +95,7 @@ class Bouncer1(MovingEnemy):
             angle = -angle
 
         self.acc.rotate(angle)
-        self.add_force(self.force)
+        self.add_force(Vector2(0, self.force))
 
     def tick(self):
         self.move_clock += self.game.dt
