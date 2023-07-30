@@ -62,8 +62,8 @@ class Enemy3(BaseEnemy):
 import random
 
 class MovingEnemy(ShootingDown):
-    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10):
-        super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True, slip=0.99)
+    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10, scale=1.0):
+        super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True, slip=0.99, scale=scale)
         self.move_clock = 0
 
     def add_bullet(self, bullet):
@@ -79,7 +79,8 @@ class Bouncer1(MovingEnemy):
             mass=2,
             max_speed=200,
             force=1500,
-            hp_amount=2000000
+            hp_amount=2000000,
+            scale=3.0
         )
 
     def do_move(self):
