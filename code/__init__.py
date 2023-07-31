@@ -264,3 +264,7 @@ class ShootingUp(Moving, HasHealth):
         super().draw()
         HasHealth.draw(self)
 
+class NoShooting(Moving):
+    def __init__(self, game, x, y, path, mass, scale=1.0):
+        super().__init__(game, x, y, path, mass, 10000, 0.9995, scale)
+
