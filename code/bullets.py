@@ -4,9 +4,13 @@ from pygame.math import Vector2
 from code import NoShooting
 mixer.init()
 
-class Bullet(NoShooting):
-    def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255), sound=None):
+class ImageBullet(NoShooting):
+    def __init__(self, game, x, y, path, mass, scale=1.0):
         super().__init__(game, x, y, path, mass, scale)
+
+
+class Bullet(object):
+    def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255), sound=None):
         self.pos = Vector2(x, y)
         self.vel = Vector2(0, 0)
 
