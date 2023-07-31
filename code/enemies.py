@@ -58,3 +58,57 @@ class Enemy3(BaseEnemy):
             bullet1 = EnergyGunBullet(self.game, self.pos.x+22, self.pos.y, self.force)
             self.add_bullet(bullet)
             self.add_bullet(bullet1)
+
+import random
+
+class MovingEnemy(ShootingDown):
+    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10, scale=1.0):
+        super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True, slip=0.99, scale=scale)
+        self.move_clock = 0
+
+    def add_bullet(self, bullet):
+        self.bullets.append(bullet)
+        bullet.sound.play(0, 800)
+
+
+class Bouncer1(MovingEnemy):
+    def __init__(self, game, x, y):
+        super().__init__(
+            game, x, y,
+            "./enemies/bouncer1.png",
+            mass=2,
+            max_speed=200,
+            force=1500,
+            hp_amount=2000000,
+            scale=3.0
+        )
+
+    def do_move(self):
+        angle = 0
+        if self.pos.x < 350 and self.pos.y < 150: # top left
+            angle = random.randint(91, 180)
+        if self.pos.x > 350 and self.pos.y < 150: # top right
+            angle = random.randint(180, 270)
+        if self.pos.x < 350 and self.pos.y > 150: # bottom left
+            angle = random.randint(1, 90)
+        if self.pos.x > 350 and self.pos.y > 150: # bottom right
+            angle = random.randint(270, 360)
+        if angle > 180:
+            angle = -angle
+        if angle < -180:
+            angle = -angle
+        self.add_force(Vector2(0, self.force))
+        self.acc.rotate_ip(angle)
+
+    def tick(self):
+        self.hp.x = self.pos.x
+        self.hp.y = self.pos.y - 50
+        self.move_clock += self.game.dt
+        if self.move_clock > 0.5:
+            self.move_clock = 0
+            self.do_move()
+        super().tick()
+        if self.clock > 1.5:
+            self.clock = 0
+            bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
+            self.add_bullet(bullet)
