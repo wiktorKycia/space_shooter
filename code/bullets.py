@@ -1,10 +1,12 @@
 import pygame
 from pygame import mixer
 from pygame.math import Vector2
+from code import NoShooting
 mixer.init()
 
-class Bullet(object):
+class Bullet(NoShooting):
     def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255), sound=None):
+        super().__init__(game, x, y, path, mass, scale)
         self.pos = Vector2(x, y)
         self.vel = Vector2(0, 0)
 
