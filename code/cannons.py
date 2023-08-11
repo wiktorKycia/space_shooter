@@ -11,7 +11,10 @@ class Clip:
         self.active = active_reload
         self.reloading = False
 
-
+    def can_i_shoot(self):
+        if self.current_amount > 0 or self.reloading:
+            return True
+        return False
 
 class Gun:
     def __init__(self, game, ship, translation, force, interval, direction, key):
