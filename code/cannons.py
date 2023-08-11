@@ -2,6 +2,20 @@ import pygame
 import math
 from code.bullets import *
 
+class Gun:
+    def __init__(self, game, ship, translation, force, interval, direction, key):
+        self.game = game
+        self.ship = ship
+        self.pos = ship.pos
+        self.translation = translation
+        self.force = force
+        self.interval = interval
+        self.key = key
+        self.direction = direction
+
+        self.clock = 0
+
+
 class BaseCannon:
     def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length, key=pygame.K_SPACE):
         self.game = game
