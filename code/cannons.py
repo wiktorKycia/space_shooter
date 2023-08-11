@@ -15,6 +15,17 @@ class Gun:
 
         self.clock = 0
 
+    def shot(self):
+        pass
+
+    def tick(self):
+        self.clock += self.game.dt
+        self.pos = self.ship.pos + self.translation
+        pressed = pygame.key.get_pressed()
+        if pressed[self.key] and self.clock > self.interval:
+            self.clock = 0
+            self.shot()
+
 
 class BaseCannon:
     def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length, key=pygame.K_SPACE):
