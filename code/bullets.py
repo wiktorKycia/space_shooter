@@ -5,7 +5,7 @@ from code import NoShooting
 mixer.init()
 
 class ImageBullet(NoShooting):
-    def __init__(self, game, x, y, path, mass, force,scale=1.0):
+    def __init__(self, game, x, y, path, mass, force, scale=1.0):
         super().__init__(game, x, y, path, mass, scale)
         self.add_force(-force)
 
