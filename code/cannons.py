@@ -2,6 +2,17 @@ import pygame
 import math
 from code.bullets import *
 
+class Clip:
+    def __init__(self, game, max_amount:int, reload_time:float, active_reload:bool=False):
+        self.game = game
+        self.max_amount = max_amount
+        self.current_amount = max_amount
+        self.reload_time = reload_time
+        self.active = active_reload
+        self.reloading = False
+
+
+
 class Gun:
     def __init__(self, game, ship, translation, force, interval, direction, key):
         self.game = game
