@@ -24,7 +24,9 @@ class Clip:
         elif not self.active: # there is no ammo, passive reloading
             self.reloading = True
         else: # active reloading
-            pass
+            if self.clock > self.reload_time and self.current_amount < self.max_amount:
+                self.current_amount += 1
+                self.clock = 0
 
 class Gun:
     def __init__(self, game, ship, translation, force, interval, direction, key):
