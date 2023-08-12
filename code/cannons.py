@@ -3,10 +3,10 @@ import math
 from code.bullets import *
 
 class Clip:
-    def __init__(self, game, max_amount:int, reload_time:float, active_reload:bool=False):
+    def __init__(self, game, max_ammo:int, reload_time:float, active_reload:bool=False):
         self.game = game
-        self.max_amount = max_amount
-        self.current_amount = max_amount
+        self.max_ammo = max_ammo
+        self.current_ammo = max_ammo
         self.reload_time = reload_time
         self.active = active_reload
         self.reloading = False
@@ -26,14 +26,14 @@ class Clip:
         elif not self.active: # there is no ammo, passive reloading
             self.reloading = True
         else: # active reloading
-            if self.clock > self.reload_time and self.current_amount < self.max_amount:
-                self.current_amount += 1
+            if self.clock > self.reload_time and self.current_ammo < self.max_ammo:
+                self.current_ammo += 1
                 self.clock = 0
 
         if self.reloading:
             if self.clock > self.reload_time:
                 self.reloading = False
-                self.current_amount = self.max_amount
+                self.current_ammo = self.max_ammo
 
 class Gun:
     def __init__(self, game, ship, translation, force, interval, direction, key):
