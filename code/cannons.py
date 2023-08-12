@@ -14,6 +14,8 @@ class Clip:
 
         self.clock = 0
 
+        self.ammo_bar = HP(game, self.max_ammo, 250, 25, 200, 700, (0, 0, 255))
+
     def can_i_shoot(self):
         if self.current_ammo > 0 or not self.reloading:
             return True
