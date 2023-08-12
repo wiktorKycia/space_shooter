@@ -1,6 +1,7 @@
 import pygame
 import math
 from code.bullets import *
+from code.other import HP
 
 class Clip:
     def __init__(self, game, max_ammo:int, reload_time:float, active_reload:bool=False):
@@ -34,6 +35,9 @@ class Clip:
             if self.clock > self.reload_time:
                 self.reloading = False
                 self.current_ammo = self.max_ammo
+
+    def draw(self):
+        pass
 
 class Gun:
     def __init__(self, game, ship, translation, force, interval, direction, key, max_ammo:int, reload_time:float, active_reload:bool):
