@@ -36,7 +36,7 @@ class Clip:
                 self.current_ammo = self.max_ammo
 
 class Gun:
-    def __init__(self, game, ship, translation, force, interval, direction, key):
+    def __init__(self, game, ship, translation, force, interval, direction, key, max_ammo:int, reload_time:float, active_reload:bool):
         self.game = game
         self.ship = ship
         self.pos = ship.pos
@@ -47,6 +47,7 @@ class Gun:
         self.direction = direction
 
         self.clock = 0
+        self.clip = Clip(game, max_ammo, reload_time, active_reload)
 
     def shot(self):
         pass
@@ -56,8 +57,9 @@ class Gun:
         self.pos = self.ship.pos + self.translation
         pressed = pygame.key.get_pressed()
         if pressed[self.key] and self.clock > self.interval:
-            self.clock = 0
-            self.shot()
+            if self.clip.can_i_shoot():
+                self.clock = 0
+                self.shot()
 
 
 class BaseCannon:
