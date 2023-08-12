@@ -14,7 +14,7 @@ class Clip:
         self.clock = 0
 
     def can_i_shoot(self):
-        if self.current_amount > 0 or not self.reloading:
+        if self.current_ammo > 0 or not self.reloading:
             return True
         return False
 
