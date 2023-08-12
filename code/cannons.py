@@ -23,6 +23,7 @@ class Clip:
 
     def tick(self):
         self.clock += self.game.dt
+        self.ammo_bar.tick()
 
         if not self.reloading: # there is ammo, no reload needed
             pass
@@ -39,7 +40,7 @@ class Clip:
                 self.current_ammo = self.max_ammo
 
     def draw(self):
-        pass
+        self.ammo_bar.draw()
 
 class Gun:
     def __init__(self, game, ship, translation, force, interval, direction, key, max_ammo:int, reload_time:float, active_reload:bool):
