@@ -16,6 +16,10 @@ class Clip:
 
         self.ammo_bar = AmmoBar(game, self.max_ammo, 300, 18, 165, 690)
 
+    def shot(self):
+        self.current_ammo -= 1
+        self.ammo_bar.decrease_by(1)
+
     def can_i_shoot(self):
         if self.current_ammo > 0:
             return True
@@ -84,7 +88,7 @@ class GunPrototype(Gun):
         bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
         self.ship.bullets.append(bullet)
         bullet.sound.play(0, 800)
-        self.clip.current_ammo -= 1
+        self.clip.shot()
 
 
 class BaseCannon:
