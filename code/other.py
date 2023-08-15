@@ -17,6 +17,21 @@ class AmmoBar:
         self.ratio = self.max_amount / self.bar_length
         self.bar = pygame.Rect(self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height)
 
+    def fill(self):
+        self.amount = self.max_amount
+
+    def decrease_by(self, amount):
+        if self.amount > 0:
+            self.amount -= amount
+        if self.amount < 0:
+            self.amount = 0
+
+    def increase_by(self, amount):
+        if self.amount < self.max_amount:
+            self.amount += amount
+        if self.amount > self.max_amount:
+            self.amount = self.max_amount
+
     def tick(self):
         bar_width = int(self.amount / self.ratio)
         self.bar = pygame.Rect(self.x - self.bar_length/2, self.y - self.height/2, bar_width, self.height)
@@ -25,6 +40,7 @@ class AmmoBar:
         pygame.draw.rect(self.game.screen, self.color, self.bar)
         pygame.draw.rect(self.game.screen, (255, 255, 255),
                          (self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height), 2)
+
 class HP:
     def __init__(self, game, amount, width, height, x, y, color=(250, 250, 250)):
         self.game = game
