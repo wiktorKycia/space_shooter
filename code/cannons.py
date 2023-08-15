@@ -62,11 +62,22 @@ class Gun:
     def tick(self):
         self.clock += self.game.dt
         self.pos = self.ship.pos + self.translation
+        self.clip.tick()
         pressed = pygame.key.get_pressed()
         if pressed[self.key] and self.clock > self.interval:
             if self.clip.can_i_shoot():
                 self.clock = 0
                 self.shot()
+
+class GunPrototype(Gun):
+    def __init__(self, game, ship, translation, force, interval, direction):
+        super().__init__(game, ship, translation, force, interval, direction, pygame.K_SPACE, 100, 2.0, False)
+
+    def shot(self):
+        bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
+        self.ship.bullets.append(bullet)
+        bullet.sound.play(0, 800)
+        self.clip.current_ammo -= 1
 
 
 class BaseCannon:
