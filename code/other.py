@@ -14,6 +14,11 @@ class AmmoBar:
 
         self.color = color
 
+    def tick(self):
+        pass
+    def draw(self):
+        pass
+
 class HP:
     def __init__(self, game, amount, width, height, x, y, color=(250, 250, 250)):
         self.game = game
