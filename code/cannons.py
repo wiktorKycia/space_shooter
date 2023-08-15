@@ -25,8 +25,9 @@ class Clip:
         self.clock += self.game.dt
         self.ammo_bar.tick()
 
-        if not self.reloading: # there is ammo, no reload needed
-            pass
+        if not self.reloading: # it is not reloading
+            if self.current_ammo <= 0:
+                self.reloading = True
         elif not self.active: # there is no ammo, passive reloading
             self.reloading = True
         else: # active reloading
@@ -71,7 +72,7 @@ class Gun:
 
 class GunPrototype(Gun):
     def __init__(self, game, ship, translation, force, interval, direction):
-        super().__init__(game, ship, translation, force, interval, direction, pygame.K_SPACE, 100, 2.0, False)
+        super().__init__(game, ship, translation, force, interval, direction, pygame.K_SPACE, 10, 2.0, False)
 
     def shot(self):
         bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
