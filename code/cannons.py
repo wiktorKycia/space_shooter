@@ -18,8 +18,7 @@ class Clip:
 
     def can_i_shoot(self):
         if self.current_ammo > 0:
-            if not self.active and not self.reloading:
-                return True
+            return True
         # If ammo is equal or below 0, then undeniably returns False
         return False
 
@@ -77,7 +76,7 @@ class Gun:
 
 class GunPrototype(Gun):
     def __init__(self, game, ship, translation, force, interval, direction):
-        super().__init__(game, ship, translation, force, interval, direction, pygame.K_SPACE, 10, 0.5, True)
+        super().__init__(game, ship, translation, force, interval, direction, pygame.K_SPACE, 10, 2.0, False)
 
     def shot(self):
         bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)

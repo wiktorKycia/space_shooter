@@ -84,8 +84,8 @@ class Ship2(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
-        self.gun = GunPrototype(game, self, Vector2(27, -20), self.force, 0.35, True)
-        self.gun2 = GunPrototype(game, self, Vector2(-27, -20), self.force, 0.35, True)
+        self.gun = GunPrototype(game, self, Vector2(27, -20), self.force, 0.2, True)
+        self.gun2 = GunPrototype(game, self, Vector2(-27, -20), self.force, 0.2, True)
         # self.cannon = Blaster(self.game, self, Vector2(27, -20), self.force, 0.35)
         # self.cannon2 = Blaster(self.game, self, Vector2(-27, -20), self.force, 0.35)
 
@@ -94,6 +94,7 @@ class Ship2(PlayableShip):
         self.gun.tick()
         self.gun2.tick()
         print(self.gun.clip.current_ammo)
+        print(self.gun.clip.can_i_shoot())
         # self.cannon.tick()
         # self.cannon2.tick()
 
