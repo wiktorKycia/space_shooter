@@ -92,7 +92,8 @@ class Ship2(PlayableShip):
     def tick(self):
         super().tick()
         self.gun.tick()
-        self.gun.tick()
+        self.gun2.tick()
+        print(self.gun.clip.current_ammo)
         # self.cannon.tick()
         # self.cannon2.tick()
 
