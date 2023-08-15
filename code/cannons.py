@@ -1,7 +1,7 @@
 import pygame
 import math
 from code.bullets import *
-from code.other import HP
+from code.other import AmmoBar
 
 class Clip:
     def __init__(self, game, max_ammo:int, reload_time:float, active_reload:bool=False):
@@ -14,7 +14,7 @@ class Clip:
 
         self.clock = 0
 
-        self.ammo_bar = HP(game, self.max_ammo, 300, 18, 165, 690, (0, 0, 255))
+        self.ammo_bar = AmmoBar(game, self.max_ammo, 300, 18, 165, 690)
 
     def can_i_shoot(self):
         if self.current_ammo > 0:
