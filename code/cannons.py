@@ -14,7 +14,7 @@ class Clip:
 
         self.clock = 0
 
-        self.ammo_bar = HP(game, self.max_ammo, 300, 18, 165, 701, (0, 0, 255))
+        self.ammo_bar = HP(game, self.max_ammo, 300, 18, 165, 690, (0, 0, 255))
 
     def can_i_shoot(self):
         if self.current_ammo > 0:
