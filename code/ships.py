@@ -98,8 +98,8 @@ class Ship2(PlayableShip):
 
     def draw(self):
         super().draw()
-        self.gun.clip.draw()
-        self.gun2.clip.draw()
+        # self.gun.clip.draw()
+        # self.gun2.clip.draw()
 
 class Ship3(PlayableShip):
     def __init__(self, game):

@@ -81,7 +81,7 @@ class Gun:
 
 class GunPrototype(Gun):
     def __init__(self, game, ship, translation, force, interval, direction):
-        super().__init__(game, ship, translation, force, interval, direction, pygame.K_SPACE, 10, 2.0, False)
+        super().__init__(game, ship, translation, force, interval, direction, pygame.K_SPACE, 10, 1.5, True)
 
     def shot(self):
         bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
