@@ -22,7 +22,6 @@ class Clip:
         return False
 
     def tick(self):
-        self.clock += self.game.dt
         self.ammo_bar.tick()
 
         if not self.reloading: # it is not reloading
@@ -31,12 +30,15 @@ class Clip:
         elif not self.active: # there is no ammo, passive reloading
             self.reloading = True
         else: # active reloading
+            self.clock += self.game.dt
             if self.clock > self.reload_time and self.current_ammo < self.max_ammo:
                 self.current_ammo += 1
                 self.clock = 0
 
         if self.reloading:
+            self.clock += self.game.dt
             if self.clock > self.reload_time:
+                self.clock = 0
                 self.reloading = False
                 self.current_ammo = self.max_ammo
 
