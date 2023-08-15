@@ -1,5 +1,19 @@
 import pygame
 
+class AmmoBar:
+    def __init__(self, game, amount, width, height, x, y, color=(0, 0, 255)):
+        self.game = game
+        self.amount = amount
+        self.max_amount = amount
+
+        self.bar_length = width
+        self.height = height
+
+        self.x = x
+        self.y = y
+
+        self.color = color
+
 class HP:
     def __init__(self, game, amount, width, height, x, y, color=(250, 250, 250)):
         self.game = game
