@@ -84,13 +84,22 @@ class Ship2(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
-        self.cannon = Blaster(self.game, self, Vector2(27, -20), self.force, 0.35)
-        self.cannon2 = Blaster(self.game, self, Vector2(-27, -20), self.force, 0.35)
+        self.gun = GunPrototype(game, self, Vector2(27, -20), self.force, 0.35, True)
+        self.gun2 = GunPrototype(game, self, Vector2(-27, -20), self.force, 0.35, True)
+        # self.cannon = Blaster(self.game, self, Vector2(27, -20), self.force, 0.35)
+        # self.cannon2 = Blaster(self.game, self, Vector2(-27, -20), self.force, 0.35)
 
     def tick(self):
         super().tick()
-        self.cannon.tick()
-        self.cannon2.tick()
+        self.gun.tick()
+        self.gun.tick()
+        # self.cannon.tick()
+        # self.cannon2.tick()
+
+    def draw(self):
+        super().draw()
+        self.gun.clip.draw()
+        self.gun2.clip.draw()
 
 class Ship3(PlayableShip):
     def __init__(self, game):
