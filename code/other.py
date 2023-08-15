@@ -22,8 +22,9 @@ class AmmoBar:
         self.bar = pygame.Rect(self.x - self.bar_length/2, self.y - self.height/2, bar_width, self.height)
 
     def draw(self):
-        pass
-
+        pygame.draw.rect(self.game.screen, self.color, self.bar)
+        pygame.draw.rect(self.game.screen, (255, 255, 255),
+                         (self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height), 2)
 class HP:
     def __init__(self, game, amount, width, height, x, y, color=(250, 250, 250)):
         self.game = game
