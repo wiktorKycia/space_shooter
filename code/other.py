@@ -18,7 +18,9 @@ class AmmoBar:
         self.bar = pygame.Rect(self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height)
 
     def tick(self):
-        pass
+        bar_width = int(self.amount / self.ratio)
+        self.bar = pygame.Rect(self.x - self.bar_length/2, self.y - self.height/2, bar_width, self.height)
+
     def draw(self):
         pass
 
