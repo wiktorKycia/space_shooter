@@ -37,12 +37,14 @@ class Clip:
                     self.clock = 0
                     self.reloading = False
                     self.current_ammo = self.max_ammo
+                    self.ammo_bar.fill()
         # active reloading
         else:
             self.clock += self.game.dt
             if self.clock > self.reload_time and self.current_ammo < self.max_ammo:
                 self.current_ammo += 1
                 self.clock = 0
+                self.ammo_bar.increase_by(1)
 
     def draw(self):
         self.ammo_bar.draw()
