@@ -17,8 +17,10 @@ class Clip:
         self.ammo_bar = HP(game, self.max_ammo, 250, 25, 200, 700, (0, 0, 255))
 
     def can_i_shoot(self):
-        if self.current_ammo > 0 or not self.reloading:
-            return True
+        if self.current_ammo > 0:
+            if not self.active and not self.reloading:
+                return True
+        # If ammo is equal or below 0, then undeniably returns False
         return False
 
     def tick(self):
@@ -39,7 +41,6 @@ class Clip:
         # active reloading
         else:
             self.clock += self.game.dt
-            print(self.clock, self.reload_time, "   ", self.current_ammo, self.max_ammo)
             if self.clock > self.reload_time and self.current_ammo < self.max_ammo:
                 self.current_ammo += 1
                 self.clock = 0
