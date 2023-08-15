@@ -49,9 +49,8 @@ class Clip:
                 self.current_ammo += 1
                 self.clock = 0
                 self.ammo_bar.increase_by(1)
-
-    def draw(self):
         self.ammo_bar.draw()
+
 
 class Gun:
     def __init__(self, game, ship, translation, force, interval, direction, key, max_ammo:int, reload_time:float, active_reload:bool):
