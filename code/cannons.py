@@ -100,6 +100,19 @@ class KineticGun(GunPrototype):
             key=key
             )
 
+class ShotGun(Gun):
+    def __init__(self, game, ship, translation, force, interval, bul, angles, clip_size, reload, active_reload:bool=False, key=pygame.K_KP_0):
+        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
+        self.bul = bul
+        self.angles = angles
+
+    def shot(self):
+        for angle in self.angles:
+            bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force, angle)
+            self.ship.bullets.append(bullet)
+            bullet.sound.play(0, 800)
+            self.clip.shot()
+
 class BaseCannon:
     def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length, key=pygame.K_SPACE):
         self.game = game
