@@ -84,8 +84,8 @@ class Ship2(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
-        self.gun = GunPrototype(game, self, Vector2(27, -20), self.force, 0.2, KineticBullet)
-        self.gun2 = GunPrototype(game, self, Vector2(-27, -20), self.force, 0.2, KineticBullet)
+        self.gun = KineticGun(game, self, Vector2(-27, 20), self.force, key=pygame.K_SPACE)
+        self.gun2 = KineticGun(game, self, Vector2(-27, -20), self.force, key=pygame.K_SPACE)
         # self.cannon = Blaster(self.game, self, Vector2(27, -20), self.force, 0.35)
         # self.cannon2 = Blaster(self.game, self, Vector2(-27, -20), self.force, 0.35)
 
