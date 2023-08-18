@@ -79,11 +79,12 @@ class Gun:
                 self.shot()
 
 class GunPrototype(Gun):
-    def __init__(self, game, ship, translation, force, interval):
-        super().__init__(game, ship, translation, force, interval, pygame.K_SPACE, 10, 1.5, True)
+    def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload, active_reload:bool=False, key=pygame.K_KP_0):
+        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
+        self.bul = bul
 
     def shot(self):
-        bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
+        bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force)
         self.ship.bullets.append(bullet)
         bullet.sound.play(0, 800)
         self.clip.shot()
