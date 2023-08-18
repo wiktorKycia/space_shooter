@@ -53,7 +53,7 @@ class Clip:
 
 
 class Gun:
-    def __init__(self, game, ship, translation, force, interval, direction, key, max_ammo:int, reload_time:float, active_reload:bool):
+    def __init__(self, game, ship, translation, force, interval, key, max_ammo:int, reload_time:float, active_reload:bool):
         self.game = game
         self.ship = ship
         self.pos = ship.pos
@@ -61,7 +61,6 @@ class Gun:
         self.force = force
         self.interval = interval
         self.key = key
-        self.direction = direction
 
         self.clock = 0
         self.clip = Clip(game, max_ammo, reload_time, active_reload)
@@ -80,8 +79,8 @@ class Gun:
                 self.shot()
 
 class GunPrototype(Gun):
-    def __init__(self, game, ship, translation, force, interval, direction):
-        super().__init__(game, ship, translation, force, interval, direction, pygame.K_SPACE, 10, 1.5, True)
+    def __init__(self, game, ship, translation, force, interval):
+        super().__init__(game, ship, translation, force, interval, pygame.K_SPACE, 10, 1.5, True)
 
     def shot(self):
         bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
