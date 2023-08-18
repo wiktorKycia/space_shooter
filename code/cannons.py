@@ -89,6 +89,16 @@ class GunPrototype(Gun):
         bullet.sound.play(0, 800)
         self.clip.shot()
 
+class KineticGun(GunPrototype):
+    def __init__(self, game, ship, translation, force, key=pygame.K_KP_0):
+        super().__init__(
+            game, ship, translation, force,
+            interval=0.5,
+            bul=KineticBullet,
+            clip_size=10,
+            reload=2.5,
+            key=key
+            )
 
 class BaseCannon:
     def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length, key=pygame.K_SPACE):
