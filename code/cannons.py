@@ -1,7 +1,7 @@
 import pygame
 import math
 from code.bullets import *
-from code.other import HP
+from code.other import AmmoBar
 
 class Clip:
     def __init__(self, game, max_ammo:int, reload_time:float, active_reload:bool=False):
@@ -14,7 +14,11 @@ class Clip:
 
         self.clock = 0
 
-        self.ammo_bar = HP(game, self.max_ammo, 300, 18, 165, 690, (0, 0, 255))
+        self.ammo_bar = AmmoBar(game, self.max_ammo, 300, 18, 165, 690)
+
+    def shot(self):
+        self.current_ammo -= 1
+        self.ammo_bar.decrease_by(1)
 
     def can_i_shoot(self):
         if self.current_ammo > 0:
@@ -37,18 +41,19 @@ class Clip:
                     self.clock = 0
                     self.reloading = False
                     self.current_ammo = self.max_ammo
+                    self.ammo_bar.fill()
         # active reloading
         else:
             self.clock += self.game.dt
             if self.clock > self.reload_time and self.current_ammo < self.max_ammo:
                 self.current_ammo += 1
                 self.clock = 0
-
-    def draw(self):
+                self.ammo_bar.increase_by(1)
         self.ammo_bar.draw()
 
+
 class Gun:
-    def __init__(self, game, ship, translation, force, interval, direction, key, max_ammo:int, reload_time:float, active_reload:bool):
+    def __init__(self, game, ship, translation, force, interval, key, max_ammo:int, reload_time:float, active_reload:bool):
         self.game = game
         self.ship = ship
         self.pos = ship.pos
@@ -56,7 +61,6 @@ class Gun:
         self.force = force
         self.interval = interval
         self.key = key
-        self.direction = direction
 
         self.clock = 0
         self.clip = Clip(game, max_ammo, reload_time, active_reload)
@@ -75,15 +79,39 @@ class Gun:
                 self.shot()
 
 class GunPrototype(Gun):
-    def __init__(self, game, ship, translation, force, interval, direction):
-        super().__init__(game, ship, translation, force, interval, direction, pygame.K_SPACE, 10, 2.0, False)
+    def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time, active_reload:bool=False, key=pygame.K_KP_0):
+        super().__init__(game, ship, translation, force, interval, key, clip_size, reload_time, active_reload)
+        self.bul = bul
 
     def shot(self):
-        bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
+        bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force)
         self.ship.bullets.append(bullet)
         bullet.sound.play(0, 800)
-        self.clip.current_ammo -= 1
+        self.clip.shot()
 
+class KineticGun(GunPrototype):
+    def __init__(self, game, ship, translation, force, key=pygame.K_KP_0):
+        super().__init__(
+            game, ship, translation, force,
+            interval=0.5,
+            bul=KineticBullet,
+            clip_size=10,
+            reload_time=2.5,
+            key=key
+            )
+
+class ShotGun(Gun):
+    def __init__(self, game, ship, translation, force, interval, bul, angles, clip_size, reload, active_reload:bool=False, key=pygame.K_KP_0):
+        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
+        self.bul = bul
+        self.angles = angles
+
+    def shot(self):
+        for angle in self.angles:
+            bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force, angle)
+            self.ship.bullets.append(bullet)
+            bullet.sound.play(0, 800)
+            self.clip.shot()
 
 class BaseCannon:
     def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length, key=pygame.K_SPACE):
@@ -248,17 +276,17 @@ class Kinetic9Gun(BaseCannon):
         bullet.sound.play(0, 800)
         self.ship.bullets.append(bullet)
         # self.ship.add_force(self.calculate_kickback_force(bullet))
-
-class KineticGun(BaseCannon):
-    def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
-        self.barrel = 60
-        super().__init__(game, ship, translation, force, interval, self.barrel, key)
-
-    def shot(self):
-        bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
-        bullet.sound.play(0, 800)
-        self.ship.bullets.append(bullet)
-        # self.ship.add_force(self.calculate_kickback_force(bullet))
+#
+# class KineticGun(BaseCannon):
+#     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
+#         self.barrel = 60
+#         super().__init__(game, ship, translation, force, interval, self.barrel, key)
+#
+#     def shot(self):
+#         bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.ship.force)
+#         bullet.sound.play(0, 800)
+#         self.ship.bullets.append(bullet)
+#         # self.ship.add_force(self.calculate_kickback_force(bullet))
 
 class Blaster(BaseCannon):
     def __init__(self, game, ship, translation:Vector2, force:int, interval:float, key=pygame.K_SPACE):
