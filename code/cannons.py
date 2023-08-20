@@ -4,7 +4,8 @@ from code.bullets import *
 from code.other import AmmoBar
 
 class Clip:
-    def __init__(self, game, max_ammo:int, reload_time:float, active_reload:bool=False):
+    def __init__(self, game, max_ammo:int, reload_time:float, active_reload:bool=False,
+                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=690):
         self.game = game
         self.max_ammo = max_ammo
         self.current_ammo = max_ammo
@@ -14,7 +15,7 @@ class Clip:
 
         self.clock = 0
 
-        self.ammo_bar = AmmoBar(game, self.max_ammo, 300, 18, 165, 690)
+        self.ammo_bar = AmmoBar(game, self.max_ammo, bar_width, bar_height, bar_x, bar_y)
 
     def shot(self):
         self.current_ammo -= 1
