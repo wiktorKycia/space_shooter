@@ -93,7 +93,8 @@ class ClipE:
                 self.clock = 0
 
 class Gun:
-    def __init__(self, game, ship, translation, force, interval, key, max_ammo:int, reload_time:float, active_reload:bool):
+    def __init__(self, game, ship, translation, force, interval, key, max_ammo:int, reload_time:float, active_reload:bool,
+                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=690):
         self.game = game
         self.ship = ship
         self.pos = ship.pos
@@ -103,7 +104,7 @@ class Gun:
         self.key = key
 
         self.clock = 0
-        self.clip = Clip(game, max_ammo, reload_time, active_reload)
+        self.clip = Clip(game, max_ammo, reload_time, active_reload, bar_width, bar_height, bar_x, bar_y)
 
     def shot(self):
         pass
@@ -125,8 +126,10 @@ class Gun:
                     self.shot()
 
 class GunPrototype(Gun):
-    def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time, active_reload:bool=False, key=pygame.K_KP_0):
-        super().__init__(game, ship, translation, force, interval, key, clip_size, reload_time, active_reload)
+    def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time, active_reload:bool=False,
+                 key=pygame.K_KP_0, bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=690):
+        super().__init__(game, ship, translation, force, interval, key, clip_size, reload_time, active_reload,
+                         bar_width, bar_height, bar_x, bar_y)
         self.bul = bul
 
     def shot(self):
@@ -136,19 +139,23 @@ class GunPrototype(Gun):
         self.clip.shot()
 
 class KineticGun(GunPrototype):
-    def __init__(self, game, ship, translation, force, key=pygame.K_KP_0):
+    def __init__(self, game, ship, translation, force, key=pygame.K_KP_0,
+                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=690):
         super().__init__(
             game, ship, translation, force,
             interval=0.5,
             bul=KineticBullet,
             clip_size=10,
             reload_time=2.5,
-            key=key
+            key=key,
+            bar_width=bar_width, bar_height=bar_height, bar_x=bar_x, bar_y=bar_y
             )
 
 class ShotGun(Gun):
-    def __init__(self, game, ship, translation, force, interval, bul, angles, clip_size, reload, active_reload:bool=False, key=pygame.K_KP_0):
-        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
+    def __init__(self, game, ship, translation, force, interval, bul, angles, clip_size, reload, active_reload:bool=False,
+                 key=pygame.K_KP_0, bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=690):
+        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload,
+                         bar_width, bar_height, bar_x, bar_y)
         self.bul = bul
         self.angles = angles
 
