@@ -73,10 +73,16 @@ class Gun:
         self.pos = self.ship.pos + self.translation
         self.clip.tick()
         pressed = pygame.key.get_pressed()
-        if pressed[self.key] and self.clock > self.interval:
-            if self.clip.can_i_shoot():
-                self.clock = 0
-                self.shot()
+        if self.key is not None:
+            if pressed[self.key] and self.clock > self.interval:
+                if self.clip.can_i_shoot():
+                    self.clock = 0
+                    self.shot()
+        elif self.key is None:
+            if self.clock > self.interval:
+                if self.clip.can_i_shoot():
+                    self.clock = 0
+                    self.shot()
 
 class GunPrototype(Gun):
     def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time, active_reload:bool=False, key=pygame.K_KP_0):
