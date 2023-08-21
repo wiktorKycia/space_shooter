@@ -9,10 +9,16 @@ import os
 class BaseEnemy(ShootingDownNoMove):
     def __init__(self, game, x, y, path, force, hp_amount, hp_width=50, hp_height=10):
         super().__init__(game, x, y, path, force, hp_amount, hp_width, hp_height)
+        self.guns = []
 
     def add_bullet(self, bullet):
         self.bullets.append(bullet)
         bullet.sound.play(0, 800)
+
+    def tick(self):
+        super().tick()
+        for gun in self.guns:
+            gun.tick()
 
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
