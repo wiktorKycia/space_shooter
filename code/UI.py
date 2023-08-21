@@ -79,7 +79,7 @@ class GameMenu:
         # maximise ship's stats
         self.ship.hp.maximise_hp()
         for gun in self.ship.guns:
-            gun.maximise_ammo()
+            gun.clip.maximise_ammo()
 
         # clear bullets
         self.ship.bullets.clear()
