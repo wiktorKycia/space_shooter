@@ -47,14 +47,13 @@ class ClipE:
                 self.clock = 0
 
 class GunE:
-    def __init__(self, game, ship, translation, force, interval, key, max_ammo:int, reload_time:float, active_reload:bool,):
+    def __init__(self, game, ship, translation, force, interval, max_ammo:int, reload_time:float, active_reload:bool,):
         self.game = game
         self.ship = ship
         self.pos = ship.pos
         self.translation = translation
         self.force = force
         self.interval = interval
-        self.key = key
 
         self.clock = 0
         self.clip = ClipE(game, max_ammo, reload_time, active_reload)
