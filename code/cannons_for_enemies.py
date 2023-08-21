@@ -81,3 +81,26 @@ class GunPrototypeE(GunE):
         self.ship.bullets.append(bullet)
         bullet.sound.play(0, 800)
         self.clip.shot()
+
+class KineticGunE(GunPrototypeE):
+    def __init__(self, game, ship, translation, force):
+        super().__init__(
+            game, ship, translation, force,
+            interval=0.5,
+            bul=KineticBullet,
+            clip_size=10,
+            reload_time=2.5,
+            )
+
+class ShotGunE(GunE):
+    def __init__(self, game, ship, translation, force, interval, bul, angles, clip_size, reload, active_reload:bool=False,):
+        super().__init__(game, ship, translation, force, interval, clip_size, reload, active_reload)
+        self.bul = bul
+        self.angles = angles
+
+    def shot(self):
+        for angle in self.angles:
+            bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force, angle)
+            self.ship.bullets.append(bullet)
+            bullet.sound.play(0, 800)
+            self.clip.shot()
