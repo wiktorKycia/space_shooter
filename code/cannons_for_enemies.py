@@ -70,3 +70,14 @@ class GunE:
             if self.clip.can_i_shoot():
                 self.clock = 0
                 self.shot()
+
+class GunPrototypeE(GunE):
+    def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time, active_reload:bool=False,):
+        super().__init__(game, ship, translation, force, interval, clip_size, reload_time, active_reload)
+        self.bul = bul
+
+    def shot(self):
+        bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force)
+        self.ship.bullets.append(bullet)
+        bullet.sound.play(0, 800)
+        self.clip.shot()
