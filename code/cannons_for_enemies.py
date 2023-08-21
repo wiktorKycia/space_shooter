@@ -45,3 +45,29 @@ class ClipE:
             if self.clock > self.reload_time and self.current_ammo < self.max_ammo:
                 self.current_ammo += 1
                 self.clock = 0
+
+class GunE:
+    def __init__(self, game, ship, translation, force, interval, key, max_ammo:int, reload_time:float, active_reload:bool,):
+        self.game = game
+        self.ship = ship
+        self.pos = ship.pos
+        self.translation = translation
+        self.force = force
+        self.interval = interval
+        self.key = key
+
+        self.clock = 0
+        self.clip = ClipE(game, max_ammo, reload_time, active_reload)
+
+    def shot(self):
+        pass
+
+    def tick(self):
+        self.clock += self.game.dt
+        self.pos = self.ship.pos + self.translation
+        self.clip.tick()
+
+        if self.clock > self.interval:
+            if self.clip.can_i_shoot():
+                self.clock = 0
+                self.shot()
