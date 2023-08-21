@@ -75,7 +75,7 @@ class Gun:
         self.clip.tick()
         pressed = pygame.key.get_pressed()
 
-        if pressed[pygame.K_KP_0] or pressed[self.key] and self.clock > self.interval:
+        if (pressed[pygame.K_KP_0] or pressed[self.key]) and self.clock > self.interval:
             if self.clip.can_i_shoot():
                 self.clock = 0
                 self.shot()
