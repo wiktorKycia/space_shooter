@@ -71,6 +71,8 @@ class GameMenu:
         self.ship.acc = Vector2(0, 0)
         self.ship.bullets.clear()
         self.ship.hp.maximise_hp()
+        for gun in self.ship.guns:
+            gun.maximise_ammo()
         self.game.other_bullets.clear()
 
         # coin
