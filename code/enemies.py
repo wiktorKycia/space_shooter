@@ -4,6 +4,7 @@ import code
 from code import *
 from code.other import *
 from code.bullets import *
+from code.cannons_for_enemies import *
 import os
 
 class BaseEnemy(ShootingDownNoMove):
@@ -27,13 +28,14 @@ class Enemy1(BaseEnemy):
         super().__init__(
             game, x, y, self.path, force=500, hp_amount=100000
         )
+        self.guns.extend(
+            [
+                KineticGunE(game, self, Vector2(0, 10), self.force)
+            ]
+        )
 
     def tick(self):
         super().tick()
-        if self.clock >= 2.0:
-            self.clock = 0
-            bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
-            self.add_bullet(bullet)
 
 class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
