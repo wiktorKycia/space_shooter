@@ -42,11 +42,16 @@ class Ship0(PlayableShip):
         self.game = game
         self.path = "./images/ships/ship0.png"
         super().__init__(game, self.path, 40, 150, 200, 500000, 300, 25, 165, 710)
-        self.cannon = KineticGun(self.game, self, Vector2(0, -10), self.force, 0.6)
+        # self.cannon = KineticGun(self.game, self, Vector2(0, -10), self.force, 0.6)
+        self.guns.extend(
+            [
+                KineticGun(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+            ]
+        )
 
     def tick(self):
         super().tick()
-        self.cannon.tick()
+        # self.cannon.tick()
 
 class Ship1(PlayableShip):
     def __init__(self, game):
@@ -62,18 +67,23 @@ class Ship1(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
-        self.cannon = ManeuveringBulletsLauncher(
-            game=self.game,
-            ship=self,
-            translation=Vector2(0, -30),
-            force=self.force,
-            interval=0.7,
-            key=pygame.K_SPACE
+        self.guns.extend(
+            [
+                KineticGun(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+            ]
         )
+        # self.cannon = ManeuveringBulletsLauncher(
+        #     game=self.game,
+        #     ship=self,
+        #     translation=Vector2(0, -30),
+        #     force=self.force,
+        #     interval=0.7,
+        #     key=pygame.K_SPACE
+        # )
 
     def tick(self):
         super().tick()
-        self.cannon.tick()
+        # self.cannon.tick()
 
 class Ship2(PlayableShip):
     def __init__(self, game):
@@ -124,13 +134,18 @@ class Ship3(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
-        self.cannon = Blaster(self.game, self, Vector2(-23, -30), self.force, 0.4)
-        self.cannon2 = Blaster(self.game, self, Vector2(23, -30), self.force, 0.4)
+        # self.cannon = Blaster(self.game, self, Vector2(-23, -30), self.force, 0.4)
+        # self.cannon2 = Blaster(self.game, self, Vector2(23, -30), self.force, 0.4)
+        self.guns.extend(
+            [
+                KineticGun(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+            ]
+        )
 
     def tick(self):
         super().tick()
-        self.cannon.tick()
-        self.cannon2.tick()
+        # self.cannon.tick()
+        # self.cannon2.tick()
 
 class Ship4(PlayableShip):
     def __init__(self, game):
@@ -145,17 +160,22 @@ class Ship4(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
-        self.cannon = Blaster(self.game, self, Vector2(-25, -35), self.force, 0.4)
-        self.cannon2 = Blaster(self.game, self, Vector2(25, -35), self.force, 0.4)
-        self.cannon3 = Blaster(self.game, self, Vector2(-47, -30), self.force, 0.4)
-        self.cannon4 = Blaster(self.game, self, Vector2(47, -30), self.force, 0.4)
+        # self.cannon = Blaster(self.game, self, Vector2(-25, -35), self.force, 0.4)
+        # self.cannon2 = Blaster(self.game, self, Vector2(25, -35), self.force, 0.4)
+        # self.cannon3 = Blaster(self.game, self, Vector2(-47, -30), self.force, 0.4)
+        # self.cannon4 = Blaster(self.game, self, Vector2(47, -30), self.force, 0.4)
+        self.guns.extend(
+            [
+                KineticGun(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+            ]
+        )
 
     def tick(self):
         super().tick()
-        self.cannon.tick()
-        self.cannon2.tick()
-        self.cannon3.tick()
-        self.cannon4.tick()
+        # self.cannon.tick()
+        # self.cannon2.tick()
+        # self.cannon3.tick()
+        # self.cannon4.tick()
 
 class Ship5(PlayableShip):
     def __init__(self, game):
@@ -170,11 +190,17 @@ class Ship5(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
-        self.cannon = ShotGun1(self.game, self, Vector2(0, 0), self.force, 0.5)
+        # self.cannon = ShotGun1(self.game, self, Vector2(0, 0), self.force, 0.5)
+
+        self.guns.extend(
+            [
+                KineticGun(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+            ]
+        )
 
     def tick(self):
         super().tick()
-        self.cannon.tick()
+        # self.cannon.tick()
 
 class Ship6(PlayableShip):
     def __init__(self, game):
@@ -189,11 +215,15 @@ class Ship6(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
-        self.cannon = LaserHeavyGun(game, self, Vector2(0, 0), self.force, 0.1)
-
+        # self.cannon = LaserHeavyGun(game, self, Vector2(0, 0), self.force, 0.1)
+        self.guns.extend(
+            [
+                KineticGun(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+            ]
+        )
     def tick(self):
         super().tick()
-        self.cannon.tick()
+        # self.cannon.tick()
 
 class Ship7(PlayableShip):
     def __init__(self, game):
@@ -206,11 +236,15 @@ class Ship7(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
-        self.cannon = Blaster(game, self, Vector2(0,0), self.force, 0.25)
-
+        # self.cannon = Blaster(game, self, Vector2(0,0), self.force, 0.25)
+        self.guns.extend(
+            [
+                KineticGun(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+            ]
+        )
     def tick(self):
         super().tick()
-        self.cannon.tick()
+        # self.cannon.tick()
 
 class Ship8(PlayableShip):
     def __init__(self, game):
@@ -223,16 +257,20 @@ class Ship8(PlayableShip):
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710
         )
-        self.cannon1 = Kinetic60Gun(self.game, self, Vector2(-40, 0), self.force, 0.03)
-        self.cannon2 = Kinetic60Gun(self.game, self, Vector2(-20, -20), self.force, 0.03)
-        self.cannon3 = Kinetic60Gun(self.game, self, Vector2(0, -40), self.force, 0.03)
-        self.cannon4 = Kinetic60Gun(self.game, self, Vector2(20, -20), self.force, 0.03)
-        self.cannon5 = Kinetic60Gun(self.game, self, Vector2(40, 0), self.force, 0.03)
-
+        # self.cannon1 = Kinetic60Gun(self.game, self, Vector2(-40, 0), self.force, 0.03)
+        # self.cannon2 = Kinetic60Gun(self.game, self, Vector2(-20, -20), self.force, 0.03)
+        # self.cannon3 = Kinetic60Gun(self.game, self, Vector2(0, -40), self.force, 0.03)
+        # self.cannon4 = Kinetic60Gun(self.game, self, Vector2(20, -20), self.force, 0.03)
+        # self.cannon5 = Kinetic60Gun(self.game, self, Vector2(40, 0), self.force, 0.03)
+        self.guns.extend(
+            [
+                KineticGun(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+            ]
+        )
     def tick(self):
         super().tick()
-        self.cannon1.tick()
-        self.cannon2.tick()
-        self.cannon3.tick()
-        self.cannon4.tick()
-        self.cannon5.tick()
+        # self.cannon1.tick()
+        # self.cannon2.tick()
+        # self.cannon3.tick()
+        # self.cannon4.tick()
+        # self.cannon5.tick()
