@@ -5,7 +5,7 @@ from code.other import AmmoBar
 
 class Clip:
     def __init__(self, game, max_ammo:int, reload_time:float, active_reload:bool=False,
-                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=690):
+                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
         self.game = game
         self.max_ammo = max_ammo
         self.current_ammo = max_ammo
@@ -54,7 +54,7 @@ class Clip:
 
 class Gun:
     def __init__(self, game, ship, translation, force, interval, key, max_ammo:int, reload_time:float, active_reload:bool,
-                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=690):
+                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
         self.game = game
         self.ship = ship
         self.pos = ship.pos
@@ -82,7 +82,7 @@ class Gun:
 
 class GunPrototype(Gun):
     def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time, active_reload:bool=False,
-                 key=pygame.K_KP_0, bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=690):
+                 key=pygame.K_KP_0, bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
         super().__init__(game, ship, translation, force, interval, key, clip_size, reload_time, active_reload,
                          bar_width, bar_height, bar_x, bar_y)
         self.bul = bul
@@ -95,7 +95,7 @@ class GunPrototype(Gun):
 
 class KineticGun(GunPrototype):
     def __init__(self, game, ship, translation, force, key=pygame.K_KP_0,
-                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=690):
+                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
         super().__init__(
             game, ship, translation, force,
             interval=0.5,
@@ -108,7 +108,7 @@ class KineticGun(GunPrototype):
 
 class ShotGun(Gun):
     def __init__(self, game, ship, translation, force, interval, bul, angles, clip_size, reload, active_reload:bool=False,
-                 key=pygame.K_KP_0, bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=690):
+                 key=pygame.K_KP_0, bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
         super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload,
                          bar_width, bar_height, bar_x, bar_y)
         self.bul = bul
