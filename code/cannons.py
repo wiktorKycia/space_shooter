@@ -17,6 +17,10 @@ class Clip:
 
         self.ammo_bar = AmmoBar(game, self.max_ammo, bar_width, bar_height, bar_x, bar_y)
 
+    def maximise_ammo(self):
+        self.current_ammo = self.max_ammo
+        self.ammo_bar.fill()
+
     def shot(self):
         self.current_ammo -= 1
         self.ammo_bar.decrease_by(1)
@@ -41,8 +45,7 @@ class Clip:
                 if self.clock > self.reload_time:
                     self.clock = 0
                     self.reloading = False
-                    self.current_ammo = self.max_ammo
-                    self.ammo_bar.fill()
+                    self.maximise_ammo()
         # active reloading
         else:
             self.clock += self.game.dt
