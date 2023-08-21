@@ -14,6 +14,9 @@ class ClipE:
 
         self.clock = 0
 
+    def maximise_ammo(self):
+        self.current_ammo = self.max_ammo
+
     def shot(self):
         self.current_ammo -= 1
 
@@ -35,7 +38,7 @@ class ClipE:
                 if self.clock > self.reload_time:
                     self.clock = 0
                     self.reloading = False
-                    self.current_ammo = self.max_ammo
+                    self.maximise_ammo()
         # active reloading
         else:
             self.clock += self.game.dt
