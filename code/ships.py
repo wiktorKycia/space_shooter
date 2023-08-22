@@ -274,3 +274,20 @@ class Ship8(PlayableShip):
         # self.cannon3.tick()
         # self.cannon4.tick()
         # self.cannon5.tick()
+
+class Ship9(PlayableShip):
+    def __init__(self, game):
+        super().__init__(
+            game, "./images/SpaceShips/Ship_2.png",
+            mass=420,
+            max_speed=275,
+            force=1000,
+            hp_amount=4000000,
+            hp_height=25, hp_width=300,
+            hp_x=165, hp_y=710
+        )
+        self.guns.extend(
+            [
+                KineticGun(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+            ]
+        )
