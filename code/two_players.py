@@ -18,12 +18,15 @@ class Player1(PlayableShip):
             hp_width=200, hp_height=20,
             hp_x=110, hp_y=730
         )
-        self.cannon = KineticGun(game, self, Vector2(0, 20), self.force, 0.5, pygame.K_LSHIFT)
+        self.guns.extend(
+            [
+                KineticGun(game, self, Vector2(0, 20), self.force, key=pygame.K_LSHIFT)
+            ]
+        )
         self.pos = Vector2(350, 600)
 
     def tick(self):
         super().tick()
-        self.cannon.tick()
 
     def draw(self):
         super().draw()
@@ -40,7 +43,11 @@ class Player2(ShootingDown):
                          hp_amount=2000000,
                          hp_width=200, hp_height=20,
                          hp_x=110, hp_y=20)
-        self.cannon = KineticGun(game, self, Vector2(0, 20), self.force, 0.5, pygame.K_RSHIFT)
+        self.guns.extend(
+            [
+                KineticGun(game, self, Vector2(0, 20), self.force, key=pygame.K_LSHIFT)
+            ]
+        )
 
     def tick(self):
         # Input
@@ -55,7 +62,6 @@ class Player2(ShootingDown):
             self.add_force(Vector2(self.force, 0))
 
         super().tick()
-        self.cannon.tick()
 
 class TwoPlayersGame:
     def __init__(self, game):
