@@ -279,12 +279,13 @@ class Ship9(PlayableShip):
     def __init__(self, game):
         super().__init__(
             game, "./images/SpaceShips/Ship_2.png",
-            mass=420,
+            mass=300,
             max_speed=275,
-            force=1000,
+            force=1500,
             hp_amount=4000000,
             hp_height=25, hp_width=300,
-            hp_x=165, hp_y=710
+            hp_x=165, hp_y=710,
+            scale=2.0
         )
         self.guns.extend(
             [
