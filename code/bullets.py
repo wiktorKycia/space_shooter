@@ -36,6 +36,9 @@ class Particle:
             self.radius += 1
 
     def draw(self):
+        self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
+        color = (255, self.green, 0, self.alpha)
+        pygame.draw.circle(self.surf, color, (self.surf.get_width() // 2, self.surf.get_height() // 2), self.radius)
         self.game.screen.blit(self.surf, self.surf.get_rect(center=(self.x, self.y)))
 
 
