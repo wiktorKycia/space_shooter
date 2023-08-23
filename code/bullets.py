@@ -17,10 +17,15 @@ class Particle:
         self.y = y
         self.radius = radius
 
-        self.surf = pygame.Surface((self.radius*2, self.radius*2))
+        self.surf = pygame.Surface((self.radius*2, self.radius*2), pygame.SRCALPHA)
 
         self.mass = mass
         self.force = force
+
+        self.alpha = 100
+
+    def draw(self):
+        self.game.screen.blit(self.surf, self.surf.get_rect(center=(self.x, self.y)))
 
 
 
