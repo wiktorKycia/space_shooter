@@ -10,6 +10,20 @@ class ImageBullet(NoShooting):
         self.add_force(-force)
 
 
+class Particle:
+    def __init__(self, game, x, y, radius, mass, force):
+        self.game = game
+        self.x = x
+        self.y = y
+        self.radius = radius
+
+        self.surf = pygame.Surface((self.radius*2, self.radius*2))
+
+        self.mass = mass
+        self.force = force
+
+
+
 class Bullet(object):
     def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255), sound=None):
         self.pos = Vector2(x, y)
