@@ -23,6 +23,10 @@ class Particle:
         self.force = force
 
         self.alpha = 100
+        self.clock = 0
+
+    def tick(self):
+        self.clock += self.game.dt
 
     def draw(self):
         self.game.screen.blit(self.surf, self.surf.get_rect(center=(self.x, self.y)))
