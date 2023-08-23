@@ -24,6 +24,7 @@ class Particle:
 
         self.alpha = 100
         self.clock = 0
+        self.green = 0
 
     def tick(self):
         self.clock += self.game.dt
