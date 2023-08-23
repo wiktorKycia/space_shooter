@@ -28,6 +28,12 @@ class Particle:
 
     def tick(self):
         self.clock += self.game.dt
+        if self.clock > 0.15:
+            self.clock -= 0.15
+            self.alpha -= 1
+            if self.green >= 150:
+                self.green += 1
+            self.radius += 1
 
     def draw(self):
         self.game.screen.blit(self.surf, self.surf.get_rect(center=(self.x, self.y)))
