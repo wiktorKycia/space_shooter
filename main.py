@@ -1,7 +1,15 @@
 import pygame
-from code.UI import *
+from code.bullets import *
+from code.bullets2 import *
+from code.cannons import *
+from code.enemies import *
+from code.levels import *
+from code.maneuvering_cannons import *
+from code.other import *
+from code.player import *
+from code.ships import *
 from code.two_players import *
-from code import *
+from code.UI import *
 
 class Game(object):
     def __init__(self):
@@ -30,7 +38,7 @@ class Game(object):
             Level1(self), Level2(self), Level3(self),
             Level4(self), Level5(self), Level6(self),
             Level7(self), Level8(self), Level9(self),
-            Level10(self)
+            Level10(self), Level11(self)
         ]
         self.level_pointer = 0
         self.click_P_counter = 0
