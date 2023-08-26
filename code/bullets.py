@@ -10,6 +10,42 @@ class ImageBullet(NoShooting):
         self.add_force(-force)
 
 
+class Particle:
+    def __init__(self, game, x, y, radius, mass, force):
+        self.game = game
+        self.x = x
+        self.y = y
+        self.radius = radius
+
+        self.surf = pygame.Surface((self.radius*2, self.radius*2), pygame.SRCALPHA)
+
+        self.mass = mass
+        self.force = force
+
+        self.alpha = 100
+        self.clock = 0
+        self.green = 0
+
+    def tick(self):
+        self.clock += self.game.dt
+        if self.clock > 0.15:
+            self.clock -= 0.15
+            if self.alpha > 5:
+                self.alpha -= 1
+            if self.green >= 150:
+                self.green += 1
+            self.radius += 1
+            if self.alpha == 5:
+                del self
+
+    def draw(self):
+        self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
+        color = (255, self.green, 0, self.alpha)
+        pygame.draw.circle(self.surf, color, (self.surf.get_width() // 2, self.surf.get_height() // 2), self.radius)
+        self.game.screen.blit(self.surf, self.surf.get_rect(center=(self.x, self.y)))
+
+
+
 class Bullet(object):
     def __init__(self, game, x, y, width, height, force, mass, color=(255, 255, 255), sound=None):
         self.pos = Vector2(x, y)

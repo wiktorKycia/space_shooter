@@ -124,6 +124,19 @@ class ShotGun(Gun):
             bullet.sound.play(0, 800)
             self.clip.shot()
 
+class Flamethrower(Gun):
+    def __init__(self, game, ship, translation, force, interval, particle, spread, clip_size, reload, active_reload:bool=False,
+                 key=pygame.K_KP_0, bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
+        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload,
+                         bar_width, bar_height, bar_x, bar_y)
+        self.particle = particle
+        self.spread_angle = spread
+
+    def shot(self):
+        par = self.particle(self.game, self.pos.x, self.pos.y, 2, 20,self.force)
+        self.ship.bullets.append(par)
+        self.clip.shot()
+
 class BaseCannon:
     def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length, key=pygame.K_SPACE):
         self.game = game
