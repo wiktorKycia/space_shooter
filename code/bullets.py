@@ -30,10 +30,13 @@ class Particle:
         self.clock += self.game.dt
         if self.clock > 0.15:
             self.clock -= 0.15
-            self.alpha -= 1
+            if self.alpha > 5:
+                self.alpha -= 1
             if self.green >= 150:
                 self.green += 1
             self.radius += 1
+            if self.alpha == 5:
+                del self
 
     def draw(self):
         self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
