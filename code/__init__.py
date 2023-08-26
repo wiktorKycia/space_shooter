@@ -139,10 +139,23 @@ class TextButton(StaticObject):
 
 class DynamicObject(MainObject):
     def __init__(self, game, x, y, path, scale):
+        """
+        As far as 'path' parameter is concerned:
+         - It can be string, then it represents the path to the image, \n
+         - It also can be pygame.Surface type - in this case path it's an image itself
+        :param game: Game
+        :param x: int, float
+        :param y: int, float
+        :param path: str, pygame.Surface
+        :param scale: float
+        """
         super().__init__()
         self.game = game
         self.pos = Vector2(x, y)
-        self.image = pygame.image.load(path).convert_alpha()
+        if type(path) == pygame.Surface:
+            self.image = path
+        else:
+            self.image = pygame.image.load(path).convert_alpha()
         self.image = pygame.transform.scale_by(self.image, scale)
 
         self.width = self.image.get_width()
