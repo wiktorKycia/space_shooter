@@ -289,6 +289,7 @@ class Ship9(PlayableShip):
         )
         self.guns.extend(
             [
-                Flamethrower(game, self, Vector2(0, -20), self.force, 0.15, Particle, 10, 20, 1.0)
+                KineticGun(game, self, Vector2(0, -20), self.force)
+                # Flamethrower(game, self, Vector2(0, -20), self.force, 0.15, Particle, 10, 20, 1.0)
             ]
         )
