@@ -132,6 +132,11 @@ class Flamethrower(Gun):
         self.particle = particle
         self.spread_angle = spread
 
+    def shot(self):
+        par = self.particle(self.game, self.pos.x, self.pos.y, 2, 20,self.force)
+        self.ship.bullets.append(par)
+        self.clip.shot()
+
 class BaseCannon:
     def __init__(self, game, ship, translation: Vector2, force: int, interval: float, barrel_length, key=pygame.K_SPACE):
         self.game = game
