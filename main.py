@@ -38,7 +38,7 @@ class Game(object):
             Level1(self), Level2(self), Level3(self),
             Level4(self), Level5(self), Level6(self),
             Level7(self), Level8(self), Level9(self),
-            Level10(self)
+            Level10(self), Level11(self)
         ]
         self.level_pointer = 0
         self.click_P_counter = 0

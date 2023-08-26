@@ -19,7 +19,9 @@ class ManeuveringBullet:
 
         self.width = width
         self.height = height
-        self.image = pygame.image.load("./images/bullet.png").convert_alpha()
+        self.image = pygame.image.load("./plans/Laser Sprites/15.png").convert_alpha()
+        self.image = pygame.transform.scale_by(self.image, 0.4)
+        self.image = pygame.transform.rotate(self.image, 90)
         self.hitbox = pygame.Surface((self.width, self.height))
         self.hitbox.fill(color)
         self.mask = pygame.mask.from_surface(self.image)
@@ -54,7 +56,7 @@ class ManeuveringBullet:
                     angle = -angle
                 if angle < -180:
                     angle = -angle
-                self.vel.rotate_ip(angle/100)
+                self.vel.rotate_ip(angle/10)
 
             else: self.maneuvering = False
 

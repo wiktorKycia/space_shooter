@@ -48,6 +48,8 @@ class GameMenu:
     def __init__(self, game):
         self.game = game
         size = game.screen.get_size()
+
+        # define the buttons
         self.button_endless = Button(game, size[0]/5, size[1]/5, "./images/buttons/button_endless.png", 1.0, "./images/buttons/button_endless_hover.png")
         self.button_levels = Button(game, size[0]/2, size[1]/5, "./images/buttons/button_levels.png", 1.0, "./images/buttons/button_levels_hover.png")
         self.button_two_players = Button(game, size[0]*4/5, size[1]/5, "./images/buttons/button_two_players.png", 1.0, "./images/buttons/button_two_players_hover.png")
@@ -55,6 +57,8 @@ class GameMenu:
         self.button_hangar = Button(game, size[0]/2, self.game.height-50, "./images/buttons/button_hangar.png", 1.0, "./images/buttons/button_hangar_hover.png")
         self.button_shop = Button(game, size[0]*3/4, self.game.height-50, "./images/buttons/button_shop.png", 1.0, "./images/buttons/button_shop_hover.png")
         self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
+
+        # pack the buttons to the list
         self.buttons = [
                         self.button_endless,
                         self.button_levels,
@@ -66,11 +70,19 @@ class GameMenu:
                         ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
         self.ship = self.game.player.current_ship
+
+        # center ship's position
         self.ship.pos = Vector2(self.game.width/2, self.game.height/2)
         self.ship.vel = Vector2(0, 0)
         self.ship.acc = Vector2(0, 0)
-        self.ship.bullets.clear()
+
+        # maximise ship's stats
         self.ship.hp.maximise_hp()
+        for gun in self.ship.guns:
+            gun.clip.maximise_ammo()
+
+        # clear bullets
+        self.ship.bullets.clear()
         self.game.other_bullets.clear()
 
         # coin
@@ -124,7 +136,7 @@ class LevelsMenu:
             # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
                 self.game.level_pointer = i
-                self.game.levels[self.game.level_pointer-1].__init__(self.game)
+                self.game.levels[self.game.level_pointer].__init__(self.game)
                 self.game.showing = "game"
 
     def _calculate_level_y(self, level_id):
