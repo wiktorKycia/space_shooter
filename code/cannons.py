@@ -67,6 +67,7 @@ class Gun:
         self.key = key
 
         self.clock = 0
+        self.bullets = []
         self.clip = Clip(game, max_ammo, reload_time, active_reload, bar_width, bar_height, bar_x, bar_y)
 
     def shot(self):
