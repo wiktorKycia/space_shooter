@@ -93,7 +93,7 @@ class GunPrototype(Gun):
 
     def shot(self):
         bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force)
-        self.ship.bullets.append(bullet)
+        self.bullets.append(bullet)
         bullet.sound.play(0, 800)
         self.clip.shot()
 
@@ -121,7 +121,7 @@ class ShotGun(Gun):
     def shot(self):
         for angle in self.angles:
             bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force, angle)
-            self.ship.bullets.append(bullet)
+            self.bullets.append(bullet)
             bullet.sound.play(0, 800)
             self.clip.shot()
 
@@ -135,7 +135,7 @@ class Flamethrower(Gun):
 
     def shot(self):
         par = self.particle(self.game, self.pos.x, self.pos.y, 2, 20,self.force)
-        self.ship.bullets.append(par)
+        self.bullets.append(par)
         self.clip.shot()
 
 class BaseCannon:
