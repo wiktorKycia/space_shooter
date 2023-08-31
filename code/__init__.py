@@ -174,18 +174,14 @@ class HasHealth:
     def __init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height):
         self.hp = DeluxeHP(game, amount=hp_amount, x=hp_x, y=hp_y, width=hp_width, height=hp_height)
         self.game = game
-        self.bullets = []
         self.clock = 0
 
     def tick(self):
         self.clock += self.game.dt
         self.hp.tick()
-        for bullet in self.bullets:
-            bullet.tick()
 
     def draw(self):
-        for bullet in self.bullets:
-            bullet.draw()
+        pass
 
 class NoMoving(DynamicObject):
     def __init__(self, game, x, y, path, scale=1.0):
