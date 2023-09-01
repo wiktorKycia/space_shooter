@@ -199,7 +199,7 @@ class Moving(DynamicObject):
         self.max_speed = max_speed
 
     def add_force(self, force):
-        self.acc += force / self.mass
+        self.acc += Vector2(force / self.mass, force / self.mass)
 
     def tick(self):
         # Physics
