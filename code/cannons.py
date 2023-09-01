@@ -84,6 +84,9 @@ class Gun:
                 self.clock = 0
                 self.shot()
 
+        for bullet in self.bullets:
+            bullet.tick()
+
 class GunPrototype(Gun):
     def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time, active_reload:bool=False,
                  key=pygame.K_KP_0, bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
