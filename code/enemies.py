@@ -16,6 +16,12 @@ class BaseEnemy(ShootingDownNoMove):
         super().tick()
         for gun in self.guns:
             gun.tick()
+            for bullet in gun.bullets:
+                bullet.check_collision(self.game.player.current_ship)
+                energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+                self.game.player.current_ship.hp.get_damage(energy)
+                gun.bullets.remove(bullet)
+                del bullet
 
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
