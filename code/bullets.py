@@ -7,7 +7,7 @@ mixer.init()
 class ImageBullet(NoShooting):
     def __init__(self, game, x, y, path, mass, force, sound:str="", scale=1.0):
         super().__init__(game, x, y, path, mass, scale)
-        self.add_force(-force)
+        self.add_force(Vector2(0, -force))
         if sound != "":
             self.sound = mixer.Sound(sound)
             self.sound.set_volume(0.1)
