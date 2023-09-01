@@ -23,6 +23,12 @@ class BaseEnemy(ShootingDownNoMove):
                     gun.bullets.remove(bullet)
                     del bullet
 
+    def draw(self):
+        super().draw()
+        for gun in self.guns:
+            for bullet in gun.bullets:
+                bullet.draw()
+
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game

@@ -32,7 +32,6 @@ class PlayableShip(ShootingUp):
         for gun in self.guns:
             gun.tick()
             for bullet in gun.bullets:
-                bullet.tick()
                 for enemy in self.game.enemies:
                     if bullet.check_collision(enemy):
                         energy = (bullet.mass * bullet.vel * bullet.vel) / 2
