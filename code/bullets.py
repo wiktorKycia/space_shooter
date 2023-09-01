@@ -12,6 +12,14 @@ class ImageBullet(NoShooting):
             self.sound = mixer.Sound(sound)
             self.sound.set_volume(0.1)
 
+    def check_collision(self, ship):
+        if ship.mask.overlap(self.mask, (self.pos.x - ship.hitbox.x, self.pos.y - ship.hitbox.y)):
+            return True
+        return False
+
+    def tick(self):
+        super().tick()
+
 class BulletSmallBlue(ImageBullet):
     def __init__(self, game, x, y, force):
         super().__init__(
