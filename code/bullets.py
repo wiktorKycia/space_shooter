@@ -8,6 +8,15 @@ class ImageBullet(NoShooting):
     def __init__(self, game, x, y, path, mass, force, sound:str="", scale=1.0):
         super().__init__(game, x, y, path, mass, scale)
         self.add_force(Vector2(0, -force))
+
+        # reinitialize hitbox
+        self.surf = self.mask.to_surface()
+
+        self.width = self.surf.get_width()
+        self.height = self.surf.get_height()
+
+        self.hitbox = self.surf.get_rect()
+
         if sound != "":
             self.sound = mixer.Sound(sound)
             self.sound.set_volume(0.1)
