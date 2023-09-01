@@ -91,7 +91,7 @@ class KineticGunE(GunPrototypeE):
         super().__init__(
             game, ship, translation, force,
             interval=0.5,
-            bul=KineticBullet,
+            bul=BulletSmallBlue,
             clip_size=10,
             reload_time=2.5,
             )
