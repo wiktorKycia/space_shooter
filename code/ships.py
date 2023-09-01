@@ -32,6 +32,7 @@ class PlayableShip(ShootingUp):
         for gun in self.guns:
             gun.tick()
             for bullet in gun.bullets:
+                bullet.tick()
                 for enemy in self.game.enemies:
                     if bullet.check_collision(enemy):
                         energy = (bullet.mass * bullet.vel * bullet.vel) / 2
@@ -46,6 +47,9 @@ class PlayableShip(ShootingUp):
 
     def draw(self):
         super().draw()
+        for gun in self.guns:
+            for bullet in gun.bullets:
+                bullet.draw()
 
 class Ship0(PlayableShip):
     def __init__(self, game):
