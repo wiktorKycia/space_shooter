@@ -27,7 +27,7 @@ class BulletSmallBlue(ImageBullet):
             path="./images/Laser Sprites/01.png",
             mass=2,
             force=force,
-            sound="./sounds/laser-light-gun.wav",
+            sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.2)
 
 
