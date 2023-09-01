@@ -79,7 +79,7 @@ class Ship1(PlayableShip):
         )
         self.guns.extend(
             [
-                KineticGun(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+                LaserLight(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
             ]
         )
         # self.cannon = ManeuveringBulletsLauncher(
