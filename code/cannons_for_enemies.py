@@ -82,6 +82,7 @@ class GunPrototypeE(GunE):
 
     def shot(self):
         bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force)
+        bullet.image = pygame.transform.flip(bullet.image, True, False)
         self.bullets.append(bullet)
         bullet.sound.play(0, 800)
         self.clip.shot()
