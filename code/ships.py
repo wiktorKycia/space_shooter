@@ -38,7 +38,8 @@ class PlayableShip(ShootingUp):
                         energy = (bullet.mass * bullet.vel * bullet.vel) / 2
                         enemy.hp.get_damage(energy)
                         if enemy.hp.hp <= 0:
-                            self.game.other_bullets.extend(enemy.bullets)
+                            for gunE in enemy.guns:
+                                self.game.other_bullets.extend(gunE.bullets)
                             self.game.enemies.remove(enemy)
                             break
                         gun.bullets.remove(bullet)
