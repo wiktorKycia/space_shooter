@@ -12,19 +12,19 @@ class ImageBullet(NoShooting):
         self.add_force(Vector2(0, -force))
 
         # reinitialize hitbox
-        self.surf = self.mask.to_surface().convert_alpha()
-
-        self.width = self.surf.get_width()
-        self.height = self.surf.get_height()
-
-        self.hitbox = self.surf.get_rect()
+        # self.surf = self.mask.to_surface().convert_alpha()
+        #
+        # self.width = self.surf.get_width()
+        # self.height = self.surf.get_height()
+        #
+        # self.hitbox = self.surf.get_rect()
 
         if sound != "":
             self.sound = mixer.Sound(sound)
             self.sound.set_volume(0.1)
 
     def check_collision(self, ship):
-        if ship.mask.overlap(self.mask, (self.pos.x - ship.hitbox.x, self.pos.y - ship.hitbox.y)):
+        if ship.mask.overlap(self.mask, ((self.pos.x - self.width/2) - ship.hitbox.x, (self.pos.y - self.height/2) - ship.hitbox.y)):
             return True
         return False
 
@@ -32,7 +32,7 @@ class ImageBullet(NoShooting):
         super().tick()
 
     def draw(self):
-        self.game.screen.blit(self.surf, (self.pos.x - self.width/2, self.pos.y - self.height/2))
+        # self.game.screen.blit(self.surf, (self.pos.x - self.width/2, self.pos.y - self.height/2))
         super().draw()
         # pygame.draw.rect(self.game.screen, (255,0,0), self.hitbox, 1)
 
