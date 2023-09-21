@@ -12,7 +12,7 @@ class ImageBullet(NoShooting):
         self.add_force(Vector2(0, -force))
 
         # reinitialize hitbox
-        self.surf = self.mask.to_surface()
+        self.surf = self.mask.to_surface().convert_alpha()
 
         self.width = self.surf.get_width()
         self.height = self.surf.get_height()
