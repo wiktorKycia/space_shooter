@@ -48,6 +48,7 @@ class PlayableShip(ShootingUp):
 
     def draw(self):
         super().draw()
+        # pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
         for gun in self.guns:
             for bullet in gun.bullets:
                 bullet.draw()
