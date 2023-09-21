@@ -31,11 +31,27 @@ class PlayableShip(ShootingUp):
 
         for gun in self.guns:
             gun.tick()
+            for bullet in gun.bullets:
+                for enemy in self.game.enemies:
+                    if bullet.check_collision(enemy):
+                        gun.bullets.remove(bullet)
+                        energy = (bullet.mass * bullet.vel * bullet.vel) / 2
+                        enemy.hp.get_damage(energy)
+                        if enemy.hp.hp <= 0:
+                            for gunE in enemy.guns:
+                                self.game.other_bullets.extend(gunE.bullets)
+                            self.game.enemies.remove(enemy)
+                            break
+
 
         super().tick()
 
     def draw(self):
         super().draw()
+        # pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
+        for gun in self.guns:
+            for bullet in gun.bullets:
+                bullet.draw()
 
 class Ship0(PlayableShip):
     def __init__(self, game):
@@ -69,7 +85,7 @@ class Ship1(PlayableShip):
         )
         self.guns.extend(
             [
-                KineticGun(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+                LaserLight(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
             ]
         )
         # self.cannon = ManeuveringBulletsLauncher(

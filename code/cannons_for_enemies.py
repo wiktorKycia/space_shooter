@@ -54,6 +54,7 @@ class GunE:
         self.translation = translation
         self.force = force
         self.interval = interval
+        self.bullets = []
 
         self.clock = 0
         self.clip = ClipE(game, max_ammo, reload_time, active_reload)
@@ -71,6 +72,9 @@ class GunE:
                 self.clock = 0
                 self.shot()
 
+        for bullet in self.bullets:
+            bullet.tick()
+
 class GunPrototypeE(GunE):
     def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time, active_reload:bool=False,):
         super().__init__(game, ship, translation, force, interval, clip_size, reload_time, active_reload)
@@ -78,7 +82,8 @@ class GunPrototypeE(GunE):
 
     def shot(self):
         bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force)
-        self.ship.bullets.append(bullet)
+        bullet.image = pygame.transform.flip(bullet.image, False, True)
+        self.bullets.append(bullet)
         bullet.sound.play(0, 800)
         self.clip.shot()
 
@@ -86,10 +91,10 @@ class KineticGunE(GunPrototypeE):
     def __init__(self, game, ship, translation, force):
         super().__init__(
             game, ship, translation, force,
-            interval=0.5,
-            bul=KineticBullet,
-            clip_size=10,
-            reload_time=2.5,
+            interval=1.0,
+            bul=BulletSmallBlue,
+            clip_size=50,
+            reload_time=1.0,
             )
 
 class ShotGunE(GunE):
@@ -101,6 +106,6 @@ class ShotGunE(GunE):
     def shot(self):
         for angle in self.angles:
             bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force, angle)
-            self.ship.bullets.append(bullet)
+            self.bullets.append(bullet)
             bullet.sound.play(0, 800)
             self.clip.shot()

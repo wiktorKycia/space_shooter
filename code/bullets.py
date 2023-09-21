@@ -5,9 +5,47 @@ from code import NoShooting
 mixer.init()
 
 class ImageBullet(NoShooting):
-    def __init__(self, game, x, y, path, mass, force, scale=1.0):
-        super().__init__(game, x, y, path, mass, scale)
-        self.add_force(-force)
+    def __init__(self, game, x, y, path, mass, force, sound:str="", scale=1.0):
+        self.image = pygame.image.load(path).convert_alpha()
+        self.image = pygame.transform.rotate(self.image, 90)
+        super().__init__(game, x, y, self.image, mass, scale)
+        self.add_force(Vector2(0, -force))
+
+        # reinitialize hitbox
+        # self.surf = self.mask.to_surface().convert_alpha()
+        #
+        # self.width = self.surf.get_width()
+        # self.height = self.surf.get_height()
+        #
+        # self.hitbox = self.surf.get_rect()
+
+        if sound != "":
+            self.sound = mixer.Sound(sound)
+            self.sound.set_volume(0.1)
+
+    def check_collision(self, ship):
+        if ship.mask.overlap(self.mask, ((self.pos.x - self.width/2) - ship.hitbox.x, (self.pos.y - self.height/2) - ship.hitbox.y)):
+            return True
+        return False
+
+    def tick(self):
+        super().tick()
+
+    def draw(self):
+        # self.game.screen.blit(self.surf, (self.pos.x - self.width/2, self.pos.y - self.height/2))
+        super().draw()
+        # pygame.draw.rect(self.game.screen, (255,0,0), self.hitbox, 1)
+
+class BulletSmallBlue(ImageBullet):
+    def __init__(self, game, x, y, force):
+        super().__init__(
+            game, x, y,
+            path="./images/Laser Sprites/01.png",
+            mass=20,
+            force=force,
+            sound="./sounds/shot_sounds/laser-light-gun.wav",
+            scale=0.5)
+
 
 
 class Particle:

@@ -198,7 +198,7 @@ class Moving(DynamicObject):
         self.slip = slip
         self.max_speed = max_speed
 
-    def add_force(self, force):
+    def add_force(self, force:pygame.Vector2):
         self.acc += force / self.mass
 
     def tick(self):

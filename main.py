@@ -95,23 +95,23 @@ class Game(object):
 
         for enemy in self.enemies:
             enemy.tick()
-            for bullet in enemy.bullets:
-                if self.player.current_ship.mask.overlap(bullet.mask, (bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
-                    energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                    self.player.current_ship.hp.get_damage(energy)
-                    enemy.bullets.remove(bullet)
-                    continue
+            # for bullet in enemy.bullets:
+            #     if self.player.current_ship.mask.overlap(bullet.mask, (bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
+            #         energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+            #         self.player.current_ship.hp.get_damage(energy)
+            #         enemy.bullets.remove(bullet)
+            #         continue
 
-            for bullet in self.player.current_ship.bullets:
-                if enemy.mask.overlap(bullet.mask, (bullet.pos.x - bullet.width/2 - enemy.hitbox.x, bullet.pos.y - bullet.height/2 - enemy.hitbox.y)):
-                    self.player.current_ship.bullets.remove(bullet)
-                    energy = (bullet.mass * bullet.vel * bullet.vel) / 2
-                    enemy.hp.get_damage(energy)
-                    if enemy.hp.hp <= 0:
-                        self.other_bullets.extend(enemy.bullets)
-                        self.enemies.remove(enemy)
-                        break
-                    continue
+            # for bullet in self.player.current_ship.bullets:
+            #     if enemy.mask.overlap(bullet.mask, (bullet.pos.x - bullet.width/2 - enemy.hitbox.x, bullet.pos.y - bullet.height/2 - enemy.hitbox.y)):
+            #         self.player.current_ship.bullets.remove(bullet)
+            #         energy = (bullet.mass * bullet.vel * bullet.vel) / 2
+            #         enemy.hp.get_damage(energy)
+            #         if enemy.hp.hp <= 0:
+            #             self.other_bullets.extend(enemy.bullets)
+            #             self.enemies.remove(enemy)
+            #             break
+            #         continue
 
         for bullet in self.other_bullets:
             bullet.tick()

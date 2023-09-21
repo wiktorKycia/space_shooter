@@ -82,7 +82,9 @@ class GameMenu:
             gun.clip.maximise_ammo()
 
         # clear bullets
-        self.ship.bullets.clear()
+        for gun in self.ship.guns:
+            gun.bullets.clear()
+
         self.game.other_bullets.clear()
 
         # coin
