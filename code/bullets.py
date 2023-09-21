@@ -31,6 +31,11 @@ class ImageBullet(NoShooting):
     def tick(self):
         super().tick()
 
+    def draw(self):
+        self.game.screen.blit(self.surf, (self.pos.x - self.width/2, self.pos.y - self.height/2))
+        super().draw()
+        # pygame.draw.rect(self.game.screen, (255,0,0), self.hitbox, 1)
+
 class BulletSmallBlue(ImageBullet):
     def __init__(self, game, x, y, force):
         super().__init__(
