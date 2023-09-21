@@ -91,10 +91,10 @@ class KineticGunE(GunPrototypeE):
     def __init__(self, game, ship, translation, force):
         super().__init__(
             game, ship, translation, force,
-            interval=0.5,
+            interval=1.0,
             bul=BulletSmallBlue,
-            clip_size=10,
-            reload_time=2.5,
+            clip_size=50,
+            reload_time=1.0,
             )
 
 class ShotGunE(GunE):
