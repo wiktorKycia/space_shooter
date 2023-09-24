@@ -28,6 +28,10 @@ class PlayableShip(ShootingUp):
             self.add_force(Vector2(self.force, 0))
         if pressed[pygame.K_a]:
             self.add_force(Vector2(-self.force, 0))
+        if pressed[pygame.K_LSHIFT]:
+            self.current_slip = 0.8
+        else:
+            self.current_slip = self.slip
 
         for gun in self.guns:
             gun.tick()
