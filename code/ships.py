@@ -76,3 +76,21 @@ class Ship1(PlayableShip):
                 LaserLight(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
             ]
         )
+
+class Ship2(PlayableShip):
+    def __init__(self, game):
+        super().__init__(
+            game, "./images/SpaceShips/Ship_2.png",
+            mass=300,
+            max_speed=275,
+            force=1500,
+            hp_amount=4000000,
+            hp_height=25, hp_width=300,
+            hp_x=165, hp_y=710,
+            scale=2.0
+        )
+        self.guns.extend(
+            [
+                LaserLight(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
+            ]
+        )
