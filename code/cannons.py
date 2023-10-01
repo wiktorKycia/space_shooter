@@ -118,7 +118,7 @@ class LaserLight(GunPrototype):
                  bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
         super().__init__(
             game, ship, translation, force,
-            interval=1.0,
+            interval=0.2,
             bul=BulletSmallBlue,
             clip_size=50,
             reload_time=1.0,
