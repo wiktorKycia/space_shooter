@@ -62,7 +62,7 @@ class PlayableShip(ShootingUp):
 class Ship1(PlayableShip):
     def __init__(self, game):
         super().__init__(
-            game, "./images/SpaceShips/Ship_2.png",
+            game, "./images/SpaceShips/Ship_1.png",
             mass=300,
             max_speed=275,
             force=1500,
@@ -73,8 +73,6 @@ class Ship1(PlayableShip):
         )
         self.guns.extend(
             [
-                # KineticGun(game, self, Vector2(0, -20), self.force)
                 LaserLight(game, self, Vector2(0, -20), self.force, key=pygame.K_KP_1)
-                # Flamethrower(game, self, Vector2(0, -20), self.force, 0.15, Particle, 10, 20, 1.0)
             ]
         )
