@@ -5,7 +5,6 @@ import os
 from code import *
 from code.other import *
 from code.cannons import *
-from code.maneuvering_cannons import *
 from code import ShootingUp
 
 mixer.init()
