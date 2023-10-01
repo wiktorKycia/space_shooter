@@ -1,115 +1,20 @@
 from code.ships import *
 from code.player import *
+from code.general import *
 import pygame
 from pygame.math import *
-import os
-
-def write(game, text, x, y, font_size, color=(0, 0, 0), font_style="Arial", is_centered=False,):
-    font = pygame.font.SysFont(font_style, font_size)
-    rend = font.render(text, True, color)
-    if is_centered is True:
-        x = (game.width - rend.get_rect().width)/2
-        y = (game.height - rend.get_rect().height)/2
-    game.screen.blit(rend, (x, y))
-
-def write_on_surface(surface, text, x, y, font_size, color=(0, 0, 0), is_centered=False, font_style='Arial'):
-    font = pygame.font.SysFont(font_style, font_size)
-    rend = font.render(text, True, color)
-    if is_centered is True:
-        x = (surface.get_rect().width - rend.get_rect().width) / 2
-        y = (surface.get_rect().height - rend.get_rect().height) / 2
-    surface.blit(rend, (x, y))
-
-class NoImageButton:
-    def __init__(self, game, x, y, width, height, text):
-        self.game = game
-        self.y = y
-        self.x = x
-        self.width = width
-        self.height = height
-
-        self.surf = pygame.Surface((width, height))
-        self.surf.fill((30, 30, 30))
-        self.rect = self.surf.get_rect()
-        self.rect.topleft = (x - width/2, y - height/2)
-
-        self.text = text
-
-    def check_click(self):
-        action = False
-        pos = pygame.mouse.get_pos()
-        # check if the rect collides with the mouse
-        if self.rect.collidepoint(pos):
-            self.surf.fill((100, 100, 100))
-            write_on_surface(self.surf, self.text, 0, 0, 28, (250, 250, 250), True)
-
-            # check if the mouse is clicked
-            if self.game.mouse.click():
-                action = True
-                # return action
-        elif not self.rect.collidepoint(pos):
-            self.surf.fill((30, 30, 30))
-            write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
-        return action
-
-    def draw(self, surface):
-        surface.blit(self.surf, (self.x - self.width / 2, self.y - self.height / 2))
-        pygame.draw.rect(surface, (250, 250, 250), self.rect, 1)
-        write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
 
 
-class LevelButton(NoImageButton):
+
+class LevelButton(TextButton):
     def __init__(self, game, x, y, width, height, level_id:int):
         self.level_id = level_id
         self.text = f"Level {str(level_id)}"
         super().__init__(game, x, y, width, height, self.text)
-    # def check_click(self):
-    #     return super().check_click()
-    def draw(self, surface):
-        super().draw(surface)
 
-class Button:
-    def __init__(self, game, x:int, y:int, image:str, scale:float = 1.0, image2:str=""):
-        self.game = game
-        self.x = x
-        self.y = y
-
-        self.image = pygame.image.load(os.path.join(image)).convert_alpha()
-
-        width = self.image.get_width()
-        height = self.image.get_height()
-
-        self.image = pygame.transform.scale(self.image, (int(width * scale), int(height * scale)))
-
-        # create an image2 if the path is not empty
-        if not image2 == "":
-            self.image2 = pygame.image.load(os.path.join(image2)).convert_alpha()
-            self.image2 = pygame.transform.scale(self.image2, (int(width * scale), int(height * scale)))
-
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
-
-        self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
-
-        self.img = self.image
-
-    def check_click(self):
-        action = False
-        pos = pygame.mouse.get_pos()
-        # check if the rect collides with the mouse
-        if self.rect.collidepoint(pos):
-            self.img = self.image2
-            # check if the mouse is clicked
-            if self.game.mouse.click():
-                action = True
-        elif not self.rect.collidepoint(pos):
-            self.img = self.image
-
-        return action
-
-    def draw(self, surface):
-        surface.blit(self.img, (self.x - self.width/2, self.y - self.height/2))
+class Button(Clickable):
+    def __init__(self, game, x:int, y:int, path:str, scale:float = 1.0, path2:str=""):
+        super().__init__(game, x, y, path, scale, path2)
 
 class MainMenu:
     def __init__(self, game):
@@ -137,12 +42,14 @@ class MainMenu:
         self.game.screen.blit(self.background, (0, 0))
         self.game.screen.blit(self.title_image, (self.game.width/2 - self.title_image.get_width()/2, 150 - self.title_image.get_height()/2))
         for button in self.buttons:
-            button.draw(self.game.screen)
+            button.draw()
 
 class GameMenu:
     def __init__(self, game):
         self.game = game
         size = game.screen.get_size()
+
+        # define the buttons
         self.button_endless = Button(game, size[0]/5, size[1]/5, "./images/buttons/button_endless.png", 1.0, "./images/buttons/button_endless_hover.png")
         self.button_levels = Button(game, size[0]/2, size[1]/5, "./images/buttons/button_levels.png", 1.0, "./images/buttons/button_levels_hover.png")
         self.button_two_players = Button(game, size[0]*4/5, size[1]/5, "./images/buttons/button_two_players.png", 1.0, "./images/buttons/button_two_players_hover.png")
@@ -150,6 +57,8 @@ class GameMenu:
         self.button_hangar = Button(game, size[0]/2, self.game.height-50, "./images/buttons/button_hangar.png", 1.0, "./images/buttons/button_hangar_hover.png")
         self.button_shop = Button(game, size[0]*3/4, self.game.height-50, "./images/buttons/button_shop.png", 1.0, "./images/buttons/button_shop_hover.png")
         self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
+
+        # pack the buttons to the list
         self.buttons = [
                         self.button_endless,
                         self.button_levels,
@@ -161,11 +70,21 @@ class GameMenu:
                         ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
         self.ship = self.game.player.current_ship
+
+        # center ship's position
         self.ship.pos = Vector2(self.game.width/2, self.game.height/2)
         self.ship.vel = Vector2(0, 0)
         self.ship.acc = Vector2(0, 0)
-        self.ship.bullets.clear()
+
+        # maximise ship's stats
         self.ship.hp.maximise_hp()
+        for gun in self.ship.guns:
+            gun.clip.maximise_ammo()
+
+        # clear bullets
+        for gun in self.ship.guns:
+            gun.bullets.clear()
+
         self.game.other_bullets.clear()
 
         # coin
@@ -188,7 +107,7 @@ class GameMenu:
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
         for button in self.buttons:
-            button.draw(self.game.screen)
+            button.draw()
         self.ship.pos = Vector2(self.game.width / 2, self.game.height / 2)
         self.ship.draw()
         self.game.screen.blit(self.coin, (450, 300))
@@ -219,7 +138,7 @@ class LevelsMenu:
             # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
                 self.game.level_pointer = i
-                self.game.levels[self.game.level_pointer-1].__init__(self.game)
+                self.game.levels[self.game.level_pointer].__init__(self.game)
                 self.game.showing = "game"
 
     def _calculate_level_y(self, level_id):
@@ -230,9 +149,9 @@ class LevelsMenu:
         return y
 
     def draw_menu(self):
-        self.button_back.draw(self.game.screen)
+        self.button_back.draw()
         for button in self.buttons:
-            button.draw(self.game.screen)
+            button.draw()
         #     if button.level_id % 3 == 1:
         #         button.draw(self.game.screen, self.game.width/5, self._calculate_level_y(button.level_id))
         #     if button.level_id % 3 == 2:
@@ -277,9 +196,9 @@ class HangarMenu:
             ship.draw()
         self.game.player.current_ship.hitbox.center = (self.game.player.current_ship.pos.x, self.game.player.current_ship.pos.y)
         pygame.draw.rect(self.game.screen, (255, 255, 255), self.game.player.current_ship.hitbox, 1)
-        self.button_back.draw(self.game.screen)
-        self.button_next.draw(self.game.screen)
-        self.button_prev.draw(self.game.screen)
+        self.button_back.draw()
+        self.button_next.draw()
+        self.button_prev.draw()
 
 class PauseMenu:
     def __init__(self, game, resume_button_menu="game", exit_button_menu="levelsmenu"):
@@ -294,8 +213,8 @@ class PauseMenu:
         elif self.button_resume.check_click():
             self.game.showing = self.resume_button_menu
     def draw_menu(self):
-       self.button_exit.draw(self.game.screen)
-       self.button_resume.draw(self.game.screen)
+       self.button_exit.draw()
+       self.button_resume.draw()
 
 class SettingsMenu:
     def __init__(self, game):

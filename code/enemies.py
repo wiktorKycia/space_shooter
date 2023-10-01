@@ -4,157 +4,149 @@ import code
 from code import *
 from code.other import *
 from code.bullets import *
+from code.cannons_for_enemies import *
 import os
 
-class BaseEnemy(object):
-    def __init__(self, game, imagepath, x, y, slip, mov_force, mass, shot_force, barrel_lenght, health):
-        self.game = game
-        self.x = x
-        self.y = y
-
-        self.image = pygame.image.load(os.path.join(imagepath)).convert_alpha()
-        self.hitbox = self.image.get_rect()
-        self.mask = pygame.mask.from_surface(self.image)
-
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
-
-        self.slip = slip
-        self.movforce = mov_force
-        self.mass = mass
-        self.shotforce = shot_force
-        self.barrel = barrel_lenght
-
-        self.acc = Vector2(0, 0)
-        self.vel = Vector2(0, 0)
-        self.pos = Vector2(x, y)
-
-        self.clock = 0
-        self.bullets = []
-
-        self.hp = DeluxeHP(self.game, health, self.pos.x, self.pos.y-50, 50, 10)
-
-    def add_force(self, force):
-        self.acc += force / self.mass
+class BaseEnemy(ShootingDownNoMove):
+    def __init__(self, game, x, y, path, force, hp_amount, hp_width=50, hp_height=10):
+        super().__init__(game, x, y, path, force, hp_amount, hp_width, hp_height)
+        self.guns = []
 
     def tick(self):
-        self.clock += self.game.dt
-        self.hitbox.center = (self.pos.x, self.pos.y)
-        self.hp.tick()
+        super().tick()
+        for gun in self.guns:
+            gun.tick()
+            for bullet in gun.bullets:
+                if bullet.check_collision(self.game.player.current_ship):
+                    energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+                    self.game.player.current_ship.hp.get_damage(energy)
+                    gun.bullets.remove(bullet)
+                    del bullet
 
     def draw(self):
-        self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
-        # pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
-
-    def add_bullet(self, bullet):
-        self.bullets.append(bullet)
-        bullet.sound.play(0, 800)
-        acc = -bullet.acc  # getting initial bullet velocity
-        vel = (bullet.mass * acc) / self.mass
-        # getting initial velocity from zasada zachowania pędu
-        vel.x *= vel.x
-        vel.y *= vel.y
-        energy = (self.mass * vel) / 2  # calculating kinetic energy
-        force = energy / self.barrel  # calculating kickback force
-        self.add_force(Vector2(force.x, force.y))
-
+        super().draw()
+        for gun in self.guns:
+            for bullet in gun.bullets:
+                bullet.draw()
 
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = "./enemies/Enemy1.png"
-        super().__init__(self.game, self.image, x, y , 0.99, 100, 50, 400, 5, 100000)
-
-    def add_force(self, force):
-        super().add_force(force)
+        self.path = "./enemies/Enemy1.png"
+        super().__init__(
+            game, x, y, self.path, force=500, hp_amount=100000
+        )
+        self.guns.extend(
+            [
+                KineticGunE(game, self, Vector2(0, 10), self.force)
+            ]
+        )
 
     def tick(self):
         super().tick()
-        if self.clock >= 2.0:
-            self.clock = 0
-            bullet = KineticBullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
-            self.add_bullet(bullet)
-
-        for bullet in self.bullets:
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
-            else:
-                bullet.tick()
-
-    def draw(self):
-        super().draw()
-        for bullet in self.bullets:
-            bullet.draw()
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
-
-    def add_bullet(self, bullet):
-        super().add_bullet(bullet)
-
 
 class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = "./enemies/Enemy2.png"
-        super().__init__(self.game, self.image, x, y , 0.99, 150, 100, 350, 5, 250000)
-
-    def add_force(self, force):
-        super().add_force(force)
+        self.path = "./enemies/Enemy2.png"
+        super().__init__(
+            game, x, y, self.path, force=350, hp_amount=250000
+        )
+        self.guns.extend(
+            [
+                KineticGunE(game, self, Vector2(0, 10), self.force)
+            ]
+        )
 
     def tick(self):
         super().tick()
-        if self.clock >= 1.5:
-            self.clock = 0
-            bullet = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, -self.shotforce)
-            self.add_bullet(bullet)
-
-        for bullet in self.bullets:
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
-            else:
-                bullet.tick()
-
-    def draw(self):
-        super().draw()
-        for bullet in self.bullets:
-            bullet.draw()
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
-
-    def add_bullet(self, bullet):
-        super().add_bullet(bullet)
-
+        # if self.clock >= 1.5:
+        #     self.clock = 0
+        #     bullet = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, self.force)
+        #     self.add_bullet(bullet)
 
 class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.image = "./enemies/Enemy3.png"
-        super().__init__(self.game, self.image, x, y , 0.98, 540, 350, 600, 6, 450000)
-
-    def add_force(self, force):
-        super().add_force(force)
+        self.path = "./enemies/Enemy3.png"
+        super().__init__(self.game, x, y, self.path, force=1000, hp_amount=500000)
+        self.guns.extend(
+            [
+                KineticGunE(game, self, Vector2(-22, 10), self.force),
+                KineticGunE(game, self, Vector2(22, 10), self.force)
+            ]
+        )
 
     def tick(self):
         super().tick()
-        if self.clock >= 1.0:
-            self.clock = 0
-            bullet = EnergyGunBullet(self.game, self.pos.x-22, self.pos.y, -self.shotforce)
-            bullet1 = EnergyGunBullet(self.game, self.pos.x+22, self.pos.y, -self.shotforce)
-            self.add_bullet(bullet)
-            self.add_bullet(bullet1)
+        # if self.clock >= 1.0:
+        #     self.clock = 0
+        #     bullet = EnergyGunBullet(self.game, self.pos.x-22, self.pos.y, self.force)
+        #     bullet1 = EnergyGunBullet(self.game, self.pos.x+22, self.pos.y, self.force)
+        #     self.add_bullet(bullet)
+        #     self.add_bullet(bullet1)
 
-        for bullet in self.bullets:
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
-            else:
-                bullet.tick()
+import random
 
-    def draw(self):
-        super().draw()
-        for bullet in self.bullets:
-            bullet.draw()
-            if bullet.pos.y >= self.game.height:
-                self.bullets.remove(bullet)
+class MovingEnemy(ShootingDown):
+    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10, scale=1.0):
+        super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True, slip=0.99, scale=scale)
+        self.move_clock = 0
+        self.guns = []
 
     def add_bullet(self, bullet):
-        super().add_bullet(bullet)
+        self.bullets.append(bullet)
+        bullet.sound.play(0, 800)
+
+    def tick(self):
+        super().tick()
+        for gun in self.guns:
+            gun.tick()
+
+
+class Bouncer1(MovingEnemy):
+    def __init__(self, game, x, y):
+        super().__init__(
+            game, x, y,
+            "./enemies/bouncer1.png",
+            mass=2,
+            max_speed=200,
+            force=1500,
+            hp_amount=2000000,
+            scale=3.0
+        )
+        self.guns.extend(
+            [
+                KineticGunE(game, self, Vector2(0, 0), self.force)
+            ]
+        )
+
+    def do_move(self):
+        angle = 0
+        if self.pos.x < 350 and self.pos.y < 150: # top left
+            angle = random.randint(91, 180)
+        if self.pos.x > 350 and self.pos.y < 150: # top right
+            angle = random.randint(180, 270)
+        if self.pos.x < 350 and self.pos.y > 150: # bottom left
+            angle = random.randint(1, 90)
+        if self.pos.x > 350 and self.pos.y > 150: # bottom right
+            angle = random.randint(270, 360)
+        if angle > 180:
+            angle = -angle
+        if angle < -180:
+            angle = -angle
+        self.add_force(Vector2(0, self.force))
+        self.acc.rotate_ip(angle)
+
+    def tick(self):
+        self.hp.x = self.pos.x
+        self.hp.y = self.pos.y - 50
+        self.move_clock += self.game.dt
+        if self.move_clock > 0.5:
+            self.move_clock = 0
+            self.do_move()
+        super().tick()
+        # if self.clock > 1.5:
+        #     self.clock = 0
+        #     bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
+        #     self.add_bullet(bullet)

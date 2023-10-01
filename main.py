@@ -1,7 +1,15 @@
 import pygame
-from code.UI import *
+from code.bullets import *
+from code.bullets2 import *
+from code.cannons import *
+from code.enemies import *
+from code.levels import *
+from code.maneuvering_cannons import *
+from code.other import *
+from code.player import *
+from code.ships import *
 from code.two_players import *
-from code import *
+from code.UI import *
 
 class Game(object):
     def __init__(self):
@@ -30,7 +38,7 @@ class Game(object):
             Level1(self), Level2(self), Level3(self),
             Level4(self), Level5(self), Level6(self),
             Level7(self), Level8(self), Level9(self),
-            Level10(self)
+            Level10(self), Level11(self)
         ]
         self.level_pointer = 0
         self.click_P_counter = 0
@@ -87,23 +95,23 @@ class Game(object):
 
         for enemy in self.enemies:
             enemy.tick()
-            for bullet in enemy.bullets:
-                if self.player.current_ship.mask.overlap(bullet.mask, (bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
-                    energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                    self.player.current_ship.hp.get_damage(energy)
-                    enemy.bullets.remove(bullet)
-                    continue
+            # for bullet in enemy.bullets:
+            #     if self.player.current_ship.mask.overlap(bullet.mask, (bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
+            #         energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+            #         self.player.current_ship.hp.get_damage(energy)
+            #         enemy.bullets.remove(bullet)
+            #         continue
 
-            for bullet in self.player.current_ship.bullets:
-                if enemy.mask.overlap(bullet.mask, (bullet.pos.x - bullet.width/2 - enemy.hitbox.x, bullet.pos.y - bullet.height/2 - enemy.hitbox.y)):
-                    self.player.current_ship.bullets.remove(bullet)
-                    energy = (bullet.mass * bullet.vel * bullet.vel) / 2
-                    enemy.hp.get_damage(energy)
-                    if enemy.hp.hp <= 0:
-                        self.other_bullets.extend(enemy.bullets)
-                        self.enemies.remove(enemy)
-                        break
-                    continue
+            # for bullet in self.player.current_ship.bullets:
+            #     if enemy.mask.overlap(bullet.mask, (bullet.pos.x - bullet.width/2 - enemy.hitbox.x, bullet.pos.y - bullet.height/2 - enemy.hitbox.y)):
+            #         self.player.current_ship.bullets.remove(bullet)
+            #         energy = (bullet.mass * bullet.vel * bullet.vel) / 2
+            #         enemy.hp.get_damage(energy)
+            #         if enemy.hp.hp <= 0:
+            #             self.other_bullets.extend(enemy.bullets)
+            #             self.enemies.remove(enemy)
+            #             break
+            #         continue
 
         for bullet in self.other_bullets:
             bullet.tick()
