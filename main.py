@@ -1,6 +1,5 @@
 import pygame
 from code.bullets import *
-from code.bullets2 import *
 from code.cannons import *
 from code.enemies import *
 from code.levels import *
