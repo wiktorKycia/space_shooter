@@ -7,7 +7,7 @@ class Player(object):
     def __init__(self, game, coins=1500):
         self.game = game
         self.coins = coins
-        self.ships = [Ship1(game)]
+        self.ships = [Ship1(game), Ship2(game), Ship3(game), Ship4(game), Ship5(game)]
         # self.add_new_ship(Ship2(self.game))
         self.current_ship = self.ships[1]
 
