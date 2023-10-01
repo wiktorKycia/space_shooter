@@ -41,7 +41,7 @@ class BulletSmallBlue(ImageBullet):
         super().__init__(
             game, x, y,
             path="./images/Laser Sprites/01.png",
-            mass=20,
+            mass=2,
             force=force,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.5)
