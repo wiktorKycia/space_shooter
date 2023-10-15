@@ -158,6 +158,7 @@ class Level1(Level):
                 case 3:
                     self.block.line(self.game.width/2, 100, 3, 1)
                 case _:
+                    self.game.player.add_coins(500)
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
 
@@ -188,6 +189,7 @@ class Level2(Level):
                 case 3:
                     self.block.line(self.game.width/2, 100, 4, 1)
                 case _:
+                    self.game.player.add_coins(750)
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
 
@@ -220,6 +222,7 @@ class Level3(Level):
                 case 4:
                     self.block.pair(self.game.width/2, 150)
                 case _:
+                    self.game.player.add_coins(1000)
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
 
@@ -256,6 +259,7 @@ class Level4(Level):
                     self.block.line(self.game.width / 2, 100, 3)
                     self.block.triangle1(self.game.width / 2, 200)
                 case _:
+                    self.game.player.add_coins(1500)
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
 
@@ -290,6 +294,7 @@ class Level5(Level):
                 case 5:
                     self.block.line(self.game.width / 2, 100, 3, 2)
                 case _:
+                    self.game.player.add_coins(2000)
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
 
@@ -326,6 +331,7 @@ class Level6(Level):
                 case 4:
                     self.block.line(self.game.width / 2, 100, 3, 5)
                 case _:
+                    self.game.player.add_coins(2500)
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
 
@@ -364,6 +370,7 @@ class Level7(Level):
                     self.block.pair(self.game.width*3/4, 100, 2)
                     self.block.pair(self.game.width/4, 100, 2)
                 case _:
+                    self.game.player.add_coins(3500)
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
 
@@ -403,6 +410,7 @@ class Level8(Level):
                 #     self.block.pair(self.game.width*3/4, 100, 2)
                 #     self.block.pair(self.game.width/4, 100, 2)
                 case _:
+                    self.game.player.add_coins(4500)
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
 
@@ -442,6 +450,7 @@ class Level9(Level):
                 case 5:
                     self.block.triangle5(self.game.width/2, 150)
                 case _:
+                    self.game.player.add_coins(6000)
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
 
@@ -480,6 +489,7 @@ class Level10(Level):
                 # case 5:
                 #     self.block.triangle5(self.game.width/2, 150)
                 case _:
+                    self.game.player.add_coins(7500)
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
 
@@ -507,5 +517,6 @@ class Level11(Level):
                 case 1:
                     self.block.add_single(Bouncer1(self.game, 300, 200))
                 case _:
+                    self.game.player.add_coins(10000)
                     self.game.showing = "gamemenu"
                     self.game.gamemenu.__init__(self.game)
