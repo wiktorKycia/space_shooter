@@ -10,6 +10,10 @@ from code.two_players import *
 from code.UI import *
 
 class Game(object):
+    """
+    The main class in the program.
+    It is used to connect things into one game.
+    """
     def __init__(self):
         self.tps_max = 100.0
 
