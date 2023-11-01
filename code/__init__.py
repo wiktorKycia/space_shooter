@@ -40,6 +40,14 @@ class StaticObject(MainObject):
     It has only the x, y as coordinates and game parameters.
     """
     def __init__(self, game, x, y):
+        """
+        Static Object is the parent class for every object in the game, that does not move.
+        It has general use in user interface.
+        It has only the x, y as coordinates and game parameters.
+        :param game: pass here the instance of Game class from main.py
+        :param x: x coordinate
+        :param y: y coordinate
+        """
         super().__init__()
         self.game = game
         self.x = x
