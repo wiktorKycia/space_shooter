@@ -14,6 +14,10 @@ from code.other import *
 from code.general import *
 
 class MainObject(object):
+    """
+    This is the main class,
+    it basically is an abstract class for every object in the game.
+    """
     def __init__(self):
         pass
 
