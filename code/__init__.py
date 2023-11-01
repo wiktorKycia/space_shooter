@@ -61,10 +61,20 @@ class UnClickable(StaticObject):
     it takes the same parameters as parent class (StaticObject), plus one more: surf.
     """
     def __init__(self, game, x, y, surf):
+        """
+        initiates attributes
+        :param game: pass here the instance of Game class from main.py
+        :param x: x coordinate
+        :param y: y coordinate
+        :param surf: the surface, that will be displayed on the screen
+        """
         super().__init__(game, x, y)
         self.surf = surf
 
     def draw(self):
+        """
+        Blits the (given in init) surface on the screen
+        """
         self.game.screen.blit(self.surf, (self.x, self.y))
 
 class TextObject(UnClickable):
