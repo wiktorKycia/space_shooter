@@ -145,6 +145,8 @@ class Game(object):
     def draw(self):
         """
         Method draw usually is called after tick method, it displays object on the screen.
+        First, it draws the enemies,
+        then player and player's hp.
         """
         for enemy in self.enemies:
             enemy.draw()
