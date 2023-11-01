@@ -139,7 +139,9 @@ class Game(object):
             self.click_P_counter += 1
 
     def draw(self):
-
+        """
+        Method draw usually is called after tick method, it displays object on the screen.
+        """
         for enemy in self.enemies:
             enemy.draw()
 
