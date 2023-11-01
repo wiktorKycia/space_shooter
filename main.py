@@ -94,7 +94,9 @@ class Game(object):
         quit()
 
     def tick(self):
-
+        """
+        Method tick contains instructions to run during every tick (frame)
+        """
         for enemy in self.enemies:
             enemy.tick()
             # for bullet in enemy.bullets:
