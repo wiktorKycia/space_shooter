@@ -55,6 +55,11 @@ class StaticObject(MainObject):
 
 
 class UnClickable(StaticObject):
+    """
+    The class that is a parent of static objects, that cannot be clicked.
+    (They can be clicked, but there will be no reaction from the program).
+    it takes the same parameters as parent class (StaticObject), plus one more: surf.
+    """
     def __init__(self, game, x, y, surf):
         super().__init__(game, x, y)
         self.surf = surf
