@@ -82,6 +82,17 @@ class TextObject(UnClickable):
     The class certainly for displaying text on the screen
     """
     def __init__(self, game, x, y, text, font_size, color=(255, 255, 255), font_style="Arial", is_centered=False):
+        """
+        initializes the text and calls 'write' method
+        :param game: pass here the instance of Game class from main.py
+        :param x: x coordinate
+        :param y: y coordinate
+        :param text: the text that will be displayed on the screen, can have a fstring
+        :param font_size: the size of the font in pixels
+        :param color: the rgb tuple of integer values defining the color, default: white
+        :param font_style: the font of the given text, default: Arial
+        :param is_centered: a boolean value, that determines if the text will be placed in the center or not, when True value is given, the x and y coordinates will be omitted and the text will be centered
+        """
         self.text = self.write(text, font_size, color, font_style, is_centered)
         super().__init__(game, x, y, self.text)
 
