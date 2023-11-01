@@ -78,6 +78,9 @@ class UnClickable(StaticObject):
         self.game.screen.blit(self.surf, (self.x, self.y))
 
 class TextObject(UnClickable):
+    """
+    The class certainly for displaying text on the screen
+    """
     def __init__(self, game, x, y, text, font_size, color=(255, 255, 255), font_style="Arial", is_centered=False):
         self.text = self.write(text, font_size, color, font_style, is_centered)
         super().__init__(game, x, y, self.text)
