@@ -22,9 +22,15 @@ class MainObject(object):
         pass
 
     def tick(self):
+        """
+        Method tick contains instructions to run during every tick (frame).
+        """
         pass
 
     def draw(self):
+        """
+        Method draw usually is called after tick method, it displays object on the screen.
+        """
         pass
 
 class StaticObject(MainObject):
