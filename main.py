@@ -95,7 +95,11 @@ class Game(object):
 
     def tick(self):
         """
-        Method tick contains instructions to run during every tick (frame)
+        Method tick contains instructions to run during every tick (frame).
+        First, it calls every enemies' tick method,
+        then calls every bullets' tick method, that doesn't have any superior object, for example a ship,
+        then calls player's and level's tick method,
+        lastly, checks for clicking p key in order to show pause menu.
         """
         for enemy in self.enemies:
             enemy.tick()
