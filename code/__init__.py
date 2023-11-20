@@ -114,6 +114,10 @@ class TextObject(UnClickable):
         return rend
 
     def draw(self):
+        """
+        blits the text on the screen
+        :return:
+        """
         self.game.screen.blit(self.text, (self.x - self.text.get_width()/2, self.y - self.text.get_height()/2))
 
 class ImageObject(UnClickable):
