@@ -136,6 +136,10 @@ class ImageObject(UnClickable):
         super().__init__(game, x, y, self.image)
 
     def draw(self):
+        """
+        Blits the image on the screen
+        :return:
+        """
         self.game.screen.blit(self.image, (self.x - self.image.get_width() / 2, self.y - self.image.get_height() / 2))
 
 
