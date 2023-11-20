@@ -147,6 +147,16 @@ class ImageObject(UnClickable):
 
 class Clickable(StaticObject):
     def __init__(self, game, x, y, path, scale=1.0, path2=""):
+        """
+        A class for the object, that can be clicked,
+        it might have 2 images, as one will be shown only when mouse is hovering over the image rectangle
+        :param game: game object
+        :param x: x coordinate
+        :param y: y coordinate
+        :param path: path to the main image
+        :param scale: scale of the image
+        :param path2: path to image shown, when mouse is over the object
+        """
         super().__init__(game, x, y)
         self.image = pygame.image.load(path).convert_alpha()
         if scale != 1.0: self.image = pygame.transform.scale_by(self.image, scale)
