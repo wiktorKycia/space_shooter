@@ -62,7 +62,9 @@ class UnClickable(StaticObject):
     """
     def __init__(self, game, x, y, surf):
         """
-        initiates attributes
+        The class that is a parent of static objects, that cannot be clicked.
+        (They can be clicked, but there will be no reaction from the program).
+        it takes the same parameters as parent class (StaticObject), plus one more: surf.
         :param game: pass here the instance of Game class from main.py
         :param x: x coordinate
         :param y: y coordinate
