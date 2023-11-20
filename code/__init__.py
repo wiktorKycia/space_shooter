@@ -201,6 +201,17 @@ class Clickable(StaticObject):
 
 class TextButton(StaticObject):
     def __init__(self, game, x, y, width, height, text):
+        """
+        Represents a button, that has text in it
+        by default it has background color of rgb(30, 30, 30),
+        but when hovering it has color of rgb(100, 100, 100)
+        :param game:
+        :param x: x coordinate
+        :param y: y coordinate
+        :param width: width of the button
+        :param height: height of the button
+        :param text: text displayed in the button
+        """
         super().__init__(game, x, y)
         self.width = width
         self.height = height
