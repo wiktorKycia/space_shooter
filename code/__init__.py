@@ -225,6 +225,15 @@ class TextButton(StaticObject):
         self.text = text
 
     def check_click(self):
+        """
+        sets action variable to False\n
+        checks the mouse position,\n
+        checks if mouse collides with rect,
+         - if yes -> lightens the background and the text, checks if the mouse is clicked,
+         * if yes -> sets action variable to True
+         - if no -> changes the text and background to previous values
+        :return: action
+        """
         action = False
         pos = pygame.mouse.get_pos()
         # check if the rect collides with the mouse
