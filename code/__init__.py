@@ -121,7 +121,15 @@ class TextObject(UnClickable):
         self.game.screen.blit(self.text, (self.x - self.text.get_width()/2, self.y - self.text.get_height()/2))
 
 class ImageObject(UnClickable):
-    def __init__(self, game, x, y, path, scale=1.0):
+    def __init__(self, game, x:float, y:float, path:str, scale=1.0):
+        """
+        Represent an image in game with specified path to an image and scale, that can be omitted
+        :param game:
+        :param x: x coordinate
+        :param y: y coordinate
+        :param path: string, path to the image
+        :param scale: can be omitted, default value: 1.0
+        """
         self.image = pygame.image.load(path).convert_alpha()
         if scale != 1.0:
             self.image = pygame.transform.scale_by(self.image, scale)
