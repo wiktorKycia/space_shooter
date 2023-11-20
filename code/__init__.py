@@ -174,6 +174,15 @@ class Clickable(StaticObject):
         self.img = self.image
 
     def check_click(self):
+        """
+        sets action variable to False\n
+        checks the mouse position,\n
+        checks if mouse collides with rect,
+         - if yes -> changes the image, checks if the mouse is clicked,
+         * if yes -> sets action variable to True
+         - if no -> changes the image to the first image
+        :return: action
+        """
         action = False
         pos = pygame.mouse.get_pos()
         # check if the rect collides with the mouse
