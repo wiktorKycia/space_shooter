@@ -96,7 +96,16 @@ class TextObject(UnClickable):
         self.text = self.write(text, font_size, color, font_style, is_centered)
         super().__init__(game, x, y, self.text)
 
-    def write(self, text, font_size, color=(255, 255, 255), font_style="Arial", is_centered=False):
+    def write(self, text:str, font_size, color=(255, 255, 255), font_style="Arial", is_centered=False):
+        """
+        renders the text, returns pygame.Surface type
+        :param text: the text displayed
+        :param font_size: size of the text
+        :param color: color of the text in rgb
+        :param font_style: font of the text ex.Arial
+        :param is_centered: defines whether the text is centered or not, default: False -> text not centered
+        :return:
+        """
         font = pygame.font.SysFont(font_style, font_size)
         rend = font.render(text, True, color)
         if is_centered is True:
