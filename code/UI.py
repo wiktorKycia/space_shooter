@@ -3,7 +3,7 @@ from code.player import *
 from code.general import *
 import pygame
 from pygame.math import *
-
+from pygame.locals import *
 
 
 class LevelButton(TextButton):
@@ -142,6 +142,16 @@ class LevelsMenu:
                 self.game.level_pointer = i
                 self.game.levels[self.game.level_pointer].__init__(self.game)
                 self.game.showing = "game"
+        for event in pygame.event.get():
+            if event.type == MOUSEWHEEL:
+                if event.y == -1:
+                    for button in self.buttons:
+                        button.y -= 50
+                        button.rect.center = (button.x, button.y)
+                elif event.y == 1:
+                    for button in self.buttons:
+                        button.y += 50
+                        button.rect.center = (button.x, button.y)
 
     def _calculate_level_y(self, level_id):
         a = level_id % 3
@@ -151,9 +161,9 @@ class LevelsMenu:
         return y
 
     def draw_menu(self):
-        self.button_back.draw()
         for button in self.buttons:
             button.draw()
+        self.button_back.draw()
         #     if button.level_id % 3 == 1:
         #         button.draw(self.game.screen, self.game.width/5, self._calculate_level_y(button.level_id))
         #     if button.level_id % 3 == 2:

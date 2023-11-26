@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 from code.bullets import *
 from code.cannons import *
 from code.enemies import *
