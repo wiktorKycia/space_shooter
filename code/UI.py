@@ -231,7 +231,22 @@ class PauseMenu:
 class ShipMenu:
     def __init__(self, game):
         self.game = game
-        self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0,"./images/buttons/button_back_hover.png")
+        self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0,
+                                  "./images/buttons/button_back_hover.png")
+
+        # Ship
+        self.ship = self.game.player.current_ship
+        # center ship's position
+        self.ship.pos = Vector2(self.game.width / 2, 50)
+        # self.game.player.current_ship.pos = self.ship.pos
+        self.ship.vel = Vector2(0, 0)
+        self.ship.acc = Vector2(0, 0)
+
+        # Coin
+        self.coin = pygame.image.load("./images/coin.png").convert_alpha()
+        width = self.coin.get_width()
+        height = self.coin.get_height()
+        self.coin = pygame.transform.scale(self.coin, (int(width * 5), int(height * 5)))
 
     def tick_menu(self):
         if self.button_back.check_click():
@@ -241,7 +256,9 @@ class ShipMenu:
     def draw_menu(self):
         write(self.game, f"Current level: {self.game.player.current_ship.level}", 10, 10, 28, (255, 255, 255))
         write(self.game, f"Next level: {self.game.player.current_ship.level + 1}", 10, 40, 28, (255, 255, 255))
-
+        write(self.game, f"Coins: {str(self.game.player.coins)}", 10, 70, 28, (255, 255, 255))
+        self.ship.pos = Vector2(self.game.width / 2, 50)
+        self.ship.draw()
         self.button_back.draw()
 
 class SettingsMenu:
