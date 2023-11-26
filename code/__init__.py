@@ -366,6 +366,12 @@ class Moving(DynamicObject):
         self.acc += force / self.mass
 
     def tick(self):
+        """
+        multiplies the vel by slip and adds acc to vel,
+        then, limits the vel if it is above max_speed,
+        lastly, updates the position by vel and resets acc to 0
+        :return:
+        """
         # Physics
         self.vel *= self.current_slip
         self.vel += self.acc
