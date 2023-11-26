@@ -15,6 +15,7 @@ class PlayableShip(ShootingUp):
         size = game.screen.get_size()
         super().__init__(game, size[0]/2, size[1]/2, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, False, slip, scale)
         self.guns = []
+        self.level = 1
 
     def tick(self):
         # Input
