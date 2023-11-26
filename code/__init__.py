@@ -333,6 +333,18 @@ class NoMoving(DynamicObject):
 
 class Moving(DynamicObject):
     def __init__(self, game, x, y, path, mass, max_speed, slip=0.98, scale=1.0):
+        """
+        A parent class for every moving object,
+        it has physics implemented such as velocity and acceleration
+        :param game: game
+        :param x: initial x coordinate
+        :param y: initial y coordinate
+        :param path: path to the image
+        :param mass: mass of the object
+        :param max_speed: maximum velocity, that this object can have
+        :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
+        :param scale: the scale of the image
+        """
         super().__init__(game, x, y, path, scale)
         self.vel = Vector2(0, 0)
         self.acc = Vector2(0, 0)
