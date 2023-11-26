@@ -10,6 +10,10 @@ from code.two_players import *
 from code.UI import *
 
 class Game(object):
+    """
+    The main class in the program.
+    It is used to connect things into one game.
+    """
     def __init__(self):
         self.tps_max = 100.0
 
@@ -90,7 +94,13 @@ class Game(object):
         quit()
 
     def tick(self):
-
+        """
+        Method tick contains instructions to run during every tick (frame).
+        First, it calls every enemies' tick method,
+        then calls every bullets' tick method, that doesn't have any superior object, for example a ship,
+        then calls player's and level's tick method,
+        lastly, checks for clicking p key in order to show pause menu.
+        """
         for enemy in self.enemies:
             enemy.tick()
             # for bullet in enemy.bullets:
@@ -133,7 +143,11 @@ class Game(object):
             self.click_P_counter += 1
 
     def draw(self):
-
+        """
+        Method draw usually is called after tick method, it displays object on the screen.
+        First, it draws the enemies,
+        then player and player's hp.
+        """
         for enemy in self.enemies:
             enemy.draw()
 

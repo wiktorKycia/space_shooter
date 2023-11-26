@@ -14,17 +14,40 @@ from code.other import *
 from code.general import *
 
 class MainObject(object):
+    """
+    This is the main class,
+    it basically is an abstract class for every object in the game.
+    """
     def __init__(self):
         pass
 
     def tick(self):
+        """
+        Method tick contains instructions to run during every tick (frame).
+        """
         pass
 
     def draw(self):
+        """
+        Method draw usually is called after tick method, it displays object on the screen.
+        """
         pass
 
 class StaticObject(MainObject):
+    """
+    Static Object is the parent class for every object in the game, that does not move.
+    It has general use in user interface.
+    It has only the x, y as coordinates and game parameters.
+    """
     def __init__(self, game, x, y):
+        """
+        Static Object is the parent class for every object in the game, that does not move.
+        It has general use in user interface.
+        It has only the x, y as coordinates and game parameters.
+        :param game: pass here the instance of Game class from main.py
+        :param x: x coordinate
+        :param y: y coordinate
+        """
         super().__init__()
         self.game = game
         self.x = x
@@ -32,19 +55,59 @@ class StaticObject(MainObject):
 
 
 class UnClickable(StaticObject):
+    """
+    The class that is a parent of static objects, that cannot be clicked.
+    (They can be clicked, but there will be no reaction from the program).
+    it takes the same parameters as parent class (StaticObject), plus one more: surf.
+    """
     def __init__(self, game, x, y, surf):
+        """
+        The class that is a parent of static objects, that cannot be clicked.
+        (They can be clicked, but there will be no reaction from the program).
+        it takes the same parameters as parent class (StaticObject), plus one more: surf.
+        :param game: pass here the instance of Game class from main.py
+        :param x: x coordinate
+        :param y: y coordinate
+        :param surf: the surface, that will be displayed on the screen
+        """
         super().__init__(game, x, y)
         self.surf = surf
 
     def draw(self):
+        """
+        Blits the (given in init) surface on the screen
+        """
         self.game.screen.blit(self.surf, (self.x, self.y))
 
 class TextObject(UnClickable):
+    """
+    The class certainly for displaying text on the screen
+    """
     def __init__(self, game, x, y, text, font_size, color=(255, 255, 255), font_style="Arial", is_centered=False):
+        """
+        initializes the text and calls 'write' method
+        :param game: pass here the instance of Game class from main.py
+        :param x: x coordinate
+        :param y: y coordinate
+        :param text: the text that will be displayed on the screen, can have a fstring
+        :param font_size: the size of the font in pixels
+        :param color: the rgb tuple of integer values defining the color, default: white
+        :param font_style: the font of the given text, default: Arial
+        :param is_centered: a boolean value, that determines if the text will be placed in the center or not, when True value is given, the x and y coordinates will be omitted and the text will be centered
+        """
         self.text = self.write(text, font_size, color, font_style, is_centered)
         super().__init__(game, x, y, self.text)
 
-    def write(self, text, font_size, color=(255, 255, 255), font_style="Arial", is_centered=False):
+    def write(self, text:str, font_size, color=(255, 255, 255), font_style="Arial", is_centered=False):
+        """
+        renders the text, returns pygame.Surface type
+        :param text: the text displayed
+        :param font_size: size of the text
+        :param color: color of the text in rgb
+        :param font_style: font of the text ex.Arial
+        :param is_centered: defines whether the text is centered or not, default: False -> text not centered
+        :return:
+        """
         font = pygame.font.SysFont(font_style, font_size)
         rend = font.render(text, True, color)
         if is_centered is True:
@@ -53,21 +116,47 @@ class TextObject(UnClickable):
         return rend
 
     def draw(self):
+        """
+        blits the text on the screen
+        :return:
+        """
         self.game.screen.blit(self.text, (self.x - self.text.get_width()/2, self.y - self.text.get_height()/2))
 
 class ImageObject(UnClickable):
-    def __init__(self, game, x, y, path, scale=1.0):
+    def __init__(self, game, x:float, y:float, path:str, scale=1.0):
+        """
+        Represent an image in game with specified path to an image and scale, that can be omitted
+        :param game:
+        :param x: x coordinate
+        :param y: y coordinate
+        :param path: string, path to the image
+        :param scale: can be omitted, default value: 1.0
+        """
         self.image = pygame.image.load(path).convert_alpha()
         if scale != 1.0:
             self.image = pygame.transform.scale_by(self.image, scale)
         super().__init__(game, x, y, self.image)
 
     def draw(self):
+        """
+        Blits the image on the screen
+        :return:
+        """
         self.game.screen.blit(self.image, (self.x - self.image.get_width() / 2, self.y - self.image.get_height() / 2))
 
 
 class Clickable(StaticObject):
     def __init__(self, game, x, y, path, scale=1.0, path2=""):
+        """
+        A class for the object, that can be clicked,
+        it might have 2 images, as one will be shown only when mouse is hovering over the image rectangle
+        :param game: game object
+        :param x: x coordinate
+        :param y: y coordinate
+        :param path: path to the main image
+        :param scale: scale of the image
+        :param path2: path to image shown, when mouse is over the object
+        """
         super().__init__(game, x, y)
         self.image = pygame.image.load(path).convert_alpha()
         if scale != 1.0: self.image = pygame.transform.scale_by(self.image, scale)
@@ -85,6 +174,15 @@ class Clickable(StaticObject):
         self.img = self.image
 
     def check_click(self):
+        """
+        sets action variable to False\n
+        checks the mouse position,\n
+        checks if mouse collides with rect,
+         - if yes -> changes the image, checks if the mouse is clicked,
+         * if yes -> sets action variable to True
+         - if no -> changes the image to the first image
+        :return: action
+        """
         action = False
         pos = pygame.mouse.get_pos()
         # check if the rect collides with the mouse
@@ -103,6 +201,17 @@ class Clickable(StaticObject):
 
 class TextButton(StaticObject):
     def __init__(self, game, x, y, width, height, text):
+        """
+        Represents a button, that has text in it
+        by default it has background color of rgb(30, 30, 30),
+        but when hovering it has color of rgb(100, 100, 100)
+        :param game:
+        :param x: x coordinate
+        :param y: y coordinate
+        :param width: width of the button
+        :param height: height of the button
+        :param text: text displayed in the button
+        """
         super().__init__(game, x, y)
         self.width = width
         self.height = height
@@ -110,11 +219,21 @@ class TextButton(StaticObject):
         self.surf = pygame.Surface((width, height))
         self.surf.fill((30, 30, 30))
         self.rect = self.surf.get_rect()
-        self.rect.topleft = (x - width/2, y - height/2)
+        # self.rect.topleft = (x - width/2, y - height/2)
+        self.rect.center = (x,y)
 
         self.text = text
 
     def check_click(self):
+        """
+        sets action variable to False\n
+        checks the mouse position,\n
+        checks if mouse collides with rect,
+         - if yes -> lightens the background and the text, checks if the mouse is clicked,
+         * if yes -> sets action variable to True
+         - if no -> changes the text and background to previous values
+        :return: action
+        """
         action = False
         pos = pygame.mouse.get_pos()
         # check if the rect collides with the mouse
@@ -132,6 +251,12 @@ class TextButton(StaticObject):
         return action
 
     def draw(self):
+        """
+        Blits the button surface on the screen,
+        draws the border of the button,
+        writes the text of the button
+        :return:
+        """
         self.game.screen.blit(self.surf, (self.x - self.width / 2, self.y - self.height / 2))
         pygame.draw.rect(self.game.screen, (250, 250, 250), self.rect, 1)
         write_on_surface(self.surf, self.text, 0, 0, 28, (200, 200, 200), True)
@@ -140,6 +265,8 @@ class TextButton(StaticObject):
 class DynamicObject(MainObject):
     def __init__(self, game, x, y, path, scale):
         """
+        This is a parent class for every dynamic object in the game,
+        it has image, hitbox and mask.\n
         As far as 'path' parameter is concerned:
          - It can be string, then it represents the path to the image, \n
          - It also can be pygame.Surface type - in this case path it's an image itself
@@ -165,13 +292,30 @@ class DynamicObject(MainObject):
         self.mask = pygame.mask.from_surface(self.image)
 
     def tick(self):
+        """
+        Updates the hitbox's center
+        :return:
+        """
         self.hitbox.center = (self.pos.x, self.pos.y)
 
     def draw(self):
+        """
+        blits the image in the current position
+        :return:
+        """
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
 class HasHealth:
     def __init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height):
+        """
+        A parent class for every object that has health, for example: ships and enemies
+        :param game: game
+        :param hp_amount: the maximum hp amount
+        :param hp_x: the x coordinate of the hp bar
+        :param hp_y: the y coordinate of the hp bar
+        :param hp_width: the width of the hp bar
+        :param hp_height: the height of the hp bar
+        """
         self.hp = DeluxeHP(game, amount=hp_amount, x=hp_x, y=hp_y, width=hp_width, height=hp_height)
         self.game = game
         self.clock = 0
@@ -189,6 +333,18 @@ class NoMoving(DynamicObject):
 
 class Moving(DynamicObject):
     def __init__(self, game, x, y, path, mass, max_speed, slip=0.98, scale=1.0):
+        """
+        A parent class for every moving object,
+        it has physics implemented such as velocity and acceleration
+        :param game: game
+        :param x: initial x coordinate
+        :param y: initial y coordinate
+        :param path: path to the image
+        :param mass: mass of the object
+        :param max_speed: maximum velocity, that this object can have
+        :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
+        :param scale: the scale of the image
+        """
         super().__init__(game, x, y, path, scale)
         self.vel = Vector2(0, 0)
         self.acc = Vector2(0, 0)
@@ -200,9 +356,22 @@ class Moving(DynamicObject):
         self.max_speed = max_speed
 
     def add_force(self, force:pygame.Vector2):
+        """
+        a method that adds force to the object,
+        you can't specify the mass as it uses the mass object to calculate acceleration.
+        then adds it to acc vector of the object
+        :param force: must be the pygame 2-dimensional Vector
+        :return:
+        """
         self.acc += force / self.mass
 
     def tick(self):
+        """
+        multiplies the vel by slip and adds acc to vel,
+        then, limits the vel if it is above max_speed,
+        lastly, updates the position by vel and resets acc to 0
+        :return:
+        """
         # Physics
         self.vel *= self.current_slip
         self.vel += self.acc
@@ -223,6 +392,20 @@ class Moving(DynamicObject):
 
 class ShootingDownNoMove(NoMoving, HasHealth):
     def __init__(self, game, x, y, path, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50, scale=1.0):
+        """
+        it basically combines the NoMoving and HasHealth classes
+        :param game: game
+        :param x: x position
+        :param y: y position
+        :param path: path to the image
+        :param force: force of the object itself (it has usage in moving)
+        :param hp_amount: the maximum hp amount
+        :param hp_width: the width of the hp bar
+        :param hp_height: the height of the hp bar
+        :param hp_x: the x coordinate of the hp bar
+        :param hp_y: the y coordinate of the hp bar
+        :param scale: scale of the image
+        """
         super().__init__(game, x, y, path, scale)
         hp_x = self.pos.x + hp_x
         hp_y = self.pos.y + hp_y
@@ -241,6 +424,24 @@ class ShootingDownNoMove(NoMoving, HasHealth):
 
 class ShootingDown(Moving, HasHealth):
     def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50, hp_relative=False, slip=0.98, scale=1.0):
+        """
+        it basically combines the Moving and HasHealth classes
+        :param game: game
+        :param x: x position
+        :param y: y position
+        :param path: path to the image
+        :param mass: mass of the object
+        :param max_speed: maximum velocity, that this object can have
+        :param force: force of the object itself (it has usage in moving)
+        :param hp_amount: the maximum hp amount
+        :param hp_width: the width of the hp bar
+        :param hp_height: the height of the hp bar
+        :param hp_x: the x coordinate of the hp bar
+        :param hp_y: the y coordinate of the hp bar
+        :param hp_relative: decides whether the hp bar is relative to the position of the object (True = is relative)
+        :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
+        :param scale: the scale of the image
+        """
         super().__init__(game, x, y, path, mass, max_speed, slip, scale)
         if hp_relative:  # ! może być błąd z hp_x i hp_y
             hp_x = self.pos.x + hp_x
@@ -260,6 +461,24 @@ class ShootingDown(Moving, HasHealth):
 
 class ShootingUp(Moving, HasHealth):
     def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, hp_relative=False, slip=0.98, scale=1.0):
+        """
+        A parent class for every object moving and shooting upwards for example player's ships
+        :param game: game
+        :param x: x position
+        :param y: y position
+        :param path: path to the image
+        :param mass: mass of the object
+        :param max_speed: maximum velocity, that this object can have
+        :param force: force of the object itself (it has usage in moving)
+        :param hp_amount: the maximum hp amount
+        :param hp_width: the width of the hp bar
+        :param hp_height: the height of the hp bar
+        :param hp_x: the x coordinate of the hp bar
+        :param hp_y: the y coordinate of the hp bar
+        :param hp_relative: decides whether the hp bar is relative to the position of the object (True = is relative)
+        :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
+        :param scale: the scale of the image
+        """
         super().__init__(game, x, y, path, mass, max_speed, slip, scale)
         self.force = force
         if hp_relative: # ! może być błąd z hp_x i hp_y
