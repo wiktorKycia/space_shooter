@@ -292,9 +292,17 @@ class DynamicObject(MainObject):
         self.mask = pygame.mask.from_surface(self.image)
 
     def tick(self):
+        """
+        Updates the hitbox's center
+        :return:
+        """
         self.hitbox.center = (self.pos.x, self.pos.y)
 
     def draw(self):
+        """
+        blits the image in the current position
+        :return:
+        """
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
 class HasHealth:
