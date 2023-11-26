@@ -356,6 +356,13 @@ class Moving(DynamicObject):
         self.max_speed = max_speed
 
     def add_force(self, force:pygame.Vector2):
+        """
+        a method that adds force to the object,
+        you can't specify the mass as it uses the mass object to calculate acceleration.
+        then adds it to acc vector of the object
+        :param force: must be the pygame 2-dimensional Vector
+        :return:
+        """
         self.acc += force / self.mass
 
     def tick(self):
