@@ -223,12 +223,12 @@ class ShipMenu:
         self.game = game
         self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0,"./images/buttons/button_back_hover.png")
 
-    def tick(self):
+    def tick_menu(self):
         if self.button_back.check_click():
             self.game.showing = "gamemenu"
             self.game.gamemenu.__init__(self.game)
 
-    def draw(self):
+    def draw_menu(self):
         self.button_back.draw()
 
 class SettingsMenu:
