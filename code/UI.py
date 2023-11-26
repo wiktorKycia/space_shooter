@@ -239,6 +239,9 @@ class ShipMenu:
             self.game.gamemenu.__init__(self.game)
 
     def draw_menu(self):
+        write(self.game, f"Current level: {self.game.player.current_ship.level}", 10, 10, 28, (255, 255, 255))
+        write(self.game, f"Next level: {self.game.player.current_ship.level + 1}", 10, 40, 28, (255, 255, 255))
+
         self.button_back.draw()
 
 class SettingsMenu:
