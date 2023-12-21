@@ -104,6 +104,12 @@ class MovingEnemy(ShootingDown):
         for gun in self.guns:
             gun.tick()
 
+    def draw(self):
+        super().draw()
+        for gun in self.guns:
+            for bullet in gun.bullets:
+                bullet.draw()
+
 
 class Bouncer1(MovingEnemy):
     def __init__(self, game, x, y):
