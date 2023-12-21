@@ -105,6 +105,7 @@ class GameMenu:
             self.game.showing = "hangar"
         elif self.button_ship.check_click():
             self.game.showing = "shipmenu"
+            self.game.shipmenu.__init__(self.game)
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
