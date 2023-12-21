@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 from code.bullets import *
 from code.cannons import *
 from code.enemies import *
@@ -52,6 +53,7 @@ class Game(object):
         self.gamemenu = GameMenu(self)
         self.levelsmenu = LevelsMenu(self)
         self.hangar = HangarMenu(self)
+        self.shipmenu = ShipMenu(self)
         self.pausemenu = PauseMenu(self)
         self.twoplayersgame = TwoPlayersGame(self)
 
@@ -76,6 +78,9 @@ class Game(object):
                 case "hangar":
                     self.hangar.tick_menu()
                     self.hangar.draw_menu()
+                case "shipmenu":
+                    self.shipmenu.tick_menu()
+                    self.shipmenu.draw_menu()
                 case "pausemenu":
                     self.pausemenu.tick_menu()
                     self.pausemenu.draw_menu()

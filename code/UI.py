@@ -3,7 +3,7 @@ from code.player import *
 from code.general import *
 import pygame
 from pygame.math import *
-
+from pygame.locals import *
 
 
 class LevelButton(TextButton):
@@ -97,12 +97,15 @@ class GameMenu:
     def tick_menu(self):
         if self.button_levels.check_click():
             self.game.showing = "levelsmenu"
+        elif self.button_two_players.check_click():
+            self.game.showing = "twoplayers"
         elif self.button_back.check_click():
             self.game.showing = "mainmenu"
         elif self.button_hangar.check_click():
             self.game.showing = "hangar"
-        elif self.button_two_players.check_click():
-            self.game.showing = "twoplayers"
+        elif self.button_ship.check_click():
+            self.game.showing = "shipmenu"
+            self.game.shipmenu.__init__(self.game)
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
@@ -140,6 +143,16 @@ class LevelsMenu:
                 self.game.level_pointer = i
                 self.game.levels[self.game.level_pointer].__init__(self.game)
                 self.game.showing = "game"
+        for event in pygame.event.get():
+            if event.type == MOUSEWHEEL:
+                if event.y == -1:
+                    for button in self.buttons:
+                        button.y -= 50
+                        button.rect.center = (button.x, button.y)
+                elif event.y == 1:
+                    for button in self.buttons:
+                        button.y += 50
+                        button.rect.center = (button.x, button.y)
 
     def _calculate_level_y(self, level_id):
         a = level_id % 3
@@ -149,9 +162,9 @@ class LevelsMenu:
         return y
 
     def draw_menu(self):
-        self.button_back.draw()
         for button in self.buttons:
             button.draw()
+        self.button_back.draw()
         #     if button.level_id % 3 == 1:
         #         button.draw(self.game.screen, self.game.width/5, self._calculate_level_y(button.level_id))
         #     if button.level_id % 3 == 2:
@@ -215,6 +228,39 @@ class PauseMenu:
     def draw_menu(self):
        self.button_exit.draw()
        self.button_resume.draw()
+
+class ShipMenu:
+    def __init__(self, game):
+        self.game = game
+        self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0,
+                                  "./images/buttons/button_back_hover.png")
+
+        # Ship
+        self.ship = self.game.player.current_ship
+        # center ship's position
+        self.ship.pos = Vector2(self.game.width / 2, 50)
+        # self.game.player.current_ship.pos = self.ship.pos
+        self.ship.vel = Vector2(0, 0)
+        self.ship.acc = Vector2(0, 0)
+
+        # Coin
+        self.coin = pygame.image.load("./images/coin.png").convert_alpha()
+        width = self.coin.get_width()
+        height = self.coin.get_height()
+        self.coin = pygame.transform.scale(self.coin, (int(width * 5), int(height * 5)))
+
+    def tick_menu(self):
+        if self.button_back.check_click():
+            self.game.showing = "gamemenu"
+            self.game.gamemenu.__init__(self.game)
+
+    def draw_menu(self):
+        write(self.game, f"Current level: {self.game.player.current_ship.level}", 10, 10, 28, (255, 255, 255))
+        write(self.game, f"Next level: {self.game.player.current_ship.level + 1}", 10, 40, 28, (255, 255, 255))
+        write(self.game, f"Coins: {str(self.game.player.coins)}", 10, 70, 28, (255, 255, 255))
+        self.ship.pos = Vector2(self.game.width / 2, 50)
+        self.ship.draw()
+        self.button_back.draw()
 
 class SettingsMenu:
     def __init__(self, game):
