@@ -93,6 +93,7 @@ class MovingEnemy(ShootingDown):
         super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True, slip=0.99, scale=scale)
         self.move_clock = 0
         self.guns = []
+        self.bullets = []
 
     def add_bullet(self, bullet):
         self.bullets.append(bullet)
