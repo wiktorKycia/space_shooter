@@ -134,7 +134,7 @@ class LevelGame:
 
         self.level_pointer = 0
         self.currentLevelType = self.game.levels[self.level_pointer]
-        self.currentLevel = self.currentLevelType()
+        self.currentLevel = self.currentLevelType(self.game)
 
         self.click_P_counter = 0
 
