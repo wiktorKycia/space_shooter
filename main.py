@@ -50,6 +50,7 @@ class Game(object):
 
         # menus/interfaces
         self.menuHandler = MenuHandler(self, MainMenu)
+        self.menuHandler.resetMenu()
         # self.mainmenu = MainMenu(self)
         # self.gamemenu = GameMenu(self)
         # self.levelsmenu = LevelsMenu(self)
