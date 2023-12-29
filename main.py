@@ -49,13 +49,14 @@ class Game(object):
         self.other_bullets = []
 
         # menus/interfaces
-        self.mainmenu = MainMenu(self)
-        self.gamemenu = GameMenu(self)
-        self.levelsmenu = LevelsMenu(self)
-        self.hangar = HangarMenu(self)
-        self.shipmenu = ShipMenu(self)
-        self.pausemenu = PauseMenu(self)
-        self.twoplayersgame = TwoPlayersGame(self)
+        self.menuHandler = MenuHandler(self, MainMenu)
+        # self.mainmenu = MainMenu(self)
+        # self.gamemenu = GameMenu(self)
+        # self.levelsmenu = LevelsMenu(self)
+        # self.hangar = HangarMenu(self)
+        # self.shipmenu = ShipMenu(self)
+        # self.pausemenu = PauseMenu(self)
+        # self.twoplayersgame = TwoPlayersGame(self)
 
         while self.isrun:
             for event in pygame.event.get():
