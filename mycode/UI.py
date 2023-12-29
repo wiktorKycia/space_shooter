@@ -1,6 +1,6 @@
-from code.ships import *
-from code.player import *
-from code.general import *
+from mycode.ships import *
+from mycode.player import *
+from mycode.general import *
 import pygame
 from pygame.math import *
 from pygame.locals import *

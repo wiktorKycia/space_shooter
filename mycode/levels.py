@@ -1,5 +1,5 @@
 import pygame.time
-from code.enemies import *
+from mycode.enemies import *
 
 class MiniLevel:
     def __init__(self, game):

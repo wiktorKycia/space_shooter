@@ -2,10 +2,10 @@ import pygame
 from pygame import mixer
 from pygame.math import Vector2
 import os
-from code import *
-from code.other import *
-from code.cannons import *
-from code import ShootingUp
+from mycode import *
+from mycode.other import *
+from mycode.cannons import *
+from mycode import ShootingUp
 
 mixer.init()
 
