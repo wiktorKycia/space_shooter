@@ -4,6 +4,7 @@ from mycode.general import *
 import pygame
 from pygame.math import *
 from pygame.locals import *
+from mycode.levels import LevelGame
 
 
 class LevelButton(TextButton):
