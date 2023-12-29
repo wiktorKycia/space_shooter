@@ -1,5 +1,10 @@
 import pygame
 
+
+class MenuHandler:
+    def __init__(self, game):
+        self.game = game
+
 class AmmoBar:
     def __init__(self, game, amount, width, height, x, y, color=(0, 0, 255)):
         self.game = game
