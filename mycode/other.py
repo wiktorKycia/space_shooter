@@ -14,7 +14,7 @@ class MenuHandler:
         self.resetMenu()
 
     def tick(self):
-        self.currentMenu.tick_menu()
+        self.currentMenu.tick_menu(self.currentMenu)
 
     def draw(self):
         self.currentMenu.draw_menu()
