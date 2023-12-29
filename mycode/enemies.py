@@ -1,10 +1,10 @@
 import pygame.time
 import pygame.math
-import code
-from code import *
-from code.other import *
-from code.bullets import *
-from code.cannons_for_enemies import *
+import mycode
+from mycode import *
+from mycode.other import *
+from mycode.bullets import *
+from mycode.cannons_for_enemies import *
 import os
 
 class BaseEnemy(ShootingDownNoMove):

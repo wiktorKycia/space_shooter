@@ -1,7 +1,7 @@
 import pygame
 import os
-from code import *
-from code.ships import *
+from mycode import *
+from mycode.ships import *
 
 class Player(object):
     def __init__(self, game, coins=1500):
