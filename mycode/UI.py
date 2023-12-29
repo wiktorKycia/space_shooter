@@ -207,7 +207,8 @@ class LevelsMenu:
         for i, button in enumerate(self.buttons):
             # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
-                self.game.menuHandler.changeMenu(LevelGame, i)
+                self.game.menuHandler.changeMenu(LevelGame)
+                self.game.menuHandler.currentMenu.level_pointer = i
                 # self.game.level_pointer = i
                 # self.game.levels[self.game.level_pointer].__init__(self.game)
                 # self.game.showing = "game"
