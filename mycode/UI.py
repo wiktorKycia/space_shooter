@@ -111,7 +111,7 @@ class GameMenu:
         elif self.button_ship.check_click():
             self.game.showing = "shipmenu"
             self.game.menuHandler.changeMenu(ShipMenu)
-            self.game.shipmenu.__init__(self.game)
+            # self.game.shipmenu.__init__(self.game)
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
@@ -143,6 +143,7 @@ class LevelsMenu:
     def tick_menu(self):
         if self.button_back.check_click():
             self.game.showing = "gamemenu"
+            self.game.menuHandler.changeMenu(GameMenu)
         for i, button in enumerate(self.buttons):
             # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
@@ -190,7 +191,8 @@ class HangarMenu:
         if self.button_back.check_click():
             # self.game.player.current_ship.pos = Vector2(self.game.width / 2, self.game.height / 2)
             self.game.showing = "gamemenu"
-            self.game.gamemenu.__init__(self.game)
+            self.game.menuHandler.changeMenu(GameMenu)
+            # self.game.gamemenu.__init__(self.game)
         elif self.button_next.check_click():
             self.translation -= 50
         elif self.button_prev.check_click():
@@ -220,7 +222,7 @@ class HangarMenu:
         self.button_prev.draw()
 
 class PauseMenu:
-    def __init__(self, game, resume_button_menu="game", exit_button_menu="levelsmenu"):
+    def __init__(self, game, resume_button_menu=GameMenu, exit_button_menu=LevelsMenu):
         self.game = game
         self.resume_button_menu = resume_button_menu
         self.exit_button_menu = exit_button_menu
@@ -229,8 +231,10 @@ class PauseMenu:
     def tick_menu(self):
         if self.button_exit.check_click():
             self.game.showing = self.exit_button_menu
+            self.game.menuHandler.changeMenu(self.exit_button_menu)
         elif self.button_resume.check_click():
             self.game.showing = self.resume_button_menu
+            self.game.menuHandler.changeMenu(self.resume_button_menu)
     def draw_menu(self):
        self.button_exit.draw()
        self.button_resume.draw()
@@ -258,7 +262,7 @@ class ShipMenu:
     def tick_menu(self):
         if self.button_back.check_click():
             self.game.showing = "gamemenu"
-            self.game.gamemenu.__init__(self.game)
+            self.game.menuHandler.changeMenu(GameMenu)
 
     def draw_menu(self):
         write(self.game, f"Current level: {self.game.player.current_ship.level}", 10, 10, 28, (255, 255, 255))
