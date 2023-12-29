@@ -212,6 +212,7 @@ class LevelsMenu:
             if button.check_click():
                 self.game.menuHandler.changeMenu(LevelGame)
                 self.game.menuHandler.currentMenu.level_pointer = i
+                self.game.menuHandler.currentMenu.reset_current_level()
                 # self.game.level_pointer = i
                 # self.game.levels[self.game.level_pointer].__init__(self.game)
                 # self.game.showing = "game"
