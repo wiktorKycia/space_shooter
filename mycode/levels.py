@@ -136,12 +136,7 @@ class LevelGame:
     def __init__(self, game):
         self.game = game
         self.enemies = []
-        self.levels = [
-            Level1, Level2, Level3,
-            Level4, Level5, Level6,
-            Level7, Level8, Level9,
-            Level10, Level11
-        ]
+
         self.level_pointer = 0
         self.click_P_counter = 0
 

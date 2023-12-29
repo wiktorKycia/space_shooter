@@ -36,17 +36,17 @@ class Game(object):
         self.mouse = Mouse(self)
 
         # lists
-        self.enemies = []
+        # self.enemies = []
         self.levels = [
-            Level1(self), Level2(self), Level3(self),
-            Level4(self), Level5(self), Level6(self),
-            Level7(self), Level8(self), Level9(self),
-            Level10(self), Level11(self)
+            Level1, Level2, Level3,
+            Level4, Level5, Level6,
+            Level7, Level8, Level9,
+            Level10, Level11
         ]
-        self.level_pointer = 0
-        self.click_P_counter = 0
-
-        self.other_bullets = []
+        # self.level_pointer = 0
+        # self.click_P_counter = 0
+        #
+        # self.other_bullets = []
 
         # menus/interfaces
         self.menuHandler = MenuHandler(self, MainMenu)
