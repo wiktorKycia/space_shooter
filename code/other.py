@@ -14,10 +14,10 @@ class MenuHandler:
         self.resetMenu()
 
     def tick(self):
-        self.currentMenu.tick()
+        self.currentMenu.tick_menu()
 
     def draw(self):
-        self.currentMenu.draw()
+        self.currentMenu.draw_menu()
 
 
 class AmmoBar:
