@@ -143,7 +143,7 @@ class LevelGame:
     def reset_current_level(self):
         self.currentLevel = self.currentLevelType(self.game)
 
-    def tick(self):
+    def tick_menu(self):
         """
         Method tick contains instructions to run during every tick (frame).
         First, it calls every enemies' tick method,
@@ -177,7 +177,7 @@ class LevelGame:
         else:
             self.click_P_counter += 1
 
-    def draw(self):
+    def draw_menu(self):
         """
         Method draw usually is called after tick method, it displays object on the screen.
         First, it draws the enemies,
