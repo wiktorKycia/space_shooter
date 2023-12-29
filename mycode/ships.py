@@ -2,11 +2,10 @@ import pygame
 from pygame import mixer
 from pygame.math import Vector2
 import os
-from code import *
-from code.other import *
-from code.cannons import *
-from code.maneuvering_cannons import *
-from code import ShootingUp
+from mycode import *
+from mycode.other import *
+from mycode.cannons import *
+from mycode import ShootingUp
 
 mixer.init()
 
@@ -16,6 +15,7 @@ class PlayableShip(ShootingUp):
         size = game.screen.get_size()
         super().__init__(game, size[0]/2, size[1]/2, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, False, slip, scale)
         self.guns = []
+        self.level = 1
 
     def tick(self):
         # Input
@@ -36,15 +36,15 @@ class PlayableShip(ShootingUp):
         for gun in self.guns:
             gun.tick()
             for bullet in gun.bullets:
-                for enemy in self.game.enemies:
+                for enemy in self.game.menuHandler.currentMenu.enemies:
                     if bullet.check_collision(enemy):
                         gun.bullets.remove(bullet)
                         energy = (bullet.mass * bullet.vel * bullet.vel) / 2
                         enemy.hp.get_damage(energy)
                         if enemy.hp.hp <= 0:
                             for gunE in enemy.guns:
-                                self.game.other_bullets.extend(gunE.bullets)
-                            self.game.enemies.remove(enemy)
+                                self.game.menuHandler.currentMenu.other_bullets.extend(gunE.bullets)
+                            self.game.menuHandler.currentMenu.enemies.remove(enemy)
                             break
 
 

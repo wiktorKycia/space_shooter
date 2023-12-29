@@ -1,12 +1,13 @@
 import pygame.time
-from code.enemies import *
+from mycode.enemies import *
+from mycode.UI import *
 
 class MiniLevel:
     def __init__(self, game):
         self.game = game
 
     def add_single(self, enemy):
-        self.game.enemies.append(enemy)
+        self.game.menuHandler.currentMenu.enemies.append(enemy)
 
     def pair(self, x:int, y:int, type:int=1):
         match type:
@@ -22,7 +23,7 @@ class MiniLevel:
             case _:
                 enemy1 = Enemy1(self.game, x - 50, y)
                 enemy2 = Enemy1(self.game, x + 50, y)
-        self.game.enemies.extend([enemy1, enemy2])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
 
     def line(self, x:int, y:int, lenght:int, type:int=1):
         match type:
@@ -30,56 +31,56 @@ class MiniLevel:
                 if lenght % 2 == 0:
                     enemy1 = Enemy1(self.game, x - 50, y)
                     enemy2 = Enemy1(self.game, x + 50, y)
-                    self.game.enemies.extend([enemy1, enemy2])
+                    self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
 
                     for i in range(0, int((lenght-2)/2)):
                         enemy1 = Enemy1(self.game, x - 50 - (i+1) * 100, y)
                         enemy2 = Enemy1(self.game, x + 50 + (i+1) * 100, y)
-                        self.game.enemies.extend([enemy1, enemy2])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
                 else:
                     enemy1 = Enemy1(self.game, x, y)
-                    self.game.enemies.append(enemy1)
+                    self.game.menuHandler.currentMenu.enemies.append(enemy1)
 
                     for i in range(0, int((lenght-1)/2)):
                         enemy2 = Enemy1(self.game, x - (i+1) * 100, y)
                         enemy3 = Enemy1(self.game, x + (i+1) * 100, y)
-                        self.game.enemies.extend([enemy2, enemy3])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy2, enemy3])
             case 2:
                 if lenght % 2 == 0:
                     enemy1 = Enemy2(self.game, x - 50, y)
                     enemy2 = Enemy2(self.game, x + 50, y)
-                    self.game.enemies.extend([enemy1, enemy2])
+                    self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
 
                     for i in range(0, int((lenght - 2) / 2)):
                         enemy1 = Enemy2(self.game, x - 50 - (i + 1) * 100, y)
                         enemy2 = Enemy2(self.game, x + 50 + (i + 1) * 100, y)
-                        self.game.enemies.extend([enemy1, enemy2])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
                 else:
                     enemy1 = Enemy2(self.game, x, y)
-                    self.game.enemies.append(enemy1)
+                    self.game.menuHandler.currentMenu.enemies.append(enemy1)
 
                     for i in range(0, int((lenght - 1) / 2)):
                         enemy2 = Enemy2(self.game, x - (i + 1) * 100, y)
                         enemy3 = Enemy2(self.game, x + (i + 1) * 100, y)
-                        self.game.enemies.extend([enemy2, enemy3])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy2, enemy3])
             case 3:
                 if lenght % 2 == 0:
                     enemy1 = Enemy3(self.game, x - 50, y)
                     enemy2 = Enemy3(self.game, x + 50, y)
-                    self.game.enemies.extend([enemy1, enemy2])
+                    self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
 
                     for i in range(0, int((lenght - 2) / 2)):
                         enemy1 = Enemy3(self.game, x - 50 - (i + 1) * 100, y)
                         enemy2 = Enemy3(self.game, x + 50 + (i + 1) * 100, y)
-                        self.game.enemies.extend([enemy1, enemy2])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
                 else:
                     enemy1 = Enemy3(self.game, x, y)
-                    self.game.enemies.append(enemy1)
+                    self.game.menuHandler.currentMenu.enemies.append(enemy1)
 
                     for i in range(0, int((lenght - 1) / 2)):
                         enemy2 = Enemy3(self.game, x - (i + 1) * 100, y)
                         enemy3 = Enemy3(self.game, x + (i + 1) * 100, y)
-                        self.game.enemies.extend([enemy2, enemy3])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy2, enemy3])
             case _:
                 pass
 
@@ -87,13 +88,13 @@ class MiniLevel:
         enemy1 = Enemy1(self.game, x - 50, y - 50)
         enemy2 = Enemy1(self.game, x + 50, y - 50)
         enemy3 = Enemy1(self.game, x, y + 20)
-        self.game.enemies.extend([enemy1, enemy2, enemy3])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3])
 
     def triangle2(self, x:int, y:int):
         enemy1 = Enemy1(self.game, x - 50, y - 50)
         enemy2 = Enemy1(self.game, x + 50, y - 50)
         enemy3 = Enemy2(self.game, x, y + 20)
-        self.game.enemies.extend([enemy1, enemy2, enemy3])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3])
 
     def triangle3(self, x:int, y:int):
         enemy1 = Enemy1(self.game, x - 85, y - 50)
@@ -102,7 +103,7 @@ class MiniLevel:
         enemy4 = Enemy1(self.game, x + 50, y + 10)
         enemy5 = Enemy1(self.game, x + 85, y - 50)
         enemy6 = Enemy2(self.game, x, y - 20)
-        self.game.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
 
     def triangle4(self, x:int, y:int):
         enemy1 = Enemy1(self.game, x - 85, y - 50)
@@ -111,7 +112,7 @@ class MiniLevel:
         enemy4 = Enemy1(self.game, x + 50, y + 10)
         enemy5 = Enemy1(self.game, x + 85, y - 50)
         enemy6 = Enemy3(self.game, x, y - 30)
-        self.game.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
 
     def triangle5(self, x:int, y:int):
         enemy1 = Enemy1(self.game, x - 40, y + 40)
@@ -119,7 +120,7 @@ class MiniLevel:
         enemy3 = Enemy2(self.game, x - 80, y - 20)
         enemy4 = Enemy2(self.game, x + 80, y - 20)
         enemy5 = Enemy3(self.game, x, y)
-        self.game.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5])
 
 class Level:
     def __init__(self, game):
@@ -127,7 +128,7 @@ class Level:
         self.block = MiniLevel(game)
 
     def check_if_all_died(self):
-        if len(self.game.enemies) == 0:
+        if len(self.game.menuHandler.currentMenu.enemies) == 0:
             return True
         else: return False
 
@@ -158,8 +159,10 @@ class Level1(Level):
                 case 3:
                     self.block.line(self.game.width/2, 100, 3, 1)
                 case _:
-                    self.game.showing = "gamemenu"
-                    self.game.gamemenu.__init__(self.game)
+                    self.game.player.add_coins(500)
+                    self.game.menuHandler.changeMenu(GameMenu)
+                    # self.game.showing = "gamemenu"
+                    # self.game.gamemenu.__init__(self.game)
 
 class Level2(Level):
     def __init__(self, game):
@@ -188,8 +191,8 @@ class Level2(Level):
                 case 3:
                     self.block.line(self.game.width/2, 100, 4, 1)
                 case _:
-                    self.game.showing = "gamemenu"
-                    self.game.gamemenu.__init__(self.game)
+                    self.game.player.add_coins(750)
+                    self.game.menuHandler.changeMenu(GameMenu)
 
 class Level3(Level):
     def __init__(self, game):
@@ -220,8 +223,10 @@ class Level3(Level):
                 case 4:
                     self.block.pair(self.game.width/2, 150)
                 case _:
-                    self.game.showing = "gamemenu"
-                    self.game.gamemenu.__init__(self.game)
+                    self.game.player.add_coins(1000)
+                    self.game.menuHandler.changeMenu(GameMenu)
+                    # self.game.showing = "gamemenu"
+                    # self.game.gamemenu.__init__(self.game)
 
 class Level4(Level):
     def __init__(self, game):
@@ -256,8 +261,10 @@ class Level4(Level):
                     self.block.line(self.game.width / 2, 100, 3)
                     self.block.triangle1(self.game.width / 2, 200)
                 case _:
-                    self.game.showing = "gamemenu"
-                    self.game.gamemenu.__init__(self.game)
+                    self.game.player.add_coins(1500)
+                    self.game.menuHandler.changeMenu(GameMenu)
+                    # self.game.showing = "gamemenu"
+                    # self.game.gamemenu.__init__(self.game)
 
 class Level5(Level):
     def __init__(self, game):
@@ -290,8 +297,10 @@ class Level5(Level):
                 case 5:
                     self.block.line(self.game.width / 2, 100, 3, 2)
                 case _:
-                    self.game.showing = "gamemenu"
-                    self.game.gamemenu.__init__(self.game)
+                    self.game.player.add_coins(2000)
+                    self.game.menuHandler.changeMenu(GameMenu)
+                    # self.game.showing = "gamemenu"
+                    # self.game.gamemenu.__init__(self.game)
 
 class Level6(Level):
     def __init__(self, game):
@@ -326,8 +335,10 @@ class Level6(Level):
                 case 4:
                     self.block.line(self.game.width / 2, 100, 3, 5)
                 case _:
-                    self.game.showing = "gamemenu"
-                    self.game.gamemenu.__init__(self.game)
+                    self.game.player.add_coins(2500)
+                    self.game.menuHandler.changeMenu(GameMenu)
+                    # self.game.showing = "gamemenu"
+                    # self.game.gamemenu.__init__(self.game)
 
 class Level7(Level):
     def __init__(self, game):
@@ -364,8 +375,10 @@ class Level7(Level):
                     self.block.pair(self.game.width*3/4, 100, 2)
                     self.block.pair(self.game.width/4, 100, 2)
                 case _:
-                    self.game.showing = "gamemenu"
-                    self.game.gamemenu.__init__(self.game)
+                    self.game.player.add_coins(3500)
+                    self.game.menuHandler.changeMenu(GameMenu)
+                    # self.game.showing = "gamemenu"
+                    # self.game.gamemenu.__init__(self.game)
 
 class Level8(Level):
     def __init__(self, game):
@@ -403,8 +416,10 @@ class Level8(Level):
                 #     self.block.pair(self.game.width*3/4, 100, 2)
                 #     self.block.pair(self.game.width/4, 100, 2)
                 case _:
-                    self.game.showing = "gamemenu"
-                    self.game.gamemenu.__init__(self.game)
+                    self.game.player.add_coins(4500)
+                    self.game.menuHandler.changeMenu(GameMenu)
+                    # self.game.showing = "gamemenu"
+                    # self.game.gamemenu.__init__(self.game)
 
 
 class Level9(Level):
@@ -442,8 +457,10 @@ class Level9(Level):
                 case 5:
                     self.block.triangle5(self.game.width/2, 150)
                 case _:
-                    self.game.showing = "gamemenu"
-                    self.game.gamemenu.__init__(self.game)
+                    self.game.player.add_coins(6000)
+                    self.game.menuHandler.changeMenu(GameMenu)
+                    # self.game.showing = "gamemenu"
+                    # self.game.gamemenu.__init__(self.game)
 
 
 class Level10(Level):
@@ -480,8 +497,10 @@ class Level10(Level):
                 # case 5:
                 #     self.block.triangle5(self.game.width/2, 150)
                 case _:
-                    self.game.showing = "gamemenu"
-                    self.game.gamemenu.__init__(self.game)
+                    self.game.player.add_coins(7500)
+                    self.game.menuHandler.changeMenu(GameMenu)
+                    # self.game.showing = "gamemenu"
+                    # self.game.gamemenu.__init__(self.game)
 
 class Level11(Level):
 
@@ -507,5 +526,7 @@ class Level11(Level):
                 case 1:
                     self.block.add_single(Bouncer1(self.game, 300, 200))
                 case _:
-                    self.game.showing = "gamemenu"
-                    self.game.gamemenu.__init__(self.game)
+                    self.game.player.add_coins(10000)
+                    self.game.menuHandler.changeMenu(GameMenu)
+                    # self.game.showing = "gamemenu"
+                    # self.game.gamemenu.__init__(self.game)

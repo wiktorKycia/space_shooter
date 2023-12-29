@@ -1,10 +1,10 @@
 import pygame.time
 import pygame.math
-import code
-from code import *
-from code.other import *
-from code.bullets import *
-from code.cannons_for_enemies import *
+import mycode
+from mycode import *
+from mycode.other import *
+from mycode.bullets import *
+from mycode.cannons_for_enemies import *
 import os
 
 class BaseEnemy(ShootingDownNoMove):
@@ -93,6 +93,7 @@ class MovingEnemy(ShootingDown):
         super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True, slip=0.99, scale=scale)
         self.move_clock = 0
         self.guns = []
+        self.bullets = []
 
     def add_bullet(self, bullet):
         self.bullets.append(bullet)
@@ -102,6 +103,18 @@ class MovingEnemy(ShootingDown):
         super().tick()
         for gun in self.guns:
             gun.tick()
+            for bullet in gun.bullets:
+                if bullet.check_collision(self.game.player.current_ship):
+                    energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+                    self.game.player.current_ship.hp.get_damage(energy)
+                    gun.bullets.remove(bullet)
+                    del bullet
+
+    def draw(self):
+        super().draw()
+        for gun in self.guns:
+            for bullet in gun.bullets:
+                bullet.draw()
 
 
 class Bouncer1(MovingEnemy):

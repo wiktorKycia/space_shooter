@@ -1,9 +1,9 @@
 import pygame
-from code import ShootingDown
-import code.UI
-from code.ships import PlayableShip
-from code.other import DeluxeHP
-from code.cannons import *
+from mycode import ShootingDown
+import mycode.UI
+from mycode.ships import PlayableShip
+from mycode.other import DeluxeHP
+from mycode.cannons import *
 
 
 class Player1(PlayableShip):
