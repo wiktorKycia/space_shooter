@@ -1,13 +1,13 @@
 import pygame.time
 from mycode.enemies import *
-from mycode.UI import PauseMenu
+from mycode.UI import *
 
 class MiniLevel:
     def __init__(self, game):
         self.game = game
 
     def add_single(self, enemy):
-        self.game.enemies.append(enemy)
+        self.game.menuHandler.currentMenu.enemies.append(enemy)
 
     def pair(self, x:int, y:int, type:int=1):
         match type:
@@ -23,7 +23,7 @@ class MiniLevel:
             case _:
                 enemy1 = Enemy1(self.game, x - 50, y)
                 enemy2 = Enemy1(self.game, x + 50, y)
-        self.game.enemies.extend([enemy1, enemy2])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
 
     def line(self, x:int, y:int, lenght:int, type:int=1):
         match type:
@@ -31,56 +31,56 @@ class MiniLevel:
                 if lenght % 2 == 0:
                     enemy1 = Enemy1(self.game, x - 50, y)
                     enemy2 = Enemy1(self.game, x + 50, y)
-                    self.game.enemies.extend([enemy1, enemy2])
+                    self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
 
                     for i in range(0, int((lenght-2)/2)):
                         enemy1 = Enemy1(self.game, x - 50 - (i+1) * 100, y)
                         enemy2 = Enemy1(self.game, x + 50 + (i+1) * 100, y)
-                        self.game.enemies.extend([enemy1, enemy2])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
                 else:
                     enemy1 = Enemy1(self.game, x, y)
-                    self.game.enemies.append(enemy1)
+                    self.game.menuHandler.currentMenu.enemies.append(enemy1)
 
                     for i in range(0, int((lenght-1)/2)):
                         enemy2 = Enemy1(self.game, x - (i+1) * 100, y)
                         enemy3 = Enemy1(self.game, x + (i+1) * 100, y)
-                        self.game.enemies.extend([enemy2, enemy3])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy2, enemy3])
             case 2:
                 if lenght % 2 == 0:
                     enemy1 = Enemy2(self.game, x - 50, y)
                     enemy2 = Enemy2(self.game, x + 50, y)
-                    self.game.enemies.extend([enemy1, enemy2])
+                    self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
 
                     for i in range(0, int((lenght - 2) / 2)):
                         enemy1 = Enemy2(self.game, x - 50 - (i + 1) * 100, y)
                         enemy2 = Enemy2(self.game, x + 50 + (i + 1) * 100, y)
-                        self.game.enemies.extend([enemy1, enemy2])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
                 else:
                     enemy1 = Enemy2(self.game, x, y)
-                    self.game.enemies.append(enemy1)
+                    self.game.menuHandler.currentMenu.enemies.append(enemy1)
 
                     for i in range(0, int((lenght - 1) / 2)):
                         enemy2 = Enemy2(self.game, x - (i + 1) * 100, y)
                         enemy3 = Enemy2(self.game, x + (i + 1) * 100, y)
-                        self.game.enemies.extend([enemy2, enemy3])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy2, enemy3])
             case 3:
                 if lenght % 2 == 0:
                     enemy1 = Enemy3(self.game, x - 50, y)
                     enemy2 = Enemy3(self.game, x + 50, y)
-                    self.game.enemies.extend([enemy1, enemy2])
+                    self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
 
                     for i in range(0, int((lenght - 2) / 2)):
                         enemy1 = Enemy3(self.game, x - 50 - (i + 1) * 100, y)
                         enemy2 = Enemy3(self.game, x + 50 + (i + 1) * 100, y)
-                        self.game.enemies.extend([enemy1, enemy2])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
                 else:
                     enemy1 = Enemy3(self.game, x, y)
-                    self.game.enemies.append(enemy1)
+                    self.game.menuHandler.currentMenu.enemies.append(enemy1)
 
                     for i in range(0, int((lenght - 1) / 2)):
                         enemy2 = Enemy3(self.game, x - (i + 1) * 100, y)
                         enemy3 = Enemy3(self.game, x + (i + 1) * 100, y)
-                        self.game.enemies.extend([enemy2, enemy3])
+                        self.game.menuHandler.currentMenu.enemies.extend([enemy2, enemy3])
             case _:
                 pass
 
@@ -88,13 +88,13 @@ class MiniLevel:
         enemy1 = Enemy1(self.game, x - 50, y - 50)
         enemy2 = Enemy1(self.game, x + 50, y - 50)
         enemy3 = Enemy1(self.game, x, y + 20)
-        self.game.enemies.extend([enemy1, enemy2, enemy3])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3])
 
     def triangle2(self, x:int, y:int):
         enemy1 = Enemy1(self.game, x - 50, y - 50)
         enemy2 = Enemy1(self.game, x + 50, y - 50)
         enemy3 = Enemy2(self.game, x, y + 20)
-        self.game.enemies.extend([enemy1, enemy2, enemy3])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3])
 
     def triangle3(self, x:int, y:int):
         enemy1 = Enemy1(self.game, x - 85, y - 50)
@@ -103,7 +103,7 @@ class MiniLevel:
         enemy4 = Enemy1(self.game, x + 50, y + 10)
         enemy5 = Enemy1(self.game, x + 85, y - 50)
         enemy6 = Enemy2(self.game, x, y - 20)
-        self.game.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
 
     def triangle4(self, x:int, y:int):
         enemy1 = Enemy1(self.game, x - 85, y - 50)
@@ -112,7 +112,7 @@ class MiniLevel:
         enemy4 = Enemy1(self.game, x + 50, y + 10)
         enemy5 = Enemy1(self.game, x + 85, y - 50)
         enemy6 = Enemy3(self.game, x, y - 30)
-        self.game.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
 
     def triangle5(self, x:int, y:int):
         enemy1 = Enemy1(self.game, x - 40, y + 40)
@@ -120,7 +120,7 @@ class MiniLevel:
         enemy3 = Enemy2(self.game, x - 80, y - 20)
         enemy4 = Enemy2(self.game, x + 80, y - 20)
         enemy5 = Enemy3(self.game, x, y)
-        self.game.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5])
+        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5])
 
 class Level:
     def __init__(self, game):
@@ -128,7 +128,7 @@ class Level:
         self.block = MiniLevel(game)
 
     def check_if_all_died(self):
-        if len(self.game.enemies) == 0:
+        if len(self.game.menuHandler.currentMenu.enemies) == 0:
             return True
         else: return False
 

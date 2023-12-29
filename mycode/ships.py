@@ -36,15 +36,15 @@ class PlayableShip(ShootingUp):
         for gun in self.guns:
             gun.tick()
             for bullet in gun.bullets:
-                for enemy in self.game.enemies:
+                for enemy in self.game.menuHandler.currentMenu.enemies:
                     if bullet.check_collision(enemy):
                         gun.bullets.remove(bullet)
                         energy = (bullet.mass * bullet.vel * bullet.vel) / 2
                         enemy.hp.get_damage(energy)
                         if enemy.hp.hp <= 0:
                             for gunE in enemy.guns:
-                                self.game.other_bullets.extend(gunE.bullets)
-                            self.game.enemies.remove(enemy)
+                                self.game.menuHandler.currentMenu.other_bullets.extend(gunE.bullets)
+                            self.game.menuHandler.currentMenu.enemies.remove(enemy)
                             break
 
 
