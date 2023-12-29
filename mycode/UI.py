@@ -86,7 +86,7 @@ class GameMenu:
         for gun in self.ship.guns:
             gun.bullets.clear()
 
-        self.game.other_bullets.clear()
+        # self.game.menuHandler.currentMenu.other_bullets.clear()
 
         # coin
         self.coin = pygame.image.load("./images/coin.png").convert_alpha()
