@@ -66,35 +66,35 @@ class Game(object):
             self.tps_clock.tick(self.tps_max)
             self.screen.fill((0, 0, 0))
 
-            match self.showing:
-                case "mainmenu":
-                    self.mainmenu.tick_menu()
-                    self.mainmenu.draw_menu()
-                case "gamemenu":
-                    self.gamemenu.tick_menu()
-                    self.gamemenu.draw_menu()
-                case "levelsmenu":
-                    self.levelsmenu.tick_menu()
-                    self.levelsmenu.draw_menu()
-                case "hangar":
-                    self.hangar.tick_menu()
-                    self.hangar.draw_menu()
-                case "shipmenu":
-                    self.shipmenu.tick_menu()
-                    self.shipmenu.draw_menu()
-                case "pausemenu":
-                    self.pausemenu.tick_menu()
-                    self.pausemenu.draw_menu()
-                case "game":
-                    self.tick()
-                    self.draw()
-                case "twoplayers":
-                    self.twoplayersgame.tick()
-                    self.twoplayersgame.draw()
-                case "twoplayers_pausemenu":
-                    self.twoplayersgame.pausemenu.tick_menu()
-                    self.twoplayersgame.pausemenu.draw_menu()
-                case _: pass
+            # match self.showing:
+            #     case "mainmenu":
+            #         self.mainmenu.tick_menu()
+            #         self.mainmenu.draw_menu()
+            #     case "gamemenu":
+            #         self.gamemenu.tick_menu()
+            #         self.gamemenu.draw_menu()
+            #     case "levelsmenu":
+            #         self.levelsmenu.tick_menu()
+            #         self.levelsmenu.draw_menu()
+            #     case "hangar":
+            #         self.hangar.tick_menu()
+            #         self.hangar.draw_menu()
+            #     case "shipmenu":
+            #         self.shipmenu.tick_menu()
+            #         self.shipmenu.draw_menu()
+            #     case "pausemenu":
+            #         self.pausemenu.tick_menu()
+            #         self.pausemenu.draw_menu()
+            #     case "game":
+            #         self.tick()
+            #         self.draw()
+            #     case "twoplayers":
+            #         self.twoplayersgame.tick()
+            #         self.twoplayersgame.draw()
+            #     case "twoplayers_pausemenu":
+            #         self.twoplayersgame.pausemenu.tick_menu()
+            #         self.twoplayersgame.pausemenu.draw_menu()
+            #     case _: pass
             pygame.display.update()
         pygame.quit()
         quit()
