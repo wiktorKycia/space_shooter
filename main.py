@@ -29,7 +29,7 @@ class Game(object):
 
         #running
         self.isrun = True
-        self.showing = "mainmenu"
+        # self.showing = "mainmenu"
 
         #loading objects
         self.player = Player(self)
