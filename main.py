@@ -67,6 +67,8 @@ class Game(object):
             self.tps_clock.tick(self.tps_max)
             self.screen.fill((0, 0, 0))
 
+            self.tick()
+            self.draw()
             # match self.showing:
             #     case "mainmenu":
             #         self.mainmenu.tick_menu()
