@@ -13,6 +13,12 @@ class MenuHandler:
         self.currentMenu = menu
         self.resetMenu()
 
+    def tick(self):
+        self.currentMenu.tick()
+
+    def draw(self):
+        self.currentMenu.draw()
+
 
 class AmmoBar:
     def __init__(self, game, amount, width, height, x, y, color=(0, 0, 255)):
