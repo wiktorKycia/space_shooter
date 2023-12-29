@@ -148,9 +148,10 @@ class LevelsMenu:
         for i, button in enumerate(self.buttons):
             # tu nie może być printa sprawdzającego check_click()
             if button.check_click():
-                self.game.level_pointer = i
-                self.game.levels[self.game.level_pointer].__init__(self.game)
-                self.game.showing = "game"
+                self.game.menuHandler.changeMenu(LevelGame, i)
+                # self.game.level_pointer = i
+                # self.game.levels[self.game.level_pointer].__init__(self.game)
+                # self.game.showing = "game"
         for event in pygame.event.get():
             if event.type == MOUSEWHEEL:
                 if event.y == -1:
