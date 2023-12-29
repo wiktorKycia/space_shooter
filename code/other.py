@@ -2,8 +2,10 @@ import pygame
 
 
 class MenuHandler:
-    def __init__(self, game):
+    def __init__(self, game, mainmenu):
         self.game = game
+        self.currentMenu = mainmenu
+
 
 class AmmoBar:
     def __init__(self, game, amount, width, height, x, y, color=(0, 0, 255)):
