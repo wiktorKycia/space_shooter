@@ -1,5 +1,6 @@
 import pygame.time
 from mycode.enemies import *
+from mycode.UI import PauseMenu
 
 class MiniLevel:
     def __init__(self, game):
@@ -133,11 +134,14 @@ class Level:
 
 
 class LevelGame:
-    def __init__(self, game):
+    def __init__(self, game, pointer):
         self.game = game
         self.enemies = []
 
-        self.level_pointer = 0
+        self.level_pointer = pointer
+        self.currentLevelType = self.game.levels[self.level_pointer]
+        self.currentLevel = self.currentLevelType()
+
         self.click_P_counter = 0
 
         self.other_bullets = []
@@ -182,10 +186,11 @@ class LevelGame:
                 continue
 
         self.game.player.current_ship.tick()
-        self.levels[self.level_pointer].tick()
+        self.currentLevel.tick()
 
         if pygame.key.get_pressed()[pygame.K_p] == 1 and self.click_P_counter == 0:
             self.click_P_counter += 1
+            self.game.menuHandler.changeMenu(PauseMenu)
             # self.showing = "pausemenu"
         elif pygame.key.get_pressed()[pygame.K_p] == 0:
             self.click_P_counter = 0
