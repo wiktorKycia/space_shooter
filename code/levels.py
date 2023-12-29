@@ -131,6 +131,11 @@ class Level:
             return True
         else: return False
 
+
+class LevelGame:
+    def __init__(self, game):
+        self.game = game
+
 class Level1(Level):
     def __init__(self, game):
         super().__init__(game)
