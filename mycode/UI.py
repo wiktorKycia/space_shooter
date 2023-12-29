@@ -140,6 +140,9 @@ class LevelGame:
 
         self.other_bullets = []
 
+    def reset_current_level(self):
+        self.currentLevel = self.currentLevelType(self.game)
+
     def tick(self):
         """
         Method tick contains instructions to run during every tick (frame).
