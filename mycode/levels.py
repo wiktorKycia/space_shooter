@@ -134,11 +134,11 @@ class Level:
 
 
 class LevelGame:
-    def __init__(self, game, pointer):
+    def __init__(self, game):
         self.game = game
         self.enemies = []
 
-        self.level_pointer = pointer
+        self.level_pointer = 0
         self.currentLevelType = self.game.levels[self.level_pointer]
         self.currentLevel = self.currentLevelType()
 
