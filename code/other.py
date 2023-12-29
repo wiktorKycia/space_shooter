@@ -6,6 +6,11 @@ class MenuHandler:
         self.game = game
         self.currentMenu = mainmenu
 
+    def resetMenu(self):
+        self.currentMenu(self.game)
+
+
+
 
 class AmmoBar:
     def __init__(self, game, amount, width, height, x, y, color=(0, 0, 255)):
