@@ -1,14 +1,14 @@
 import pygame
 from pygame.locals import *
-from code.bullets import *
-from code.cannons import *
-from code.enemies import *
-from code.levels import *
-from code.other import *
-from code.player import *
-from code.ships import *
-from code.two_players import *
-from code.UI import *
+from mycode.bullets import *
+from mycode.cannons import *
+from mycode.enemies import *
+from mycode.levels import *
+from mycode.other import *
+from mycode.player import *
+from mycode.ships import *
+from mycode.two_players import *
+from mycode.UI import *
 
 class Game(object):
     """
