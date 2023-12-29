@@ -141,6 +141,7 @@ class LevelGame:
         self.other_bullets = []
 
     def reset_current_level(self):
+        self.currentLevelType = self.game.levels[self.level_pointer]
         self.currentLevel = self.currentLevelType(self.game)
 
     def tick_menu(self):
