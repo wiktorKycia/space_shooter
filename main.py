@@ -1,14 +1,14 @@
 import pygame
 from pygame.locals import *
-from code.bullets import *
-from code.cannons import *
-from code.enemies import *
-from code.levels import *
-from code.other import *
-from code.player import *
-from code.ships import *
-from code.two_players import *
-from code.UI import *
+from mycode.bullets import *
+from mycode.cannons import *
+from mycode.enemies import *
+from mycode.levels import *
+from mycode.other import *
+from mycode.player import *
+from mycode.ships import *
+from mycode.two_players import *
+from mycode.UI import *
 
 class Game(object):
     """
@@ -29,27 +29,28 @@ class Game(object):
 
         #running
         self.isrun = True
-        self.showing = "mainmenu"
+        # self.showing = "mainmenu"
 
         #loading objects
         self.player = Player(self)
         self.mouse = Mouse(self)
 
         # lists
-        self.enemies = []
+        # self.enemies = []
         self.levels = [
-            Level1(self), Level2(self), Level3(self),
-            Level4(self), Level5(self), Level6(self),
-            Level7(self), Level8(self), Level9(self),
-            Level10(self), Level11(self)
+            Level1, Level2, Level3,
+            Level4, Level5, Level6,
+            Level7, Level8, Level9,
+            Level10, Level11
         ]
-        self.level_pointer = 0
-        self.click_P_counter = 0
-
-        self.other_bullets = []
+        # self.level_pointer = 0
+        # self.click_P_counter = 0
+        #
+        # self.other_bullets = []
 
         # menus/interfaces
         self.menuHandler = MenuHandler(self, MainMenu)
+        # self.menuHandler.resetMenu()
         # self.mainmenu = MainMenu(self)
         # self.gamemenu = GameMenu(self)
         # self.levelsmenu = LevelsMenu(self)
@@ -66,6 +67,8 @@ class Game(object):
             self.tps_clock.tick(self.tps_max)
             self.screen.fill((0, 0, 0))
 
+            self.tick()
+            self.draw()
             # match self.showing:
             #     case "mainmenu":
             #         self.mainmenu.tick_menu()
@@ -100,65 +103,70 @@ class Game(object):
         quit()
 
     def tick(self):
-        """
-        Method tick contains instructions to run during every tick (frame).
-        First, it calls every enemies' tick method,
-        then calls every bullets' tick method, that doesn't have any superior object, for example a ship,
-        then calls player's and level's tick method,
-        lastly, checks for clicking p key in order to show pause menu.
-        """
-        for enemy in self.enemies:
-            enemy.tick()
-            # for bullet in enemy.bullets:
-            #     if self.player.current_ship.mask.overlap(bullet.mask, (bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
-            #         energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-            #         self.player.current_ship.hp.get_damage(energy)
-            #         enemy.bullets.remove(bullet)
-            #         continue
-
-            # for bullet in self.player.current_ship.bullets:
-            #     if enemy.mask.overlap(bullet.mask, (bullet.pos.x - bullet.width/2 - enemy.hitbox.x, bullet.pos.y - bullet.height/2 - enemy.hitbox.y)):
-            #         self.player.current_ship.bullets.remove(bullet)
-            #         energy = (bullet.mass * bullet.vel * bullet.vel) / 2
-            #         enemy.hp.get_damage(energy)
-            #         if enemy.hp.hp <= 0:
-            #             self.other_bullets.extend(enemy.bullets)
-            #             self.enemies.remove(enemy)
-            #             break
-            #         continue
-
-        for bullet in self.other_bullets:
-            bullet.tick()
-            bullet.draw()
-            if self.player.current_ship.mask.overlap(bullet.mask, (
-            bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
-                energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                self.player.current_ship.hp.get_damage(energy)
-                self.other_bullets.remove(bullet)
-                continue
-
-        self.player.current_ship.tick()
-        self.levels[self.level_pointer].tick()
-
-        if pygame.key.get_pressed()[pygame.K_p] == 1 and self.click_P_counter == 0:
-            self.click_P_counter += 1
-            self.showing = "pausemenu"
-        elif pygame.key.get_pressed()[pygame.K_p] == 0:
-            self.click_P_counter = 0
-        else:
-            self.click_P_counter += 1
+        self.menuHandler.tick()
 
     def draw(self):
-        """
-        Method draw usually is called after tick method, it displays object on the screen.
-        First, it draws the enemies,
-        then player and player's hp.
-        """
-        for enemy in self.enemies:
-            enemy.draw()
-
-        self.player.current_ship.draw()
-        self.player.current_ship.hp.tick()
+        self.menuHandler.draw()
+    # def tick(self):
+    #     """
+    #     Method tick contains instructions to run during every tick (frame).
+    #     First, it calls every enemies' tick method,
+    #     then calls every bullets' tick method, that doesn't have any superior object, for example a ship,
+    #     then calls player's and level's tick method,
+    #     lastly, checks for clicking p key in order to show pause menu.
+    #     """
+    #     for enemy in self.enemies:
+    #         enemy.tick()
+    #         # for bullet in enemy.bullets:
+    #         #     if self.player.current_ship.mask.overlap(bullet.mask, (bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
+    #         #         energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+    #         #         self.player.current_ship.hp.get_damage(energy)
+    #         #         enemy.bullets.remove(bullet)
+    #         #         continue
+    #
+    #         # for bullet in self.player.current_ship.bullets:
+    #         #     if enemy.mask.overlap(bullet.mask, (bullet.pos.x - bullet.width/2 - enemy.hitbox.x, bullet.pos.y - bullet.height/2 - enemy.hitbox.y)):
+    #         #         self.player.current_ship.bullets.remove(bullet)
+    #         #         energy = (bullet.mass * bullet.vel * bullet.vel) / 2
+    #         #         enemy.hp.get_damage(energy)
+    #         #         if enemy.hp.hp <= 0:
+    #         #             self.other_bullets.extend(enemy.bullets)
+    #         #             self.enemies.remove(enemy)
+    #         #             break
+    #         #         continue
+    #
+    #     for bullet in self.other_bullets:
+    #         bullet.tick()
+    #         bullet.draw()
+    #         if self.player.current_ship.mask.overlap(bullet.mask, (
+    #         bullet.pos.x - self.player.current_ship.hitbox.x, bullet.pos.y - self.player.current_ship.hitbox.y)):
+    #             energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+    #             self.player.current_ship.hp.get_damage(energy)
+    #             self.other_bullets.remove(bullet)
+    #             continue
+    #
+    #     self.player.current_ship.tick()
+    #     self.levels[self.level_pointer].tick()
+    #
+    #     if pygame.key.get_pressed()[pygame.K_p] == 1 and self.click_P_counter == 0:
+    #         self.click_P_counter += 1
+    #         self.showing = "pausemenu"
+    #     elif pygame.key.get_pressed()[pygame.K_p] == 0:
+    #         self.click_P_counter = 0
+    #     else:
+    #         self.click_P_counter += 1
+    #
+    # def draw(self):
+    #     """
+    #     Method draw usually is called after tick method, it displays object on the screen.
+    #     First, it draws the enemies,
+    #     then player and player's hp.
+    #     """
+    #     for enemy in self.enemies:
+    #         enemy.draw()
+    #
+    #     self.player.current_ship.draw()
+    #     self.player.current_ship.hp.tick()
 
 
 if __name__ == "__main__":

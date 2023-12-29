@@ -1,7 +1,7 @@
 import pygame
 from pygame import mixer
 from pygame.math import Vector2
-from code import NoShooting
+from mycode import NoShooting
 mixer.init()
 
 class ImageBullet(NoShooting):

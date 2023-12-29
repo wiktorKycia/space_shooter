@@ -1,17 +1,17 @@
 import pygame
 from pygame.math import Vector2
-# from code.bullets import *
-# from code.bullets2 import *
-# from code.cannons import *
-# from code.enemies import *
-# from code.levels import *
-# from code.maneuvering_cannons import *
-from code.other import *
-# from code.player import *
-# from code.ships import *
-# from code.two_players import *
-# from code.UI import *
-from code.general import *
+# from mycode.bullets import *
+# from mycode.bullets2 import *
+# from mycode.cannons import *
+# from mycode.enemies import *
+# from mycode.levels import *
+# from mycode.maneuvering_cannons import *
+from mycode.other import *
+# from mycode.player import *
+# from mycode.ships import *
+# from mycode.two_players import *
+# from mycode.UI import *
+from mycode.general import *
 
 class MainObject(object):
     """
