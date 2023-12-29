@@ -9,7 +9,9 @@ class MenuHandler:
     def resetMenu(self):
         self.currentMenu(self.game)
 
-
+    def changeMenu(self, menu):
+        self.currentMenu = menu
+        self.resetMenu()
 
 
 class AmmoBar:
