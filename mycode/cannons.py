@@ -55,8 +55,8 @@ class Clip:
         # self.ammo_bar.draw()
 
 class Gun:
-    def __init__(self, game, ship, translation, force, interval, key, max_ammo:int, reload_time:float, active_reload:bool,
-                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
+    def __init__(self, game, ship, translation, force, interval, key, max_ammo: int, reload_time: float,
+                 active_reload: bool):
         self.game = game
         self.ship = ship
         self.pos = ship.pos
@@ -67,7 +67,7 @@ class Gun:
 
         self.clock = 0
         self.bullets = []
-        self.clip = Clip(game, max_ammo, reload_time, active_reload, bar_width, bar_height, bar_x, bar_y)
+        self.clip = Clip(game, max_ammo, reload_time, active_reload)
 
     def shot(self):
         pass
