@@ -1,13 +1,10 @@
 import pygame
 import math
 from mycode.bullets import *
-
-
 # from mycode.other import AmmoBar
 
 class Clip:
-    def __init__(self, game, max_ammo:int, reload_time:float, active_reload:bool=False,
-                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
+    def __init__(self, game, max_ammo: int, reload_time: float, active_reload: bool = False):
         self.game = game
         self.max_ammo = max_ammo
         self.current_ammo = max_ammo

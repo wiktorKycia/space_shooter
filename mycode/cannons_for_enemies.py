@@ -1,8 +1,6 @@
 import pygame
 import math
 from mycode.bullets import *
-
-
 # from mycode.other import AmmoBar
 
 class ClipE:
