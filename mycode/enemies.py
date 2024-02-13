@@ -4,13 +4,14 @@ import mycode
 from mycode import *
 from mycode.other import *
 from mycode.bullets import *
-from mycode.cannons_for_enemies import *
+from mycode.cannons import *
 import os
 
 class BaseEnemy(ShootingDownNoMove):
     def __init__(self, game, x, y, path, force, hp_amount, hp_width=50, hp_height=10):
         super().__init__(game, x, y, path, force, hp_amount, hp_width, hp_height)
         self.guns = []
+        self.is_shooting = True
 
     def tick(self):
         super().tick()
@@ -38,7 +39,7 @@ class Enemy1(BaseEnemy):
         )
         self.guns.extend(
             [
-                KineticGunE(game, self, Vector2(0, 10), self.force)
+                LaserLight(game, self, Vector2(0, 10), self.force, key=self.is_shooting)
             ]
         )
 
@@ -54,7 +55,7 @@ class Enemy2(BaseEnemy):
         )
         self.guns.extend(
             [
-                KineticGunE(game, self, Vector2(0, 10), self.force)
+                LaserLight(game, self, Vector2(0, 10), self.force, key=self.is_shooting)
             ]
         )
 
@@ -72,8 +73,8 @@ class Enemy3(BaseEnemy):
         super().__init__(self.game, x, y, self.path, force=1000, hp_amount=500000)
         self.guns.extend(
             [
-                KineticGunE(game, self, Vector2(-22, 10), self.force),
-                KineticGunE(game, self, Vector2(22, 10), self.force)
+                LaserLight(game, self, Vector2(-22, 10), self.force, key=self.is_shooting),
+                LaserLight(game, self, Vector2(22, 10), self.force, key=self.is_shooting)
             ]
         )
 
@@ -94,6 +95,7 @@ class MovingEnemy(ShootingDown):
         self.move_clock = 0
         self.guns = []
         self.bullets = []
+        self.is_shooting = True
 
     def add_bullet(self, bullet):
         self.bullets.append(bullet)
@@ -130,7 +132,7 @@ class Bouncer1(MovingEnemy):
         )
         self.guns.extend(
             [
-                KineticGunE(game, self, Vector2(0, 0), self.force)
+                LaserLight(game, self, Vector2(0, 0), self.force, key=self.is_shooting)
             ]
         )
 
