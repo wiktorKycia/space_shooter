@@ -63,11 +63,20 @@ class Gun:
         self.translation = translation
         self.force = force
         self.interval = interval
-        self.key = key
+        # self.key = key
 
         self.clock = 0
         self.bullets = []
         self.clip = Clip(game, max_ammo, reload_time, active_reload)
+
+        if type(key) == int:
+            # if passed pygame.key value
+            self.is_player = True
+            self.key: int = key
+        else:
+            # if passed other bool type variable
+            self.is_player = False
+            self.key: bool = key
 
     def shot(self):
         pass
