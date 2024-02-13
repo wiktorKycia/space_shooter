@@ -139,7 +139,7 @@ class LaserLight(GunPrototype):
 
 class ShotGun(Gun):
     def __init__(self, game, ship, translation, force, interval, bul, angles, clip_size, reload,
-                 active_reload: bool = False):
+                 active_reload: bool = False, key: int = pygame.K_KP_0):
         super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
         self.bul = bul
         self.angles = angles
@@ -153,7 +153,7 @@ class ShotGun(Gun):
 
 class Flamethrower(Gun):
     def __init__(self, game, ship, translation, force, interval, particle, spread, clip_size, reload,
-                 active_reload: bool = False):
+                 active_reload: bool = False, key: int = pygame.K_KP_0):
         super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
         self.particle = particle
         self.spread_angle = spread
