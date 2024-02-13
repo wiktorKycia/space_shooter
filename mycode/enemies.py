@@ -4,7 +4,7 @@ import mycode
 from mycode import *
 from mycode.other import *
 from mycode.bullets import *
-from mycode.cannons_for_enemies import *
+from mycode.cannons import *
 import os
 
 class BaseEnemy(ShootingDownNoMove):
@@ -38,7 +38,7 @@ class Enemy1(BaseEnemy):
         )
         self.guns.extend(
             [
-                KineticGunE(game, self, Vector2(0, 10), self.force)
+                LaserLight(game, self, Vector2(0, 10), self.force)
             ]
         )
 
@@ -54,7 +54,7 @@ class Enemy2(BaseEnemy):
         )
         self.guns.extend(
             [
-                KineticGunE(game, self, Vector2(0, 10), self.force)
+                LaserLight(game, self, Vector2(0, 10), self.force)
             ]
         )
 
@@ -72,8 +72,8 @@ class Enemy3(BaseEnemy):
         super().__init__(self.game, x, y, self.path, force=1000, hp_amount=500000)
         self.guns.extend(
             [
-                KineticGunE(game, self, Vector2(-22, 10), self.force),
-                KineticGunE(game, self, Vector2(22, 10), self.force)
+                LaserLight(game, self, Vector2(-22, 10), self.force),
+                LaserLight(game, self, Vector2(22, 10), self.force)
             ]
         )
 
@@ -130,7 +130,7 @@ class Bouncer1(MovingEnemy):
         )
         self.guns.extend(
             [
-                KineticGunE(game, self, Vector2(0, 0), self.force)
+                LaserLight(game, self, Vector2(0, 0), self.force)
             ]
         )
 
