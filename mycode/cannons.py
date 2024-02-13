@@ -81,6 +81,12 @@ class Gun:
     def shot(self):
         pass
 
+    def _shootCheck(self, condition):
+        if condition and self.clock > self.interval:
+            if self.clip.can_i_shoot():
+                self.clock = 0
+                self.shot()
+
     def tick(self):
         self.clock += self.game.dt
         self.pos = self.ship.pos + self.translation
@@ -88,15 +94,9 @@ class Gun:
         pressed = pygame.key.get_pressed()
 
         if self.is_player:
-            if (pressed[pygame.K_KP_0] or pressed[self.key]) and self.clock > self.interval:
-                if self.clip.can_i_shoot():
-                    self.clock = 0
-                    self.shot()
+            self._shootCheck((pressed[pygame.K_KP_0] or pressed[self.key]))
         else:
-            if self.key and self.clock > self.interval:
-                if self.clip.can_i_shoot():
-                    self.clock = 0
-                    self.shot()
+            self._shootCheck(self.key)
 
         for bullet in self.bullets:
             bullet.tick()
