@@ -102,10 +102,9 @@ class Gun:
             bullet.tick()
 
 class GunPrototype(Gun):
-    def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time, active_reload:bool=False,
-                 key=pygame.K_KP_0, bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
-        super().__init__(game, ship, translation, force, interval, key, clip_size, reload_time, active_reload,
-                         bar_width, bar_height, bar_x, bar_y)
+    def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time,
+                 active_reload: bool = False):
+        super().__init__(game, ship, translation, force, interval, key, clip_size, reload_time, active_reload)
         self.bul = bul
 
     def shot(self):
@@ -113,7 +112,6 @@ class GunPrototype(Gun):
         self.bullets.append(bullet)
         bullet.sound.play(0, 800)
         self.clip.shot()
-
 
 # class KineticGun(GunPrototype):
 #     def __init__(self, game, ship, translation, force, key=pygame.K_KP_0,
@@ -129,8 +127,7 @@ class GunPrototype(Gun):
 #             )
 
 class LaserLight(GunPrototype):
-    def __init__(self, game, ship, translation, force, key=pygame.K_KP_0,
-                 bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
+    def __init__(self, game, ship, translation, force, key=pygame.K_KP_0):
         super().__init__(
             game, ship, translation, force,
             interval=0.2,
@@ -138,14 +135,12 @@ class LaserLight(GunPrototype):
             clip_size=50,
             reload_time=1.0,
             key=key,
-            bar_width=bar_width, bar_height=bar_height, bar_x=bar_x, bar_y=bar_y
         )
 
 class ShotGun(Gun):
-    def __init__(self, game, ship, translation, force, interval, bul, angles, clip_size, reload, active_reload:bool=False,
-                 key=pygame.K_KP_0, bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
-        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload,
-                         bar_width, bar_height, bar_x, bar_y)
+    def __init__(self, game, ship, translation, force, interval, bul, angles, clip_size, reload,
+                 active_reload: bool = False):
+        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
         self.bul = bul
         self.angles = angles
 
@@ -157,10 +152,9 @@ class ShotGun(Gun):
             self.clip.shot()
 
 class Flamethrower(Gun):
-    def __init__(self, game, ship, translation, force, interval, particle, spread, clip_size, reload, active_reload:bool=False,
-                 key=pygame.K_KP_0, bar_width:int=300, bar_height:int=18, bar_x:int=165, bar_y:int=685):
-        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload,
-                         bar_width, bar_height, bar_x, bar_y)
+    def __init__(self, game, ship, translation, force, interval, particle, spread, clip_size, reload,
+                 active_reload: bool = False):
+        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
         self.particle = particle
         self.spread_angle = spread
 
@@ -168,4 +162,3 @@ class Flamethrower(Gun):
         par = self.particle(self.game, self.pos.x, self.pos.y, 2, 20,self.force)
         self.bullets.append(par)
         self.clip.shot()
-
