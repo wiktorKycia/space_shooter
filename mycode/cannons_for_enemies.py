@@ -1,7 +1,9 @@
 import pygame
 import math
 from mycode.bullets import *
-from mycode.other import AmmoBar
+
+
+# from mycode.other import AmmoBar
 
 class ClipE:
     def __init__(self, game, max_ammo:int, reload_time:float, active_reload:bool=False):
