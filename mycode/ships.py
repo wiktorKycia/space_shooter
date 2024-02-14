@@ -39,8 +39,8 @@ class PlayableShip(ShootingUp):
                 for enemy in self.game.menuHandler.currentMenu.enemies:
                     if bullet.check_collision(enemy):
                         gun.bullets.remove(bullet)
-                        energy = (bullet.mass * bullet.vel * bullet.vel) / 2
-                        enemy.hp.get_damage(energy)
+                        # energy = (bullet.mass * bullet.vel * bullet.vel) / 2
+                        enemy.hp.get_damage(bullet.damage)
                         if enemy.hp.hp <= 0:
                             for gunE in enemy.guns:
                                 self.game.menuHandler.currentMenu.other_bullets.extend(gunE.bullets)
