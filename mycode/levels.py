@@ -161,8 +161,6 @@ class Level1(Level):
                 case _:
                     self.game.player.add_coins(500)
                     self.game.menuHandler.changeMenu(GameMenu)
-                    # self.game.showing = "gamemenu"
-                    # self.game.gamemenu.__init__(self.game)
 
 class Level2(Level):
     def __init__(self, game):
@@ -225,8 +223,6 @@ class Level3(Level):
                 case _:
                     self.game.player.add_coins(1000)
                     self.game.menuHandler.changeMenu(GameMenu)
-                    # self.game.showing = "gamemenu"
-                    # self.game.gamemenu.__init__(self.game)
 
 class Level4(Level):
     def __init__(self, game):
@@ -263,8 +259,6 @@ class Level4(Level):
                 case _:
                     self.game.player.add_coins(1500)
                     self.game.menuHandler.changeMenu(GameMenu)
-                    # self.game.showing = "gamemenu"
-                    # self.game.gamemenu.__init__(self.game)
 
 class Level5(Level):
     def __init__(self, game):
@@ -299,8 +293,6 @@ class Level5(Level):
                 case _:
                     self.game.player.add_coins(2000)
                     self.game.menuHandler.changeMenu(GameMenu)
-                    # self.game.showing = "gamemenu"
-                    # self.game.gamemenu.__init__(self.game)
 
 class Level6(Level):
     def __init__(self, game):
@@ -337,8 +329,6 @@ class Level6(Level):
                 case _:
                     self.game.player.add_coins(2500)
                     self.game.menuHandler.changeMenu(GameMenu)
-                    # self.game.showing = "gamemenu"
-                    # self.game.gamemenu.__init__(self.game)
 
 class Level7(Level):
     def __init__(self, game):
@@ -377,8 +367,6 @@ class Level7(Level):
                 case _:
                     self.game.player.add_coins(3500)
                     self.game.menuHandler.changeMenu(GameMenu)
-                    # self.game.showing = "gamemenu"
-                    # self.game.gamemenu.__init__(self.game)
 
 class Level8(Level):
     def __init__(self, game):
@@ -412,14 +400,9 @@ class Level8(Level):
                 case 4:
                     self.block.triangle2(self.game.width / 4, 150)
                     self.block.triangle2(self.game.width * 3 / 4, 150)
-                # case 5:
-                #     self.block.pair(self.game.width*3/4, 100, 2)
-                #     self.block.pair(self.game.width/4, 100, 2)
                 case _:
                     self.game.player.add_coins(4500)
                     self.game.menuHandler.changeMenu(GameMenu)
-                    # self.game.showing = "gamemenu"
-                    # self.game.gamemenu.__init__(self.game)
 
 
 class Level9(Level):
@@ -459,8 +442,6 @@ class Level9(Level):
                 case _:
                     self.game.player.add_coins(6000)
                     self.game.menuHandler.changeMenu(GameMenu)
-                    # self.game.showing = "gamemenu"
-                    # self.game.gamemenu.__init__(self.game)
 
 
 class Level10(Level):
@@ -494,13 +475,9 @@ class Level10(Level):
                 case 4:
                     self.block.triangle5(self.game.width/5, 150)
                     self.block.triangle5(self.game.width*4/5, 150)
-                # case 5:
-                #     self.block.triangle5(self.game.width/2, 150)
                 case _:
                     self.game.player.add_coins(7500)
                     self.game.menuHandler.changeMenu(GameMenu)
-                    # self.game.showing = "gamemenu"
-                    # self.game.gamemenu.__init__(self.game)
 
 class Level11(Level):
 
@@ -528,5 +505,3 @@ class Level11(Level):
                 case _:
                     self.game.player.add_coins(10000)
                     self.game.menuHandler.changeMenu(GameMenu)
-                    # self.game.showing = "gamemenu"
-                    # self.game.gamemenu.__init__(self.game)
