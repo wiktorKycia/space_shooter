@@ -147,7 +147,7 @@ class LaserMedium(GunPrototype):
         super().__init__(
             game, ship, translation, self.force,
             interval=0.4,
-            bul=BulletSmallBlue,
+            bul=BulletMediumYellow,
             clip_size=10,
             reload_time=5.0,
             key=key
