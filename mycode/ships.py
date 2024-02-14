@@ -66,7 +66,7 @@ class Ship1(PlayableShip):
             mass=300,
             max_speed=275,
             force=1500,
-            hp_amount=4000000,
+            hp_amount=200,
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710,
             scale=2.0
@@ -84,7 +84,7 @@ class Ship2(PlayableShip):
             mass=300,
             max_speed=275,
             force=1500,
-            hp_amount=4000000,
+            hp_amount=200,
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710,
             scale=2.0
@@ -102,7 +102,7 @@ class Ship3(PlayableShip):
             mass=300,
             max_speed=275,
             force=1500,
-            hp_amount=4000000,
+            hp_amount=200,
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710,
             scale=2.0
@@ -120,7 +120,7 @@ class Ship4(PlayableShip):
             mass=300,
             max_speed=275,
             force=1500,
-            hp_amount=4000000,
+            hp_amount=200,
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710,
             scale=2.0
@@ -138,7 +138,7 @@ class Ship5(PlayableShip):
             mass=300,
             max_speed=275,
             force=1500,
-            hp_amount=4000000,
+            hp_amount=200,
             hp_height=25, hp_width=300,
             hp_x=165, hp_y=710,
             scale=2.0
