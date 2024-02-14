@@ -128,9 +128,10 @@ class GunPrototype(Gun):
 #             )
 
 class LaserLight(GunPrototype):
-    def __init__(self, game, ship, translation, force, key=pygame.K_KP_0):
+    def __init__(self, game, ship, translation, key=pygame.K_KP_0):
+        self.force = 1500
         super().__init__(
-            game, ship, translation, force,
+            game, ship, translation, self.force,
             interval=0.2,
             bul=BulletSmallBlue,
             clip_size=50,
