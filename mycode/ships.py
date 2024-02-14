@@ -91,7 +91,7 @@ class Ship2(PlayableShip):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                LaserMedium(game, self, Vector2(0, -20), key=pygame.K_KP_1)
             ]
         )
 
