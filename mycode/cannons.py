@@ -61,7 +61,6 @@ class Gun:
         self.ship = ship
         self.pos = ship.pos
         self.translation = translation
-        self.force = force
         self.interval = interval
         # self.key = key
 
@@ -72,10 +71,12 @@ class Gun:
         if type(key) == int:
             # if passed pygame.key value
             self.is_player = True
+            self.force = force
             self.key: int = key
         else:
             # if passed other bool type variable
             self.is_player = False
+            self.force = -force
             self.key: bool = key
 
     def shot(self):
