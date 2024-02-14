@@ -19,8 +19,8 @@ class BaseEnemy(ShootingDownNoMove):
             gun.tick()
             for bullet in gun.bullets:
                 if bullet.check_collision(self.game.player.current_ship):
-                    energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                    self.game.player.current_ship.hp.get_damage(energy)
+                    # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+                    self.game.player.current_ship.hp.get_damage(bullet.damage)
                     gun.bullets.remove(bullet)
                     del bullet
 
@@ -35,11 +35,11 @@ class Enemy1(BaseEnemy):
         self.game = game
         self.path = "./enemies/Enemy1.png"
         super().__init__(
-            game, x, y, self.path, force=500, hp_amount=100000
+            game, x, y, self.path, force=500, hp_amount=20
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 10), self.force, key=self.is_shooting)
+                LaserLight(game, self, Vector2(0, 10), key=self.is_shooting)
             ]
         )
 
@@ -51,11 +51,11 @@ class Enemy2(BaseEnemy):
         self.game = game
         self.path = "./enemies/Enemy2.png"
         super().__init__(
-            game, x, y, self.path, force=350, hp_amount=250000
+            game, x, y, self.path, force=350, hp_amount=45
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 10), self.force, key=self.is_shooting)
+                LaserLight(game, self, Vector2(0, 10), key=self.is_shooting)
             ]
         )
 
@@ -70,11 +70,11 @@ class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
         self.path = "./enemies/Enemy3.png"
-        super().__init__(self.game, x, y, self.path, force=1000, hp_amount=500000)
+        super().__init__(self.game, x, y, self.path, force=1000, hp_amount=100)
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(-22, 10), self.force, key=self.is_shooting),
-                LaserLight(game, self, Vector2(22, 10), self.force, key=self.is_shooting)
+                LaserLight(game, self, Vector2(-22, 10), key=self.is_shooting),
+                LaserLight(game, self, Vector2(22, 10), key=self.is_shooting)
             ]
         )
 
@@ -107,8 +107,8 @@ class MovingEnemy(ShootingDown):
             gun.tick()
             for bullet in gun.bullets:
                 if bullet.check_collision(self.game.player.current_ship):
-                    energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                    self.game.player.current_ship.hp.get_damage(energy)
+                    # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+                    self.game.player.current_ship.hp.get_damage(bullet.damage)
                     gun.bullets.remove(bullet)
                     del bullet
 
@@ -127,12 +127,12 @@ class Bouncer1(MovingEnemy):
             mass=2,
             max_speed=200,
             force=1500,
-            hp_amount=2000000,
+            hp_amount=15,
             scale=3.0
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 0), self.force, key=self.is_shooting)
+                LaserLight(game, self, Vector2(0, 0), key=self.is_shooting)
             ]
         )
 

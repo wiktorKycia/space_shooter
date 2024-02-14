@@ -61,7 +61,6 @@ class Gun:
         self.ship = ship
         self.pos = ship.pos
         self.translation = translation
-        self.force = force
         self.interval = interval
         # self.key = key
 
@@ -72,10 +71,12 @@ class Gun:
         if type(key) == int:
             # if passed pygame.key value
             self.is_player = True
+            self.force = force
             self.key: int = key
         else:
             # if passed other bool type variable
             self.is_player = False
+            self.force = -force
             self.key: bool = key
 
     def shot(self):
@@ -128,13 +129,27 @@ class GunPrototype(Gun):
 #             )
 
 class LaserLight(GunPrototype):
-    def __init__(self, game, ship, translation, force, key=pygame.K_KP_0):
+    def __init__(self, game, ship, translation, key=pygame.K_KP_0):
+        self.force = 1500
         super().__init__(
-            game, ship, translation, force,
+            game, ship, translation, self.force,
             interval=0.2,
             bul=BulletSmallBlue,
             clip_size=50,
             reload_time=1.0,
+            key=key
+        )
+
+
+class LaserMedium(GunPrototype):
+    def __init__(self, game, ship, translation, key=pygame.K_KP_0):
+        self.force = 3500
+        super().__init__(
+            game, ship, translation, self.force,
+            interval=0.4,
+            bul=BulletMediumYellow,
+            clip_size=10,
+            reload_time=5.0,
             key=key
         )
 
