@@ -39,7 +39,7 @@ class Enemy1(BaseEnemy):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 10), self.force, key=self.is_shooting)
+                LaserLight(game, self, Vector2(0, 10), key=self.is_shooting)
             ]
         )
 
@@ -55,7 +55,7 @@ class Enemy2(BaseEnemy):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 10), self.force, key=self.is_shooting)
+                LaserLight(game, self, Vector2(0, 10), key=self.is_shooting)
             ]
         )
 
@@ -73,8 +73,8 @@ class Enemy3(BaseEnemy):
         super().__init__(self.game, x, y, self.path, force=1000, hp_amount=100)
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(-22, 10), self.force, key=self.is_shooting),
-                LaserLight(game, self, Vector2(22, 10), self.force, key=self.is_shooting)
+                LaserLight(game, self, Vector2(-22, 10), key=self.is_shooting),
+                LaserLight(game, self, Vector2(22, 10), key=self.is_shooting)
             ]
         )
 
@@ -132,7 +132,7 @@ class Bouncer1(MovingEnemy):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 0), self.force, key=self.is_shooting)
+                LaserLight(game, self, Vector2(0, 0), key=self.is_shooting)
             ]
         )
 
