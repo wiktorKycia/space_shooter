@@ -6,6 +6,39 @@ from mycode.other import *
 from mycode.bullets import *
 from mycode.cannons import *
 import os
+import random
+
+
+class MovingEnemy(ShootingDown):
+    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10, scale=1.0):
+        super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True,
+                         slip=0.99, scale=scale)
+        self.move_clock = 0
+        self.guns = []
+        self.bullets = []
+        self.is_shooting = True
+
+    def add_bullet(self, bullet):
+        self.bullets.append(bullet)
+        bullet.sound.play(0, 800)
+
+    def tick(self):
+        super().tick()
+        for gun in self.guns:
+            gun.tick()
+            for bullet in gun.bullets:
+                if bullet.check_collision(self.game.player.current_ship):
+                    # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+                    self.game.player.current_ship.hp.get_damage(bullet.damage)
+                    gun.bullets.remove(bullet)
+                    del bullet
+
+    def draw(self):
+        super().draw()
+        for gun in self.guns:
+            for bullet in gun.bullets:
+                bullet.draw()
+
 
 class BaseEnemy(ShootingDownNoMove):
     def __init__(self, game, x, y, path, force, hp_amount, hp_width=50, hp_height=10):
@@ -87,36 +120,8 @@ class Enemy3(BaseEnemy):
         #     self.add_bullet(bullet)
         #     self.add_bullet(bullet1)
 
-import random
 
-class MovingEnemy(ShootingDown):
-    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10, scale=1.0):
-        super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True, slip=0.99, scale=scale)
-        self.move_clock = 0
-        self.guns = []
-        self.bullets = []
-        self.is_shooting = True
 
-    def add_bullet(self, bullet):
-        self.bullets.append(bullet)
-        bullet.sound.play(0, 800)
-
-    def tick(self):
-        super().tick()
-        for gun in self.guns:
-            gun.tick()
-            for bullet in gun.bullets:
-                if bullet.check_collision(self.game.player.current_ship):
-                    # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                    self.game.player.current_ship.hp.get_damage(bullet.damage)
-                    gun.bullets.remove(bullet)
-                    del bullet
-
-    def draw(self):
-        super().draw()
-        for gun in self.guns:
-            for bullet in gun.bullets:
-                bullet.draw()
 
 
 class Bouncer1(MovingEnemy):
