@@ -10,9 +10,10 @@ import random
 
 
 class MovingEnemy(ShootingDown):
-    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10, scale=1.0):
-        super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative=True,
-                         slip=0.99, scale=scale)
+    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10, hp_relative=True,
+                 slip=0.98, scale=1.0):
+        super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_relative, slip,
+                         scale)
         self.move_clock = 0
         self.guns = []
         # self.bullets = []
