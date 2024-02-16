@@ -89,7 +89,7 @@ class Enemy2(BaseEnemy):
         self.game = game
         super().__init__(
             game, x, y,
-            path="./enemies/Enemy1.png",
+            path="./enemies/Enemy2.png",
             mass=75,
             max_speed=120,
             force=350,
@@ -111,8 +111,14 @@ class Enemy2(BaseEnemy):
 class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.path = "./enemies/Enemy3.png"
-        super().__init__(self.game, x, y, self.path, force=1000, hp_amount=100)
+        super().__init__(
+            game, x, y,
+            path="./enemies/Enemy3.png",
+            mass=250,
+            max_speed=100,
+            force=1000,
+            hp_amount=100
+        )
         self.guns.extend(
             [
                 LaserLight(game, self, Vector2(-22, 10), key=self.is_shooting),
