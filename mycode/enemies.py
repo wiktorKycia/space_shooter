@@ -87,9 +87,13 @@ class Enemy1(BaseEnemy):
 class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.path = "./enemies/Enemy2.png"
         super().__init__(
-            game, x, y, self.path, force=350, hp_amount=45
+            game, x, y,
+            path="./enemies/Enemy1.png",
+            mass=75,
+            max_speed=120,
+            force=350,
+            hp_amount=45
         )
         self.guns.extend(
             [
