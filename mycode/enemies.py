@@ -15,12 +15,12 @@ class MovingEnemy(ShootingDown):
                          slip=0.99, scale=scale)
         self.move_clock = 0
         self.guns = []
-        self.bullets = []
+        # self.bullets = []
         self.is_shooting = True
 
-    def add_bullet(self, bullet):
-        self.bullets.append(bullet)
-        bullet.sound.play(0, 800)
+    # def add_bullet(self, bullet):
+    #     self.bullets.append(bullet)
+    #     bullet.sound.play(0, 800)
 
     def tick(self):
         super().tick()
