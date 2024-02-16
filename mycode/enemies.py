@@ -136,10 +136,7 @@ class Enemy3(BaseEnemy):
         #     self.add_bullet(bullet1)
 
 
-
-
-
-class Bouncer1(MovingEnemy):
+class Bouncer1(BaseEnemy):
     def __init__(self, game, x, y):
         super().__init__(
             game, x, y,
