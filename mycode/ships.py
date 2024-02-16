@@ -20,6 +20,7 @@ class PlayableShip(ShootingUp):
     def tick(self):
         # Input
         pressed = pygame.key.get_pressed()
+        force = Vector2(0, 0)
         if pressed[pygame.K_w]:
             self.add_force(Vector2(0, -self.force))
         if pressed[pygame.K_s]:
