@@ -16,12 +16,7 @@ class BaseEnemy(ShootingDown):
                          scale)
         self.move_clock = 0
         self.guns = []
-        # self.bullets = []
         self.is_shooting = True
-
-    # def add_bullet(self, bullet):
-    #     self.bullets.append(bullet)
-    #     bullet.sound.play(0, 800)
 
     def tick(self):
         super().tick()
@@ -81,9 +76,6 @@ class Enemy1(BaseEnemy):
             ]
         )
 
-    def tick(self):
-        super().tick()
-
 class Enemy2(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
@@ -101,12 +93,6 @@ class Enemy2(BaseEnemy):
             ]
         )
 
-    def tick(self):
-        super().tick()
-        # if self.clock >= 1.5:
-        #     self.clock = 0
-        #     bullet = Kinetic9Bullet(self.game, self.pos.x, self.pos.y, self.force)
-        #     self.add_bullet(bullet)
 
 class Enemy3(BaseEnemy):
     def __init__(self, game, x, y):
@@ -125,15 +111,6 @@ class Enemy3(BaseEnemy):
                 LaserLight(game, self, Vector2(22, 10), key=self.is_shooting)
             ]
         )
-
-    def tick(self):
-        super().tick()
-        # if self.clock >= 1.0:
-        #     self.clock = 0
-        #     bullet = EnergyGunBullet(self.game, self.pos.x-22, self.pos.y, self.force)
-        #     bullet1 = EnergyGunBullet(self.game, self.pos.x+22, self.pos.y, self.force)
-        #     self.add_bullet(bullet)
-        #     self.add_bullet(bullet1)
 
 
 class Bouncer1(BaseEnemy):
@@ -178,7 +155,3 @@ class Bouncer1(BaseEnemy):
             self.move_clock = 0
             self.do_move()
         super().tick()
-        # if self.clock > 1.5:
-        #     self.clock = 0
-        #     bullet = KineticBullet(self.game, self.pos.x, self.pos.y, self.force)
-        #     self.add_bullet(bullet)
