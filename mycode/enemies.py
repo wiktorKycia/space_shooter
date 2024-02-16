@@ -67,9 +67,13 @@ class BaseEnemy(ShootingDown):
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):
         self.game = game
-        self.path = "./enemies/Enemy1.png"
         super().__init__(
-            game, x, y, self.path, force=500, hp_amount=20
+            game, x, y,
+            path="./enemies/Enemy1.png",
+            mass=50,
+            max_speed=50,
+            force=500,
+            hp_amount=20
         )
         self.guns.extend(
             [
