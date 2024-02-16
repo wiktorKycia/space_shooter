@@ -38,7 +38,10 @@ class PlayableShip(ShootingUp):
         else:
             self.current_slip = self.slip
 
-        self.add_force(force.clamp_magnitude(self.force))
+        if force != [0, 0]:
+            self.add_force(force.clamp_magnitude(1500))
+        else:
+            self.add_force(force)
 
         for gun in self.guns:
             gun.tick()
