@@ -20,8 +20,8 @@ class MenuHandler:
         self.currentMenuType = type(self.hiddenMenu)
         self.currentMenu = self.hiddenMenu
 
-    def changeMenu(self, menu):
-        if self.currentMenuType == LevelGame and menu == PauseMenu:
+    def changeMenu(self, menu, override=False):
+        if override:
             self.hiddenMenu = self.currentMenu
 
         self.currentMenuType = menu
@@ -199,7 +199,7 @@ class LevelGame:
 
         if pygame.key.get_pressed()[pygame.K_p] == 1 and self.click_P_counter == 0:
             self.click_P_counter += 1
-            self.game.menuHandler.changeMenu(PauseMenu)
+            self.game.menuHandler.changeMenu(PauseMenu, True)
             # self.showing = "pausemenu"
         elif pygame.key.get_pressed()[pygame.K_p] == 0:
             self.click_P_counter = 0
