@@ -127,6 +127,11 @@ class Level:
         self.game = game
         self.block = MiniLevel(game)
 
+        # reset player's ship's stats
+        self.game.player.current_ship.hp.maximise_hp()
+        for gun in self.game.player.current_ship.guns:
+            gun.clip.maximise_ammo()
+
     def check_if_all_died(self):
         if len(self.game.menuHandler.currentMenu.enemies) == 0:
             return True
