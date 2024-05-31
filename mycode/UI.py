@@ -6,6 +6,34 @@ from pygame.math import *
 from pygame.locals import *
 
 
+class MenuHandler:
+    def __init__(self, game, mainmenu):
+        self.game = game
+        self.currentMenuType = mainmenu
+        self.currentMenu = self.currentMenuType(self.game)
+        self.hiddenMenu = None
+
+    def resetMenu(self):
+        self.currentMenu = self.currentMenuType(self.game)
+
+    def revealMenu(self):
+        self.currentMenuType = type(self.hiddenMenu)
+        self.currentMenu = self.hiddenMenu
+
+    def changeMenu(self, menu, override=False):
+        if override:
+            self.hiddenMenu = self.currentMenu
+
+        self.currentMenuType = menu
+        self.resetMenu()
+
+    def tick(self):
+        self.currentMenu.tick_menu()
+
+    def draw(self):
+        self.currentMenu.draw_menu()
+
+
 class LevelButton(TextButton):
     def __init__(self, game, x, y, width, height, level_id:int):
         self.level_id = level_id
@@ -171,7 +199,7 @@ class LevelGame:
 
         if pygame.key.get_pressed()[pygame.K_p] == 1 and self.click_P_counter == 0:
             self.click_P_counter += 1
-            self.game.menuHandler.changeMenu(PauseMenu)
+            self.game.menuHandler.changeMenu(PauseMenu, True)
             # self.showing = "pausemenu"
         elif pygame.key.get_pressed()[pygame.K_p] == 0:
             self.click_P_counter = 0
@@ -289,7 +317,7 @@ class HangarMenu:
         self.button_prev.draw()
 
 class PauseMenu:
-    def __init__(self, game, resume_button_menu=GameMenu, exit_button_menu=LevelsMenu):
+    def __init__(self, game, resume_button_menu=LevelGame, exit_button_menu=LevelsMenu):
         self.game = game
         self.resume_button_menu = resume_button_menu
         self.exit_button_menu = exit_button_menu
@@ -301,7 +329,7 @@ class PauseMenu:
             self.game.menuHandler.changeMenu(self.exit_button_menu)
         elif self.button_resume.check_click():
             self.game.showing = self.resume_button_menu
-            self.game.menuHandler.changeMenu(self.resume_button_menu)
+            self.game.menuHandler.revealMenu()
     def draw_menu(self):
        self.button_exit.draw()
        self.button_resume.draw()
