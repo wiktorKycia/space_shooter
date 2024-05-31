@@ -1,24 +1,7 @@
 import pygame
 
 
-class MenuHandler:
-    def __init__(self, game, mainmenu):
-        self.game = game
-        self.currentMenuType = mainmenu
-        self.currentMenu = self.currentMenuType(self.game)
 
-    def resetMenu(self):
-        self.currentMenu = self.currentMenuType(self.game)
-
-    def changeMenu(self, menu):
-        self.currentMenuType = menu
-        self.resetMenu()
-
-    def tick(self):
-        self.currentMenu.tick_menu()
-
-    def draw(self):
-        self.currentMenu.draw_menu()
 
 
 # class AmmoBar:
