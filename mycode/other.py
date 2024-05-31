@@ -1,5 +1,5 @@
 import pygame
-
+from mycode.UI import LevelGame, PauseMenu
 
 class MenuHandler:
     def __init__(self, game, mainmenu):
