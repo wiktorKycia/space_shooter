@@ -6,11 +6,19 @@ class MenuHandler:
         self.game = game
         self.currentMenuType = mainmenu
         self.currentMenu = self.currentMenuType(self.game)
+        self.hiddenMenu = None
 
     def resetMenu(self):
         self.currentMenu = self.currentMenuType(self.game)
 
+    def revealMenu(self):
+        self.currentMenuType = type(self.hiddenMenu)
+        self.currentMenu = self.hiddenMenu
+
     def changeMenu(self, menu):
+        if self.currentMenuType == LevelGame and menu == PauseMenu:
+            self.hiddenMenu = self.currentMenu
+
         self.currentMenuType = menu
         self.resetMenu()
 
