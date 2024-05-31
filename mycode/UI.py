@@ -289,7 +289,7 @@ class HangarMenu:
         self.button_prev.draw()
 
 class PauseMenu:
-    def __init__(self, game, resume_button_menu=GameMenu, exit_button_menu=LevelsMenu):
+    def __init__(self, game, resume_button_menu=LevelGame, exit_button_menu=LevelsMenu):
         self.game = game
         self.resume_button_menu = resume_button_menu
         self.exit_button_menu = exit_button_menu
