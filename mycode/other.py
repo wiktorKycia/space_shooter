@@ -1,32 +1,7 @@
 import pygame
-from mycode.UI import LevelGame, PauseMenu
 
-class MenuHandler:
-    def __init__(self, game, mainmenu):
-        self.game = game
-        self.currentMenuType = mainmenu
-        self.currentMenu = self.currentMenuType(self.game)
-        self.hiddenMenu = None
 
-    def resetMenu(self):
-        self.currentMenu = self.currentMenuType(self.game)
 
-    def revealMenu(self):
-        self.currentMenuType = type(self.hiddenMenu)
-        self.currentMenu = self.hiddenMenu
-
-    def changeMenu(self, menu):
-        if self.currentMenuType == LevelGame and menu == PauseMenu:
-            self.hiddenMenu = self.currentMenu
-
-        self.currentMenuType = menu
-        self.resetMenu()
-
-    def tick(self):
-        self.currentMenu.tick_menu()
-
-    def draw(self):
-        self.currentMenu.draw_menu()
 
 
 # class AmmoBar:
