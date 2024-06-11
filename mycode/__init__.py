@@ -327,9 +327,6 @@ class HasHealth:
     def draw(self):
         pass
 
-class NoMoving(DynamicObject):
-    def __init__(self, game, x, y, path, scale=1.0):
-        super().__init__(game, x, y, path, scale)
 
 class Moving(DynamicObject):
     def __init__(self, game, x, y, path, mass, max_speed, slip=0.98, scale=1.0):
@@ -390,37 +387,7 @@ class Moving(DynamicObject):
         self.acc *= 0
         super().tick()
 
-class ShootingDownNoMove(NoMoving, HasHealth):
-    def __init__(self, game, x, y, path, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50, scale=1.0):
-        """
-        it basically combines the NoMoving and HasHealth classes
-        :param game: game
-        :param x: x position
-        :param y: y position
-        :param path: path to the image
-        :param force: force of the object itself (it has usage in moving)
-        :param hp_amount: the maximum hp amount
-        :param hp_width: the width of the hp bar
-        :param hp_height: the height of the hp bar
-        :param hp_x: the x coordinate of the hp bar
-        :param hp_y: the y coordinate of the hp bar
-        :param scale: scale of the image
-        """
-        super().__init__(game, x, y, path, scale)
-        hp_x = self.pos.x + hp_x
-        hp_y = self.pos.y + hp_y
 
-        self.force = -force
-
-        HasHealth.__init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height)
-
-    def tick(self):
-        super().tick()
-        HasHealth.tick(self)
-
-    def draw(self):
-        super().draw()
-        HasHealth.draw(self)
 
 class ShootingDown(Moving, HasHealth):
     def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50, hp_relative=False, slip=0.98, scale=1.0):
