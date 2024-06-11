@@ -68,6 +68,13 @@ class PlayableShip(ShootingUp):
                 bullet.draw()
 
 
+class Slot:
+    def __init__(self, game, ship: PlayableShip, translation: Vector2, key: int):
+        self.game = game
+        self.ship = ship
+        self.translation = translation
+        self.key = key
+
 
 class Ship1(PlayableShip):
     def __init__(self, game):
