@@ -72,7 +72,7 @@ class Enemy1(BaseEnemy):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 10), key=self.is_shooting)
+                KineticLight(game, self, Vector2(0, 10), key=self.is_shooting)
             ]
         )
 
@@ -89,7 +89,7 @@ class Enemy2(BaseEnemy):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 10), key=self.is_shooting)
+                KineticLight(game, self, Vector2(0, 10), key=self.is_shooting)
             ]
         )
 
@@ -106,8 +106,8 @@ class Enemy3(BaseEnemy):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(-22, 10), key=self.is_shooting),
-                LaserLight(game, self, Vector2(22, 10), key=self.is_shooting)
+                KineticLight(game, self, Vector2(-22, 10), key=self.is_shooting),
+                KineticLight(game, self, Vector2(22, 10), key=self.is_shooting)
             ]
         )
 
@@ -125,7 +125,7 @@ class Bouncer1(BaseEnemy):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 0), key=self.is_shooting)
+                KineticLight(game, self, Vector2(0, 0), key=self.is_shooting)
             ]
         )
 
