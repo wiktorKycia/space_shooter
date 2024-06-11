@@ -158,10 +158,10 @@ class KineticMedium(GunPrototype):
             weaponType=2,
             translation=translation,
             force=self.force,
-            interval=0.4,
+            interval=0.15,
             bul=BulletMediumBlue,
-            clip_size=10,
-            reload_time=5.0,
+            clip_size=50,
+            reload_time=2.0,
             key=key)
 
 class ShotGun(Gun):
