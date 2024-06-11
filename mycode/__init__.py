@@ -448,9 +448,9 @@ class ShootingUp(Moving, HasHealth):
         """
         super().__init__(game, x, y, path, mass, max_speed, slip, scale)
         self.force = force
-        if hp_relative: # ! może być błąd z hp_x i hp_y
-            hp_x = self.pos.x + hp_x
-            hp_y = self.pos.y + hp_y
+        # if hp_relative: # ! może być błąd z hp_x i hp_y
+        #     hp_x = self.pos.x + hp_x
+        #     hp_y = self.pos.y + hp_y
         HasHealth.__init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height)
 
     def tick(self):
