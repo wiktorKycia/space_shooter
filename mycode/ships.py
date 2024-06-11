@@ -83,8 +83,8 @@ class Ship1(PlayableShip):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(20, -20), key=pygame.K_KP_1),
-                LaserLight(game, self, Vector2(-20, -20), key=pygame.K_KP_1)
+                KineticLight(game, self, Vector2(20, -20), key=pygame.K_KP_1),
+                KineticLight(game, self, Vector2(-20, -20), key=pygame.K_KP_1)
             ]
         )
 
@@ -102,7 +102,7 @@ class Ship2(PlayableShip):
         )
         self.guns.extend(
             [
-                LaserMedium(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                KineticMedium(game, self, Vector2(0, -20), key=pygame.K_KP_1)
             ]
         )
 
@@ -120,7 +120,7 @@ class Ship3(PlayableShip):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
             ]
         )
 
@@ -138,7 +138,7 @@ class Ship4(PlayableShip):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
             ]
         )
 
@@ -156,6 +156,6 @@ class Ship5(PlayableShip):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
             ]
         )
