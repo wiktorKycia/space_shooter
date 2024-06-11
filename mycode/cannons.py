@@ -54,6 +54,15 @@ class Clip:
                 # self.ammo_bar.increase_by(1)
         # self.ammo_bar.draw()
 
+
+class Weapon:
+    def __init__(self, game, ship, weaponType: int, translation):
+        self.game = game
+        self.ship = ship
+        self.weaponType = weaponType
+        self.translation = translation
+
+
 class Gun:
     def __init__(self, game, ship, translation, force, interval, key, max_ammo: int, reload_time: float,
                  active_reload: bool):
