@@ -136,7 +136,7 @@ class GunPrototype(Gun):
 #             bar_width=bar_width, bar_height=bar_height, bar_x=bar_x, bar_y=bar_y
 #             )
 
-class LaserLight(GunPrototype):
+class KineticLight(GunPrototype):
     def __init__(self, game, ship, translation, key=pygame.K_KP_0):
         self.force = 3500
         super().__init__(
@@ -150,7 +150,7 @@ class LaserLight(GunPrototype):
             reload_time=3.0, key=key)
 
 
-class LaserMedium(GunPrototype):
+class KineticMedium(GunPrototype):
     def __init__(self, game, ship, translation, key=pygame.K_KP_0):
         self.force = 3500
         super().__init__(
@@ -159,7 +159,7 @@ class LaserMedium(GunPrototype):
             translation=translation,
             force=self.force,
             interval=0.4,
-            bul=BulletMediumYellow,
+            bul=BulletMediumBlue,
             clip_size=10,
             reload_time=5.0,
             key=key)

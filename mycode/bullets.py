@@ -48,11 +48,11 @@ class BulletSmallBlue(ImageBullet):
         self.damage = 5
 
 
-class BulletMediumYellow(ImageBullet):
+class BulletMediumBlue(ImageBullet):
     def __init__(self, game, x, y, force):
         super().__init__(
             game, x, y,
-            path="./images/Laser Sprites/17.png",
+            path="./images/Laser Sprites/11.png",
             mass=2,
             force=force,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
