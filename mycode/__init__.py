@@ -263,10 +263,11 @@ class TextButton(StaticObject):
 
 
 class DynamicObject(MainObject):
-    def __init__(self, game, x, y, path, scale):
+    def __init__(self, game, x, y, path, mass, max_speed, slip=0.98, scale=1.0):
         """
-        This is a parent class for every dynamic object in the game,
-        it has image, hitbox and mask.\n
+        A parent class for every moving object,
+        it has physics implemented such as velocity and acceleration
+        it also has image, hitbox and mask.\n
         As far as 'path' parameter is concerned:
          - It can be string, then it represents the path to the image, \n
          - It also can be pygame.Surface type - in this case path it's an image itself
@@ -274,6 +275,9 @@ class DynamicObject(MainObject):
         :param x: int, float
         :param y: int, float
         :param path: str, pygame.Surface
+        :param mass: mass of the object
+        :param max_speed: maximum velocity, that this object can have
+        :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
         :param scale: float
         """
         super().__init__()
@@ -283,7 +287,9 @@ class DynamicObject(MainObject):
             self.image = path
         else:
             self.image = pygame.image.load(path).convert_alpha()
-        self.image = pygame.transform.scale_by(self.image, scale)
+
+        if scale != 1.0:
+            self.image = pygame.transform.scale_by(self.image, scale)
 
         self.width = self.image.get_width()
         self.height = self.image.get_height()
@@ -292,15 +298,53 @@ class DynamicObject(MainObject):
         self.mask = pygame.mask.from_surface(self.image)
 
         self.clock = 0
+        self.vel = Vector2(0, 0)
+        self.acc = Vector2(0, 0)
+
+        self.mass = mass
+
+        self.slip = slip
+        self.current_slip = slip
+        self.max_speed = max_speed
+
+    def add_force(self, force: pygame.Vector2):
+        """
+        a method that adds force to the object,
+        you can't specify the mass as it uses the mass object to calculate acceleration.
+        then adds it to acc vector of the object
+        :param force: must be the pygame 2-dimensional Vector
+        :return:
+        """
+        self.acc += force / self.mass
 
     def tick(self):
         """
         Updates the hitbox's center
-        and updates the clock
+        and updates the clock,
+        multiplies the vel by slip and adds acc to vel,
+        then, limits the vel if it is above max_speed,
+        lastly, updates the position by vel and resets acc to 0
         :return:
         """
         self.hitbox.center = (self.pos.x, self.pos.y)
         self.clock += self.game.dt
+
+        # Physics
+        self.vel *= self.current_slip
+        self.vel += self.acc
+
+        # Limiting speed
+        if self.vel.x > self.max_speed:  # right
+            self.vel = Vector2(self.max_speed, self.vel.y)
+        elif self.vel.x < -self.max_speed:  # left
+            self.vel = Vector2(-self.max_speed, self.vel.y)
+        if self.vel.y > self.max_speed:  # up
+            self.vel = Vector2(self.vel.x, self.max_speed)
+        elif self.vel.y < -self.max_speed:  # down
+            self.vel = Vector2(self.vel.x, -self.max_speed)
+
+        self.pos += self.vel * self.game.dt
+        self.acc *= 0
 
     def draw(self):
         """
@@ -332,67 +376,67 @@ class DynamicObject(MainObject):
 #     def draw(self):
 #         pass
 
-class Moving(DynamicObject):
-    def __init__(self, game, x, y, path, mass, max_speed, slip=0.98, scale=1.0):
-        """
-        A parent class for every moving object,
-        it has physics implemented such as velocity and acceleration
-        :param game: game
-        :param x: initial x coordinate
-        :param y: initial y coordinate
-        :param path: path to the image
-        :param mass: mass of the object
-        :param max_speed: maximum velocity, that this object can have
-        :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
-        :param scale: the scale of the image
-        """
-        super().__init__(game, x, y, path, scale)
-        self.vel = Vector2(0, 0)
-        self.acc = Vector2(0, 0)
+# class Moving(DynamicObject):
+#     def __init__(self, game, x, y, path, mass, max_speed, slip=0.98, scale=1.0):
+#         """
+#         A parent class for every moving object,
+#         it has physics implemented such as velocity and acceleration
+#         :param game: game
+#         :param x: initial x coordinate
+#         :param y: initial y coordinate
+#         :param path: path to the image
+#         :param mass: mass of the object
+#         :param max_speed: maximum velocity, that this object can have
+#         :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
+#         :param scale: the scale of the image
+#         """
+#         super().__init__(game, x, y, path, scale)
+#         self.vel = Vector2(0, 0)
+#         self.acc = Vector2(0, 0)
+#
+#         self.mass = mass
+#
+#         self.slip = slip
+#         self.current_slip = slip
+#         self.max_speed = max_speed
+#
+#     def add_force(self, force:pygame.Vector2):
+#         """
+#         a method that adds force to the object,
+#         you can't specify the mass as it uses the mass object to calculate acceleration.
+#         then adds it to acc vector of the object
+#         :param force: must be the pygame 2-dimensional Vector
+#         :return:
+#         """
+#         self.acc += force / self.mass
+#
+#     def tick(self):
+#         """
+#         multiplies the vel by slip and adds acc to vel,
+#         then, limits the vel if it is above max_speed,
+#         lastly, updates the position by vel and resets acc to 0
+#         :return:
+#         """
+#         # Physics
+#         self.vel *= self.current_slip
+#         self.vel += self.acc
+#
+#         # Limiting speed
+#         if self.vel.x > self.max_speed:  # right
+#             self.vel = Vector2(self.max_speed, self.vel.y)
+#         elif self.vel.x < -self.max_speed:  # left
+#             self.vel = Vector2(-self.max_speed, self.vel.y)
+#         if self.vel.y > self.max_speed:  # up
+#             self.vel = Vector2(self.vel.x, self.max_speed)
+#         elif self.vel.y < -self.max_speed:  # down
+#             self.vel = Vector2(self.vel.x, -self.max_speed)
+#
+#         self.pos += self.vel * self.game.dt
+#         self.acc *= 0
+#         super().tick()
 
-        self.mass = mass
 
-        self.slip = slip
-        self.current_slip = slip
-        self.max_speed = max_speed
-
-    def add_force(self, force:pygame.Vector2):
-        """
-        a method that adds force to the object,
-        you can't specify the mass as it uses the mass object to calculate acceleration.
-        then adds it to acc vector of the object
-        :param force: must be the pygame 2-dimensional Vector
-        :return:
-        """
-        self.acc += force / self.mass
-
-    def tick(self):
-        """
-        multiplies the vel by slip and adds acc to vel,
-        then, limits the vel if it is above max_speed,
-        lastly, updates the position by vel and resets acc to 0
-        :return:
-        """
-        # Physics
-        self.vel *= self.current_slip
-        self.vel += self.acc
-
-        # Limiting speed
-        if self.vel.x > self.max_speed:  # right
-            self.vel = Vector2(self.max_speed, self.vel.y)
-        elif self.vel.x < -self.max_speed:  # left
-            self.vel = Vector2(-self.max_speed, self.vel.y)
-        if self.vel.y > self.max_speed:  # up
-            self.vel = Vector2(self.vel.x, self.max_speed)
-        elif self.vel.y < -self.max_speed:  # down
-            self.vel = Vector2(self.vel.x, -self.max_speed)
-
-        self.pos += self.vel * self.game.dt
-        self.acc *= 0
-        super().tick()
-
-
-class Shooting(Moving):
+class Shooting(DynamicObject):
     def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50,
                  hp_relative=False, slip=0.98, scale=1.0):
         """
@@ -498,7 +542,7 @@ class Shooting(Moving):
 #         super().draw()
 #         HasHealth.draw(self)
 
-class NoShooting(Moving):
+class NoShooting(DynamicObject):
     def __init__(self, game, x, y, path, mass, scale=1.0):
         super().__init__(game, x, y, path, mass, 10000, 0.9995, scale)
 
