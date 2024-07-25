@@ -327,7 +327,6 @@ class HasHealth:
     def draw(self):
         pass
 
-
 class Moving(DynamicObject):
     def __init__(self, game, x, y, path, mass, max_speed, slip=0.98, scale=1.0):
         """
@@ -397,6 +396,11 @@ class Shooting(Moving):
         if hp_relative:
             hp_x = self.pos.x + hp_x
             hp_y = self.pos.y + hp_y
+        self.hp = DeluxeHP(game, amount=hp_amount, x=hp_x, y=hp_y, width=hp_width, height=hp_height)
+
+    def tick(self):
+        super().tick()
+        self.hp.tick()
 
 
 class ShootingDown(Moving, HasHealth):
