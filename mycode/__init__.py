@@ -309,27 +309,28 @@ class DynamicObject(MainObject):
         """
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
-class HasHealth:
-    def __init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height):
-        """
-        A parent class for every object that has health, for example: ships and enemies
-        :param game: game
-        :param hp_amount: the maximum hp amount
-        :param hp_x: the x coordinate of the hp bar
-        :param hp_y: the y coordinate of the hp bar
-        :param hp_width: the width of the hp bar
-        :param hp_height: the height of the hp bar
-        """
-        self.hp = DeluxeHP(game, amount=hp_amount, x=hp_x, y=hp_y, width=hp_width, height=hp_height)
-        self.game = game
-        self.clock = 0
 
-    def tick(self):
-        self.clock += self.game.dt
-        self.hp.tick()
-
-    def draw(self):
-        pass
+# class HasHealth:
+#     def __init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height):
+#         """
+#         A parent class for every object that has health, for example: ships and enemies
+#         :param game: game
+#         :param hp_amount: the maximum hp amount
+#         :param hp_x: the x coordinate of the hp bar
+#         :param hp_y: the y coordinate of the hp bar
+#         :param hp_width: the width of the hp bar
+#         :param hp_height: the height of the hp bar
+#         """
+#         self.hp = DeluxeHP(game, amount=hp_amount, x=hp_x, y=hp_y, width=hp_width, height=hp_height)
+#         self.game = game
+#         self.clock = 0
+#
+#     def tick(self):
+#         self.clock += self.game.dt
+#         self.hp.tick()
+#
+#     def draw(self):
+#         pass
 
 class Moving(DynamicObject):
     def __init__(self, game, x, y, path, mass, max_speed, slip=0.98, scale=1.0):
