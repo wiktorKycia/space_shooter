@@ -287,7 +287,9 @@ class DynamicObject(MainObject):
             self.image = path
         else:
             self.image = pygame.image.load(path).convert_alpha()
-        self.image = pygame.transform.scale_by(self.image, scale)
+
+        if scale != 1.0:
+            self.image = pygame.transform.scale_by(self.image, scale)
 
         self.width = self.image.get_width()
         self.height = self.image.get_height()
