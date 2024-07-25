@@ -275,6 +275,9 @@ class DynamicObject(MainObject):
         :param x: int, float
         :param y: int, float
         :param path: str, pygame.Surface
+        :param mass: mass of the object
+        :param max_speed: maximum velocity, that this object can have
+        :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
         :param scale: float
         """
         super().__init__()
