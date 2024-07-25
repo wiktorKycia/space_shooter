@@ -320,11 +320,31 @@ class DynamicObject(MainObject):
     def tick(self):
         """
         Updates the hitbox's center
-        and updates the clock
+        and updates the clock,
+        multiplies the vel by slip and adds acc to vel,
+        then, limits the vel if it is above max_speed,
+        lastly, updates the position by vel and resets acc to 0
         :return:
         """
         self.hitbox.center = (self.pos.x, self.pos.y)
         self.clock += self.game.dt
+
+        # Physics
+        self.vel *= self.current_slip
+        self.vel += self.acc
+
+        # Limiting speed
+        if self.vel.x > self.max_speed:  # right
+            self.vel = Vector2(self.max_speed, self.vel.y)
+        elif self.vel.x < -self.max_speed:  # left
+            self.vel = Vector2(-self.max_speed, self.vel.y)
+        if self.vel.y > self.max_speed:  # up
+            self.vel = Vector2(self.vel.x, self.max_speed)
+        elif self.vel.y < -self.max_speed:  # down
+            self.vel = Vector2(self.vel.x, -self.max_speed)
+
+        self.pos += self.vel * self.game.dt
+        self.acc *= 0
 
     def draw(self):
         """
