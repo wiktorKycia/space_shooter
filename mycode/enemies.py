@@ -9,13 +9,13 @@ import os
 import random
 
 
-class BaseEnemy(ShootingDown):
+class BaseEnemy(Shooting):
     def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10, hp_relative=True,
                  slip=0.98, scale=1.0):
-        super().__init__(game, x, y, path, mass, max_speed, force, hp_amount, hp_width=hp_width, hp_height=hp_height,
+        super().__init__(game, x, y, path, mass, max_speed, -force, hp_amount, hp_width=hp_width, hp_height=hp_height,
                          hp_relative=hp_relative, slip=slip, scale=scale)
         self.move_clock = 0
-        self.guns = []
+        # self.guns = []
         self.is_shooting = True
 
     def tick(self):
@@ -72,7 +72,7 @@ class Enemy1(BaseEnemy):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 10), key=self.is_shooting)
+                KineticLight(game, self, Vector2(0, 10), key=self.is_shooting)
             ]
         )
 
@@ -89,7 +89,7 @@ class Enemy2(BaseEnemy):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 10), key=self.is_shooting)
+                KineticLight(game, self, Vector2(0, 10), key=self.is_shooting)
             ]
         )
 
@@ -106,8 +106,8 @@ class Enemy3(BaseEnemy):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(-22, 10), key=self.is_shooting),
-                LaserLight(game, self, Vector2(22, 10), key=self.is_shooting)
+                KineticLight(game, self, Vector2(-22, 10), key=self.is_shooting),
+                KineticLight(game, self, Vector2(22, 10), key=self.is_shooting)
             ]
         )
 
@@ -125,7 +125,7 @@ class Bouncer1(BaseEnemy):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, 0), key=self.is_shooting)
+                KineticLight(game, self, Vector2(0, 0), key=self.is_shooting)
             ]
         )
 

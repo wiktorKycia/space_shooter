@@ -54,13 +54,20 @@ class Clip:
                 # self.ammo_bar.increase_by(1)
         # self.ammo_bar.draw()
 
-class Gun:
-    def __init__(self, game, ship, translation, force, interval, key, max_ammo: int, reload_time: float,
-                 active_reload: bool):
+
+class Weapon:
+    def __init__(self, game, ship, weaponType: int, translation):
         self.game = game
         self.ship = ship
-        self.pos = ship.pos
+        self.weaponType = weaponType
         self.translation = translation
+
+
+class Gun(Weapon):
+    def __init__(self, game, ship, weaponType, translation, force, interval, key, max_ammo: int, reload_time: float,
+                 active_reload: bool):
+        super().__init__(game, ship, weaponType, translation)
+        self.pos = ship.pos
         self.interval = interval
         # self.key = key
 
@@ -103,9 +110,10 @@ class Gun:
             bullet.tick()
 
 class GunPrototype(Gun):
-    def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time,
+    def __init__(self, game, ship, weaponType, translation, force, interval, bul, clip_size, reload_time,
                  active_reload: bool = False, key: int = pygame.K_KP_0):
-        super().__init__(game, ship, translation, force, interval, key, clip_size, reload_time, active_reload)
+        super().__init__(game, ship, weaponType, translation, force, interval, key, clip_size, reload_time,
+                         active_reload)
         self.bul = bul
 
     def shot(self):
@@ -128,35 +136,38 @@ class GunPrototype(Gun):
 #             bar_width=bar_width, bar_height=bar_height, bar_x=bar_x, bar_y=bar_y
 #             )
 
-class LaserLight(GunPrototype):
+class KineticLight(GunPrototype):
     def __init__(self, game, ship, translation, key=pygame.K_KP_0):
         self.force = 3500
         super().__init__(
-            game, ship, translation, self.force,
+            game, ship,
+            weaponType=1,
+            translation=translation,
+            force=self.force,
             interval=0.1,
             bul=BulletSmallBlue,
             clip_size=50,
-            reload_time=3.0,
-            key=key
-        )
+            reload_time=3.0, key=key)
 
 
-class LaserMedium(GunPrototype):
+class KineticMedium(GunPrototype):
     def __init__(self, game, ship, translation, key=pygame.K_KP_0):
         self.force = 3500
         super().__init__(
-            game, ship, translation, self.force,
-            interval=0.4,
-            bul=BulletMediumYellow,
-            clip_size=10,
-            reload_time=5.0,
-            key=key
-        )
+            game, ship,
+            weaponType=2,
+            translation=translation,
+            force=self.force,
+            interval=0.15,
+            bul=BulletMediumBlue,
+            clip_size=50,
+            reload_time=2.0,
+            key=key)
 
 class ShotGun(Gun):
-    def __init__(self, game, ship, translation, force, interval, bul, angles, clip_size, reload,
+    def __init__(self, game, ship, weaponType, translation, force, interval, bul, angles, clip_size, reload,
                  active_reload: bool = False, key: int = pygame.K_KP_0):
-        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
+        super().__init__(game, ship, weaponType, translation, force, interval, key, clip_size, reload, active_reload)
         self.bul = bul
         self.angles = angles
 
@@ -168,9 +179,9 @@ class ShotGun(Gun):
             self.clip.shot()
 
 class Flamethrower(Gun):
-    def __init__(self, game, ship, translation, force, interval, particle, spread, clip_size, reload,
+    def __init__(self, game, ship, weaponType, translation, force, interval, particle, spread, clip_size, reload,
                  active_reload: bool = False, key: int = pygame.K_KP_0):
-        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
+        super().__init__(game, ship, weaponType, translation, force, interval, key, clip_size, reload, active_reload)
         self.particle = particle
         self.spread_angle = spread
 

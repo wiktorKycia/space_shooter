@@ -5,16 +5,16 @@ import os
 from mycode import *
 from mycode.other import *
 from mycode.cannons import *
-from mycode import ShootingUp
+from mycode import Shooting
 
 mixer.init()
 
 
-class PlayableShip(ShootingUp):
+class PlayableShip(Shooting):
     def __init__(self, game, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, slip=0.98, scale=1.0):
         size = game.screen.get_size()
         super().__init__(game, size[0]/2, size[1]/2, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, False, slip, scale)
-        self.guns = []
+        # self.guns = []
         self.level = 1
 
     def tick(self):
@@ -39,7 +39,7 @@ class PlayableShip(ShootingUp):
             self.current_slip = self.slip
 
         if force != [0, 0]:
-            self.add_force(force.clamp_magnitude(1500))
+            self.add_force(force.clamp_magnitude(self.force))
         else:
             self.add_force(force)
 
@@ -48,14 +48,15 @@ class PlayableShip(ShootingUp):
             for bullet in gun.bullets:
                 for enemy in self.game.menuHandler.currentMenu.enemies:
                     if bullet.check_collision(enemy):
+                        enemy.hp.get_damage(bullet.damage)
                         gun.bullets.remove(bullet)
                         # energy = (bullet.mass * bullet.vel * bullet.vel) / 2
-                        enemy.hp.get_damage(bullet.damage)
                         if enemy.hp.hp <= 0:
                             for gunE in enemy.guns:
                                 self.game.menuHandler.currentMenu.other_bullets.extend(gunE.bullets)
                             self.game.menuHandler.currentMenu.enemies.remove(enemy)
                             break
+                        break
 
 
         super().tick()
@@ -67,6 +68,13 @@ class PlayableShip(ShootingUp):
             for bullet in gun.bullets:
                 bullet.draw()
 
+
+class Slot:
+    def __init__(self, game, ship: PlayableShip, translation: Vector2, key: int):
+        self.game = game
+        self.ship = ship
+        self.translation = translation
+        self.key = key
 
 
 class Ship1(PlayableShip):
@@ -83,8 +91,8 @@ class Ship1(PlayableShip):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(20, -20), key=pygame.K_KP_1),
-                LaserLight(game, self, Vector2(-20, -20), key=pygame.K_KP_1)
+                KineticLight(game, self, Vector2(20, -20), key=pygame.K_KP_1),
+                KineticLight(game, self, Vector2(-20, -20), key=pygame.K_KP_1)
             ]
         )
 
@@ -102,7 +110,7 @@ class Ship2(PlayableShip):
         )
         self.guns.extend(
             [
-                LaserMedium(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                KineticMedium(game, self, Vector2(0, -20), key=pygame.K_KP_1)
             ]
         )
 
@@ -120,7 +128,7 @@ class Ship3(PlayableShip):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
             ]
         )
 
@@ -138,7 +146,7 @@ class Ship4(PlayableShip):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
             ]
         )
 
@@ -156,6 +164,6 @@ class Ship5(PlayableShip):
         )
         self.guns.extend(
             [
-                LaserLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
             ]
         )
