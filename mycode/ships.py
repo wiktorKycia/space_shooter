@@ -10,11 +10,11 @@ from mycode import ShootingUp
 mixer.init()
 
 
-class PlayableShip(ShootingUp):
+class PlayableShip(Shooting):
     def __init__(self, game, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, slip=0.98, scale=1.0):
         size = game.screen.get_size()
         super().__init__(game, size[0]/2, size[1]/2, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, False, slip, scale)
-        self.guns = []
+        # self.guns = []
         self.level = 1
 
     def tick(self):
