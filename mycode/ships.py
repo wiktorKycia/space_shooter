@@ -39,7 +39,7 @@ class PlayableShip(Shooting):
             self.current_slip = self.slip
 
         if force != [0, 0]:
-            self.add_force(force.clamp_magnitude(1500))
+            self.add_force(force.clamp_magnitude(self.force))
         else:
             self.add_force(force)
 
@@ -48,14 +48,15 @@ class PlayableShip(Shooting):
             for bullet in gun.bullets:
                 for enemy in self.game.menuHandler.currentMenu.enemies:
                     if bullet.check_collision(enemy):
+                        enemy.hp.get_damage(bullet.damage)
                         gun.bullets.remove(bullet)
                         # energy = (bullet.mass * bullet.vel * bullet.vel) / 2
-                        enemy.hp.get_damage(bullet.damage)
                         if enemy.hp.hp <= 0:
                             for gunE in enemy.guns:
                                 self.game.menuHandler.currentMenu.other_bullets.extend(gunE.bullets)
                             self.game.menuHandler.currentMenu.enemies.remove(enemy)
                             break
+                        break
 
 
         super().tick()
