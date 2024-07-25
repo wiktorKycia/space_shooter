@@ -5,7 +5,7 @@ import os
 from mycode import *
 from mycode.other import *
 from mycode.cannons import *
-from mycode import ShootingUp
+from mycode import Shooting
 
 mixer.init()
 
