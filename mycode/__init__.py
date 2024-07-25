@@ -291,12 +291,16 @@ class DynamicObject(MainObject):
         self.hitbox = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
 
+        self.clock = 0
+
     def tick(self):
         """
         Updates the hitbox's center
+        and updates the clock
         :return:
         """
         self.hitbox.center = (self.pos.x, self.pos.y)
+        self.clock += self.game.dt
 
     def draw(self):
         """
