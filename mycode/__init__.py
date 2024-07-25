@@ -263,10 +263,11 @@ class TextButton(StaticObject):
 
 
 class DynamicObject(MainObject):
-    def __init__(self, game, x, y, path, scale):
+    def __init__(self, game, x, y, path, mass, max_speed, slip=0.98, scale=1.0):
         """
-        This is a parent class for every dynamic object in the game,
-        it has image, hitbox and mask.\n
+        A parent class for every moving object,
+        it has physics implemented such as velocity and acceleration
+        it also has image, hitbox and mask.\n
         As far as 'path' parameter is concerned:
          - It can be string, then it represents the path to the image, \n
          - It also can be pygame.Surface type - in this case path it's an image itself
