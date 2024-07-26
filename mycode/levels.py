@@ -1,6 +1,7 @@
 import pygame.time
 from mycode.enemies import *
 from mycode.UI import *
+import random
 
 class MiniLevel:
     def __init__(self, game):
@@ -539,6 +540,45 @@ class Level12(Level):
                 case 2:
                     self.block.add_single(Bouncer1(self.game, 300, 200))
                     self.block.add_single(Bouncer1(self.game, 200, 300))
+                case _:
+                    self.game.player.add_coins(10000)
+                    self.game.menuHandler.changeMenu(GameMenu)
+
+
+class Level13(Level):
+
+    def __init__(self, game):
+        super().__init__(game)
+        self.clock = pygame.time.Clock()
+        self.current_time = 0
+        self.point_time = 0
+        self.wave_number = 0
+        self.flag = True
+
+    def tick(self):
+        self.current_time = pygame.time.get_ticks()
+
+        if self.check_if_all_died() and self.flag:
+            self.flag = False
+            self.point_time = pygame.time.get_ticks()
+            self.wave_number += 1
+        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1400:
+            self.flag = True
+            match self.wave_number:
+                case 0:
+                    pass
+                case 1:
+                    self.block.add_single(Bouncer2(self.game, random.randint(0, 300), random.randint(0, 300)))
+                    self.block.add_single(Bouncer2(self.game, random.randint(400, 750), random.randint(0, 300)))
+                case 2:
+                    self.block.add_single(Bouncer1(self.game, 100, 100))
+                    self.block.add_single(Bouncer2(self.game, random.randint(0, 750), random.randint(0, 350)))
+                    self.block.add_single(Bouncer1(self.game, 650, 100))
+                case 3:
+                    self.block.add_single(Bouncer1(self.game, random.randint(0, 750), random.randint(0, 350)))
+                    self.block.add_single(Bouncer1(self.game, random.randint(0, 750), random.randint(0, 350)))
+                    self.block.add_single(Bouncer1(self.game, random.randint(0, 750), random.randint(0, 350)))
+                    self.block.add_single(Bouncer1(self.game, random.randint(0, 750), random.randint(0, 350)))
                 case _:
                     self.game.player.add_coins(10000)
                     self.game.menuHandler.changeMenu(GameMenu)
