@@ -21,14 +21,15 @@ class BaseEnemy(Shooting):
 
     def tick(self):
         super().tick()
-        for gun in self.guns:
-            gun.tick()
-            for bullet in gun.bullets:
-                if bullet.check_collision(self.game.player.current_ship):
-                    # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                    self.game.player.current_ship.hp.get_damage(bullet.damage)
-                    gun.bullets.remove(bullet)
-                    del bullet
+        if self.is_shooting:
+            for gun in self.guns:
+                gun.tick()
+                for bullet in gun.bullets:
+                    if bullet.check_collision(self.game.player.current_ship):
+                        # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+                        self.game.player.current_ship.hp.get_damage(bullet.damage)
+                        gun.bullets.remove(bullet)
+                        del bullet
 
     def draw(self):
         super().draw()
@@ -177,6 +178,8 @@ class Bouncer2(BaseEnemy):
         self.destination_y = random.randint(0, 350)
         self.dest_clock = 0
 
+        self.behavior = Behavior(self.game, self)
+
     def reset_destination_points(self):
         self.destination_x = random.randint(0, 750)
         self.destination_y = random.randint(0, 350)
@@ -202,9 +205,11 @@ class Bouncer2(BaseEnemy):
         self.hp.x = self.pos.x
         self.hp.y = self.pos.y - 50
         self.move_clock += self.game.dt
-        self.dest_clock += self.game.dt
-        if self.dest_clock > 5.0:
-            self.reset_destination_points()
+        # self.dest_clock += self.game.dt
+        # if self.dest_clock > 5.0:
+        #     self.reset_destination_points()
+        self.behavior.tick()
+
         if self.move_clock > 0.5:
             self.move_clock = 0
             self.do_move(self.destination_x, self.destination_y)
