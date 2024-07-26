@@ -5,6 +5,7 @@ from mycode import *
 from mycode.other import *
 from mycode.bullets import *
 from mycode.cannons import *
+from mycode.Behaviors import *
 import os
 import random
 
