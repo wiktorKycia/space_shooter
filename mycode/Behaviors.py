@@ -22,13 +22,7 @@ class Behavior:
             else:
                 self.enemy.is_shooting = False
                 if abs(self.game.player.current_ship.pos.x - self.enemy.pos.x) < 30:
-                    if self.enemy.pos.x > 350:
-                        angle = random.randint(1, 180)
+                    if self.game.player.current_ship.pos.x > 350:
+                        self.enemy.destination_x = random.randint(0, 200)
                     else:
-                        angle = random.randint(181, 359)
-                    if angle > 180:
-                        angle = -angle
-                    if angle < -180:
-                        angle = -angle
-                    self.enemy.add_force(Vector2(0, self.enemy.force))
-                    self.enemy.acc.rotate_ip(angle)
+                        self.enemy.destination_x = random.randint(550, 750)
