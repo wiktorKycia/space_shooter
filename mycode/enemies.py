@@ -5,6 +5,7 @@ from mycode import *
 from mycode.other import *
 from mycode.bullets import *
 from mycode.cannons import *
+from mycode.Behaviors import *
 import os
 import random
 
@@ -176,6 +177,8 @@ class Bouncer2(BaseEnemy):
         self.destination_y = random.randint(0, 350)
         self.dest_clock = 0
 
+        self.behavior = Behavior(self.game, self)
+
     def reset_destination_points(self):
         self.destination_x = random.randint(0, 750)
         self.destination_y = random.randint(0, 350)
@@ -201,9 +204,11 @@ class Bouncer2(BaseEnemy):
         self.hp.x = self.pos.x
         self.hp.y = self.pos.y - 50
         self.move_clock += self.game.dt
-        self.dest_clock += self.game.dt
-        if self.dest_clock > 5.0:
-            self.reset_destination_points()
+        # self.dest_clock += self.game.dt
+        # if self.dest_clock > 5.0:
+        #     self.reset_destination_points()
+        self.behavior.tick()
+
         if self.move_clock > 0.5:
             self.move_clock = 0
             self.do_move(self.destination_x, self.destination_y)
