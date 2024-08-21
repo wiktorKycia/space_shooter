@@ -104,6 +104,7 @@ class Gun(Weapon):
         if self.is_player:
             self._shootCheck((pressed[pygame.K_KP_0] or pressed[self.key]))
         else:
+            self.key = self.ship.is_shooting
             self._shootCheck(self.key)
 
         for bullet in self.bullets:
