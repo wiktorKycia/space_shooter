@@ -2,6 +2,7 @@ import pygame
 import math
 from mycode.bullets import *
 # from mycode.other import AmmoBar
+import random
 
 class Clip:
     def __init__(self, game, max_ammo: int, reload_time: float, active_reload: bool = False):
@@ -174,8 +175,9 @@ class ShotGun(Gun):
         self.bullets_at_once = intensity
 
     def shot(self):
-        for angle in self.angles:
-            bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force, angle)
+        for _ in range(self.bullets_at_once):
+            bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force,
+                              random.uniform(self.spread[0], self.spread[1]))
             self.bullets.append(bullet)
             bullet.sound.play(0, 800)
             self.clip.shot()
