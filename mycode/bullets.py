@@ -5,19 +5,11 @@ from mycode import NoShooting
 mixer.init()
 
 class ImageBullet(NoShooting):
-    def __init__(self, game, x, y, path, mass, force, sound:str="", scale=1.0):
+    def __init__(self, game, x, y, path, mass, force, angle, sound: str = "", scale=1.0):
         self.image = pygame.image.load(path).convert_alpha()
         self.image = pygame.transform.rotate(self.image, 90)
         super().__init__(game, x, y, self.image, mass, scale)
-        self.add_force(Vector2(0, -force))
-
-        # reinitialize hitbox
-        # self.surf = self.mask.to_surface().convert_alpha()
-        #
-        # self.width = self.surf.get_width()
-        # self.height = self.surf.get_height()
-        #
-        # self.hitbox = self.surf.get_rect()
+        self.add_force(Vector2(0, -force).rotate(angle))
 
         if sound != "":
             self.sound = mixer.Sound(sound)
@@ -37,24 +29,26 @@ class ImageBullet(NoShooting):
         # pygame.draw.rect(self.game.screen, (255,0,0), self.hitbox, 1)
 
 class BulletSmallBlue(ImageBullet):
-    def __init__(self, game, x, y, force):
+    def __init__(self, game, x, y, force, angle=0):
         super().__init__(
             game, x, y,
             path="./images/Laser Sprites/01.png",
             mass=2,
             force=force,
+            angle=angle,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.5)
         self.damage = 5
 
 
 class BulletMediumBlue(ImageBullet):
-    def __init__(self, game, x, y, force):
+    def __init__(self, game, x, y, force, angle=0):
         super().__init__(
             game, x, y,
             path="./images/Laser Sprites/11.png",
             mass=2,
             force=force,
+            angle=angle,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.5
         )
@@ -62,12 +56,13 @@ class BulletMediumBlue(ImageBullet):
 
 
 class ShotgunBulletFire(ImageBullet):
-    def __init__(self, game, x, y, force):
+    def __init__(self, game, x, y, force, angle=0):
         super().__init__(
             game, x, y,
             path="./images/shotgun_bullet.jpg",
             mass=1,
             force=force,
+            angle=angle,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.1
         )
