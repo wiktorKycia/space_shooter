@@ -182,6 +182,25 @@ class ShotGun(Gun):
             bullet.sound.play(0, 800)
             self.clip.shot()
 
+
+class ShotGun1(ShotGun):
+    def __init__(self, game, ship, translation, key=pygame.K_KP_0):
+        self.force = 5000
+        super().__init__(
+            game, ship,
+            weaponType=1,
+            translation=translation,
+            force=self.force,
+            interval=0.3,
+            bul=ShotgunBulletFire,
+            spread=20,
+            intensity=4,
+            clip_size=80,
+            reload=0.5,
+            active_reload=True
+        )
+
+
 class Flamethrower(Gun):
     def __init__(self, game, ship, weaponType, translation, force, interval, particle, spread, clip_size, reload,
                  active_reload: bool = False, key: int = pygame.K_KP_0):
