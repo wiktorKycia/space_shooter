@@ -66,6 +66,7 @@ class ShotgunBulletFire(ImageBullet):
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.1
         )
+        self.damage = 1
 
 class Particle:
     def __init__(self, game, x, y, radius, mass, force):
