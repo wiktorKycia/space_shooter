@@ -59,7 +59,7 @@ class ShotgunBulletFire(ImageBullet):
     def __init__(self, game, x, y, force, angle=0):
         super().__init__(
             game, x, y,
-            path="./images/shotgun_bullet.jpg",
+            path="./images/shotgun_bullet.png",
             mass=1,
             force=force,
             angle=angle,
