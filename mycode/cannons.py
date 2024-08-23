@@ -166,11 +166,12 @@ class KineticMedium(GunPrototype):
             key=key)
 
 class ShotGun(Gun):
-    def __init__(self, game, ship, weaponType, translation, force, interval, bul, angles, clip_size, reload,
+    def __init__(self, game, ship, weaponType, translation, force, interval, bul, spread, intensity, clip_size, reload,
                  active_reload: bool = False, key: int = pygame.K_KP_0):
         super().__init__(game, ship, weaponType, translation, force, interval, key, clip_size, reload, active_reload)
         self.bul = bul
-        self.angles = angles
+        self.spread = [-spread / 2, spread / 2]
+        self.bullets_at_once = intensity
 
     def shot(self):
         for angle in self.angles:
