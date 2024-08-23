@@ -60,6 +60,18 @@ class BulletMediumBlue(ImageBullet):
         )
         self.damage = 10
 
+
+class ShotgunBulletFire(ImageBullet):
+    def __init__(self, game, x, y, force):
+        super().__init__(
+            game, x, y,
+            path="./images/shotgun_bullet.jpg",
+            mass=1,
+            force=force,
+            sound="./sounds/shot_sounds/laser-light-gun.wav",
+            scale=0.1
+        )
+
 class Particle:
     def __init__(self, game, x, y, radius, mass, force):
         self.game = game
