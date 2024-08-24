@@ -85,11 +85,10 @@ class ShotgunBulletFire(ImageBullet):
         )
         self.damage = 1
 
-class Particle:
-    def __init__(self, game, x, y, radius, mass, force):
+
+class Particle(NoShooting):
+    def __init__(self, game, x, y, radius, mass, force, angle):
         self.game = game
-        self.x = x
-        self.y = y
         self.radius = radius
 
         self.surf = pygame.Surface((self.radius*2, self.radius*2), pygame.SRCALPHA)
@@ -97,30 +96,32 @@ class Particle:
         self.mass = mass
         self.force = force
 
+
         self.alpha = 100
-        self.clock = 0
         self.green = 0
+        super().__init__(game, x, y, self.surf, mass)
+        self.add_force(Vector2(0, -force).rotate(angle))
 
     def check_collision(self, ship):
         return False
 
     def tick(self):
-        self.clock += self.game.dt
         if self.clock > 0.15:
             self.clock -= 0.15
             if self.alpha > 5:
                 self.alpha -= 1
-            if self.green >= 150:
+            if self.green <= 250:
                 self.green += 1
             self.radius += 1
             if self.alpha == 5:
-                del self
+                pass
+        self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
+        super().tick()
 
     def draw(self):
-        self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
         color = (255, self.green, 0, self.alpha)
         pygame.draw.circle(self.surf, color, (self.surf.get_width() // 2, self.surf.get_height() // 2), self.radius)
-        self.game.screen.blit(self.surf, self.surf.get_rect(center=(self.x, self.y)))
+        self.game.screen.blit(self.surf, self.surf.get_rect(center=(self.pos.x, self.pos.y)))
 
 #
 #

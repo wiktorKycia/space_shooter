@@ -211,9 +211,11 @@ class Flamethrower(Gun):
         self.intensity = intensity
 
     def shot(self):
-        par = self.particle(self.game, self.pos.x, self.pos.y, 2, 20,self.force)
-        self.bullets.append(par)
-        self.clip.shot()
+        for _ in range(self.intensity):
+            par = self.particle(self.game, self.pos.x, self.pos.y, 2, 1, self.force,
+                                random.uniform(self.spread[0], self.spread[1]))
+            self.bullets.append(par)
+            self.clip.shot()
 
 
 class Flamethrower1(Flamethrower):
@@ -227,7 +229,7 @@ class Flamethrower1(Flamethrower):
             interval=0.2,
             particle=Particle,
             spread=10,
-            intensity=10,
+            intensity=1,
             clip_size=1000,
             reload=0.1,
             active_reload=False
