@@ -96,27 +96,32 @@ class Particle(NoShooting):
         self.mass = mass
         self.force = force
 
-
         self.alpha = 100
         self.green = 0
         super().__init__(game, x, y, self.surf, mass)
         self.add_force(Vector2(0, -force).rotate(angle))
 
+        self.damage = 1
+
     def check_collision(self, ship):
-        return False
+        return self.hitbox.colliderect(ship.hitbox)
 
     def tick(self):
-        if self.clock > 0.15:
-            self.clock -= 0.15
+        if self.clock > 0.05:
+            self.clock -= 0.05
             if self.alpha > 5:
-                self.alpha -= 1
-            if self.green <= 250:
-                self.green += 1
-            self.radius += 1
-            if self.alpha == 5:
-                pass
-        self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
+                self.alpha -= 1 * self.game.dt
+            if self.green < 230:
+                self.green += 200 * self.game.dt
+                if self.green > 230: self.green = 230
+            self.radius += 30 * self.game.dt
+            self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
+            self.hitbox = self.surf.get_rect()
+            self.damage = self.alpha / 100
         super().tick()
+        # if self.alpha < 10 or self.pos.y < 0:
+        #     print("self delete")
+        #     del self
 
     def draw(self):
         color = (255, self.green, 0, self.alpha)

@@ -217,6 +217,14 @@ class Flamethrower(Gun):
             self.bullets.append(par)
             self.clip.shot()
 
+    def tick(self):
+        super().tick()
+        # for bullet in self.bullets:
+        #     if bullet.pos.y < 0 or bullet.alpha < 10:
+        #         self.bullets.remove(bullet)
+        #         del bullet
+        #         continue
+
 
 class Flamethrower1(Flamethrower):
     def __init__(self, game, ship, translation, key=pygame.K_KP_0):
@@ -226,11 +234,11 @@ class Flamethrower1(Flamethrower):
             weaponType=1,
             translation=translation,
             force=self.force,
-            interval=0.2,
+            interval=0.05,
             particle=Particle,
-            spread=10,
+            spread=5,
             intensity=1,
-            clip_size=1000,
-            reload=0.1,
+            clip_size=100,
+            reload=2.0,
             active_reload=False
         )

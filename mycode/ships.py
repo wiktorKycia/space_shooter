@@ -46,6 +46,9 @@ class PlayableShip(Shooting):
         for gun in self.guns:
             gun.tick()
             for bullet in gun.bullets:
+                if bullet.pos.y < 0:
+                    gun.bullets.remove(bullet)
+                    continue
                 for enemy in self.game.menuHandler.currentMenu.enemies:
                     if bullet.check_collision(enemy):
                         enemy.hp.get_damage(bullet.damage)
