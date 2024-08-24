@@ -202,11 +202,13 @@ class ShotGun1(ShotGun):
 
 
 class Flamethrower(Gun):
-    def __init__(self, game, ship, weaponType, translation, force, interval, particle, spread, clip_size, reload,
+    def __init__(self, game, ship, weaponType, translation, force, interval, particle, spread, intensity, clip_size,
+                 reload,
                  active_reload: bool = False, key: int = pygame.K_KP_0):
         super().__init__(game, ship, weaponType, translation, force, interval, key, clip_size, reload, active_reload)
         self.particle = particle
-        self.spread_angle = spread
+        self.spread = [-spread / 2, spread / 2]
+        self.intensity = intensity
 
     def shot(self):
         par = self.particle(self.game, self.pos.x, self.pos.y, 2, 20,self.force)
