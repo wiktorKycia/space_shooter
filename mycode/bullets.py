@@ -15,12 +15,17 @@ class ImageBullet(NoShooting):
             self.sound = mixer.Sound(sound)
             self.sound.set_volume(0.1)
 
-        self.line = ((0, 0), (0, 0))
+        self.line = None
 
     def check_collision(self, ship):
-        if (ship.mask.overlap(self.mask, (
-        (self.pos.x - self.width / 2) - ship.hitbox.x, (self.pos.y - self.height / 2) - ship.hitbox.y))
-                or ship.hitbox.clipline(self.line)):
+        if self.line is not None:
+            if (ship.mask.overlap(self.mask, (
+                    (self.pos.x - self.width / 2) - ship.hitbox.x, (self.pos.y - self.height / 2) - ship.hitbox.y))
+                    or ship.hitbox.clipline(self.line)):
+                return True
+            return False
+        elif ship.mask.overlap(self.mask, (
+                (self.pos.x - self.width / 2) - ship.hitbox.x, (self.pos.y - self.height / 2) - ship.hitbox.y)):
             return True
         return False
 
@@ -29,8 +34,9 @@ class ImageBullet(NoShooting):
         # making it too far jump per one frame
 
         # drawing a line
-        new_pos: Vector2 = self.pos + (((self.vel * self.current_slip) + self.acc) * self.game.dt)
-        self.line = ((self.pos.x, self.pos.y), (new_pos.x, new_pos.y))
+        if self.vel.y * self.game.dt > self.height and self.vel.x * self.game.dt > self.width:
+            new_pos: Vector2 = self.pos + (((self.vel * self.current_slip) + self.acc) * self.game.dt)
+            self.line = ((self.pos.x, self.pos.y), (new_pos.x, new_pos.y))
 
         super().tick()
 
