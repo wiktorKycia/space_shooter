@@ -50,7 +50,7 @@ class Clip:
         else:
             self.clock += self.game.dt
             if self.clock > self.reload_time and self.current_ammo < self.max_ammo:
-                self.current_ammo += 1
+                self.current_ammo += 100
                 self.clock = 0
                 # self.ammo_bar.increase_by(1)
         # self.ammo_bar.draw()
@@ -191,12 +191,12 @@ class ShotGun1(ShotGun):
             weaponType=1,
             translation=translation,
             force=self.force,
-            interval=0.3,
+            interval=0.2,
             bul=ShotgunBulletFire,
-            spread=20,
-            intensity=4,
-            clip_size=80,
-            reload=0.5,
+            spread=10,
+            intensity=10,
+            clip_size=1000,
+            reload=0.1,
             active_reload=True
         )
 
