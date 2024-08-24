@@ -34,7 +34,7 @@ class ImageBullet(NoShooting):
         # making it too far jump per one frame
 
         # drawing a line
-        if self.vel.y * self.game.dt > self.height and self.vel.x * self.game.dt > self.width:
+        if self.vel.y * self.game.dt > 2 * self.height or self.vel.x * self.game.dt > 2 * self.width:
             new_pos: Vector2 = self.pos + (((self.vel * self.current_slip) + self.acc) * self.game.dt)
             self.line = ((self.pos.x, self.pos.y), (new_pos.x, new_pos.y))
 
