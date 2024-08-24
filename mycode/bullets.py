@@ -15,12 +15,23 @@ class ImageBullet(NoShooting):
             self.sound = mixer.Sound(sound)
             self.sound.set_volume(0.1)
 
+        self.line = ((0, 0), (0, 0))
+
     def check_collision(self, ship):
-        if ship.mask.overlap(self.mask, ((self.pos.x - self.width/2) - ship.hitbox.x, (self.pos.y - self.height/2) - ship.hitbox.y)):
+        if (ship.mask.overlap(self.mask, (
+        (self.pos.x - self.width / 2) - ship.hitbox.x, (self.pos.y - self.height / 2) - ship.hitbox.y))
+                or ship.hitbox.clipline(self.line)):
             return True
         return False
 
     def tick(self):
+        # Checking if the target of a bullet is in between of last bullet position and new bullet position
+        # making it too far jump per one frame
+
+        # drawing a line
+        new_pos: Vector2 = self.pos + (((self.vel * self.current_slip) + self.acc) * self.game.dt)
+        self.line = ((self.pos.x, self.pos.y), (new_pos.x, new_pos.y))
+
         super().tick()
 
     def draw(self):
