@@ -12,6 +12,7 @@ from mycode.other import *
 # from mycode.two_players import *
 # from mycode.UI import *
 from mycode.general import *
+import math
 
 class MainObject(object):
     """
@@ -544,5 +545,4 @@ class Shooting(DynamicObject):
 
 class NoShooting(DynamicObject):
     def __init__(self, game, x, y, path, mass, scale=1.0):
-        super().__init__(game, x, y, path, mass, 10000, 0.9995, scale)
-
+        super().__init__(game, x, y, path, mass, math.inf, 0.9995, scale)

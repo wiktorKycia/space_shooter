@@ -5,30 +5,39 @@ from mycode import NoShooting
 mixer.init()
 
 class ImageBullet(NoShooting):
-    def __init__(self, game, x, y, path, mass, force, sound:str="", scale=1.0):
+    def __init__(self, game, x, y, path, mass, force, angle, sound: str = "", scale=1.0):
         self.image = pygame.image.load(path).convert_alpha()
         self.image = pygame.transform.rotate(self.image, 90)
         super().__init__(game, x, y, self.image, mass, scale)
-        self.add_force(Vector2(0, -force))
-
-        # reinitialize hitbox
-        # self.surf = self.mask.to_surface().convert_alpha()
-        #
-        # self.width = self.surf.get_width()
-        # self.height = self.surf.get_height()
-        #
-        # self.hitbox = self.surf.get_rect()
+        self.add_force(Vector2(0, -force).rotate(angle))
 
         if sound != "":
             self.sound = mixer.Sound(sound)
             self.sound.set_volume(0.1)
 
+        self.line = None
+
     def check_collision(self, ship):
-        if ship.mask.overlap(self.mask, ((self.pos.x - self.width/2) - ship.hitbox.x, (self.pos.y - self.height/2) - ship.hitbox.y)):
+        if self.line is not None:
+            if (ship.mask.overlap(self.mask, (
+                    (self.pos.x - self.width / 2) - ship.hitbox.x, (self.pos.y - self.height / 2) - ship.hitbox.y))
+                    or ship.hitbox.clipline(self.line)):
+                return True
+            return False
+        elif ship.mask.overlap(self.mask, (
+                (self.pos.x - self.width / 2) - ship.hitbox.x, (self.pos.y - self.height / 2) - ship.hitbox.y)):
             return True
         return False
 
     def tick(self):
+        # Checking if the target of a bullet is in between of last bullet position and new bullet position
+        # making it too far jump per one frame
+
+        # drawing a line
+        # if self.vel.y * self.game.dt > self.height or self.vel.x * self.game.dt > self.width:
+        new_pos: Vector2 = self.pos + (((self.vel * self.current_slip) + self.acc) * self.game.dt)
+        self.line = ((self.pos.x, self.pos.y), (new_pos.x, new_pos.y))
+
         super().tick()
 
     def draw(self):
@@ -37,28 +46,44 @@ class ImageBullet(NoShooting):
         # pygame.draw.rect(self.game.screen, (255,0,0), self.hitbox, 1)
 
 class BulletSmallBlue(ImageBullet):
-    def __init__(self, game, x, y, force):
+    def __init__(self, game, x, y, force, angle=0):
         super().__init__(
             game, x, y,
             path="./images/Laser Sprites/01.png",
             mass=2,
             force=force,
+            angle=angle,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.5)
         self.damage = 5
 
 
 class BulletMediumBlue(ImageBullet):
-    def __init__(self, game, x, y, force):
+    def __init__(self, game, x, y, force, angle=0):
         super().__init__(
             game, x, y,
             path="./images/Laser Sprites/11.png",
             mass=2,
             force=force,
+            angle=angle,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.5
         )
         self.damage = 10
+
+
+class ShotgunBulletFire(ImageBullet):
+    def __init__(self, game, x, y, force, angle=0):
+        super().__init__(
+            game, x, y,
+            path="./images/shotgun_bullet.png",
+            mass=1,
+            force=force,
+            angle=angle,
+            sound="./sounds/shot_sounds/laser-light-gun.wav",
+            scale=0.1
+        )
+        self.damage = 1
 
 class Particle:
     def __init__(self, game, x, y, radius, mass, force):

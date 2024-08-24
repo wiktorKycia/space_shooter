@@ -2,6 +2,7 @@ import pygame
 import math
 from mycode.bullets import *
 # from mycode.other import AmmoBar
+import random
 
 class Clip:
     def __init__(self, game, max_ammo: int, reload_time: float, active_reload: bool = False):
@@ -49,7 +50,7 @@ class Clip:
         else:
             self.clock += self.game.dt
             if self.clock > self.reload_time and self.current_ammo < self.max_ammo:
-                self.current_ammo += 1
+                self.current_ammo += 100
                 self.clock = 0
                 # self.ammo_bar.increase_by(1)
         # self.ammo_bar.draw()
@@ -166,18 +167,39 @@ class KineticMedium(GunPrototype):
             key=key)
 
 class ShotGun(Gun):
-    def __init__(self, game, ship, weaponType, translation, force, interval, bul, angles, clip_size, reload,
+    def __init__(self, game, ship, weaponType, translation, force, interval, bul, spread, intensity, clip_size, reload,
                  active_reload: bool = False, key: int = pygame.K_KP_0):
         super().__init__(game, ship, weaponType, translation, force, interval, key, clip_size, reload, active_reload)
         self.bul = bul
-        self.angles = angles
+        self.spread = [-spread / 2, spread / 2]
+        self.bullets_at_once = intensity
 
     def shot(self):
-        for angle in self.angles:
-            bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force, angle)
+        for _ in range(self.bullets_at_once):
+            bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force,
+                              random.uniform(self.spread[0], self.spread[1]))
             self.bullets.append(bullet)
             bullet.sound.play(0, 800)
             self.clip.shot()
+
+
+class ShotGun1(ShotGun):
+    def __init__(self, game, ship, translation, key=pygame.K_KP_0):
+        self.force = 5000
+        super().__init__(
+            game, ship,
+            weaponType=1,
+            translation=translation,
+            force=self.force,
+            interval=0.2,
+            bul=ShotgunBulletFire,
+            spread=10,
+            intensity=10,
+            clip_size=1000,
+            reload=0.1,
+            active_reload=True
+        )
+
 
 class Flamethrower(Gun):
     def __init__(self, game, ship, weaponType, translation, force, interval, particle, spread, clip_size, reload,
