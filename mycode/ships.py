@@ -129,7 +129,9 @@ class Ship3(PlayableShip):
         self.guns.extend(
             [
                 # KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
-                ShotGun1(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                # ShotGun1(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                Flamethrower1(game, self, Vector2(-10, -20), key=pygame.K_KP_0),
+                Flamethrower1(game, self, Vector2(10, -20), key=pygame.K_KP_0)
             ]
         )
 

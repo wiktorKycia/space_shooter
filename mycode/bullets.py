@@ -101,6 +101,9 @@ class Particle:
         self.clock = 0
         self.green = 0
 
+    def check_collision(self, ship):
+        return False
+
     def tick(self):
         self.clock += self.game.dt
         if self.clock > 0.15:

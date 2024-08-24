@@ -214,3 +214,21 @@ class Flamethrower(Gun):
         par = self.particle(self.game, self.pos.x, self.pos.y, 2, 20,self.force)
         self.bullets.append(par)
         self.clip.shot()
+
+
+class Flamethrower1(Flamethrower):
+    def __init__(self, game, ship, translation, key=pygame.K_KP_0):
+        self.force = 100
+        super().__init__(
+            game, ship,
+            weaponType=1,
+            translation=translation,
+            force=self.force,
+            interval=0.2,
+            particle=Particle,
+            spread=10,
+            intensity=10,
+            clip_size=1000,
+            reload=0.1,
+            active_reload=False
+        )
