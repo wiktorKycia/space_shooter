@@ -246,7 +246,7 @@ class Flamethrower1(Flamethrower):
 
 class Laser(Gun):
     def __init__(self, game, ship, weaponType, translation, force, interval, laser, clip_size, reload,
-                 active_reload: bool = True, key: int = pygame.K_KP_0):
+                 active_reload: bool = False, key: int = pygame.K_KP_0):
         super().__init__(game, ship, weaponType, translation, force, interval, key, clip_size, reload, active_reload)
         self.laser = laser
 
@@ -255,3 +255,17 @@ class Laser(Gun):
             laser = self.laser(self.game, self, self.pos.x, self.pos.y)
             self.bullets.append(laser)
             self.clip.shot()
+
+
+class Laser1(Laser):
+    def __init__(self, game, ship, translation, key=pygame.K_KP_0):
+        super().__init__(
+            game, ship,
+            weaponType=1,
+            translation=translation,
+            force=0,
+            interval=0.01,
+            laser=LaserL,
+            clip_size=100,
+            reload=0.5
+        )
