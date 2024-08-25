@@ -242,3 +242,13 @@ class Flamethrower1(Flamethrower):
             reload=2.0,
             active_reload=False
         )
+
+
+class Laser(Gun):
+    def __init__(self, game, ship, weaponType, translation, force, interval, laser, clip_size, reload,
+                 active_reload: bool = True, key: int = pygame.K_KP_0):
+        super().__init__(game, ship, weaponType, translation, force, interval, key, clip_size, reload, active_reload)
+        self.laser = laser
+
+    def shot(self):
+        laser = self.laser(self.game, self.ship, self.pos.x, self.pos.y)
