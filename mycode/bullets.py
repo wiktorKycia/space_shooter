@@ -87,7 +87,7 @@ class ShotgunBulletFire(ImageBullet):
 
 
 class Particle(NoShooting):
-    def __init__(self, game, x, y, radius, mass, force, angle):
+    def __init__(self, game, x, y, radius, mass, force, angle, damage=1):
         self.game = game
         self.radius = radius
 
@@ -101,7 +101,8 @@ class Particle(NoShooting):
         super().__init__(game, x, y, self.surf, mass)
         self.add_force(Vector2(0, -force).rotate(angle))
 
-        self.damage = 1
+        self.base_damage = damage
+        self.damage = self.base_damage
 
     def check_collision(self, ship):
         return self.hitbox.colliderect(ship.hitbox)
@@ -117,7 +118,7 @@ class Particle(NoShooting):
             self.radius += 30 * self.game.dt
             self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
             self.hitbox = self.surf.get_rect()
-            self.damage = self.alpha / 100
+            self.damage = self.alpha / 100 * self.base_damage
         super().tick()
         # if self.alpha < 10 or self.pos.y < 0:
         #     print("self delete")
