@@ -251,4 +251,4 @@ class Laser(Gun):
         self.laser = laser
 
     def shot(self):
-        laser = self.laser(self.game, self.ship, self.pos.x, self.pos.y)
+        laser = self.laser(self.game, self, self.pos.x, self.pos.y)

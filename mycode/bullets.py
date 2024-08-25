@@ -129,6 +129,13 @@ class Particle(NoShooting):
         pygame.draw.circle(self.surf, color, (self.surf.get_width() // 2, self.surf.get_height() // 2), self.radius)
         self.game.screen.blit(self.surf, self.surf.get_rect(center=(self.pos.x, self.pos.y)))
 
+
+class LaserL(NoShooting):
+    def __init__(self, game, laser, x, y):
+        self.laser = laser
+        super().__init__(game, x, y, pygame.Surface((0, 0)), 0)
+
+
 #
 #
 # class Bullet(object):
