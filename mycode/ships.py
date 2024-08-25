@@ -27,7 +27,7 @@ class PlayableShip(Shooting):
                 abs(math.pow(enemy.pos.x, 2) - self.pos.x) + abs(math.pow(enemy.pos.y, 2) - self.pos.y))
             if e is None or distance < d:
                 e = enemy
-        return e
+        return e.pos.x, e.pos.y
 
     def tick(self):
         # Input
