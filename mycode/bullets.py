@@ -129,6 +129,31 @@ class Particle(NoShooting):
         pygame.draw.circle(self.surf, color, (self.surf.get_width() // 2, self.surf.get_height() // 2), self.radius)
         self.game.screen.blit(self.surf, self.surf.get_rect(center=(self.pos.x, self.pos.y)))
 
+
+class LaserL(NoShooting):
+    def __init__(self, game, laser, x, y, damage=10):
+        self.laser = laser
+        super().__init__(game, x, y, pygame.Surface((0, 0)), 0)
+        self.line = ((0, 0), (0, 0))
+        self.base_damage = damage
+        self.damage = self.base_damage
+
+    def check_collision(self, ship):
+        return ship.hitbox.clipline(self.line)
+
+    def tick(self):
+        coords = self.laser.ship.getClosestEnemy()
+        self.line = (
+            (self.laser.ship.pos.x + self.laser.translation.x, self.laser.ship.pos.y + self.laser.translation.y),
+            coords if coords is not None else (
+            self.laser.ship.pos.x + self.laser.translation.x, self.laser.ship.pos.y + self.laser.translation.y)
+        )
+        self.damage = self.base_damage * self.game.dt
+        del coords
+
+    def draw(self):
+        pygame.draw.line(self.game.screen, (255, 255, 255), self.line[0], self.line[1], 2)
+
 #
 #
 # class Bullet(object):
