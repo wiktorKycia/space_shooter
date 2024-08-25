@@ -24,8 +24,9 @@ class PlayableShip(Shooting):
         d = math.inf
         for enemy in self.game.menuHandler.currentMenu.enemies:
             distance = math.sqrt(
-                abs(math.pow(enemy.pos.x - self.pos.x, 2)) + abs(math.pow(self.pos.y - enemy.pos.y, 2)))
+                math.pow(abs(enemy.pos.x - self.pos.x), 2) + math.pow(abs(self.pos.y - enemy.pos.y), 2))
             if e is None or distance < d:
+                d = distance
                 e = enemy
         try:
             return e.pos.x, e.pos.y
