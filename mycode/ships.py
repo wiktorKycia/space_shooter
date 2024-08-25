@@ -1,3 +1,5 @@
+import math
+
 import pygame
 from pygame import mixer
 from pygame.math import Vector2
@@ -16,6 +18,16 @@ class PlayableShip(Shooting):
         super().__init__(game, size[0]/2, size[1]/2, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, False, slip, scale)
         # self.guns = []
         self.level = 1
+
+    def getClosestEnemy(self):
+        e = None
+        d = math.inf
+        for enemy in self.game.menuHandler.currentMenu.enemies:
+            distance = math.sqrt(
+                abs(math.pow(enemy.pos.x, 2) - self.pos.x) + abs(math.pow(enemy.pos.y, 2) - self.pos.y))
+            if e is None or distance < d:
+                e = enemy
+        return e
 
     def tick(self):
         # Input
