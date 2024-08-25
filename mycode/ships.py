@@ -46,6 +46,9 @@ class PlayableShip(Shooting):
         for gun in self.guns:
             gun.tick()
             for bullet in gun.bullets:
+                if bullet.pos.y < 0:
+                    gun.bullets.remove(bullet)
+                    continue
                 for enemy in self.game.menuHandler.currentMenu.enemies:
                     if bullet.check_collision(enemy):
                         enemy.hp.get_damage(bullet.damage)
@@ -129,7 +132,9 @@ class Ship3(PlayableShip):
         self.guns.extend(
             [
                 # KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
-                ShotGun1(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                # ShotGun1(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                Flamethrower1(game, self, Vector2(-10, -20), key=pygame.K_KP_0),
+                Flamethrower1(game, self, Vector2(10, -20), key=pygame.K_KP_0)
             ]
         )
 

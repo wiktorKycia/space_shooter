@@ -85,11 +85,10 @@ class ShotgunBulletFire(ImageBullet):
         )
         self.damage = 1
 
-class Particle:
-    def __init__(self, game, x, y, radius, mass, force):
+
+class Particle(NoShooting):
+    def __init__(self, game, x, y, radius, mass, force, angle):
         self.game = game
-        self.x = x
-        self.y = y
         self.radius = radius
 
         self.surf = pygame.Surface((self.radius*2, self.radius*2), pygame.SRCALPHA)
@@ -98,26 +97,36 @@ class Particle:
         self.force = force
 
         self.alpha = 100
-        self.clock = 0
         self.green = 0
+        super().__init__(game, x, y, self.surf, mass)
+        self.add_force(Vector2(0, -force).rotate(angle))
+
+        self.damage = 1
+
+    def check_collision(self, ship):
+        return self.hitbox.colliderect(ship.hitbox)
 
     def tick(self):
-        self.clock += self.game.dt
-        if self.clock > 0.15:
-            self.clock -= 0.15
+        if self.clock > 0.05:
+            self.clock -= 0.05
             if self.alpha > 5:
-                self.alpha -= 1
-            if self.green >= 150:
-                self.green += 1
-            self.radius += 1
-            if self.alpha == 5:
-                del self
+                self.alpha -= 1 * self.game.dt
+            if self.green < 230:
+                self.green += 200 * self.game.dt
+                if self.green > 230: self.green = 230
+            self.radius += 30 * self.game.dt
+            self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
+            self.hitbox = self.surf.get_rect()
+            self.damage = self.alpha / 100
+        super().tick()
+        # if self.alpha < 10 or self.pos.y < 0:
+        #     print("self delete")
+        #     del self
 
     def draw(self):
-        self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
         color = (255, self.green, 0, self.alpha)
         pygame.draw.circle(self.surf, color, (self.surf.get_width() // 2, self.surf.get_height() // 2), self.radius)
-        self.game.screen.blit(self.surf, self.surf.get_rect(center=(self.x, self.y)))
+        self.game.screen.blit(self.surf, self.surf.get_rect(center=(self.pos.x, self.pos.y)))
 
 #
 #

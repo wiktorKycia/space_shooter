@@ -202,13 +202,43 @@ class ShotGun1(ShotGun):
 
 
 class Flamethrower(Gun):
-    def __init__(self, game, ship, weaponType, translation, force, interval, particle, spread, clip_size, reload,
+    def __init__(self, game, ship, weaponType, translation, force, interval, particle, spread, intensity, clip_size,
+                 reload,
                  active_reload: bool = False, key: int = pygame.K_KP_0):
         super().__init__(game, ship, weaponType, translation, force, interval, key, clip_size, reload, active_reload)
         self.particle = particle
-        self.spread_angle = spread
+        self.spread = [-spread / 2, spread / 2]
+        self.intensity = intensity
 
     def shot(self):
-        par = self.particle(self.game, self.pos.x, self.pos.y, 2, 20,self.force)
-        self.bullets.append(par)
-        self.clip.shot()
+        for _ in range(self.intensity):
+            par = self.particle(self.game, self.pos.x, self.pos.y, 2, 1, self.force,
+                                random.uniform(self.spread[0], self.spread[1]))
+            self.bullets.append(par)
+            self.clip.shot()
+
+    def tick(self):
+        super().tick()
+        # for bullet in self.bullets:
+        #     if bullet.pos.y < 0 or bullet.alpha < 10:
+        #         self.bullets.remove(bullet)
+        #         del bullet
+        #         continue
+
+
+class Flamethrower1(Flamethrower):
+    def __init__(self, game, ship, translation, key=pygame.K_KP_0):
+        self.force = 100
+        super().__init__(
+            game, ship,
+            weaponType=1,
+            translation=translation,
+            force=self.force,
+            interval=0.05,
+            particle=Particle,
+            spread=5,
+            intensity=1,
+            clip_size=100,
+            reload=2.0,
+            active_reload=False
+        )
