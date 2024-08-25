@@ -134,6 +134,12 @@ class LaserL(NoShooting):
     def __init__(self, game, laser, x, y):
         self.laser = laser
         super().__init__(game, x, y, pygame.Surface((0, 0)), 0)
+        self.line = ((0, 0), (0, 0))
+        self.base_damage = damage
+        self.damage = self.base_damage
+
+    def check_collision(self, ship):
+        return ship.hitbox.clipline(self.line)
 
 
 #
