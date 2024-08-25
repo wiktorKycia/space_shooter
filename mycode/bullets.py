@@ -131,7 +131,7 @@ class Particle(NoShooting):
 
 
 class LaserL(NoShooting):
-    def __init__(self, game, laser, x, y):
+    def __init__(self, game, laser, x, y, damage=100):
         self.laser = laser
         super().__init__(game, x, y, pygame.Surface((0, 0)), 0)
         self.line = ((0, 0), (0, 0))
@@ -141,6 +141,15 @@ class LaserL(NoShooting):
     def check_collision(self, ship):
         return ship.hitbox.clipline(self.line)
 
+    def tick(self):
+        self.line = (
+            (self.laser.ship.pos.x + self.laser.translation.x, self.laser.ship.pos.y + self.laser.translation.y),
+            self.laser.ship.getClosestEnemy()
+        )
+        self.damage = self.base_damage * self.game.dt
+
+    def draw(self):
+        pygame.draw.line(self.game.screen, (255, 255, 255), self.line[0], self.line[1], 2)
 
 #
 #
