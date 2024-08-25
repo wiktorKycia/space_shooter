@@ -24,10 +24,13 @@ class PlayableShip(Shooting):
         d = math.inf
         for enemy in self.game.menuHandler.currentMenu.enemies:
             distance = math.sqrt(
-                abs(math.pow(enemy.pos.x, 2) - self.pos.x) + abs(math.pow(enemy.pos.y, 2) - self.pos.y))
+                abs(math.pow(enemy.pos.x - self.pos.x, 2)) + abs(math.pow(self.pos.y - enemy.pos.y, 2)))
             if e is None or distance < d:
                 e = enemy
-        return e.pos.x, e.pos.y
+        try:
+            return e.pos.x, e.pos.y
+        except AttributeError:
+            return None
 
     def tick(self):
         # Input

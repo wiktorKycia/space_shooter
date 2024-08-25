@@ -142,11 +142,13 @@ class LaserL(NoShooting):
         return ship.hitbox.clipline(self.line)
 
     def tick(self):
+        coords = self.laser.ship.getClosestEnemy()
         self.line = (
             (self.laser.ship.pos.x + self.laser.translation.x, self.laser.ship.pos.y + self.laser.translation.y),
-            self.laser.ship.getClosestEnemy()
+            coords if coords is not None else (0, 0)
         )
         self.damage = self.base_damage * self.game.dt
+        del coords
 
     def draw(self):
         pygame.draw.line(self.game.screen, (255, 255, 255), self.line[0], self.line[1], 2)
