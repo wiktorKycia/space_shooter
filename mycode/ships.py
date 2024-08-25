@@ -68,7 +68,8 @@ class PlayableShip(Shooting):
                 for enemy in self.game.menuHandler.currentMenu.enemies:
                     if bullet.check_collision(enemy):
                         enemy.hp.get_damage(bullet.damage)
-                        gun.bullets.remove(bullet)
+                        if type(gun) != Laser1:
+                            gun.bullets.remove(bullet)
                         # energy = (bullet.mass * bullet.vel * bullet.vel) / 2
                         if enemy.hp.hp <= 0:
                             for gunE in enemy.guns:
