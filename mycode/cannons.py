@@ -251,4 +251,7 @@ class Laser(Gun):
         self.laser = laser
 
     def shot(self):
-        laser = self.laser(self.game, self, self.pos.x, self.pos.y)
+        if len(self.bullets) < 1:
+            laser = self.laser(self.game, self, self.pos.x, self.pos.y)
+            self.bullets.append(laser)
+            self.clip.shot()
