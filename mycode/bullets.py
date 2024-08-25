@@ -145,7 +145,8 @@ class LaserL(NoShooting):
         coords = self.laser.ship.getClosestEnemy()
         self.line = (
             (self.laser.ship.pos.x + self.laser.translation.x, self.laser.ship.pos.y + self.laser.translation.y),
-            coords if coords is not None else (0, 0)
+            coords if coords is not None else (
+            self.laser.ship.pos.x + self.laser.translation.x, self.laser.ship.pos.y + self.laser.translation.y)
         )
         self.damage = self.base_damage * self.game.dt
         del coords
