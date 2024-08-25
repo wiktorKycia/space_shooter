@@ -9,7 +9,7 @@ class Player(object):
         self.coins = coins
         self.ships = [Ship1(game), Ship2(game), Ship3(game), Ship4(game), Ship5(game)]
         # self.add_new_ship(Ship2(self.game))
-        self.current_ship = self.ships[0]
+        self.current_ship = self.ships[2]
 
     def add_coins(self, amount:int):
         self.coins += amount

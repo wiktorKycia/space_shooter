@@ -1,3 +1,5 @@
+import math
+
 import pygame
 from pygame import mixer
 from pygame.math import Vector2
@@ -16,6 +18,20 @@ class PlayableShip(Shooting):
         super().__init__(game, size[0]/2, size[1]/2, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, False, slip, scale)
         # self.guns = []
         self.level = 1
+
+    def getClosestEnemy(self):
+        e = None
+        d = math.inf
+        for enemy in self.game.menuHandler.currentMenu.enemies:
+            distance = math.sqrt(
+                math.pow(abs(enemy.pos.x - self.pos.x), 2) + math.pow(abs(self.pos.y - enemy.pos.y), 2))
+            if e is None or distance < d:
+                d = distance
+                e = enemy
+        try:
+            return e.pos.x, e.pos.y
+        except AttributeError:
+            return None
 
     def tick(self):
         # Input
@@ -46,10 +62,14 @@ class PlayableShip(Shooting):
         for gun in self.guns:
             gun.tick()
             for bullet in gun.bullets:
+                if bullet.pos.y < 0:
+                    gun.bullets.remove(bullet)
+                    continue
                 for enemy in self.game.menuHandler.currentMenu.enemies:
                     if bullet.check_collision(enemy):
                         enemy.hp.get_damage(bullet.damage)
-                        gun.bullets.remove(bullet)
+                        if type(gun) != Laser1:
+                            gun.bullets.remove(bullet)
                         # energy = (bullet.mass * bullet.vel * bullet.vel) / 2
                         if enemy.hp.hp <= 0:
                             for gunE in enemy.guns:
@@ -128,7 +148,10 @@ class Ship3(PlayableShip):
         )
         self.guns.extend(
             [
-                KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                # KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                # ShotGun1(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                Flamethrower1(game, self, Vector2(-10, -20), key=pygame.K_KP_0),
+                Flamethrower1(game, self, Vector2(10, -20), key=pygame.K_KP_0)
             ]
         )
 
@@ -146,7 +169,11 @@ class Ship4(PlayableShip):
         )
         self.guns.extend(
             [
-                KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                # KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
+                Laser1(game, self, Vector2(3, -25), key=pygame.K_KP_0),
+                Laser1(game, self, Vector2(-5, -25), key=pygame.K_KP_0),
+                Laser1(game, self, Vector2(25, 15), key=pygame.K_KP_0),
+                Laser1(game, self, Vector2(-28, 15), key=pygame.K_KP_0)
             ]
         )
 
