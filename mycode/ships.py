@@ -90,11 +90,12 @@ class PlayableShip(Shooting):
 
 
 class Slot:
-    def __init__(self, game, ship: PlayableShip, translation: Vector2, key: int):
+    def __init__(self, game, ship: PlayableShip, translation: Vector2, key: int, weapon):
         self.game = game
         self.ship = ship
         self.translation = translation
         self.key = key
+        self.weapon = weapon
 
 
 class Ship1(PlayableShip):
