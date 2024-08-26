@@ -91,6 +91,15 @@ class PlayableShip(Shooting):
 
 class Slot:
     def __init__(self, game, ship: PlayableShip, translation: Vector2, key: int, weaponType):
+        """
+        Represents a weapon slot of a Ship,
+        it can contain only one weapon
+        :param game: Game
+        :param ship: any type inheriting from PlayableShip
+        :param translation: pygame.Vector2
+        :param key: int
+        :param weaponType: any end child class inheriting from Weapon
+        """
         self.game = game
         self.ship = ship
         self.translation = translation
