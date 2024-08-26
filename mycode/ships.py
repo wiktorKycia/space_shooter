@@ -8,7 +8,7 @@ from mycode import *
 from mycode.other import *
 from mycode.cannons import *
 from mycode import Shooting
-from main import Game
+
 mixer.init()
 
 
@@ -90,7 +90,7 @@ class PlayableShip(Shooting):
 
 
 class Slot:
-    def __init__(self, game: Game, ship: PlayableShip, translation: Vector2, key: int):
+    def __init__(self, game, ship: PlayableShip, translation: Vector2, key: int):
         self.game = game
         self.ship = ship
         self.translation = translation
