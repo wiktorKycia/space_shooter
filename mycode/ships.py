@@ -90,12 +90,12 @@ class PlayableShip(Shooting):
 
 
 class Slot:
-    def __init__(self, game, ship: PlayableShip, translation: Vector2, key: int, weapon):
+    def __init__(self, game, ship: PlayableShip, translation: Vector2, key: int, weaponType):
         self.game = game
         self.ship = ship
         self.translation = translation
         self.key = key
-        self.weapon = weapon
+        self.weapon = weaponType(game, ship, translation, key)
 
     def tick(self):
         self.weapon.tick()
