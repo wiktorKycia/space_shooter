@@ -97,6 +97,12 @@ class Slot:
         self.key = key
         self.weapon = weapon
 
+    def tick(self):
+        self.weapon.tick()
+
+    def draw(self):
+        self.weapon.draw()
+
 
 class Ship1(PlayableShip):
     def __init__(self, game):
