@@ -56,6 +56,9 @@ class PlayableShip(Shooting):
         else:
             self.add_force(force)
 
+        for slot in self.slots:
+            slot.tick()
+
         for gun in self.guns:
             gun.tick()
             for bullet in gun.bullets:
@@ -80,7 +83,8 @@ class PlayableShip(Shooting):
 
     def draw(self):
         super().draw()
-        # pygame.draw.rect(self.game.screen, (255, 255, 255), self.hitbox, 1)
+        for slot in self.slots:
+            slot.draw()
         for gun in self.guns:
             for bullet in gun.bullets:
                 bullet.draw()
