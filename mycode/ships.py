@@ -40,16 +40,12 @@ class PlayableShip(Shooting):
         force = Vector2(0, 0)
         if pressed[pygame.K_w]:
             force.y = -self.force
-            # self.add_force(Vector2(0, -self.force))
         if pressed[pygame.K_s]:
-            # self.add_force(Vector2(0, self.force))
             force.y = self.force
         if pressed[pygame.K_d]:
             force.x = self.force
-            # self.add_force(Vector2(self.force, 0))
         if pressed[pygame.K_a]:
             force.x = -self.force
-            # self.add_force(Vector2(-self.force, 0))
         if pressed[pygame.K_LSHIFT]:
             self.current_slip = 0.8
         else:
