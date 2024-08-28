@@ -145,15 +145,15 @@ class KineticLight(Gun):
 
 class KineticMedium(Gun):
     def __init__(self, game, slot, key=pygame.K_KP_0):
-        self.force = 3500
         super().__init__(
-            game, slot,
-            force=self.force,
+            game, slot, key,
+            bullet=BulletMediumBlue,
+            force=3500,
             interval=0.15,
-            bul=BulletMediumBlue,
-            clip_size=50,
+            max_ammo=50,
             reload_time=2.0,
-            key=key)
+            active_reload=False
+        )
 
 class ShotGun(Gun):
     def __init__(self, game, ship, translation, force, interval, bul, spread, intensity, clip_size, reload,
