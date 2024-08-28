@@ -62,26 +62,28 @@ class ImageBullet(NoShooting):
         # pygame.draw.rect(self.game.screen, (255,0,0), self.hitbox, 1)
 
 class BulletSmallBlue(ImageBullet):
-    def __init__(self, game, x, y, force, angle=0):
+    def __init__(self, game, gun, x, y, force, angle=0):
         super().__init__(
-            game, x, y,
+            game, gun, x, y,
             path="./images/Laser Sprites/01.png",
             mass=2,
             force=force,
             angle=angle,
+            damage=5,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
-            scale=0.5)
-        self.damage = 5
+            scale=0.5
+        )
 
 
 class BulletMediumBlue(ImageBullet):
-    def __init__(self, game, x, y, force, angle=0):
+    def __init__(self, game, gun, x, y, force, angle=0):
         super().__init__(
-            game, x, y,
+            game, gun, x, y,
             path="./images/Laser Sprites/11.png",
             mass=2,
             force=force,
             angle=angle,
+            damage=5,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.5
         )
