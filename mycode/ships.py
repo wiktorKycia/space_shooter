@@ -105,9 +105,11 @@ class Slot:
         self.ship = ship
         self.translation = translation
         self.key = key
+        self.pos = self.ship.pos + self.translation
         self.weapon = weaponType(game, ship, translation, key)
 
     def tick(self):
+        self.pos = self.ship.pos + self.translation
         self.weapon.tick()
 
     def draw(self):
