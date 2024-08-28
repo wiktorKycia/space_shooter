@@ -90,7 +90,7 @@ class Gun(Weapon):
             self.force = -force
 
     def shot(self):
-        bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force)
+        bullet = self.bul(self.game, self.slot.pos.x, self.slot.pos.y, self.force)
         if not self.is_player: bullet.image = pygame.transform.flip(bullet.image, False, True)
         self.bullets.append(bullet)
         bullet.sound.play(0, 800)
@@ -110,7 +110,7 @@ class Gun(Weapon):
         if self.is_player:
             self._shootCheck((pressed[pygame.K_KP_0] or pressed[self.key]))
         else:
-            self.key = self.ship.is_shooting
+            self.key = self.slot.ship.is_shooting
             self._shootCheck(self.key)
 
         for bullet in self.bullets:
