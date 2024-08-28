@@ -69,9 +69,9 @@ class Enemy1(BaseEnemy):
             force=500,
             hp_amount=20
         )
-        self.guns.extend(
+        self.slots.extend(
             [
-                KineticLight(game, self, Vector2(0, 10), key=self.is_shooting)
+                Slot(game, self, Vector2(0, 0), self.is_shooting, KineticLight)
             ]
         )
 
