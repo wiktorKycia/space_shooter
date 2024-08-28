@@ -57,16 +57,15 @@ class Clip:
 
 
 class Weapon:
-    def __init__(self, game, ship, translation):
+    def __init__(self, game, slot):
         self.game = game
-        self.ship = ship
-        self.translation = translation
+        self.slot = slot
 
 
 class Gun(Weapon):
     def __init__(self, game, ship, translation, force, interval, key, max_ammo: int, reload_time: float,
                  active_reload: bool):
-        super().__init__(game, ship, translation)
+        super().__init__(game, ship)
         self.pos = ship.pos
         self.interval = interval
         # self.key = key
