@@ -23,6 +23,9 @@ class BaseEnemy(Shooting):
     def tick(self):
         super().tick()
 
+        for slot in self.slots:
+            slot.tick()
+
         if self.hp.hp <= 0:
             for slot in self.slots:
                 self.game.menuHandler.currentMenu.other_bullets.extend(slot.weapon.bullets)
