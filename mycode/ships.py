@@ -106,7 +106,7 @@ class Slot:
         self.translation = translation
         self.key = key
         self.pos = self.ship.pos + self.translation
-        self.weapon = weaponType(game, self, translation, key)
+        self.weapon = weaponType(game, self, key)
 
     def tick(self):
         self.pos = self.ship.pos + self.translation
