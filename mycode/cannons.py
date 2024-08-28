@@ -57,9 +57,19 @@ class Clip:
 
 
 class Weapon:
-    def __init__(self, game, slot):
+    def __init__(self, game, slot, key):
         self.game = game
         self.slot = slot
+        self.clock = 0
+
+        if type(key) == int:
+            # if passed pygame.key value
+            self.is_player = True
+            self.key: int = key
+        else:
+            # if passed other bool type variable
+            self.is_player = False
+            self.key: bool = key
 
 
 class Gun(Weapon):
@@ -68,22 +78,15 @@ class Gun(Weapon):
         super().__init__(game, ship)
         self.pos = ship.pos
         self.interval = interval
-        # self.key = key
 
         self.clock = 0
         self.bullets = []
         self.clip = Clip(game, max_ammo, reload_time, active_reload)
 
-        if type(key) == int:
-            # if passed pygame.key value
-            self.is_player = True
+        if self.is_player:
             self.force = force
-            self.key: int = key
         else:
-            # if passed other bool type variable
-            self.is_player = False
             self.force = -force
-            self.key: bool = key
 
     def shot(self):
         pass
