@@ -30,9 +30,8 @@ class BaseEnemy(Shooting):
 
     def draw(self):
         super().draw()
-        for gun in self.guns:
-            for bullet in gun.bullets:
-                bullet.draw()
+        for slot in self.slots:
+            slot.draw()
 
 
 # class BaseEnemy(ShootingDownNoMove):
