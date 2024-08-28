@@ -460,7 +460,6 @@ class Shooting(DynamicObject):
         """
         super().__init__(game, x, y, path, mass, max_speed, slip, scale)
         self.force = force
-        self.guns = []
         if hp_relative:
             hp_x = self.pos.x + hp_x
             hp_y = self.pos.y + hp_y
