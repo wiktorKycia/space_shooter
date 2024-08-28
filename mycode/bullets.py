@@ -5,11 +5,14 @@ from mycode import NoShooting
 mixer.init()
 
 class ImageBullet(NoShooting):
-    def __init__(self, game, x, y, path, mass, force, angle, sound: str = "", scale=1.0):
+    def __init__(self, game, gun, x, y, path, mass, force, angle, damage, sound: str = "", scale=1.0):
         self.image = pygame.image.load(path).convert_alpha()
         self.image = pygame.transform.rotate(self.image, 90)
         super().__init__(game, x, y, self.image, mass, scale)
         self.add_force(Vector2(0, -force).rotate(angle))
+
+        self.gun = gun
+        self.damage = damage
 
         if sound != "":
             self.sound = mixer.Sound(sound)
@@ -37,6 +40,13 @@ class ImageBullet(NoShooting):
         # if self.vel.y * self.game.dt > self.height or self.vel.x * self.game.dt > self.width:
         new_pos: Vector2 = self.pos + (((self.vel * self.current_slip) + self.acc) * self.game.dt)
         self.line = ((self.pos.x, self.pos.y), (new_pos.x, new_pos.y))
+
+        if self.pos.y < 0:
+            self.gun.bullets.remove(self)
+
+        for enemy in self.game.menuHandler.currentMenu.enemies:
+            if self.check_collision(enemy):
+                enemy.hp.get_damage(self.damage)
 
         super().tick()
 
