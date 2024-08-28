@@ -107,12 +107,11 @@ class GameMenu:
 
         # maximise ship's stats
         self.ship.hp.maximise_hp()
-        for gun in self.ship.guns:
-            gun.clip.maximise_ammo()
+        for slot in self.ship.slots:
+            slot.weapon.clip.maximise_ammo()
 
-        # clear bullets
-        for gun in self.ship.guns:
-            gun.bullets.clear()
+            # clear bullets
+            slot.weapon.bullets.clear()
 
         # self.game.menuHandler.currentMenu.other_bullets.clear()
 
