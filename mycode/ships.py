@@ -8,6 +8,7 @@ from mycode import *
 from mycode.other import *
 from mycode.cannons import *
 from mycode import Shooting
+from mycode.slot import Slot
 
 mixer.init()
 
@@ -89,31 +90,6 @@ class PlayableShip(Shooting):
             for bullet in gun.bullets:
                 bullet.draw()
 
-
-class Slot:
-    def __init__(self, game, ship, translation: Vector2, key: int, weaponType):
-        """
-        Represents a weapon slot of a Ship,
-        it can contain only one weapon
-        :param game: Game
-        :param ship: any type inheriting from PlayableShip or BaseEnemy
-        :param translation: pygame.Vector2
-        :param key: int
-        :param weaponType: any end child class inheriting from Weapon
-        """
-        self.game = game
-        self.ship = ship
-        self.translation = translation
-        self.key = key
-        self.pos = self.ship.pos + self.translation
-        self.weapon = weaponType(game, self, key)
-
-    def tick(self):
-        self.pos = self.ship.pos + self.translation
-        self.weapon.tick()
-
-    def draw(self):
-        self.weapon.draw()
 
 
 class Ship1(PlayableShip):
