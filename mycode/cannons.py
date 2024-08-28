@@ -132,10 +132,10 @@ class Gun(Weapon):
 #             )
 
 class KineticLight(Gun):
-    def __init__(self, game, ship, key=pygame.K_KP_0):
+    def __init__(self, game, slot, key=pygame.K_KP_0):
         self.force = 3500
         super().__init__(
-            game, ship,
+            game, slot,
             force=self.force,
             interval=0.1,
             bul=BulletSmallBlue,
@@ -144,10 +144,10 @@ class KineticLight(Gun):
 
 
 class KineticMedium(Gun):
-    def __init__(self, game, ship, key=pygame.K_KP_0):
+    def __init__(self, game, slot, key=pygame.K_KP_0):
         self.force = 3500
         super().__init__(
-            game, ship,
+            game, slot,
             force=self.force,
             interval=0.15,
             bul=BulletMediumBlue,
