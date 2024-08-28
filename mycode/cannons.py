@@ -78,8 +78,6 @@ class Gun(Weapon):
         super().__init__(game, slot, key)
         self.interval = interval
         self.bul = bullet
-
-        self.clock = 0
         self.bullets = []
         self.clip = Clip(game, max_ammo, reload_time, active_reload)
 
