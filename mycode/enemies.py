@@ -21,6 +21,12 @@ class BaseEnemy(Shooting):
 
     def tick(self):
         super().tick()
+
+        if self.hp.hp <= 0:
+            for slot in self.slots:
+                self.game.menuHandler.currentMenu.other_bullets.extend(self.slot.weapon.bullets)
+            self.game.menuHandler.currentMenu.enemies.remove(self)
+
         for gun in self.guns:
             gun.tick()
             for bullet in gun.bullets:
