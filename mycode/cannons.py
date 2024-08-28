@@ -78,6 +78,7 @@ class Gun(Weapon):
         super().__init__(game, ship)
         self.pos = ship.pos
         self.interval = interval
+        self.bul = bul
 
         self.clock = 0
         self.bullets = []
@@ -89,7 +90,11 @@ class Gun(Weapon):
             self.force = -force
 
     def shot(self):
-        pass
+        bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force)
+        if not self.is_player: bullet.image = pygame.transform.flip(bullet.image, False, True)
+        self.bullets.append(bullet)
+        bullet.sound.play(0, 800)
+        self.clip.shot()
 
     def _shootCheck(self, condition):
         if condition and self.clock > self.interval:
@@ -117,14 +122,9 @@ class GunPrototype(Gun):
                  active_reload: bool = False, key: int = pygame.K_KP_0):
         super().__init__(game, ship, translation, force, interval, key, clip_size, reload_time,
                          active_reload)
-        self.bul = bul
 
     def shot(self):
-        bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force)
-        if not self.is_player: bullet.image = pygame.transform.flip(bullet.image, False, True)
-        self.bullets.append(bullet)
-        bullet.sound.play(0, 800)
-        self.clip.shot()
+
 
 # class KineticGun(GunPrototype):
 #     def __init__(self, game, ship, translation, force, key=pygame.K_KP_0,
