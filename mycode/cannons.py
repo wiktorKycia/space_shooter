@@ -103,8 +103,7 @@ class Gun(Weapon):
                 self.shot()
 
     def tick(self):
-        self.clock += self.game.dt
-        self.pos = self.ship.pos + self.translation
+        super().tick()
         self.clip.tick()
         pressed = pygame.key.get_pressed()
 
