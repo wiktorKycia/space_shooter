@@ -117,14 +117,6 @@ class Gun(Weapon):
         for bullet in self.bullets:
             bullet.tick()
 
-class GunPrototype(Gun):
-    def __init__(self, game, ship, translation, force, interval, bul, clip_size, reload_time,
-                 active_reload: bool = False, key: int = pygame.K_KP_0):
-        super().__init__(game, ship, translation, force, interval, key, clip_size, reload_time,
-                         active_reload)
-
-    def shot(self):
-
 
 # class KineticGun(GunPrototype):
 #     def __init__(self, game, ship, translation, force, key=pygame.K_KP_0,
