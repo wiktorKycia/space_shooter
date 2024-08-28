@@ -73,12 +73,11 @@ class Weapon:
 
 
 class Gun(Weapon):
-    def __init__(self, game, ship, translation, force, interval, key, max_ammo: int, reload_time: float,
+    def __init__(self, game, slot, key, bullet, force, interval, max_ammo: int, reload_time: float,
                  active_reload: bool):
-        super().__init__(game, ship)
-        self.pos = ship.pos
+        super().__init__(game, slot, key)
         self.interval = interval
-        self.bul = bul
+        self.bul = bullet
 
         self.clock = 0
         self.bullets = []
