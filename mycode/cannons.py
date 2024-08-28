@@ -71,6 +71,9 @@ class Weapon:
             self.is_player = False
             self.key: bool = key
 
+    def tick(self):
+        self.clock += self.game.dt
+
 
 class Gun(Weapon):
     def __init__(self, game, slot, key, bullet, force, interval, max_ammo: int, reload_time: float,
