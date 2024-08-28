@@ -1,6 +1,6 @@
 from pygame.math import Vector2
 class Slot:
-    def __init__(self, game, ship, translation: Vector2, key: int, weaponType):
+    def __init__(self, game, ship, translation: Vector2, key: int | bool, weaponType):
         """
         Represents a weapon slot of a Ship,
         it can contain only one weapon
