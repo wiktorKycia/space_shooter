@@ -44,9 +44,15 @@ class ImageBullet(NoShooting):
         if self.pos.y < 0:
             self.gun.bullets.remove(self)
 
-        for enemy in self.game.menuHandler.currentMenu.enemies:
-            if self.check_collision(enemy):
-                enemy.hp.get_damage(self.damage)
+        if self.gun.is_player:
+            for enemy in self.game.menuHandler.currentMenu.enemies:
+                if self.check_collision(enemy):
+                    enemy.hp.get_damage(self.damage)
+                    self.gun.bullets.remove(self)
+        else:
+            if self.check_collision(self.game.player.current_ship):
+                self.game.player.current_ship.hp.get_damage(self.damage)
+                self.gun.bullets.remove(self)
 
         super().tick()
 
