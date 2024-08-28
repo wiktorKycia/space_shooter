@@ -90,7 +90,7 @@ class Gun(Weapon):
             self.force = -force
 
     def shot(self):
-        bullet = self.bul(self.game, self.slot.pos.x, self.slot.pos.y, self.force)
+        bullet = self.bul(self.game, self, self.slot.pos.x, self.slot.pos.y, self.force)
         if not self.is_player: bullet.image = pygame.transform.flip(bullet.image, False, True)
         self.bullets.append(bullet)
         bullet.sound.play(0, 800)

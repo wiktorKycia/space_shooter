@@ -44,9 +44,15 @@ class ImageBullet(NoShooting):
         if self.pos.y < 0:
             self.gun.bullets.remove(self)
 
-        for enemy in self.game.menuHandler.currentMenu.enemies:
-            if self.check_collision(enemy):
-                enemy.hp.get_damage(self.damage)
+        if self.gun.is_player:
+            for enemy in self.game.menuHandler.currentMenu.enemies:
+                if self.check_collision(enemy):
+                    enemy.hp.get_damage(self.damage)
+                    self.gun.bullets.remove(self)
+        else:
+            if self.check_collision(self.game.player.current_ship):
+                self.game.player.current_ship.hp.get_damage(self.damage)
+                self.gun.bullets.remove(self)
 
         super().tick()
 
@@ -56,26 +62,28 @@ class ImageBullet(NoShooting):
         # pygame.draw.rect(self.game.screen, (255,0,0), self.hitbox, 1)
 
 class BulletSmallBlue(ImageBullet):
-    def __init__(self, game, x, y, force, angle=0):
+    def __init__(self, game, gun, x, y, force, angle=0):
         super().__init__(
-            game, x, y,
+            game, gun, x, y,
             path="./images/Laser Sprites/01.png",
             mass=2,
             force=force,
             angle=angle,
+            damage=5,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
-            scale=0.5)
-        self.damage = 5
+            scale=0.5
+        )
 
 
 class BulletMediumBlue(ImageBullet):
-    def __init__(self, game, x, y, force, angle=0):
+    def __init__(self, game, gun, x, y, force, angle=0):
         super().__init__(
-            game, x, y,
+            game, gun, x, y,
             path="./images/Laser Sprites/11.png",
             mass=2,
             force=force,
             angle=angle,
+            damage=5,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.5
         )

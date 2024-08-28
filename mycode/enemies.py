@@ -6,6 +6,7 @@ from mycode.other import *
 from mycode.bullets import *
 from mycode.cannons import *
 from mycode.Behaviors import *
+from mycode.slot import Slot
 import os
 import random
 
@@ -16,31 +17,24 @@ class BaseEnemy(Shooting):
         super().__init__(game, x, y, path, mass, max_speed, -force, hp_amount, hp_width=hp_width, hp_height=hp_height,
                          hp_relative=hp_relative, slip=slip, scale=scale)
         self.move_clock = 0
-        # self.guns = []
+        self.slots = []
         self.is_shooting = True
 
     def tick(self):
         super().tick()
 
+        for slot in self.slots:
+            slot.tick()
+
         if self.hp.hp <= 0:
             for slot in self.slots:
-                self.game.menuHandler.currentMenu.other_bullets.extend(self.slot.weapon.bullets)
+                self.game.menuHandler.currentMenu.other_bullets.extend(slot.weapon.bullets)
             self.game.menuHandler.currentMenu.enemies.remove(self)
-
-        for gun in self.guns:
-            gun.tick()
-            for bullet in gun.bullets:
-                if bullet.check_collision(self.game.player.current_ship):
-                    # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                    self.game.player.current_ship.hp.get_damage(bullet.damage)
-                    gun.bullets.remove(bullet)
-                    del bullet
 
     def draw(self):
         super().draw()
-        for gun in self.guns:
-            for bullet in gun.bullets:
-                bullet.draw()
+        for slot in self.slots:
+            slot.draw()
 
 
 # class BaseEnemy(ShootingDownNoMove):
@@ -77,9 +71,9 @@ class Enemy1(BaseEnemy):
             force=500,
             hp_amount=20
         )
-        self.guns.extend(
+        self.slots.extend(
             [
-                KineticLight(game, self, Vector2(0, 10), key=self.is_shooting)
+                Slot(game, self, Vector2(0, 0), self.is_shooting, KineticLight)
             ]
         )
 
