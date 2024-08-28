@@ -60,24 +60,24 @@ class PlayableShip(Shooting):
         for slot in self.slots:
             slot.tick()
 
-        for gun in self.guns:
-            gun.tick()
-            for bullet in gun.bullets:
-                if bullet.pos.y < 0:
-                    gun.bullets.remove(bullet)
-                    continue
-                for enemy in self.game.menuHandler.currentMenu.enemies:
-                    if bullet.check_collision(enemy):
-                        enemy.hp.get_damage(bullet.damage)
-                        if type(gun) != Laser1:
-                            gun.bullets.remove(bullet)
-                        # energy = (bullet.mass * bullet.vel * bullet.vel) / 2
-                        if enemy.hp.hp <= 0:
-                            for gunE in enemy.guns:
-                                self.game.menuHandler.currentMenu.other_bullets.extend(gunE.bullets)
-                            self.game.menuHandler.currentMenu.enemies.remove(enemy)
-                            break
-                        break
+        # for gun in self.guns:
+        #     gun.tick()
+        #     for bullet in gun.bullets:
+        #         if bullet.pos.y < 0:
+        #             gun.bullets.remove(bullet)
+        #             continue
+        #         for enemy in self.game.menuHandler.currentMenu.enemies:
+        #             if bullet.check_collision(enemy):
+        #                 enemy.hp.get_damage(bullet.damage)
+        #                 if type(gun) != Laser1:
+        #                     gun.bullets.remove(bullet)
+        #                 # energy = (bullet.mass * bullet.vel * bullet.vel) / 2
+        #                 if enemy.hp.hp <= 0:
+        #                     for gunE in enemy.guns:
+        #                         self.game.menuHandler.currentMenu.other_bullets.extend(gunE.bullets)
+        #                     self.game.menuHandler.currentMenu.enemies.remove(enemy)
+        #                     break
+        #                 break
 
 
         super().tick()
@@ -86,9 +86,6 @@ class PlayableShip(Shooting):
         super().draw()
         for slot in self.slots:
             slot.draw()
-        for gun in self.guns:
-            for bullet in gun.bullets:
-                bullet.draw()
 
 
 
