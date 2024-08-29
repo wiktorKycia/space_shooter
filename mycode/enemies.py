@@ -73,7 +73,7 @@ class Enemy1(BaseEnemy):
         )
         self.slots.extend(
             [
-                Slot(game, self, Vector2(0, 0), self.is_shooting, KineticLight)
+                Slot(game, self, Vector2(0, 10), self.is_shooting, KineticLight)
             ]
         )
 
@@ -88,9 +88,9 @@ class Enemy2(BaseEnemy):
             force=350,
             hp_amount=45
         )
-        self.guns.extend(
+        self.slots.extend(
             [
-                KineticLight(game, self, Vector2(0, 10), key=self.is_shooting)
+                Slot(game, self, Vector2(0, 10), self.is_shooting, KineticLight)
             ]
         )
 
@@ -105,10 +105,10 @@ class Enemy3(BaseEnemy):
             force=1000,
             hp_amount=100
         )
-        self.guns.extend(
+        self.slots.extend(
             [
-                KineticLight(game, self, Vector2(-22, 10), key=self.is_shooting),
-                KineticLight(game, self, Vector2(22, 10), key=self.is_shooting)
+                Slot(game, self, Vector2(-22, 10), self.is_shooting, KineticMedium),
+                Slot(game, self, Vector2(22, 10), self.is_shooting, KineticMedium)
             ]
         )
 

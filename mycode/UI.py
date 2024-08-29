@@ -184,7 +184,7 @@ class LevelGame:
 
         for bullet in self.other_bullets:
             bullet.tick()
-            bullet.draw()
+            bullet.draw()  # TODO: move this line to draw method
             if self.game.player.current_ship.mask.overlap(bullet.mask, (
                     bullet.pos.x - self.game.player.current_ship.hitbox.x,
                     bullet.pos.y - self.game.player.current_ship.hitbox.y)):
