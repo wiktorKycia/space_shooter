@@ -108,10 +108,16 @@ class GameMenu:
         # maximise ship's stats
         self.ship.hp.maximise_hp()
         for slot in self.ship.slots:
-            slot.weapon.clip.maximise_ammo()
+            try:
+                slot.weapon.clip.maximise_ammo()
+            except AttributeError:
+                pass
 
             # clear bullets
-            slot.weapon.bullets.clear()
+            try:
+                slot.weapon.bullets.clear()
+            except AttributeError:
+                pass
 
         # self.game.menuHandler.currentMenu.other_bullets.clear()
 
