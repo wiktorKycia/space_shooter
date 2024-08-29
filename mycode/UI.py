@@ -184,14 +184,14 @@ class LevelGame:
 
         for bullet in self.other_bullets:
             bullet.tick()
-            bullet.draw()  # TODO: move this line to draw method
-            if self.game.player.current_ship.mask.overlap(bullet.mask, (
-                    bullet.pos.x - self.game.player.current_ship.hitbox.x,
-                    bullet.pos.y - self.game.player.current_ship.hitbox.y)):
-                # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                self.game.player.current_ship.hp.get_damage(bullet.damage)
-                self.other_bullets.remove(bullet)
-                continue
+
+            # if self.game.player.current_ship.mask.overlap(bullet.mask, (
+            #         bullet.pos.x - self.game.player.current_ship.hitbox.x,
+            #         bullet.pos.y - self.game.player.current_ship.hitbox.y)):
+            #     # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+            #     self.game.player.current_ship.hp.get_damage(bullet.damage)
+            #     self.other_bullets.remove(bullet)
+            #     continue
 
         self.game.player.current_ship.tick()
         self.currentLevel.tick()
@@ -213,6 +213,9 @@ class LevelGame:
         """
         for enemy in self.enemies:
             enemy.draw()
+
+        for bullet in self.other_bullets:
+            bullet.draw()
 
         self.game.player.current_ship.draw()
         self.game.player.current_ship.hp.tick()
