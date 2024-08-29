@@ -102,17 +102,17 @@ class BulletMediumBlue(ImageBullet):
 
 
 class ShotgunBulletFire(ImageBullet):
-    def __init__(self, game, x, y, force, angle=0):
+    def __init__(self, game, gun, x, y, force, angle=0):
         super().__init__(
-            game, x, y,
+            game, gun, x, y,
             path="./images/shotgun_bullet.png",
             mass=1,
             force=force,
             angle=angle,
+            damage=1,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.1
         )
-        self.damage = 1
 
 
 class Particle(NoShooting):
