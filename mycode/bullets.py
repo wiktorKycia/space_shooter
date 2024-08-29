@@ -52,7 +52,10 @@ class ImageBullet(NoShooting):
         else:
             if self.check_collision(self.game.player.current_ship):
                 self.game.player.current_ship.hp.get_damage(self.damage)
-                self.gun.bullets.remove(self)  # TODO: try-except ValueError when bullet not in list
+                try:
+                    self.gun.bullets.remove(self)
+                except ValueError:
+                    pass
 
         super().tick()
 
