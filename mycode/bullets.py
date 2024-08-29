@@ -172,18 +172,23 @@ class LaserL(NoShooting):
 
     def tick(self):
         coords = self.laser.slot.ship.getClosestEnemy()
-        self.line = (
-            (self.laser.slot.pos.x + self.laser.slot.translation.x,
-             self.laser.slot.pos.y + self.laser.slot.translation.y),
-            coords if coords is not None else (
-                self.laser.slot.pos.x + self.laser.slot.translation.x,
-                self.laser.slot.pos.y + self.laser.slot.translation.y)
-        )
-        self.damage = self.base_damage * self.game.dt
+        if coords is not None and self.laser.active:
+            self.line = (
+                (self.laser.slot.pos.x + self.laser.slot.translation.x,
+                 self.laser.slot.pos.y + self.laser.slot.translation.y),
+                coords
+                # if coords is not None else (
+                #     self.laser.slot.pos.x + self.laser.slot.translation.x,
+                #     self.laser.slot.pos.y + self.laser.slot.translation.y)
+            )
+            self.damage = self.base_damage * self.game.dt
+        else:
+            self.line = None
         del coords
 
     def draw(self):
-        pygame.draw.line(self.game.screen, (255, 255, 255), self.line[0], self.line[1], 2)
+        if self.line is not None:
+            pygame.draw.line(self.game.screen, (255, 255, 255), self.line[0], self.line[1], 2)
 
 #
 #
