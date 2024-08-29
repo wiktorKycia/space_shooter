@@ -87,12 +87,6 @@ class Ship1(PlayableShip):
                 Slot(game, self, Vector2(-20, -20), pygame.K_KP_0, KineticLight)
             ]
         )
-        # self.guns.extend(
-        #     [
-        #         KineticLight(game, self, Vector2(20, -20), key=pygame.K_KP_1),
-        #         KineticLight(game, self, Vector2(-20, -20), key=pygame.K_KP_1)
-        #     ]
-        # )
 
 class Ship2(PlayableShip):
     def __init__(self, game):
@@ -164,8 +158,3 @@ class Ship5(PlayableShip):
             hp_x=165, hp_y=710,
             scale=2.0
         )
-        # self.guns.extend(
-        #     [
-        #         KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
-        #     ]
-        # )

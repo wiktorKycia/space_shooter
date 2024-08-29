@@ -194,14 +194,6 @@ class LevelGame:
             else:
                 bullet.steered_by_menu = True
 
-            # if self.game.player.current_ship.mask.overlap(bullet.mask, (
-            #         bullet.pos.x - self.game.player.current_ship.hitbox.x,
-            #         bullet.pos.y - self.game.player.current_ship.hitbox.y)):
-            #     # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-            #     self.game.player.current_ship.hp.get_damage(bullet.damage)
-            #     self.other_bullets.remove(bullet)
-            #     continue
-
         self.game.player.current_ship.tick()
         self.currentLevel.tick()
 
