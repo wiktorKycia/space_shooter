@@ -257,18 +257,16 @@ class Flamethrower(Weapon):
 
 
 class Flamethrower1(Flamethrower):
-    def __init__(self, game, ship, translation, key=pygame.K_KP_0):
-        self.force = 100
+    def __init__(self, game, slot, key=pygame.K_KP_0):
         super().__init__(
-            game, ship,
-            translation=translation,
-            force=self.force,
-            interval=0.05,
+            game, slot, key,
             particle=Particle,
+            force=100,
+            interval=0.05,
             spread=5,
             intensity=1,
-            clip_size=100,
-            reload=2.0,
+            max_ammo=100,
+            reload_time=2.0,
             active_reload=False
         )
 
