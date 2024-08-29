@@ -193,7 +193,6 @@ class ShotGun(Weapon):
         for bullet in self.bullets:
             bullet.draw()
 
-
 class ShotGun1(ShotGun):
     def __init__(self, game, slot, key=pygame.K_KP_0):
         super().__init__(
@@ -209,29 +208,52 @@ class ShotGun1(ShotGun):
         )
 
 
-class Flamethrower(Gun):
-    def __init__(self, game, ship, translation, force, interval, particle, spread, intensity, clip_size,
-                 reload,
-                 active_reload: bool = False, key: int = pygame.K_KP_0):
-        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
+class Flamethrower(Weapon):
+    def __init__(self, game, slot, key, particle, spread, intensity, force, interval, max_ammo: int,
+                 reload_time: float, active_reload: bool):
+        super().__init__(game, slot, key)
+        self.particles = []
         self.particle = particle
         self.spread = [-spread / 2, spread / 2]
         self.intensity = intensity
+        self.interval = interval
+        self.clip = Clip(game, max_ammo, reload_time, active_reload)
+
+        if self.is_player:
+            self.force = force
+        else:
+            self.force = -force
 
     def shot(self):
         for _ in range(self.intensity):
-            par = self.particle(self.game, self.pos.x, self.pos.y, 2, 1, self.force,
+            par = self.particle(self.game, self.slot.weapon, self.slot.pos.x, self.slot.pos.y, 2, 1, self.force,
                                 random.uniform(self.spread[0], self.spread[1]))
-            self.bullets.append(par)
+            self.particles.append(par)
             self.clip.shot()
+
+    def _shootCheck(self, condition):
+        if condition and self.clock > self.interval:
+            if self.clip.can_i_shoot():
+                self.clock = 0
+                self.shot()
 
     def tick(self):
         super().tick()
-        # for bullet in self.bullets:
-        #     if bullet.pos.y < 0 or bullet.alpha < 10:
-        #         self.bullets.remove(bullet)
-        #         del bullet
-        #         continue
+        self.clip.tick()
+        pressed = pygame.key.get_pressed()
+
+        if self.is_player:
+            self._shootCheck((pressed[pygame.K_KP_0] or pressed[self.key]))
+        else:
+            self.key = self.slot.ship.is_shooting
+            self._shootCheck(self.key)
+
+        for particle in self.particles:
+            particle.tick()
+
+    def draw(self):
+        for particle in self.particles:
+            particle.draw()
 
 
 class Flamethrower1(Flamethrower):
