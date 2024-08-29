@@ -132,8 +132,6 @@ class KineticLight(Gun):
             reload_time=3.0,
             active_reload=False
         )
-
-
 class KineticMedium(Gun):
     def __init__(self, game, slot, key=pygame.K_KP_0):
         super().__init__(
@@ -146,13 +144,21 @@ class KineticMedium(Gun):
             active_reload=False
         )
 
-class ShotGun(Gun):
-    def __init__(self, game, ship, translation, force, interval, bul, spread, intensity, clip_size, reload,
-                 active_reload: bool = False, key: int = pygame.K_KP_0):
-        super().__init__(game, ship, translation, force, interval, key, clip_size, reload, active_reload)
-        self.bul = bul
+
+class ShotGun(Weapon):
+    def __init__(self, game, slot, key, bullet, spread, intensity, force, interval, max_ammo: int, reload_time: float,
+                 active_reload: bool):
+        super().__init__(game, slot, key)
+        self.bul = bullet
         self.spread = [-spread / 2, spread / 2]
         self.bullets_at_once = intensity
+        self.interval = interval
+        self.clip = Clip(game, max_ammo, reload_time, active_reload)
+
+        if self.is_player:
+            self.force = force
+        else:
+            self.force = -force
 
     def shot(self):
         for _ in range(self.bullets_at_once):
