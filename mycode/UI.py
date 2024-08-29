@@ -184,8 +184,7 @@ class LevelGame:
 
         for bullet in self.other_bullets:
             if bullet.steered_by_menu:
-                if not bullet.tick():
-                    break
+                bullet.tick()
             else:
                 bullet.steered_by_menu = True
 

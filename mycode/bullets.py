@@ -55,8 +55,10 @@ class ImageBullet(NoShooting):
             if self.check_collision(self.game.player.current_ship):
                 self.game.player.current_ship.hp.get_damage(self.damage)
                 try:
-                    self.gun.bullets.remove(self)
-                    return False
+                    if not self.steered_by_menu:
+                        self.gun.bullets.remove(self)
+                    else:
+                        self.game.menuHandler.currentMenu.other_bullets.remove(self)
                 except ValueError:
                     pass
 
