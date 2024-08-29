@@ -5,17 +5,22 @@ from mycode import NoShooting
 mixer.init()
 
 class ImageBullet(NoShooting):
-    def __init__(self, game, x, y, path, mass, force, angle, sound: str = "", scale=1.0):
+    def __init__(self, game, gun, x, y, path, mass, force, angle, damage, sound: str = "", scale=1.0):
         self.image = pygame.image.load(path).convert_alpha()
         self.image = pygame.transform.rotate(self.image, 90)
         super().__init__(game, x, y, self.image, mass, scale)
         self.add_force(Vector2(0, -force).rotate(angle))
+
+        self.gun = gun
+        self.damage = damage
 
         if sound != "":
             self.sound = mixer.Sound(sound)
             self.sound.set_volume(0.1)
 
         self.line = None
+
+        self.steered_by_menu = False
 
     def check_collision(self, ship):
         if self.line is not None:
@@ -38,6 +43,28 @@ class ImageBullet(NoShooting):
         new_pos: Vector2 = self.pos + (((self.vel * self.current_slip) + self.acc) * self.game.dt)
         self.line = ((self.pos.x, self.pos.y), (new_pos.x, new_pos.y))
 
+        if self.pos.y < 0:
+            self.gun.bullets.remove(self)
+
+        if self.gun.is_player:
+            for enemy in self.game.menuHandler.currentMenu.enemies:
+                if self.check_collision(enemy):
+                    enemy.hp.get_damage(self.damage)
+                    try:
+                        self.gun.bullets.remove(self)
+                    except ValueError:
+                        pass
+        else:
+            if self.check_collision(self.game.player.current_ship):
+                self.game.player.current_ship.hp.get_damage(self.damage)
+                try:
+                    if not self.steered_by_menu:
+                        self.gun.bullets.remove(self)
+                    else:
+                        self.game.menuHandler.currentMenu.other_bullets.remove(self)
+                except ValueError:
+                    pass
+
         super().tick()
 
     def draw(self):
@@ -46,26 +73,28 @@ class ImageBullet(NoShooting):
         # pygame.draw.rect(self.game.screen, (255,0,0), self.hitbox, 1)
 
 class BulletSmallBlue(ImageBullet):
-    def __init__(self, game, x, y, force, angle=0):
+    def __init__(self, game, gun, x, y, force, angle=0):
         super().__init__(
-            game, x, y,
+            game, gun, x, y,
             path="./images/Laser Sprites/01.png",
             mass=2,
             force=force,
             angle=angle,
+            damage=5,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
-            scale=0.5)
-        self.damage = 5
+            scale=0.5
+        )
 
 
 class BulletMediumBlue(ImageBullet):
-    def __init__(self, game, x, y, force, angle=0):
+    def __init__(self, game, gun, x, y, force, angle=0):
         super().__init__(
-            game, x, y,
+            game, gun, x, y,
             path="./images/Laser Sprites/11.png",
             mass=2,
             force=force,
             angle=angle,
+            damage=5,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.5
         )
@@ -73,17 +102,17 @@ class BulletMediumBlue(ImageBullet):
 
 
 class ShotgunBulletFire(ImageBullet):
-    def __init__(self, game, x, y, force, angle=0):
+    def __init__(self, game, gun, x, y, force, angle=0):
         super().__init__(
-            game, x, y,
+            game, gun, x, y,
             path="./images/shotgun_bullet.png",
             mass=1,
             force=force,
             angle=angle,
+            damage=1,
             sound="./sounds/shot_sounds/laser-light-gun.wav",
             scale=0.1
         )
-        self.damage = 1
 
 
 class Particle(NoShooting):
@@ -142,17 +171,31 @@ class LaserL(NoShooting):
         return ship.hitbox.clipline(self.line)
 
     def tick(self):
-        coords = self.laser.ship.getClosestEnemy()
-        self.line = (
-            (self.laser.ship.pos.x + self.laser.translation.x, self.laser.ship.pos.y + self.laser.translation.y),
-            coords if coords is not None else (
-            self.laser.ship.pos.x + self.laser.translation.x, self.laser.ship.pos.y + self.laser.translation.y)
-        )
-        self.damage = self.base_damage * self.game.dt
+        coords = self.laser.slot.ship.getClosestEnemy()
+        if coords is not None and self.laser.active:
+            self.line = (
+                (self.laser.slot.pos.x + self.laser.slot.translation.x,
+                 self.laser.slot.pos.y + self.laser.slot.translation.y),
+                coords
+                # if coords is not None else (
+                #     self.laser.slot.pos.x + self.laser.slot.translation.x,
+                #     self.laser.slot.pos.y + self.laser.slot.translation.y)
+            )
+            self.damage = self.base_damage * self.game.dt
+            if self.laser.is_player:
+                for enemy in self.game.menuHandler.currentMenu.enemies:
+                    if self.check_collision(enemy):
+                        enemy.hp.get_damage(self.damage)
+            else:
+                if self.check_collision(self.game.player.current_ship):
+                    self.game.player.current_ship.hp.get_damage(self.damage)
+        else:
+            self.line = None
         del coords
 
     def draw(self):
-        pygame.draw.line(self.game.screen, (255, 255, 255), self.line[0], self.line[1], 2)
+        if self.line is not None:
+            pygame.draw.line(self.game.screen, (255, 255, 255), self.line[0], self.line[1], 2)
 
 #
 #

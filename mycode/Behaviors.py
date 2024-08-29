@@ -15,7 +15,7 @@ class Behavior:
         # self.enemy.tick()
         if self.clock > self.process_time:
             self.clock = 0
-            if self.enemy.hp.hp / self.enemy.hp.max_hp > 1 / 2 and not self.enemy.guns[0].clip.reloading:
+            if self.enemy.hp.hp / self.enemy.hp.max_hp > 1 / 2 and not self.enemy.slots[0].weapon.clip.reloading:
                 self.enemy.is_shooting = True
                 self.enemy.destination_x = self.game.player.current_ship.pos.x
                 self.enemy.destination_y = 100

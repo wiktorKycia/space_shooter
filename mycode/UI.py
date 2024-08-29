@@ -107,12 +107,17 @@ class GameMenu:
 
         # maximise ship's stats
         self.ship.hp.maximise_hp()
-        for gun in self.ship.guns:
-            gun.clip.maximise_ammo()
+        for slot in self.ship.slots:
+            try:
+                slot.weapon.clip.maximise_ammo()
+            except AttributeError:
+                pass
 
-        # clear bullets
-        for gun in self.ship.guns:
-            gun.bullets.clear()
+            # clear bullets
+            try:
+                slot.weapon.bullets.clear()
+            except AttributeError:
+                pass
 
         # self.game.menuHandler.currentMenu.other_bullets.clear()
 
@@ -184,15 +189,18 @@ class LevelGame:
             enemy.tick()
 
         for bullet in self.other_bullets:
-            bullet.tick()
-            bullet.draw()
-            if self.game.player.current_ship.mask.overlap(bullet.mask, (
-                    bullet.pos.x - self.game.player.current_ship.hitbox.x,
-                    bullet.pos.y - self.game.player.current_ship.hitbox.y)):
-                # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
-                self.game.player.current_ship.hp.get_damage(bullet.damage)
-                self.other_bullets.remove(bullet)
-                continue
+            if bullet.steered_by_menu:
+                bullet.tick()
+            else:
+                bullet.steered_by_menu = True
+
+            # if self.game.player.current_ship.mask.overlap(bullet.mask, (
+            #         bullet.pos.x - self.game.player.current_ship.hitbox.x,
+            #         bullet.pos.y - self.game.player.current_ship.hitbox.y)):
+            #     # energy = int((bullet.mass * bullet.vel * bullet.vel) / 2)
+            #     self.game.player.current_ship.hp.get_damage(bullet.damage)
+            #     self.other_bullets.remove(bullet)
+            #     continue
 
         self.game.player.current_ship.tick()
         self.currentLevel.tick()
@@ -214,6 +222,9 @@ class LevelGame:
         """
         for enemy in self.enemies:
             enemy.draw()
+
+        for bullet in self.other_bullets:
+            bullet.draw()
 
         self.game.player.current_ship.draw()
         self.game.player.current_ship.hp.tick()
