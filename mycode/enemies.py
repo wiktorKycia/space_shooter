@@ -124,9 +124,9 @@ class Bouncer1(BaseEnemy):
             hp_amount=15,
             scale=3.0
         )
-        self.guns.extend(
+        self.slots.extend(
             [
-                KineticLight(game, self, Vector2(0, 0), key=self.is_shooting)
+                Slot(game, self, Vector2(0, 0), self.is_shooting, KineticLight)
             ]
         )
 
@@ -168,9 +168,9 @@ class Bouncer2(BaseEnemy):
             hp_amount=35,
             scale=3.0
         )
-        self.guns.extend(
+        self.slots.extend(
             [
-                KineticLight(game, self, Vector2(0, 0), key=self.is_shooting)
+                Slot(game, self, Vector2(0, 10), self.is_shooting, KineticLight)
             ]
         )
         self.destination_x = random.randint(0, 750)
