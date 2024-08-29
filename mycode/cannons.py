@@ -169,6 +169,30 @@ class ShotGun(Weapon):
             bullet.sound.play(0, 800)
             self.clip.shot()
 
+    def _shootCheck(self, condition):
+        if condition and self.clock > self.interval:
+            if self.clip.can_i_shoot():
+                self.clock = 0
+                self.shot()
+
+    def tick(self):
+        super().tick()
+        self.clip.tick()
+        pressed = pygame.key.get_pressed()
+
+        if self.is_player:
+            self._shootCheck((pressed[pygame.K_KP_0] or pressed[self.key]))
+        else:
+            self.key = self.slot.ship.is_shooting
+            self._shootCheck(self.key)
+
+        for bullet in self.bullets:
+            bullet.tick()
+
+    def draw(self):
+        for bullet in self.bullets:
+            bullet.draw()
+
 
 class ShotGun1(ShotGun):
     def __init__(self, game, ship, translation, key=pygame.K_KP_0):
