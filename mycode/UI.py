@@ -183,7 +183,10 @@ class LevelGame:
             enemy.tick()
 
         for bullet in self.other_bullets:
-            bullet.tick()
+            if bullet.steered_by_menu:
+                bullet.tick()
+            else:
+                bullet.steered_by_menu = True
 
             # if self.game.player.current_ship.mask.overlap(bullet.mask, (
             #         bullet.pos.x - self.game.player.current_ship.hitbox.x,

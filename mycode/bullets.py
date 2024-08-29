@@ -20,6 +20,8 @@ class ImageBullet(NoShooting):
 
         self.line = None
 
+        self.steered_by_menu = False
+
     def check_collision(self, ship):
         if self.line is not None:
             if (ship.mask.overlap(self.mask, (
