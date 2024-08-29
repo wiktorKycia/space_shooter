@@ -71,9 +71,11 @@ class LaserClip:
         self.clock += self.game.dt
         if self._active:
             if self.clock > self.shooting_time:
+                self.clock = 0
                 self._active = False
         else:
             if self.clock > self.reload_time:
+                self.clock = 0
                 self._active = True
 
 class Weapon:
