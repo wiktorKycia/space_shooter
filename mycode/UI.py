@@ -130,18 +130,13 @@ class GameMenu:
 
     def tick_menu(self):
         if self.button_levels.check_click():
-            self.game.showing = "levelsmenu"
             self.game.menuHandler.changeMenu(LevelsMenu)
         elif self.button_back.check_click():
-            self.game.showing = "mainmenu"
             self.game.menuHandler.changeMenu(MainMenu)
         elif self.button_hangar.check_click():
-            self.game.showing = "hangar"
             self.game.menuHandler.changeMenu(HangarMenu)
         elif self.button_ship.check_click():
-            self.game.showing = "shipmenu"
             self.game.menuHandler.changeMenu(ShipMenu)
-            # self.game.shipmenu.__init__(self.game)
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
