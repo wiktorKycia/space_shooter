@@ -292,22 +292,39 @@ class Flamethrower1(Flamethrower):
 
 
 class Laser(Weapon):
-    def __init__(self, game, slot, key, laser, shooting_time, reload_time):
+    def __init__(self, game, slot, key, laserType, shooting_time, reload_time):
         super().__init__(game, slot, key)
-        self.laser = laser
+        self.laser = laserType(game, self, self.slot.pos.x, self.slot.pos.y)
+        self.clip = LaserClip(game, shooting_time, reload_time)
 
     def shot(self):
-        if len(self.bullets) < 1:
-            laser = self.laser(self.game, self, self.pos.x, self.pos.y)
-            self.bullets.append(laser)
-            self.clip.shot()
+        pass
+
+    def _shootCheck(self, condition):
+        if condition and self.clip.can_i_shoot():
+            self.shot()
+
+    def tick(self):
+        super().tick()
+        self.clip.tick()
+        self.laser.tick()
+        pressed = pygame.key.get_pressed()
+
+        if self.is_player:
+            self._shootCheck((pressed[pygame.K_KP_0] or pressed[self.key]))
+        else:
+            self.key = self.slot.ship.is_shooting
+            self._shootCheck(self.key)
+
+    def draw(self):
+        self.laser.draw()
 
 
 class Laser1(Laser):
     def __init__(self, game, slot, key=pygame.K_KP_0):
         super().__init__(
             game, slot, key,
-            laser=LaserL,
+            laserType=LaserL,
             shooting_time=10.0,
             reload_time=5.0
         )

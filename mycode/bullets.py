@@ -171,11 +171,13 @@ class LaserL(NoShooting):
         return ship.hitbox.clipline(self.line)
 
     def tick(self):
-        coords = self.laser.ship.getClosestEnemy()
+        coords = self.laser.slot.ship.getClosestEnemy()
         self.line = (
-            (self.laser.ship.pos.x + self.laser.translation.x, self.laser.ship.pos.y + self.laser.translation.y),
+            (self.laser.slot.pos.x + self.laser.slot.translation.x,
+             self.laser.slot.pos.y + self.laser.slot.translation.y),
             coords if coords is not None else (
-            self.laser.ship.pos.x + self.laser.translation.x, self.laser.ship.pos.y + self.laser.translation.y)
+                self.laser.slot.pos.x + self.laser.slot.translation.x,
+                self.laser.slot.pos.y + self.laser.slot.translation.y)
         )
         self.damage = self.base_damage * self.game.dt
         del coords
