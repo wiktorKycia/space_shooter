@@ -182,6 +182,13 @@ class LaserL(NoShooting):
                 #     self.laser.slot.pos.y + self.laser.slot.translation.y)
             )
             self.damage = self.base_damage * self.game.dt
+            if self.laser.is_player:
+                for enemy in self.game.menuHandler.currentMenu.enemies:
+                    if self.check_collision(enemy):
+                        enemy.hp.get_damage(self.damage)
+            else:
+                if self.check_collision(self.game.player.current_ship):
+                    self.game.player.current_ship.hp.get_damage(self.damage)
         else:
             self.line = None
         del coords
