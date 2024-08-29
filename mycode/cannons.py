@@ -195,18 +195,16 @@ class ShotGun(Weapon):
 
 
 class ShotGun1(ShotGun):
-    def __init__(self, game, ship, translation, key=pygame.K_KP_0):
-        self.force = 5000
+    def __init__(self, game, slot, key=pygame.K_KP_0):
         super().__init__(
-            game, ship,
-            translation=translation,
-            force=self.force,
+            game, slot, key,
+            bullet=ShotgunBulletFire,
+            force=5000,
             interval=0.2,
-            bul=ShotgunBulletFire,
             spread=10,
             intensity=10,
-            clip_size=1000,
-            reload=0.1,
+            max_ammo=1000,
+            reload_time=0.01,
             active_reload=True
         )
 
