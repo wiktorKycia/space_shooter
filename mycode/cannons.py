@@ -67,6 +67,10 @@ class LaserClip:
     def can_i_shoot(self):
         return self._active
 
+    def maximise_ammo(self):
+        self.clock = 0
+        self._active = True
+
     def tick(self):
         self.clock += self.game.dt
         if self._active:
