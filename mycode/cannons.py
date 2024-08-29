@@ -149,6 +149,7 @@ class ShotGun(Weapon):
     def __init__(self, game, slot, key, bullet, spread, intensity, force, interval, max_ammo: int, reload_time: float,
                  active_reload: bool):
         super().__init__(game, slot, key)
+        self.bullets = []
         self.bul = bullet
         self.spread = [-spread / 2, spread / 2]
         self.bullets_at_once = intensity
@@ -162,7 +163,7 @@ class ShotGun(Weapon):
 
     def shot(self):
         for _ in range(self.bullets_at_once):
-            bullet = self.bul(self.game, self.pos.x, self.pos.y, self.force,
+            bullet = self.bul(self.game, self.slot.weapon, self.slot.pos.x, self.slot.pos.y, self.force,
                               random.uniform(self.spread[0], self.spread[1]))
             self.bullets.append(bullet)
             bullet.sound.play(0, 800)
