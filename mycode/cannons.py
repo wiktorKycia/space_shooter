@@ -56,6 +56,26 @@ class Clip:
         # self.ammo_bar.draw()
 
 
+class LaserClip:
+    def __init__(self, game, shooting_time, reload_time):
+        self.game = game
+        self.clock = 0
+        self.shooting_time = shooting_time
+        self.reload_time = reload_time
+        self._active = True
+
+    def can_i_shoot(self):
+        return self._active
+
+    def tick(self):
+        self.clock += self.game.dt
+        if self._active:
+            if self.clock > self.shooting_time:
+                self._active = False
+        else:
+            if self.clock > self.reload_time:
+                self._active = True
+
 class Weapon:
     def __init__(self, game, slot, key):
         self.game = game
