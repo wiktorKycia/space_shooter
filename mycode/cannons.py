@@ -296,13 +296,16 @@ class Laser(Weapon):
         super().__init__(game, slot, key)
         self.laser = laserType(game, self, self.slot.pos.x, self.slot.pos.y)
         self.clip = LaserClip(game, shooting_time, reload_time)
+        self.active = False
 
     def shot(self):
-        pass
+        self.active = True
 
     def _shootCheck(self, condition):
         if condition and self.clip.can_i_shoot():
             self.shot()
+        elif not self.clip.can_i_shoot() or not condition:
+            self.active = False
 
     def tick(self):
         super().tick()
