@@ -56,6 +56,7 @@ class ImageBullet(NoShooting):
                 self.game.player.current_ship.hp.get_damage(self.damage)
                 try:
                     self.gun.bullets.remove(self)
+                    return False
                 except ValueError:
                     pass
 
