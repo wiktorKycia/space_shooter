@@ -50,7 +50,10 @@ class ImageBullet(NoShooting):
             for enemy in self.game.menuHandler.currentMenu.enemies:
                 if self.check_collision(enemy):
                     enemy.hp.get_damage(self.damage)
-                    self.gun.bullets.remove(self)
+                    try:
+                        self.gun.bullets.remove(self)
+                    except ValueError:
+                        pass
         else:
             if self.check_collision(self.game.player.current_ship):
                 self.game.player.current_ship.hp.get_damage(self.damage)
