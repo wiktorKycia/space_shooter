@@ -116,8 +116,9 @@ class ShotgunBulletFire(ImageBullet):
 
 
 class Particle(NoShooting):
-    def __init__(self, game, x, y, radius, mass, force, angle, damage=1):
+    def __init__(self, game, flamethrower, radius, mass, force, angle, damage=1):
         self.game = game
+        self.flamethrower = flamethrower
         self.radius = radius
 
         self.surf = pygame.Surface((self.radius*2, self.radius*2), pygame.SRCALPHA)
@@ -127,7 +128,7 @@ class Particle(NoShooting):
 
         self.alpha = 100
         self.green = 0
-        super().__init__(game, x, y, self.surf, mass)
+        super().__init__(game, self.flamethrower.slot.pos.x, self.flamethrower.slot.pos.y, self.surf, mass)
         self.add_force(Vector2(0, -force).rotate(angle))
 
         self.base_damage = damage

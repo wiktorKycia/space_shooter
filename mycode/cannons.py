@@ -246,7 +246,7 @@ class Flamethrower(Weapon):
 
     def shot(self):
         for _ in range(self.intensity):
-            par = self.particle(self.game, self.slot.weapon, self.slot.pos.x, self.slot.pos.y, 2, 1, self.force,
+            par = self.particle(self.game, self.slot.weapon, 2, 1, self.force,
                                 random.uniform(self.spread[0], self.spread[1]))
             self.particles.append(par)
             self.clip.shot()
