@@ -136,7 +136,7 @@ class Particle(NoShooting):
     def check_collision(self, ship):
         return self.hitbox.colliderect(ship.hitbox)
 
-    def tick(self):
+    def tick(self):  # TODO: naprawić: zrobić tak, żeby zadawało damage
         if self.clock > 0.05:
             self.clock -= 0.05
             if self.alpha > 5:
