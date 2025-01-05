@@ -147,10 +147,10 @@ class Ship4(PlayableShip):
             scale=2.0
         )
         self.slots.extend([
-            Slot(game, self, Vector2(3, -25), pygame.K_KP_0, Laser1),
-            Slot(game, self, Vector2(-5, -25), pygame.K_KP_0, Laser1),
-            Slot(game, self, Vector2(25, 15), pygame.K_KP_0, Laser1),
-            Slot(game, self, Vector2(-28, 15), pygame.K_KP_0, Laser1)
+            Slot(game, self, Vector2(3, -15), pygame.K_KP_0, Laser1),
+            Slot(game, self, Vector2(-4, -15), pygame.K_KP_0, Laser1),
+            Slot(game, self, Vector2(13, 6), pygame.K_KP_0, Laser1),
+            Slot(game, self, Vector2(-14, 6), pygame.K_KP_0, Laser1)
         ])
 
 class Ship5(PlayableShip):
