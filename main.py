@@ -81,6 +81,12 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((width, height))
     
     player = Player()
+    player.add_new_ship(Ship1())
+    player.add_new_ship(Ship2())
+    player.add_new_ship(Ship3())
+    player.add_new_ship(Ship4())
+    player.add_new_ship(Ship5())
+    
     mouse = Mouse()
     
     menuHandler = MenuHandler(MainMenu)
