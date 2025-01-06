@@ -22,7 +22,7 @@ class Displayable:
         screen.blit(self.image, (x - self.width / 2, y - self.height / 2))
 
 
-class DisplayableObjectBuilder:
+class PathConverter:
     def __init__(self, path: str):
         self.__image: pygame.Surface = pygame.image.load(path).convert_alpha()
     
