@@ -181,6 +181,17 @@ class LevelManager:
         else:
             return False
 
+    def tick(self, level_number):
+        self.current_time = pygame.time.get_ticks()
+
+        if self.check_if_all_died() and self.flag:
+            self.flag = False
+            self.point_time = pygame.time.get_ticks()
+            self.wave_number += 1
+        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
+            self.flag = True
+            self.waveManager.spawn_wave(level_number, self.wave_number)
+
 
 class Level:
     def __init__(self, game):
