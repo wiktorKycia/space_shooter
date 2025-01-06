@@ -157,9 +157,15 @@ class WaveManager:
 
 
 class LevelManager:
-    def __init__(self, game):
+    def __init__(self, game, waveManager: WaveManager):
         self.game = game
         self.block = MiniLevel(game)
+        self.clock = pygame.time.Clock()
+        self.current_time = 0
+        self.point_time = 0
+        self.wave_number = 0
+        self.flag = True
+        self.waveManager = waveManager
 
         # reset player's ship's stats
         self.game.player.current_ship.hp.maximise_hp()
