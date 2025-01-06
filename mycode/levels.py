@@ -123,6 +123,11 @@ class MiniLevel:
         enemy5 = Enemy3(self.game, x, y)
         self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5])
 
+
+class LevelManager:
+    pass
+
+
 class Level:
     def __init__(self, game):
         self.game = game
