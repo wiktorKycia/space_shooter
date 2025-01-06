@@ -8,6 +8,8 @@ from mycode.other import *
 from mycode.player import *
 from mycode.ships import *
 from mycode.UI import *
+from tests.test11_line import width, height
+
 
 class Game(object):
     """
@@ -15,40 +17,56 @@ class Game(object):
     It is used to connect things into one game.
     """
 
-    def __init__(self, levelManager: LevelManager):
-        self.tps_max = 100.0
+    def __init__(self,
+        player: Player,
+        mouse: Mouse,
+        menuHandler: MenuHandler,
+        levelManager: LevelManager,
+        screen: pygame.Surface,
+        max_tps: float = 100.0,
+        caption: str = "Planet defender"
+    ):
+        self.tps_max = max_tps
 
         #initialization
         pygame.init()
-        self.width = 750
-        self.height = 750
-        self.screen = pygame.display.set_mode((self.width, self.height))
+        self.screen: pygame.Surface = screen
         self.tps_clock = pygame.time.Clock()
         self.dt = 0.0
-        pygame.display.set_caption("Planet defender")
+        pygame.display.set_caption(caption)
 
         #running
         self.isrun = True
 
         #loading objects
-        self.player = Player(self)
-        self.mouse = Mouse(self)
+        self.player = player
+        self.mouse = mouse
 
         self.levelManager = levelManager
-
-        self.menuHandler = MenuHandler(self, MainMenu)
-
+        
+        self.menuHandler = menuHandler
+        
         while self.isrun:
+            # Events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.isrun = False
+            
+            # Update time
             self.dt = self.tps_clock.get_time() / 1000
             self.tps_clock.tick(self.tps_max)
+            
+            # Draw the background
             self.screen.fill((0, 0, 0))
-
+            
+            # Move and draw objects
             self.tick()
             self.draw()
+            
+            # Do the next tick
             pygame.display.update()
+        
+        # Exit
         pygame.quit()
         quit()
 
@@ -59,7 +77,15 @@ class Game(object):
         self.menuHandler.draw()
 
 if __name__ == "__main__":
-    enemySpawner: EnemySpawner = EnemySpawner(self)
-    waveManager: WaveManager = WaveManager(self, "./gameData/levels.json", enemySpawner)
-
-    game: Game = Game(levelManager=LevelManager(self, waveManager))
+    width, height = (750, 750)
+    screen = pygame.display.set_mode((width, height))
+    
+    player = Player()
+    mouse = Mouse()
+    
+    menuHandler = MenuHandler(MainMenu)
+    
+    waveManager: WaveManager = WaveManager("./gameData/levels.json")
+    levelManager: LevelManager = LevelManager(waveManager)
+    
+    game: Game = Game(player, mouse, menuHandler, levelManager, screen, 100.0)

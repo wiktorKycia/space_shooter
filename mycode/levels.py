@@ -1,141 +1,16 @@
 import pygame.time
 from mycode.enemies import *
 from mycode.UI import *
-import random
 import json
-
-
-class EnemySpawner:
-    def __init__(self, game):
-        self.game = game
-
-    def add_single(self, enemy: BaseEnemy):
-        self.game.menuHandler.currentMenu.enemies.append(enemy)
-
-    def pair(self, x:int, y:int, type:int=1):
-        match type:
-            case 1:
-                enemy1 = Enemy1(self.game, x-50, y)
-                enemy2 = Enemy1(self.game, x+50, y)
-            case 2:
-                enemy1 = Enemy2(self.game, x - 50, y)
-                enemy2 = Enemy2(self.game, x + 50, y)
-            case 3:
-                enemy1 = Enemy3(self.game, x - 50, y)
-                enemy2 = Enemy3(self.game, x + 50, y)
-            case _:
-                enemy1 = Enemy1(self.game, x - 50, y)
-                enemy2 = Enemy1(self.game, x + 50, y)
-        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
-
-    def line(self, x:int, y:int, lenght:int, type:int=1):
-        match type:
-            case 1:
-                if lenght % 2 == 0:
-                    enemy1 = Enemy1(self.game, x - 50, y)
-                    enemy2 = Enemy1(self.game, x + 50, y)
-                    self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
-
-                    for i in range(0, int((lenght-2)/2)):
-                        enemy1 = Enemy1(self.game, x - 50 - (i+1) * 100, y)
-                        enemy2 = Enemy1(self.game, x + 50 + (i+1) * 100, y)
-                        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
-                else:
-                    enemy1 = Enemy1(self.game, x, y)
-                    self.game.menuHandler.currentMenu.enemies.append(enemy1)
-
-                    for i in range(0, int((lenght-1)/2)):
-                        enemy2 = Enemy1(self.game, x - (i+1) * 100, y)
-                        enemy3 = Enemy1(self.game, x + (i+1) * 100, y)
-                        self.game.menuHandler.currentMenu.enemies.extend([enemy2, enemy3])
-            case 2:
-                if lenght % 2 == 0:
-                    enemy1 = Enemy2(self.game, x - 50, y)
-                    enemy2 = Enemy2(self.game, x + 50, y)
-                    self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
-
-                    for i in range(0, int((lenght - 2) / 2)):
-                        enemy1 = Enemy2(self.game, x - 50 - (i + 1) * 100, y)
-                        enemy2 = Enemy2(self.game, x + 50 + (i + 1) * 100, y)
-                        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
-                else:
-                    enemy1 = Enemy2(self.game, x, y)
-                    self.game.menuHandler.currentMenu.enemies.append(enemy1)
-
-                    for i in range(0, int((lenght - 1) / 2)):
-                        enemy2 = Enemy2(self.game, x - (i + 1) * 100, y)
-                        enemy3 = Enemy2(self.game, x + (i + 1) * 100, y)
-                        self.game.menuHandler.currentMenu.enemies.extend([enemy2, enemy3])
-            case 3:
-                if lenght % 2 == 0:
-                    enemy1 = Enemy3(self.game, x - 50, y)
-                    enemy2 = Enemy3(self.game, x + 50, y)
-                    self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
-
-                    for i in range(0, int((lenght - 2) / 2)):
-                        enemy1 = Enemy3(self.game, x - 50 - (i + 1) * 100, y)
-                        enemy2 = Enemy3(self.game, x + 50 + (i + 1) * 100, y)
-                        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2])
-                else:
-                    enemy1 = Enemy3(self.game, x, y)
-                    self.game.menuHandler.currentMenu.enemies.append(enemy1)
-
-                    for i in range(0, int((lenght - 1) / 2)):
-                        enemy2 = Enemy3(self.game, x - (i + 1) * 100, y)
-                        enemy3 = Enemy3(self.game, x + (i + 1) * 100, y)
-                        self.game.menuHandler.currentMenu.enemies.extend([enemy2, enemy3])
-            case _:
-                pass
-
-    def triangle1(self, x:int, y:int):
-        enemy1 = Enemy1(self.game, x - 50, y - 50)
-        enemy2 = Enemy1(self.game, x + 50, y - 50)
-        enemy3 = Enemy1(self.game, x, y + 20)
-        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3])
-
-    def triangle2(self, x:int, y:int):
-        enemy1 = Enemy1(self.game, x - 50, y - 50)
-        enemy2 = Enemy1(self.game, x + 50, y - 50)
-        enemy3 = Enemy2(self.game, x, y + 20)
-        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3])
-
-    def triangle3(self, x:int, y:int):
-        enemy1 = Enemy1(self.game, x - 85, y - 50)
-        enemy2 = Enemy1(self.game, x - 50, y + 10)
-        enemy3 = Enemy1(self.game, x, y + 50)
-        enemy4 = Enemy1(self.game, x + 50, y + 10)
-        enemy5 = Enemy1(self.game, x + 85, y - 50)
-        enemy6 = Enemy2(self.game, x, y - 20)
-        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
-
-    def triangle4(self, x:int, y:int):
-        enemy1 = Enemy1(self.game, x - 85, y - 50)
-        enemy2 = Enemy1(self.game, x - 50, y + 10)
-        enemy3 = Enemy1(self.game, x, y + 50)
-        enemy4 = Enemy1(self.game, x + 50, y + 10)
-        enemy5 = Enemy1(self.game, x + 85, y - 50)
-        enemy6 = Enemy3(self.game, x, y - 30)
-        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
-
-    def triangle5(self, x:int, y:int):
-        enemy1 = Enemy1(self.game, x - 40, y + 40)
-        enemy2 = Enemy1(self.game, x + 40, y + 40)
-        enemy3 = Enemy2(self.game, x - 80, y - 20)
-        enemy4 = Enemy2(self.game, x + 80, y - 20)
-        enemy5 = Enemy3(self.game, x, y)
-        self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5])
-
+import spawners
 
 class WaveManager:
-    def __init__(self, game, config_file, spawner: EnemySpawner):
-        self.game = game
-        self.spawner: EnemySpawner = spawner
+    def __init__(self, config_file):
         with open(config_file, "r") as f:
             self.config = json.load(f)
-
-    def spawn_wave(self, level_number, wave_number):
+    
+    def spawn_wave(self, level_number: int, wave_number: int, enemies: list[BaseEnemy]):
         wave = self.config['levels'][level_number - 1]['waves'][wave_number]
-        # wave = next((w for w in self.config["waves"] if w["wave_number"] == wave_number), None)
         if not wave:
             return
 
@@ -144,12 +19,12 @@ class WaveManager:
         enemy_type = wave["enemy_type"]
 
         if wave_type == "single":
-            self.spawner.add_single(self.create_enemy(enemy_type, x, y))
+            spawners.add_single(enemies, self.create_enemy(enemy_type, x, y))
         elif wave_type == "pair":
-            self.spawner.pair(x, y, 1)
+            spawners.pair(enemies, x, y, self.create_enemy(enemy_type, x, y))
         elif wave_type == "line":
             enemy_count = wave.get("enemy_count", 1)
-            self.spawner.line(x, y, enemy_count, 1)
+            spawners.line(enemies, x, y, enemy_count, self.create_enemy(enemy_type, x, y))
 
     def create_enemy(self, enemy_type, x, y):
         enemy_classes = {
@@ -159,8 +34,7 @@ class WaveManager:
 
 
 class LevelManager:
-    def __init__(self, game, waveManager: WaveManager):
-        self.game = game
+    def __init__(self, waveManager: WaveManager):
         self.clock = pygame.time.Clock()
         self.current_time = 0
         self.point_time = 0
@@ -169,29 +43,31 @@ class LevelManager:
         self.waveManager = waveManager
 
         # reset player's ship's stats
+        # TODO: move to PlayableShip
         self.game.player.current_ship.hp.maximise_hp()
         for slot in self.game.player.current_ship.slots:
             try:
                 slot.weapon.clip.maximise_ammo()
             except AttributeError:
                 pass
-
-    def check_if_all_died(self):
-        if len(self.game.menuHandler.currentMenu.enemies) == 0:
+    
+    @staticmethod
+    def check_if_all_died(enemies: list[BaseEnemy]):
+        if len(enemies) == 0:
             return True
         else:
             return False
-
-    def tick(self, level_number):
+    
+    def tick(self, level_number: int, enemies: list[BaseEnemy]):
         self.current_time = pygame.time.get_ticks()
 
         if self.check_if_all_died() and self.flag:
             self.flag = False
             self.point_time = pygame.time.get_ticks()
             self.wave_number += 1
-        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
+        elif self.check_if_all_died(enemies) and not self.flag and self.current_time - self.point_time >= 1500:
             self.flag = True
-            self.waveManager.spawn_wave(level_number, self.wave_number)
+            self.waveManager.spawn_wave(level_number, self.wave_number, enemies)
 
 # class Level:
 #     def __init__(self, game):

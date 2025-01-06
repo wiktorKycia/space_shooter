@@ -153,24 +153,36 @@ class GameMenu:
         write(self.game, f"Mass: {str(self.game.player.current_ship.mass)}", 50, 400, 28, (200, 200, 200))
 
 
+from levels import LevelManager
+from mycode.enemies import BaseEnemy
+from collections.abc import Callable
 class LevelGame:
-    def __init__(self, game):
-        self.game = game
-        self.enemies = []
-
-        self.level_pointer = 0
-        self.currentLevelType = self.game.levels[self.level_pointer]
-        self.currentLevel = self.currentLevelType(self.game)
-
-        self.click_P_counter = 0
-
-        self.other_bullets = []
-
-    def reset_current_level(self):
-        self.currentLevelType = self.game.levels[self.level_pointer]
-        self.currentLevel = self.currentLevelType(self.game)
-
-    def tick_menu(self):
+    def __init__(self, level_number: int, levelManager: LevelManager, menuHandler: MenuHandler):
+        """
+        Manages the situation on a concrete level
+        :param level_number:
+        :param levelManager:
+        :param menuHandler:
+        """
+        self.enemies: list[BaseEnemy] = []
+        self.other_bullets: list = []
+        
+        self.level_manager: LevelManager = levelManager
+        self.level_number: int = level_number
+        
+        self.click_P_counter: int = 0
+        self.menuHandler = menuHandler
+    
+    def check_for_key_press(self, key: int = pygame.K_p):
+        if pygame.key.get_pressed()[key] == 1 and self.click_P_counter == 0:
+            self.click_P_counter += 1
+            self.menuHandler.changeMenu(PauseMenu, True)
+        elif pygame.key.get_pressed()[pygame.K_p] == 0:
+            self.click_P_counter = 0
+        else:
+            self.click_P_counter += 1
+    
+    def tick_menu(self, player_ship: PlayableShip):
         """
         Method tick contains instructions to run during every tick (frame).
         First, it calls every enemies' tick method,
@@ -186,20 +198,13 @@ class LevelGame:
                 bullet.tick()
             else:
                 bullet.steered_by_menu = True
-
-        self.game.player.current_ship.tick()
-        self.currentLevel.tick()
-
-        if pygame.key.get_pressed()[pygame.K_p] == 1 and self.click_P_counter == 0:
-            self.click_P_counter += 1
-            self.game.menuHandler.changeMenu(PauseMenu, True)
-            # self.showing = "pausemenu"
-        elif pygame.key.get_pressed()[pygame.K_p] == 0:
-            self.click_P_counter = 0
-        else:
-            self.click_P_counter += 1
-
-    def draw_menu(self):
+        
+        player_ship.tick()
+        self.level_manager.tick(self.level_number, self.enemies)
+        
+        self.check_for_key_press()
+    
+    def draw_menu(self, player_ship: PlayableShip):
         """
         Method draw usually is called after tick method, it displays object on the screen.
         First, it draws the enemies,
@@ -210,9 +215,9 @@ class LevelGame:
 
         for bullet in self.other_bullets:
             bullet.draw()
-
-        self.game.player.current_ship.draw()
-        self.game.player.current_ship.hp.tick()
+        
+        player_ship.draw()
+        player_ship.hp.tick()
 
 class LevelsMenu:
     def __init__(self, game, config_file: str = "../gameData/levels.json"):
