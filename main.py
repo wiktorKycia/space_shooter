@@ -15,8 +15,11 @@ class Game(object):
     It is used to connect things into one game.
     """
 
-    def __init__(self, levelManager: LevelManager):
-        self.tps_max = 100.0
+    def __init__(self,
+                 levelManager: LevelManager,
+                 max_tps: float = 100.0
+                 ):
+        self.tps_max = max_tps
 
         #initialization
         pygame.init()
