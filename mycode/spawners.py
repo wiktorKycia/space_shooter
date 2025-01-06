@@ -6,11 +6,11 @@ import json
 from copy import deepcopy
 
 
-def add_single(enemies: list, enemy: BaseEnemy):
+def add_single(enemies: list[BaseEnemy], enemy: BaseEnemy):
     enemies.append(enemy)
 
 
-def pair(self, x: int, y: int, enemy: BaseEnemy):
+def pair(enemies: list[BaseEnemy], x: int, y: int, enemy: BaseEnemy):
     enemy1 = deepcopy(enemy)
     enemy2 = deepcopy(enemy)
     enemy1.pos.xy = (x - 50, y)
@@ -18,66 +18,35 @@ def pair(self, x: int, y: int, enemy: BaseEnemy):
     enemies.extend([enemy1, enemy2])
 
 
-def line(self, x: int, y: int, lenght_: int, enemy: BaseEnemy):
-    match type_:
-        case 1:
-            if lenght_ % 2 == 0:
-                enemy1 = Enemy1(self.game, x - 50, y)
-                enemy2 = Enemy1(self.game, x + 50, y)
-                self.enemies.extend([enemy1, enemy2])
-                
-                for i in range(0, int((lenght_ - 2) / 2)):
-                    enemy1 = Enemy1(self.game, x - 50 - (i + 1) * 100, y)
-                    enemy2 = Enemy1(self.game, x + 50 + (i + 1) * 100, y)
-                    self.enemies.extend([enemy1, enemy2])
-            else:
-                enemy1 = Enemy1(self.game, x, y)
-                self.enemies.append(enemy1)
-                
-                for i in range(0, int((lenght_ - 1) / 2)):
-                    enemy2 = Enemy1(self.game, x - (i + 1) * 100, y)
-                    enemy3 = Enemy1(self.game, x + (i + 1) * 100, y)
-                    self.enemies.extend([enemy2, enemy3])
-        case 2:
-            if lenght_ % 2 == 0:
-                enemy1 = Enemy2(self.game, x - 50, y)
-                enemy2 = Enemy2(self.game, x + 50, y)
-                self.enemies.extend([enemy1, enemy2])
-                
-                for i in range(0, int((lenght_ - 2) / 2)):
-                    enemy1 = Enemy2(self.game, x - 50 - (i + 1) * 100, y)
-                    enemy2 = Enemy2(self.game, x + 50 + (i + 1) * 100, y)
-                    self.enemies.extend([enemy1, enemy2])
-            else:
-                enemy1 = Enemy2(self.game, x, y)
-                self.enemies.append(enemy1)
-                
-                for i in range(0, int((lenght_ - 1) / 2)):
-                    enemy2 = Enemy2(self.game, x - (i + 1) * 100, y)
-                    enemy3 = Enemy2(self.game, x + (i + 1) * 100, y)
-                    self.enemies.extend([enemy2, enemy3])
-        case 3:
-            if lenght_ % 2 == 0:
-                enemy1 = Enemy3(self.game, x - 50, y)
-                enemy2 = Enemy3(self.game, x + 50, y)
-                self.enemies.extend([enemy1, enemy2])
-                
-                for i in range(0, int((lenght_ - 2) / 2)):
-                    enemy1 = Enemy3(self.game, x - 50 - (i + 1) * 100, y)
-                    enemy2 = Enemy3(self.game, x + 50 + (i + 1) * 100, y)
-                    self.enemies.extend([enemy1, enemy2])
-            else:
-                enemy1 = Enemy3(self.game, x, y)
-                self.enemies.append(enemy1)
-                
-                for i in range(0, int((lenght_ - 1) / 2)):
-                    enemy2 = Enemy3(self.game, x - (i + 1) * 100, y)
-                    enemy3 = Enemy3(self.game, x + (i + 1) * 100, y)
-                    self.enemies.extend([enemy2, enemy3])
-        case _:
-            pass
-
-
+def line(enemies: list[BaseEnemy], x: int, y: int, length_: int, enemy: BaseEnemy, spacing: int = 100):
+    created: int = 0
+    if length_ % 2 == 0:
+        enemy1 = deepcopy(enemy)
+        enemy2 = deepcopy(enemy)
+        
+        enemy1.pos.xy = (x - (spacing / 2), y)
+        enemy2.pos.xy = (x + (spacing / 2), y)
+        
+        enemies.extend([enemy1, enemy2])
+        created = 2
+    else:
+        enemy1 = deepcopy(enemy)
+        enemies.append(enemy1)
+        created = 1
+    
+    for i in range(0, int((length_ - created) / 2)):
+        enemy1 = deepcopy(enemy)
+        enemy2 = deepcopy(enemy)
+        
+        if created == 2:
+            enemy1.pos.xy = (x - (i + 1) * spacing, y)
+            enemy2.pos.xy = (x + (i + 1) * spacing, y)
+        else:
+            enemy1.pos.xy = (x - 50 - (i + 1) * spacing, y)
+            enemy2.pos.xy = (x + 50 + (i + 1) * spacing, y)
+        
+        enemies.extend([enemy1, enemy2])
+    
 def triangle1(self, x: int, y: int):
     enemy1 = Enemy1(self.game, x - 50, y - 50)
     enemy2 = Enemy1(self.game, x + 50, y - 50)
