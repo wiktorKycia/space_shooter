@@ -4,123 +4,14 @@ from mycode.UI import *
 import random
 import json
 from copy import deepcopy
+import spawners
 
-class EnemySpawner:
-    def __init__(self, enemies: list):
-        self.enemies = enemies
-
-    def add_single(self, enemy: BaseEnemy):
-        self.enemies.append(enemy)
-    
-    def pair(self, enemy: BaseEnemy):
-        enemy1 = deepcopy(enemy)
-        enemy2 = deepcopy(enemy)
-        enemy1.pos.x -= 50
-        enemy2.pos.x += 50
-        self.enemies.extend([enemy1, enemy2])
-    
-    def line(self, x: int, y: int, lenght_: int, type_: int = 1):
-        match type_:
-            case 1:
-                if lenght_ % 2 == 0:
-                    enemy1 = Enemy1(self.game, x - 50, y)
-                    enemy2 = Enemy1(self.game, x + 50, y)
-                    self.enemies.extend([enemy1, enemy2])
-                    
-                    for i in range(0, int((lenght_ - 2) / 2)):
-                        enemy1 = Enemy1(self.game, x - 50 - (i+1) * 100, y)
-                        enemy2 = Enemy1(self.game, x + 50 + (i+1) * 100, y)
-                        self.enemies.extend([enemy1, enemy2])
-                else:
-                    enemy1 = Enemy1(self.game, x, y)
-                    self.enemies.append(enemy1)
-                    
-                    for i in range(0, int((lenght_ - 1) / 2)):
-                        enemy2 = Enemy1(self.game, x - (i+1) * 100, y)
-                        enemy3 = Enemy1(self.game, x + (i+1) * 100, y)
-                        self.enemies.extend([enemy2, enemy3])
-            case 2:
-                if lenght_ % 2 == 0:
-                    enemy1 = Enemy2(self.game, x - 50, y)
-                    enemy2 = Enemy2(self.game, x + 50, y)
-                    self.enemies.extend([enemy1, enemy2])
-                    
-                    for i in range(0, int((lenght_ - 2) / 2)):
-                        enemy1 = Enemy2(self.game, x - 50 - (i + 1) * 100, y)
-                        enemy2 = Enemy2(self.game, x + 50 + (i + 1) * 100, y)
-                        self.enemies.extend([enemy1, enemy2])
-                else:
-                    enemy1 = Enemy2(self.game, x, y)
-                    self.enemies.append(enemy1)
-                    
-                    for i in range(0, int((lenght_ - 1) / 2)):
-                        enemy2 = Enemy2(self.game, x - (i + 1) * 100, y)
-                        enemy3 = Enemy2(self.game, x + (i + 1) * 100, y)
-                        self.enemies.extend([enemy2, enemy3])
-            case 3:
-                if lenght_ % 2 == 0:
-                    enemy1 = Enemy3(self.game, x - 50, y)
-                    enemy2 = Enemy3(self.game, x + 50, y)
-                    self.enemies.extend([enemy1, enemy2])
-                    
-                    for i in range(0, int((lenght_ - 2) / 2)):
-                        enemy1 = Enemy3(self.game, x - 50 - (i + 1) * 100, y)
-                        enemy2 = Enemy3(self.game, x + 50 + (i + 1) * 100, y)
-                        self.enemies.extend([enemy1, enemy2])
-                else:
-                    enemy1 = Enemy3(self.game, x, y)
-                    self.enemies.append(enemy1)
-                    
-                    for i in range(0, int((lenght_ - 1) / 2)):
-                        enemy2 = Enemy3(self.game, x - (i + 1) * 100, y)
-                        enemy3 = Enemy3(self.game, x + (i + 1) * 100, y)
-                        self.enemies.extend([enemy2, enemy3])
-            case _:
-                pass
-
-    def triangle1(self, x:int, y:int):
-        enemy1 = Enemy1(self.game, x - 50, y - 50)
-        enemy2 = Enemy1(self.game, x + 50, y - 50)
-        enemy3 = Enemy1(self.game, x, y + 20)
-        self.enemies.extend([enemy1, enemy2, enemy3])
-
-    def triangle2(self, x:int, y:int):
-        enemy1 = Enemy1(self.game, x - 50, y - 50)
-        enemy2 = Enemy1(self.game, x + 50, y - 50)
-        enemy3 = Enemy2(self.game, x, y + 20)
-        self.enemies.extend([enemy1, enemy2, enemy3])
-
-    def triangle3(self, x:int, y:int):
-        enemy1 = Enemy1(self.game, x - 85, y - 50)
-        enemy2 = Enemy1(self.game, x - 50, y + 10)
-        enemy3 = Enemy1(self.game, x, y + 50)
-        enemy4 = Enemy1(self.game, x + 50, y + 10)
-        enemy5 = Enemy1(self.game, x + 85, y - 50)
-        enemy6 = Enemy2(self.game, x, y - 20)
-        self.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
-
-    def triangle4(self, x:int, y:int):
-        enemy1 = Enemy1(self.game, x - 85, y - 50)
-        enemy2 = Enemy1(self.game, x - 50, y + 10)
-        enemy3 = Enemy1(self.game, x, y + 50)
-        enemy4 = Enemy1(self.game, x + 50, y + 10)
-        enemy5 = Enemy1(self.game, x + 85, y - 50)
-        enemy6 = Enemy3(self.game, x, y - 30)
-        self.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
-
-    def triangle5(self, x:int, y:int):
-        enemy1 = Enemy1(self.game, x - 40, y + 40)
-        enemy2 = Enemy1(self.game, x + 40, y + 40)
-        enemy3 = Enemy2(self.game, x - 80, y - 20)
-        enemy4 = Enemy2(self.game, x + 80, y - 20)
-        enemy5 = Enemy3(self.game, x, y)
-        self.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5])
 
 
 class WaveManager:
-    def __init__(self, game, config_file, spawner: EnemySpawner):
+    def __init__(self, game, config_file):
         self.game = game
-        self.spawner: EnemySpawner = spawner
+        
         with open(config_file, "r") as f:
             self.config = json.load(f)
 
@@ -135,12 +26,12 @@ class WaveManager:
         enemy_type = wave["enemy_type"]
 
         if wave_type == "single":
-            self.spawner.add_single(self.create_enemy(enemy_type, x, y))
+            spawners.add_single(self.create_enemy(enemy_type, x, y))
         elif wave_type == "pair":
-            self.spawner.pair(x, y, 1)
+            spawners.pair(x, y, 1)
         elif wave_type == "line":
             enemy_count = wave.get("enemy_count", 1)
-            self.spawner.line(x, y, enemy_count, 1)
+            spawners.line(x, y, enemy_count, 1)
 
     def create_enemy(self, enemy_type, x, y):
         enemy_classes = {

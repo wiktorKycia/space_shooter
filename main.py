@@ -85,8 +85,7 @@ if __name__ == "__main__":
     
     menuHandler = MenuHandler(MainMenu)
     
-    enemySpawner: EnemySpawner = EnemySpawner()
-    waveManager: WaveManager = WaveManager("./gameData/levels.json", enemySpawner)
+    waveManager: WaveManager = WaveManager("./gameData/levels.json")
     levelManager: LevelManager = LevelManager(waveManager)
     
     game: Game = Game(player, mouse, menuHandler, levelManager, screen, 100.0)
