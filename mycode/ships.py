@@ -9,13 +9,17 @@ from mycode.other import *
 from mycode.cannons import *
 from mycode import Shooting
 from mycode.slot import Slot
+from mycode.enemies import BaseEnemy
 
 mixer.init()
 
 
 class PlayableShip(Shooting):
-    def __init__(self, game, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, slip=0.98, scale=1.0):
-        size = game.screen.get_size()
+    def __init__(
+        self, screen: pygame.Surface, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y,
+        slip=0.98, scale=1.0
+    ):
+        size = screen.get_size()
         super().__init__(game, size[0]/2, size[1]/2, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, False, slip, scale)
         # self.guns = []
         self.level = 1
@@ -29,10 +33,10 @@ class PlayableShip(Shooting):
             except AttributeError:
                 pass
 
-    def getClosestEnemy(self):
+    def getClosestEnemy(self, enemies: list[BaseEnemy]):
         e = None
         d = math.inf
-        for enemy in self.game.menuHandler.currentMenu.enemies:
+        for enemy in enemies:
             distance = math.sqrt(
                 math.pow(abs(enemy.pos.x - self.pos.x), 2) + math.pow(abs(self.pos.y - enemy.pos.y), 2))
             if e is None or distance < d:
