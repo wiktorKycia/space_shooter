@@ -4,6 +4,7 @@ from mycode.general import *
 import pygame
 from pygame.math import *
 from pygame.locals import *
+import json
 
 
 class MenuHandler:
@@ -214,12 +215,14 @@ class LevelGame:
         self.game.player.current_ship.hp.tick()
 
 class LevelsMenu:
-    def __init__(self, game):
+    def __init__(self, game, config_file: str = "../gameData/levels.json"):
         self.game = game
         self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
         self.buttons = []
+        with open(config_file, "r") as f:
+            self.number_of_levels: int = len(json.load(f)['levels'])
 
-        for i, level in enumerate(self.game.levels):
+        for i in range(self.number_of_levels):
             if (i+1) % 3 == 1:
                 self.buttons.append(LevelButton(self.game, self.game.width/5, self._calculate_level_y(i+1), 200, 100, i+1))
             elif (i+1) % 3 == 2:
@@ -251,7 +254,8 @@ class LevelsMenu:
                         button.y += 50
                         button.rect.center = (button.x, button.y)
 
-    def _calculate_level_y(self, level_id):
+    @staticmethod
+    def _calculate_level_y(level_id):
         a = level_id % 3
         if a == 0: a = 3
         b = level_id - a
