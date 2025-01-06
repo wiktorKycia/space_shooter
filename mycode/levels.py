@@ -6,18 +6,15 @@ import json
 from copy import deepcopy
 import spawners
 
-
-
 class WaveManager:
     def __init__(self, game, config_file):
         self.game = game
         
         with open(config_file, "r") as f:
             self.config = json.load(f)
-
-    def spawn_wave(self, level_number, wave_number):
+    
+    def spawn_wave(self, level_number: int, wave_number: int, enemies: list[BaseEnemy]):
         wave = self.config['levels'][level_number - 1]['waves'][wave_number]
-        # wave = next((w for w in self.config["waves"] if w["wave_number"] == wave_number), None)
         if not wave:
             return
 
@@ -26,12 +23,12 @@ class WaveManager:
         enemy_type = wave["enemy_type"]
 
         if wave_type == "single":
-            spawners.add_single(self.create_enemy(enemy_type, x, y))
+            spawners.add_single(enemies, self.create_enemy(enemy_type, x, y))
         elif wave_type == "pair":
-            spawners.pair(x, y, 1)
+            spawners.pair(enemies, x, y, self.create_enemy(enemy_type, x, y))
         elif wave_type == "line":
             enemy_count = wave.get("enemy_count", 1)
-            spawners.line(x, y, enemy_count, 1)
+            spawners.line(enemies, x, y, enemy_count, self.create_enemy(enemy_type, x, y))
 
     def create_enemy(self, enemy_type, x, y):
         enemy_classes = {
@@ -41,8 +38,7 @@ class WaveManager:
 
 
 class LevelManager:
-    def __init__(self, game, waveManager: WaveManager):
-        self.game = game
+    def __init__(self, waveManager: WaveManager):
         self.clock = pygame.time.Clock()
         self.current_time = 0
         self.point_time = 0
@@ -51,6 +47,7 @@ class LevelManager:
         self.waveManager = waveManager
 
         # reset player's ship's stats
+        # TODO: move to PlayableShip
         self.game.player.current_ship.hp.maximise_hp()
         for slot in self.game.player.current_ship.slots:
             try:
