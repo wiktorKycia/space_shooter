@@ -126,7 +126,34 @@ class MiniLevel:
 
 
 class WaveManager:
-    pass
+    def __init__(self, game, config_file):
+        self.game = game
+        with open(config_file, "r") as f:
+            self.config = json.load(f)
+
+    def spawn_wave(self, level_number, wave_number):
+        wave = self.config['levels'][level_number - 1]['waves'][wave_number]
+        # wave = next((w for w in self.config["waves"] if w["wave_number"] == wave_number), None)
+        if not wave:
+            return
+
+        wave_type = wave["type"]
+        x, y = wave["x"], wave["y"]
+        enemy_type = wave["enemy_type"]
+
+        if wave_type == "single":
+            self.game.block.add_single(self.create_enemy(enemy_type, x, y))
+        elif wave_type == "pair":
+            self.game.block.pair(x, y, 1)
+        elif wave_type == "line":
+            enemy_count = wave.get("enemy_count", 1)
+            self.game.block.line(x, y, enemy_count, 1)
+
+    def create_enemy(self, enemy_type, x, y):
+        enemy_classes = {
+            "Enemy1": Enemy1,
+        }
+        return enemy_classes[enemy_type](self.game, x, y)
 
 
 class LevelManager:
