@@ -1,7 +1,6 @@
 import pygame
 
-
-
+from abc import ABC, abstractmethod
 
 
 # class AmmoBar:
@@ -44,10 +43,15 @@ import pygame
 #         pygame.draw.rect(self.game.screen, self.color, self.bar)
 #         pygame.draw.rect(self.game.screen, (255, 255, 255),
 #                          (self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height), 2)
+@ABC
+class RefillableBar:
+    @abstractmethod
+    def __init__(self, amount: int, x: int, y: int, width: int, height: int, color: tuple[int, int, int]):
+        pass
 
-class HP:
-    def __init__(self, game, amount, width, height, x, y, color=(250, 250, 250)):
-        self.game = game
+
+class HP(RefillableBar):
+    def __init__(self, amount, x, y, width, height, color=(250, 250, 250)):
         self.amount = amount
 
         self.x = x
@@ -67,20 +71,20 @@ class HP:
 
     def decrease_by(self, amount):
         self.amount -= amount
-        self.tick()
-        self.draw()
+        # self.tick()
+        # self.draw()
 
     def tick(self):
         self.block = pygame.Rect(self.x - self.width/2, self.y - self.height/2, self.unit * self.amount, self.height)
-
-    def draw(self):
+    
+    def draw(self, screen: pygame.Surface):
         # self.game.screen.blit(self.surf, (self.x - self.width/2, self.y - self.height/2))
-        pygame.draw.rect(self.game.screen, self.bgcolor, self.back)
-        pygame.draw.rect(self.game.screen, self.color, self.block)
+        pygame.draw.rect(screen, self.bgcolor, self.back)
+        pygame.draw.rect(screen, self.color, self.block)
 
-class DeluxeHP:
-    def __init__(self, game, amount, x, y, width, height, color=(250, 0, 0)):
-        self.game = game
+
+class DeluxeHP(RefillableBar):
+    def __init__(self, amount, x, y, width, height, color=(250, 0, 0)):
         self.current_hp = amount
         self.max_hp = amount
         self.hp = amount
@@ -108,8 +112,8 @@ class DeluxeHP:
             self.hp += amount
         if self.hp > self.max_hp:
             self.hp = self.max_hp
-
-    def tick(self):
+    
+    def tick(self, screen: pygame.Surface):
         transition_width = 0
         transition_color = (255, 0, 0)
 
@@ -122,10 +126,13 @@ class DeluxeHP:
             health_bar_width = int(self.current_hp / self.health_ratio)
             health_bar = pygame.Rect(self.x - self.bar_length/2, self.y - self.height/2, health_bar_width, self.height)
             transition_bar = pygame.Rect(health_bar.right, self.y - self.height/2, transition_width, self.height)
-
-            pygame.draw.rect(self.game.screen, self.color, health_bar)
-            pygame.draw.rect(self.game.screen, transition_color, transition_bar)
-            pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x - self.bar_length/2, self.y - self.height/2, self.bar_length, self.height), 2)
+            
+            pygame.draw.rect(screen, self.color, health_bar)
+            pygame.draw.rect(screen, transition_color, transition_bar)
+            pygame.draw.rect(
+                screen, (255, 255, 255),
+                (self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height), 2
+            )
 
 
         elif self.current_hp > self.hp:
@@ -137,20 +144,26 @@ class DeluxeHP:
             health_bar_width = int(self.hp / self.health_ratio)
             health_bar = pygame.Rect(self.x - self.bar_length/2, self.y - self.height/2, health_bar_width, self.height)
             transition_bar = pygame.Rect(health_bar.right, self.y - self.height/2, transition_width, self.height)
-
-            pygame.draw.rect(self.game.screen, self.color, health_bar)
-            pygame.draw.rect(self.game.screen, transition_color, transition_bar)
-            pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x - self.bar_length/2, self.y - self.height/2, self.bar_length, self.height), 2)
+            
+            pygame.draw.rect(screen, self.color, health_bar)
+            pygame.draw.rect(screen, transition_color, transition_bar)
+            pygame.draw.rect(
+                screen, (255, 255, 255),
+                (self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height), 2
+            )
 
 
         else:
             health_bar_width = int(self.current_hp / self.health_ratio)
             health_bar = pygame.Rect(self.x - self.bar_length/2, self.y - self.height/2, health_bar_width, self.height)
             # transition_bar = pygame.Rect(health_bar.right, self.y, transition_width, self.height)
-
-            pygame.draw.rect(self.game.screen, self.color, health_bar)
+            
+            pygame.draw.rect(screen, self.color, health_bar)
             # pygame.draw.rect(self.game.screen, transition_color, transition_bar)
-            pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x - self.bar_length/2, self.y - self.height/2, self.bar_length, self.height), 2)
+            pygame.draw.rect(
+                screen, (255, 255, 255),
+                (self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height), 2
+            )
 
 
 class Mouse:
