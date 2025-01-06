@@ -3,7 +3,7 @@ from mycode.enemies import *
 from mycode.UI import *
 import random
 import json
-
+from copy import deepcopy
 
 class EnemySpawner:
     def __init__(self, enemies: list):
@@ -12,20 +12,11 @@ class EnemySpawner:
     def add_single(self, enemy: BaseEnemy):
         self.enemies.append(enemy)
     
-    def pair(self, x: int, y: int, type_: int = 1):
-        match type_:
-            case 1:
-                enemy1 = Enemy1(self.game, x-50, y)
-                enemy2 = Enemy1(self.game, x+50, y)
-            case 2:
-                enemy1 = Enemy2(self.game, x - 50, y)
-                enemy2 = Enemy2(self.game, x + 50, y)
-            case 3:
-                enemy1 = Enemy3(self.game, x - 50, y)
-                enemy2 = Enemy3(self.game, x + 50, y)
-            case _:
-                enemy1 = Enemy1(self.game, x - 50, y)
-                enemy2 = Enemy1(self.game, x + 50, y)
+    def pair(self, enemy: BaseEnemy):
+        enemy1 = deepcopy(enemy)
+        enemy2 = deepcopy(enemy)
+        enemy1.pos.x -= 50
+        enemy2.pos.x += 50
         self.enemies.extend([enemy1, enemy2])
     
     def line(self, x: int, y: int, lenght_: int, type_: int = 1):
