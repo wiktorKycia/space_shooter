@@ -1,16 +1,6 @@
 import pygame
 from pygame.math import Vector2
-# from mycode.bullets import *
-# from mycode.bullets2 import *
-# from mycode.cannons import *
-# from mycode.enemies import *
-# from mycode.levels import *
-# from mycode.maneuvering_cannons import *
 from mycode.other import *
-# from mycode.player import *
-# from mycode.ships import *
-# from mycode.two_players import *
-# from mycode.UI import *
 from mycode.general import *
 import math
 
@@ -355,88 +345,6 @@ class DynamicObject(MainObject):
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
 
-# class HasHealth:
-#     def __init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height):
-#         """
-#         A parent class for every object that has health, for example: ships and enemies
-#         :param game: game
-#         :param hp_amount: the maximum hp amount
-#         :param hp_x: the x coordinate of the hp bar
-#         :param hp_y: the y coordinate of the hp bar
-#         :param hp_width: the width of the hp bar
-#         :param hp_height: the height of the hp bar
-#         """
-#         self.hp = DeluxeHP(game, amount=hp_amount, x=hp_x, y=hp_y, width=hp_width, height=hp_height)
-#         self.game = game
-#         self.clock = 0
-#
-#     def tick(self):
-#         self.clock += self.game.dt
-#         self.hp.tick()
-#
-#     def draw(self):
-#         pass
-
-# class Moving(DynamicObject):
-#     def __init__(self, game, x, y, path, mass, max_speed, slip=0.98, scale=1.0):
-#         """
-#         A parent class for every moving object,
-#         it has physics implemented such as velocity and acceleration
-#         :param game: game
-#         :param x: initial x coordinate
-#         :param y: initial y coordinate
-#         :param path: path to the image
-#         :param mass: mass of the object
-#         :param max_speed: maximum velocity, that this object can have
-#         :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
-#         :param scale: the scale of the image
-#         """
-#         super().__init__(game, x, y, path, scale)
-#         self.vel = Vector2(0, 0)
-#         self.acc = Vector2(0, 0)
-#
-#         self.mass = mass
-#
-#         self.slip = slip
-#         self.current_slip = slip
-#         self.max_speed = max_speed
-#
-#     def add_force(self, force:pygame.Vector2):
-#         """
-#         a method that adds force to the object,
-#         you can't specify the mass as it uses the mass object to calculate acceleration.
-#         then adds it to acc vector of the object
-#         :param force: must be the pygame 2-dimensional Vector
-#         :return:
-#         """
-#         self.acc += force / self.mass
-#
-#     def tick(self):
-#         """
-#         multiplies the vel by slip and adds acc to vel,
-#         then, limits the vel if it is above max_speed,
-#         lastly, updates the position by vel and resets acc to 0
-#         :return:
-#         """
-#         # Physics
-#         self.vel *= self.current_slip
-#         self.vel += self.acc
-#
-#         # Limiting speed
-#         if self.vel.x > self.max_speed:  # right
-#             self.vel = Vector2(self.max_speed, self.vel.y)
-#         elif self.vel.x < -self.max_speed:  # left
-#             self.vel = Vector2(-self.max_speed, self.vel.y)
-#         if self.vel.y > self.max_speed:  # up
-#             self.vel = Vector2(self.vel.x, self.max_speed)
-#         elif self.vel.y < -self.max_speed:  # down
-#             self.vel = Vector2(self.vel.x, -self.max_speed)
-#
-#         self.pos += self.vel * self.game.dt
-#         self.acc *= 0
-#         super().tick()
-
-
 class Shooting(DynamicObject):
     def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50,
                  hp_relative=False, slip=0.98, scale=1.0):
@@ -469,78 +377,6 @@ class Shooting(DynamicObject):
         super().tick()
         self.hp.tick()
 
-
-# class ShootingDown(Moving, HasHealth):
-#     def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50, hp_relative=False, slip=0.98, scale=1.0):
-#         """
-#         it basically combines the Moving and HasHealth classes
-#         :param game: game
-#         :param x: x position
-#         :param y: y position
-#         :param path: path to the image
-#         :param mass: mass of the object
-#         :param max_speed: maximum velocity, that this object can have
-#         :param force: force of the object itself (it has usage in moving)
-#         :param hp_amount: the maximum hp amount
-#         :param hp_width: the width of the hp bar
-#         :param hp_height: the height of the hp bar
-#         :param hp_x: the x coordinate of the hp bar
-#         :param hp_y: the y coordinate of the hp bar
-#         :param hp_relative: decides whether the hp bar is relative to the position of the object (True = is relative)
-#         :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
-#         :param scale: the scale of the image
-#         """
-#         super().__init__(game, x, y, path, mass, max_speed, slip, scale)
-#         if hp_relative:  # ! może być błąd z hp_x i hp_y
-#             hp_x = self.pos.x + hp_x
-#             hp_y = self.pos.y + hp_y
-#
-#         self.force = -force
-#         HasHealth.__init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height)
-#         self.guns = []
-#
-#     def tick(self):
-#         super().tick()
-#         HasHealth.tick(self)
-#
-#     def draw(self):
-#         super().draw()
-#         HasHealth.draw(self)
-#
-# class ShootingUp(Moving, HasHealth):
-#     def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, hp_relative=False, slip=0.98, scale=1.0):
-#         """
-#         A parent class for every object moving and shooting upwards for example player's ships
-#         :param game: game
-#         :param x: x position
-#         :param y: y position
-#         :param path: path to the image
-#         :param mass: mass of the object
-#         :param max_speed: maximum velocity, that this object can have
-#         :param force: force of the object itself (it has usage in moving)
-#         :param hp_amount: the maximum hp amount
-#         :param hp_width: the width of the hp bar
-#         :param hp_height: the height of the hp bar
-#         :param hp_x: the x coordinate of the hp bar
-#         :param hp_y: the y coordinate of the hp bar
-#         :param hp_relative: decides whether the hp bar is relative to the position of the object (True = is relative)
-#         :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
-#         :param scale: the scale of the image
-#         """
-#         super().__init__(game, x, y, path, mass, max_speed, slip, scale)
-#         self.force = force
-#         # if hp_relative: # ! może być błąd z hp_x i hp_y
-#         #     hp_x = self.pos.x + hp_x
-#         #     hp_y = self.pos.y + hp_y
-#         HasHealth.__init__(self, game, hp_amount, hp_x, hp_y, hp_width, hp_height)
-#
-#     def tick(self):
-#         super().tick()
-#         HasHealth.tick(self)
-#
-#     def draw(self):
-#         super().draw()
-#         HasHealth.draw(self)
 
 class NoShooting(DynamicObject):
     def __init__(self, game, x, y, path, mass, scale=1.0):
