@@ -14,7 +14,8 @@ class Game(object):
     The main class in the program.
     It is used to connect things into one game.
     """
-    def __init__(self):
+
+    def __init__(self, levelManager: LevelManager):
         self.tps_max = 100.0
 
         #initialization
@@ -33,14 +34,8 @@ class Game(object):
         self.player = Player(self)
         self.mouse = Mouse(self)
 
-        # lists
-        self.levels = [
-            Level1, Level2, Level3,
-            Level4, Level5, Level6,
-            Level7, Level8, Level9,
-            Level10, Level11, Level12,
-            Level13
-        ]
+        self.levelManager = levelManager
+
         self.menuHandler = MenuHandler(self, MainMenu)
 
         while self.isrun:
@@ -64,4 +59,7 @@ class Game(object):
         self.menuHandler.draw()
 
 if __name__ == "__main__":
-    Game()
+    enemySpawner: EnemySpawner = EnemySpawner(self)
+    waveManager: WaveManager = WaveManager(self, "./gameData/levels.json", enemySpawner)
+
+    game: Game = Game(levelManager=LevelManager(self, waveManager))
