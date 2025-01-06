@@ -4,10 +4,9 @@ from mycode import *
 from mycode.ships import *
 
 class Player(object):
-    def __init__(self, game, coins=1500):
-        self.game = game
+    def __init__(self, coins=1500):
         self.coins = coins
-        self.ships = [Ship1(game), Ship2(game), Ship3(game), Ship4(game), Ship5(game)]
+        self.ships = [Ship1(), Ship2(), Ship3(), Ship4(), Ship5()]
         self.current_ship = self.ships[0]
 
     def add_coins(self, amount:int):
@@ -17,8 +16,7 @@ class Player(object):
         self.coins -= amount
 
     def add_new_ship(self, ship):
-        for sh in self.ships:
-            if type(sh) == type(ship):
-                print("You cannot add the ship to the list, you have this model!")
+        if any(isinstance(ship, type(sh)) for sh in self.ships):
+            print("You cannot add the ship to the list, you have this model!")
 
         self.ships.append(ship)
