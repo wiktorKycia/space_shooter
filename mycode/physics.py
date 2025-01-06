@@ -9,7 +9,7 @@ class Physics:
 
 
 class PygamePhysics(Physics):
-    def __init__(self, x: int, y: int, mass: int, power: int, slip: float = 0.98):
+    def __init__(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
         self.pos: Vector2 = Vector2(x, y)
         self.vel: Vector2 = Vector2(0, 0)
         self.acc: Vector2 = Vector2(0, 0)
@@ -17,7 +17,7 @@ class PygamePhysics(Physics):
         self.clock: float = 0
         
         self.mass: int = mass
-        self.force: int = power
+        self.force: int = force
         
         self.slip: float = slip
         self.current_slip: float = slip
