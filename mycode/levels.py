@@ -2,6 +2,7 @@ import pygame.time
 from mycode.enemies import *
 from mycode.UI import *
 import random
+import json
 
 class MiniLevel:
     def __init__(self, game):
@@ -122,6 +123,10 @@ class MiniLevel:
         enemy4 = Enemy2(self.game, x + 80, y - 20)
         enemy5 = Enemy3(self.game, x, y)
         self.game.menuHandler.currentMenu.enemies.extend([enemy1, enemy2, enemy3, enemy4, enemy5])
+
+
+class WaveManager:
+    pass
 
 
 class LevelManager:
