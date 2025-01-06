@@ -8,6 +8,8 @@ from mycode.other import *
 from mycode.player import *
 from mycode.ships import *
 from mycode.UI import *
+from tests.test11_line import width, height
+
 
 class Game(object):
     """
@@ -17,18 +19,18 @@ class Game(object):
 
     def __init__(self,
                  levelManager: LevelManager,
-                 max_tps: float = 100.0
+                 screen: pygame.Surface,
+                 max_tps: float = 100.0,
+                 caption: str = "Planet defender"
                  ):
         self.tps_max = max_tps
 
         #initialization
         pygame.init()
-        self.width = 750
-        self.height = 750
-        self.screen = pygame.display.set_mode((self.width, self.height))
+        self.screen: pygame.Surface = screen
         self.tps_clock = pygame.time.Clock()
         self.dt = 0.0
-        pygame.display.set_caption("Planet defender")
+        pygame.display.set_caption(caption)
 
         #running
         self.isrun = True
@@ -62,7 +64,11 @@ class Game(object):
         self.menuHandler.draw()
 
 if __name__ == "__main__":
+    width, height = (750, 750)
+    screen = pygame.display.set_mode((width, height))
+
     enemySpawner: EnemySpawner = EnemySpawner(self)
     waveManager: WaveManager = WaveManager(self, "./gameData/levels.json", enemySpawner)
+    levelManager: LevelManager = LevelManager(waveManager)
 
-    game: Game = Game(levelManager=LevelManager(self, waveManager))
+    game: Game = Game(levelManager, screen, 100.0)
