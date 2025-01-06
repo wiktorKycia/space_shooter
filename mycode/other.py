@@ -48,6 +48,22 @@ class RefillableBar:
     @abstractmethod
     def __init__(self, amount: int, x: int, y: int, width: int, height: int, color: tuple[int, int, int]):
         pass
+    
+    @abstractmethod
+    def maximise(self):
+        pass
+    
+    @abstractmethod
+    def damage(self, amount: int):
+        pass
+    
+    @abstractmethod
+    def add_health(self, amount: int):
+        pass
+    
+    @abstractmethod
+    def tick(self, screen: pygame.Surface):
+        pass
 
 
 class HP(RefillableBar):
@@ -68,8 +84,8 @@ class HP(RefillableBar):
         self.unit = self.width / self.amount
 
         self.block = pygame.Rect(self.x - self.width/2, self.y - self.height/2, self.unit * self.amount, self.height)
-
-    def decrease_by(self, amount):
+    
+    def damage(self, amount):
         self.amount -= amount
         # self.tick()
         # self.draw()
@@ -97,17 +113,17 @@ class DeluxeHP(RefillableBar):
         self.x = x
         self.y = y
         self.color = color
-
-    def maximise_hp(self):
+    
+    def maximise(self):
         self.hp = self.max_hp
-
-    def get_damage(self, amount):
+    
+    def damage(self, amount):
         if self.hp > 0:
             self.hp -= amount
         if self.hp < 0:
             self.hp = 0
-
-    def get_health(self, amount):
+    
+    def add_health(self, amount):
         if self.hp < self.max_hp:
             self.hp += amount
         if self.hp > self.max_hp:
