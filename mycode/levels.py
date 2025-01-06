@@ -54,23 +54,24 @@ class LevelManager:
                 slot.weapon.clip.maximise_ammo()
             except AttributeError:
                 pass
-
-    def check_if_all_died(self):
-        if len(self.game.menuHandler.currentMenu.enemies) == 0:
+    
+    @staticmethod
+    def check_if_all_died(enemies: list[BaseEnemy]):
+        if len(enemies) == 0:
             return True
         else:
             return False
-
-    def tick(self, level_number):
+    
+    def tick(self, level_number: int, enemies: list[BaseEnemy]):
         self.current_time = pygame.time.get_ticks()
 
         if self.check_if_all_died() and self.flag:
             self.flag = False
             self.point_time = pygame.time.get_ticks()
             self.wave_number += 1
-        elif self.check_if_all_died() and not self.flag and self.current_time - self.point_time >= 1500:
+        elif self.check_if_all_died(enemies) and not self.flag and self.current_time - self.point_time >= 1500:
             self.flag = True
-            self.waveManager.spawn_wave(level_number, self.wave_number)
+            self.waveManager.spawn_wave(level_number, self.wave_number, enemies)
 
 # class Level:
 #     def __init__(self, game):
