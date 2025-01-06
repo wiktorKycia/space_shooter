@@ -21,11 +21,11 @@ class Game(object):
         player: Player,
         mouse: Mouse,
         menuHandler: MenuHandler,
-                 levelManager: LevelManager,
-                 screen: pygame.Surface,
-                 max_tps: float = 100.0,
-                 caption: str = "Planet defender"
-                 ):
+        levelManager: LevelManager,
+        screen: pygame.Surface,
+        max_tps: float = 100.0,
+        caption: str = "Planet defender"
+    ):
         self.tps_max = max_tps
 
         #initialization
@@ -83,10 +83,10 @@ if __name__ == "__main__":
     player = Player()
     mouse = Mouse()
     
-    menuHandler = MenuHandler(self, MainMenu)
-
-    enemySpawner: EnemySpawner = EnemySpawner(self)
-    waveManager: WaveManager = WaveManager(self, "./gameData/levels.json", enemySpawner)
+    menuHandler = MenuHandler(MainMenu)
+    
+    enemySpawner: EnemySpawner = EnemySpawner()
+    waveManager: WaveManager = WaveManager("./gameData/levels.json", enemySpawner)
     levelManager: LevelManager = LevelManager(waveManager)
     
     game: Game = Game(player, mouse, menuHandler, levelManager, screen, 100.0)
