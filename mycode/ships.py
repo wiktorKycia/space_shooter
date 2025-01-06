@@ -21,6 +21,14 @@ class PlayableShip(Shooting):
         self.level = 1
         self.slots = []
 
+    def refill_stats(self):
+        self.hp.maximise_hp()
+        for slot in self.slots:
+            try:
+                slot.weapon.clip.maximise_ammo()
+            except AttributeError:
+                pass
+
     def getClosestEnemy(self):
         e = None
         d = math.inf

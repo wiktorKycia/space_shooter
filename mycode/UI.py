@@ -157,7 +157,9 @@ from levels import LevelManager
 from mycode.enemies import BaseEnemy
 from collections.abc import Callable
 class LevelGame:
-    def __init__(self, level_number: int, levelManager: LevelManager, menuHandler: MenuHandler):
+    def __init__(
+        self, level_number: int, levelManager: LevelManager, menuHandler: MenuHandler, player_ship: PlayableShip
+    ):
         """
         Manages the situation on a concrete level
         :param level_number:
@@ -172,6 +174,9 @@ class LevelGame:
         
         self.click_P_counter: int = 0
         self.menuHandler = menuHandler
+        
+        # reset player's ship's stats
+        player_ship.refill_stats()
     
     def check_for_key_press(self, key: int = pygame.K_p):
         if pygame.key.get_pressed()[key] == 1 and self.click_P_counter == 0:

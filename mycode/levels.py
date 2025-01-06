@@ -41,15 +41,6 @@ class LevelManager:
         self.wave_number = 0
         self.flag = True
         self.waveManager = waveManager
-
-        # reset player's ship's stats
-        # TODO: move to PlayableShip
-        self.game.player.current_ship.hp.maximise_hp()
-        for slot in self.game.player.current_ship.slots:
-            try:
-                slot.weapon.clip.maximise_ammo()
-            except AttributeError:
-                pass
     
     @staticmethod
     def check_if_all_died(enemies: list[BaseEnemy]):
