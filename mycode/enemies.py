@@ -1,38 +1,39 @@
 import pygame.time
-import pygame.math
-import mycode
-from mycode import *
-from mycode.other import *
-from mycode.bullets import *
+
 from mycode.cannons import *
 from mycode.Behaviors import *
 from mycode.slot import Slot
-import os
 import random
 
+from mycode.other import RefillableBar
+from mycode.physics import PygamePhysics
+from mycode.displayable import Displayer
 
-class BaseEnemy(Shooting):
-    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10, hp_relative=True,
-                 slip=0.98, scale=1.0):
-        super().__init__(game, x, y, path, mass, max_speed, -force, hp_amount, hp_width=hp_width, hp_height=hp_height,
-                         hp_relative=hp_relative, slip=slip, scale=scale)
+
+class BaseEnemy:
+    def __init__(self, physics: PygamePhysics, healthBar: RefillableBar, image: pygame.Surface, scale: float = 1.0):
+        self.displayer = Displayer(image, scale)
+        self.physics: PygamePhysics = physics
+        self.hp = healthBar
+        
         self.move_clock = 0
         self.slots = []
         self.is_shooting = True
-
-    def tick(self):
-        super().tick()
+    
+    def tick(self, dt: float):
+        self.displayer.tick(self.physics.x, self.physics.y)
+        self.physics.tick(dt)
 
         for slot in self.slots:
             slot.tick()
-
-        if self.hp.hp <= 0:
-            for slot in self.slots:
-                self.game.menuHandler.currentMenu.other_bullets.extend(slot.weapon.bullets)
-            self.game.menuHandler.currentMenu.enemies.remove(self)
-
-    def draw(self):
-        super().draw()
+    
+    def _move_bullets_after_die(self, bullet_list: list):
+        for slot in self.slots:
+            bullet_list.extend(slot.weapon.bullets)
+    
+    def draw(self, screen: pygame.Surface):
+        self.displayer.draw(screen)
+        
         for slot in self.slots:
             slot.draw()
 
