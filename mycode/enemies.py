@@ -16,6 +16,8 @@ class BaseEnemy:
         self.physics: PygamePhysics = physics
         self.hp = healthBar
         
+        self.physics.force *= -1
+        
         self.move_clock = 0
         self.slots = []
         self.is_shooting = True
