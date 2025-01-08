@@ -1,13 +1,6 @@
-import math
-
-import pygame
 from pygame import mixer
-from pygame.math import Vector2
-import os
-from mycode import *
-from mycode.other import *
+from mycode.other import RefillableBar
 from mycode.cannons import *
-from mycode import Shooting
 from mycode.physics import PygamePhysics
 from mycode.slot import Slot
 from mycode.enemies import BaseEnemy
@@ -18,15 +11,16 @@ mixer.init()
 
 class PlayableShip:
     def __init__(
-        self, image: pygame.Surface, physics: PygamePhysics, scale: float = 1.0
+        self, physics: PygamePhysics, healthBar: RefillableBar, image: pygame.Surface, scale: float = 1.0
     ):
         self.displayer = Displayer(image, scale)
         self.physics: PygamePhysics = physics
+        self.hp = healthBar
         
         self.slots = []
 
     def refill_stats(self):
-        self.hp.maximise_hp()
+        self.hp.maximise()
         for slot in self.slots:
             try:
                 slot.weapon.clip.maximise_ammo()
@@ -38,7 +32,8 @@ class PlayableShip:
         d = math.inf
         for enemy in enemies:
             distance = math.sqrt(
-                math.pow(abs(enemy.pos.x - self.pos.x), 2) + math.pow(abs(self.pos.y - enemy.pos.y), 2))
+                math.pow(abs(enemy.pos.x - self.physics.x), 2) + math.pow(abs(self.physics.y - enemy.pos.y), 2)
+            )
             if e is None or distance < d:
                 d = distance
                 e = enemy
