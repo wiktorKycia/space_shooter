@@ -1,7 +1,7 @@
 import pygame
 
 
-class Displayable:
+class Displayer:
     def __init__(self, image: pygame.Surface, scale: float = 1.0):
         self.image = image if not scale != 1.0 else pygame.transform.scale_by(image, scale)
         

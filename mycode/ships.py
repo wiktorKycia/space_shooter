@@ -10,19 +10,17 @@ from mycode.cannons import *
 from mycode import Shooting
 from mycode.slot import Slot
 from mycode.enemies import BaseEnemy
+from mycode.displayable import Displayer
 
 mixer.init()
 
 
-class PlayableShip(Shooting):
+class PlayableShip:
     def __init__(
-        self, screen: pygame.Surface, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y,
-        slip=0.98, scale=1.0
+        self, image: pygame.Surface, scale: float = 1.0
     ):
-        size = screen.get_size()
-        super().__init__(game, size[0]/2, size[1]/2, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x, hp_y, False, slip, scale)
-        # self.guns = []
-        self.level = 1
+        self.displayer = Displayer(image, scale)
+        
         self.slots = []
 
     def refill_stats(self):
@@ -71,11 +69,11 @@ class PlayableShip(Shooting):
 
         for slot in self.slots:
             slot.tick()
-
-        super().tick()
-
-    def draw(self):
-        super().draw()
+        
+        self.displayer.tick(self.pos.x, self.pos.y)
+    
+    def draw(self, screen: pygame.Surface):
+        self.displayer.draw(screen, self.pos.x, self.pos.y)
         for slot in self.slots:
             slot.draw()
 
