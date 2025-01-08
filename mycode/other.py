@@ -109,7 +109,7 @@ class DeluxeHP(RefillableBar):
     def __init__(self, amount, x, y, width, height, color=(250, 0, 0)):
         self.current_hp = amount
         self.max_hp = amount
-        self.hp = amount
+        self.amount = amount
 
         self.bar_length = width
         self.health_ratio = self.max_hp / self.bar_length
@@ -121,28 +121,29 @@ class DeluxeHP(RefillableBar):
         self.color = color
     
     def maximise(self):
-        self.hp = self.max_hp
+        self.amount = self.max_hp
     
     def damage(self, amount):
-        if self.hp > 0:
-            self.hp -= amount
-        if self.hp < 0:
-            self.hp = 0
+        if self.amount > 0:
+            self.amount -= amount
+        if self.amount < 0:
+            self.amount = 0
     
     def add_health(self, amount):
-        if self.hp < self.max_hp:
-            self.hp += amount
-        if self.hp > self.max_hp:
-            self.hp = self.max_hp
+        if self.amount < self.max_hp:
+            self.amount += amount
+        if self.amount > self.max_hp:
+            self.amount = self.max_hp
     
     def tick(self, screen: pygame.Surface):
         transition_width = 0
         transition_color = (255, 0, 0)
-
-        if self.current_hp < self.hp:
+        
+        if self.current_hp < self.amount:
             self.current_hp += self.change_speed
-            if self.current_hp > self.hp: self.current_hp = self.hp
-            transition_width = int((self.hp - self.current_hp) / self.health_ratio)
+            if self.current_hp > self.amount:
+                self.current_hp = self.amount
+            transition_width = int((self.amount - self.current_hp) / self.health_ratio)
             transition_color = (0, 255, 0)
 
             health_bar_width = int(self.current_hp / self.health_ratio)
@@ -155,15 +156,16 @@ class DeluxeHP(RefillableBar):
                 screen, (255, 255, 255),
                 (self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height), 2
             )
-
-
-        elif self.current_hp > self.hp:
+        
+        
+        elif self.current_hp > self.amount:
             self.current_hp -= self.change_speed
-            if self.current_hp < self.hp: self.current_hp = self.hp
-            transition_width = int((self.current_hp - self.hp) / self.health_ratio)
+            if self.current_hp < self.amount:
+                self.current_hp = self.amount
+            transition_width = int((self.current_hp - self.amount) / self.health_ratio)
             transition_color = (255, 255, 0)
-
-            health_bar_width = int(self.hp / self.health_ratio)
+            
+            health_bar_width = int(self.amount / self.health_ratio)
             health_bar = pygame.Rect(self.x - self.bar_length/2, self.y - self.height/2, health_bar_width, self.height)
             transition_bar = pygame.Rect(health_bar.right, self.y - self.height/2, transition_width, self.height)
             
@@ -186,7 +188,6 @@ class DeluxeHP(RefillableBar):
                 screen, (255, 255, 255),
                 (self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height), 2
             )
-
 
 class Mouse:
     def __init__(self, game):
