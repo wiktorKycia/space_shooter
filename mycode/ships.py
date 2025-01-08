@@ -41,8 +41,8 @@ class PlayableShip:
             return e.pos.x, e.pos.y
         except AttributeError:
             return None
-
-    def tick(self):
+    
+    def tick(self, dt: float):
         # Input
         pressed = pygame.key.get_pressed()
         force = Vector2(0, 0)
@@ -68,6 +68,7 @@ class PlayableShip:
             slot.tick()
         
         self.displayer.tick(self.physics.x, self.physics.y)
+        self.physics.tick(dt)
     
     def draw(self, screen: pygame.Surface):
         self.displayer.draw(screen, self.physics.x, self.physics.y)
