@@ -1,14 +1,8 @@
 import pygame
 from pygame.math import Vector2
-from abc import ABC
 
 
-@ABC
-class Physics:
-    pass
-
-
-class PygamePhysics(Physics):
+class PygamePhysics:
     def __init__(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
         self.pos: Vector2 = Vector2(x, y)
         self.vel: Vector2 = Vector2(0, 0)
@@ -21,6 +15,14 @@ class PygamePhysics(Physics):
         
         self.slip: float = slip
         self.current_slip: float = slip
+    
+    @property
+    def x(self) -> float:
+        return self.pos.x
+    
+    @property
+    def y(self) -> float:
+        return self.pos.y
     
     def add_force(self, force: pygame.Vector2):
         """

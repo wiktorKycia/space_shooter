@@ -8,6 +8,7 @@ from mycode import *
 from mycode.other import *
 from mycode.cannons import *
 from mycode import Shooting
+from mycode.physics import PygamePhysics
 from mycode.slot import Slot
 from mycode.enemies import BaseEnemy
 from mycode.displayable import Displayer
@@ -17,9 +18,10 @@ mixer.init()
 
 class PlayableShip:
     def __init__(
-        self, image: pygame.Surface, scale: float = 1.0
+        self, image: pygame.Surface, physics: PygamePhysics, scale: float = 1.0
     ):
         self.displayer = Displayer(image, scale)
+        self.physics: PygamePhysics = physics
         
         self.slots = []
 
@@ -50,30 +52,30 @@ class PlayableShip:
         pressed = pygame.key.get_pressed()
         force = Vector2(0, 0)
         if pressed[pygame.K_w]:
-            force.y = -self.force
+            force.y = -self.physics.force
         if pressed[pygame.K_s]:
-            force.y = self.force
+            force.y = self.physics.force
         if pressed[pygame.K_d]:
-            force.x = self.force
+            force.x = self.physics.force
         if pressed[pygame.K_a]:
-            force.x = -self.force
+            force.x = -self.physics.force
         if pressed[pygame.K_LSHIFT]:
-            self.current_slip = 0.8
+            self.physics.current_slip = 0.8
         else:
-            self.current_slip = self.slip
+            self.physics.current_slip = self.physics.slip
 
         if force != [0, 0]:
-            self.add_force(force.clamp_magnitude(self.force))
+            self.physics.add_force(force.clamp_magnitude(self.physics.force))
         else:
-            self.add_force(force)
+            self.physics.add_force(force)
 
         for slot in self.slots:
             slot.tick()
         
-        self.displayer.tick(self.pos.x, self.pos.y)
+        self.displayer.tick(self.physics.x, self.physics.y)
     
     def draw(self, screen: pygame.Surface):
-        self.displayer.draw(screen, self.pos.x, self.pos.y)
+        self.displayer.draw(screen, self.physics.x, self.physics.y)
         for slot in self.slots:
             slot.draw()
 
