@@ -345,39 +345,10 @@ class DynamicObject(MainObject):
         self.game.screen.blit(self.image, (self.pos.x - self.width/2, self.pos.y - self.height/2))
 
 
-class Shooting(DynamicObject):
-    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width, hp_height, hp_x=0, hp_y=-50,
-                 hp_relative=False, slip=0.98, scale=1.0):
-        """
-        A parent class for every ship and enemy and every object that can shoot
-        :param game: game
-        :param x: x position
-        :param y: y position
-        :param path: path to the image
-        :param mass: mass of the object
-        :param max_speed: maximum velocity, that this object can have
-        :param force: force of the object itself (it has usage in moving)
-        :param hp_amount: the maximum hp amount
-        :param hp_width: the width of the hp bar
-        :param hp_height: the height of the hp bar
-        :param hp_x: the x coordinate of the hp bar
-        :param hp_y: the y coordinate of the hp bar
-        :param hp_relative: decides whether the hp bar is relative to the position of the object (True = is relative)
-        :param slip: a factor that defines how slow the object will lose its velocity (0 - 0.99), greater = maintaining longer moving
-        :param scale: the scale of the image
-        """
-        super().__init__(game, x, y, path, mass, max_speed, slip, scale)
-        self.force = force
-        if hp_relative:
-            hp_x = self.pos.x + hp_x
-            hp_y = self.pos.y + hp_y
-        self.hp = DeluxeHP(game, amount=hp_amount, x=hp_x, y=hp_y, width=hp_width, height=hp_height)
 
-    def tick(self):
-        super().tick()
-        self.hp.tick()
 
 
 class NoShooting(DynamicObject):
     def __init__(self, game, x, y, path, mass, scale=1.0):
         super().__init__(game, x, y, path, mass, math.inf, 0.9995, scale)
+

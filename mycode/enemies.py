@@ -8,9 +8,10 @@ import random
 from mycode.other import RefillableBar
 from mycode.physics import PygamePhysics
 from mycode.displayable import Displayer
+from mycode.spacecraft import Spacecraft
 
 
-class BaseEnemy:
+class BaseEnemy(Spacecraft):
     def __init__(self, physics: PygamePhysics, healthBar: RefillableBar, image: pygame.Surface, scale: float = 1.0):
         self.displayer = Displayer(image, scale)
         self.physics: PygamePhysics = physics

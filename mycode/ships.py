@@ -5,11 +5,11 @@ from mycode.physics import PygamePhysics
 from mycode.slot import Slot
 from mycode.enemies import BaseEnemy
 from mycode.displayable import Displayer
-
+from mycode.spacecraft import Spacecraft
 mixer.init()
 
 
-class PlayableShip:
+class PlayableShip(Spacecraft):
     def __init__(
         self, physics: PygamePhysics, healthBar: RefillableBar, image: pygame.Surface, scale: float = 1.0
     ):
