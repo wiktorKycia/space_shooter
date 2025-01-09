@@ -1,10 +1,11 @@
+import pygame
 from pygame import mixer
 from mycode.other import RefillableBar
 from mycode.cannons import *
 from mycode.physics import PygamePhysics
 from mycode.slot import Slot
 from mycode.enemies import BaseEnemy
-from mycode.displayable import Displayer
+from mycode.displayable import Displayer, PathConverter
 from mycode.spacecraft import Spacecraft
 mixer.init()
 
@@ -76,6 +77,35 @@ class PlayableShip(Spacecraft):
             slot.draw()
 
 
+class PlayableShipBuilder:
+    def __init__(self):
+        self.ship: PlayableShip | None = None
+        self.image: pygame.Surface | None = None
+        self.scale: float | None = None
+        self.displayer: Displayer | None = None
+        self.healthBar = None  # :RefillableBar
+        self.physics: PygamePhysics | None = None
+    
+    def createImage(self, path: str, scale: float = 1.0):
+        self.image = PathConverter(path).create()
+        self.scale = scale
+        return self
+    
+    def createHealthBar(
+        self, barType, amount: int, x: int, y: int, width: int, height: int, color: tuple[int, int, int] = (250, 0, 0)
+    ):
+        self.healthBar = barType(amount, x, y, width, height, color)
+        return self
+    
+    def createPhysics(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
+        self.physics = PygamePhysics(x, y, mass, force, slip)
+        return self
+    
+    def createShip(self) -> PlayableShip:
+        self.ship = PlayableShip(self.physics, self.healthBar, self.image, self.scale)
+        return self.ship
+    # TODO: dodać metody createSlot i addWeapons
+    
 
 class Ship1(PlayableShip):
     def __init__(self, game):
