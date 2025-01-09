@@ -105,20 +105,11 @@ class PlayableShipBuilder:
         self.ship = PlayableShip(self.physics, self.healthBar, self.image, self.scale)
         return self.ship
     # TODO: dodać metody createSlot i addWeapons
-    
 
-class Ship1(PlayableShip):
-    def __init__(self, game):
-        super().__init__(
-            game, "./images/SpaceShips/Ship_1.png",
-            mass=300,
-            max_speed=275,
-            force=1500,
-            hp_amount=200,
-            hp_height=25, hp_width=300,
-            hp_x=165, hp_y=710,
-            scale=2.0
-        )
+
+class Ship1:
+    def __init__(self):
+        
         self.slots.extend(
             [
                 Slot(game, self, Vector2(20, -20), pygame.K_KP_0, KineticLight),
@@ -126,64 +117,27 @@ class Ship1(PlayableShip):
             ]
         )
 
-class Ship2(PlayableShip):
-    def __init__(self, game):
-        super().__init__(
-            game, "./images/SpaceShips/Ship_2.png",
-            mass=300,
-            max_speed=275,
-            force=1500,
-            hp_amount=200,
-            hp_height=25, hp_width=300,
-            hp_x=165, hp_y=710,
-            scale=2.0
-        )
+
+class Ship2:
+    def __init__(self):
+        
         self.slots.extend([
             Slot(game, self, Vector2(0, -20), pygame.K_KP_0, ShotGun1)
         ])
-        # self.guns.extend(
-        #     [
-        #         KineticMedium(game, self, Vector2(0, -20), key=pygame.K_KP_1)
-        #     ]
-        # )
 
-class Ship3(PlayableShip):
-    def __init__(self, game):
-        super().__init__(
-            game, "./images/SpaceShips/Ship_3.png",
-            mass=300,
-            max_speed=275,
-            force=1500,
-            hp_amount=200,
-            hp_height=25, hp_width=300,
-            hp_x=165, hp_y=710,
-            scale=2.0
-        )
+
+class Ship3:
+    def __init__(self):
+        
         self.slots.extend([
             Slot(game, self, Vector2(-10, -20), pygame.K_KP_0, Flamethrower1),
             Slot(game, self, Vector2(10, -20), pygame.K_KP_0, Flamethrower1)
         ])
-        # self.guns.extend(
-        #     [
-        #         # KineticLight(game, self, Vector2(0, -20), key=pygame.K_KP_1)
-        #         # ShotGun1(game, self, Vector2(0, -20), key=pygame.K_KP_1)
-        #         Flamethrower1(game, self, Vector2(-10, -20), key=pygame.K_KP_0),
-        #         Flamethrower1(game, self, Vector2(10, -20), key=pygame.K_KP_0)
-        #     ]
-        # )
 
-class Ship4(PlayableShip):
-    def __init__(self, game):
-        super().__init__(
-            game, "./images/SpaceShips/Ship_4.png",
-            mass=300,
-            max_speed=275,
-            force=1500,
-            hp_amount=200,
-            hp_height=25, hp_width=300,
-            hp_x=165, hp_y=710,
-            scale=2.0
-        )
+
+class Ship4:
+    def __init__(self):
+        
         self.slots.extend([
             Slot(game, self, Vector2(3, -15), pygame.K_KP_0, Laser1),
             Slot(game, self, Vector2(-4, -15), pygame.K_KP_0, Laser1),
@@ -191,15 +145,6 @@ class Ship4(PlayableShip):
             Slot(game, self, Vector2(-14, 6), pygame.K_KP_0, Laser1)
         ])
 
-class Ship5(PlayableShip):
-    def __init__(self, game):
-        super().__init__(
-            game, "./images/SpaceShips/Ship_5.png",
-            mass=300,
-            max_speed=275,
-            force=1500,
-            hp_amount=200,
-            hp_height=25, hp_width=300,
-            hp_x=165, hp_y=710,
-            scale=2.0
-        )
+
+class Ship5:
+    def __init__(self): pass
