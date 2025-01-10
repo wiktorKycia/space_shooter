@@ -86,33 +86,3 @@ class Bullet(Projectile):
     
     def draw(self, screen: pygame.Surface):
         self.displayer.draw(screen, self.physics.pos.x, self.physics.pos.y)
-
-
-# Will be replaced by BulletBuilder
-# class BulletSmallBlue(ImageBullet):
-#     def __init__(self, game, gun, x, y, force, angle=0):
-#         super().__init__(
-#             game, gun, x, y,
-#             path="./images/Laser Sprites/01.png",
-#             mass=2,
-#             force=force,
-#             angle=angle,
-#             damage=5,
-#             sound="./sounds/shot_sounds/laser-light-gun.wav",
-#             scale=0.5
-#         )
-#
-# class ShotgunBulletFire(ImageBullet):
-#     def __init__(self, game, gun, x, y, force, angle=0):
-#         super().__init__(
-#             game, gun, x, y,
-#             path="./images/shotgun_bullet.png",
-#             mass=1,
-#             force=force,
-#             angle=angle,
-#             damage=1,
-#             sound="./sounds/shot_sounds/laser-light-gun.wav",
-#             scale=0.1
-#         )
-
-
