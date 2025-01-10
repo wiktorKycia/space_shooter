@@ -1,7 +1,7 @@
 import pygame
 import math
 from mycode.bullets import *
-# from mycode.other import AmmoBar
+
 import random
 
 class Clip:
