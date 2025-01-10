@@ -4,23 +4,21 @@ from pygame.math import Vector2
 
 from mycode.physics import PygamePhysics
 from mycode.displayable import Displayer
+from mycode.projectile import Projectile
 from mycode.spacecraft import Spacecraft
 
 mixer.init()
 
 
-class Bullet:
+class Bullet(Projectile):
     def __init__(
         self, physics: PygamePhysics, damage: int, rotation: float, sound_path: str, image: pygame.Surface,
         scale: float = 1.0
     ):
+        super().__init__(physics, damage, rotation)
+        
         self.displayer = Displayer(image, scale)
         self.displayer.image = pygame.transform.rotate(image, 90)
-        
-        self.physics = physics
-        self.physics.add_force(Vector2(0, -self.physics.force).rotate(rotation))
-
-        self.damage = damage
         
         if sound_path != "":
             self.sound = mixer.Sound(sound_path)

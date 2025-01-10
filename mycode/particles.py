@@ -1,27 +1,22 @@
 from mycode.projectile import Projectile
-
+from mycode.physics import PygamePhysics
+from mycode.spacecraft import Spacecraft
+import pygame
 
 class Particle(Projectile):
-    def __init__(self, game, flamethrower, radius, mass, force, angle, damage=1):
-        self.game = game
-        self.flamethrower = flamethrower
+    def __init__(self, physics: PygamePhysics, radius, rotation, damage=1):
+        super().__init__(physics, damage, rotation)
         self.radius = radius
         
         self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
         
-        self.mass = mass
-        self.force = force
-        
         self.alpha = 100
         self.green = 0
-        super().__init__(game, self.flamethrower.slot.pos.x, self.flamethrower.slot.pos.y, self.surf, mass)
-        self.add_force(Vector2(0, -force).rotate(angle))
         
-        self.base_damage = damage
-        self.damage = self.base_damage
+        self.current_damage = damage
     
-    def check_collision(self, ship):
-        return self.hitbox.colliderect(ship.hitbox)
+    def check_collision(self, ship: Spacecraft):
+        return self.hitbox.colliderect(ship.displayer.hitbox)
     
     def tick(self):  # TODO: naprawić: zrobić tak, żeby zadawało damage
         if self.clock > 0.05:
@@ -35,7 +30,7 @@ class Particle(Projectile):
             self.radius += 30 * self.game.dt
             self.surf = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
             self.hitbox = self.surf.get_rect()
-            self.damage = self.alpha / 100 * self.base_damage
+            self.current_damage = self.alpha / 100 * self.damage
         super().tick()
         # if self.alpha < 10 or self.pos.y < 0:
         #     print("self delete")
