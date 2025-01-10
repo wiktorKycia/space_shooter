@@ -86,3 +86,12 @@ class Bullet(Projectile):
     
     def draw(self, screen: pygame.Surface):
         self.displayer.draw(screen, self.physics.pos.x, self.physics.pos.y)
+
+
+class BulletBuilder:
+    def __init__(self):
+        self.bullet: Bullet | None = None
+    
+    def buildPhysics(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
+        self.physics = PygamePhysics(x, y, mass, force, slip)
+        return self
