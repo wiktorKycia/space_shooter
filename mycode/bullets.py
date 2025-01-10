@@ -80,11 +80,9 @@ class Bullet:
                     pass
 
         super().tick()
-
-    def draw(self):
-        # self.game.screen.blit(self.surf, (self.pos.x - self.width/2, self.pos.y - self.height/2))
-        super().draw()
-        # pygame.draw.rect(self.game.screen, (255,0,0), self.hitbox, 1)
+    
+    def draw(self, screen: pygame.Surface):
+        self.displayer.draw(screen, self.physics.pos.x, self.physics.pos.y)
 
 class BulletSmallBlue(ImageBullet):
     def __init__(self, game, gun, x, y, force, angle=0):
