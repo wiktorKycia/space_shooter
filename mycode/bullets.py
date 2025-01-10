@@ -1,21 +1,28 @@
 import pygame
 from pygame import mixer
 from pygame.math import Vector2
-from mycode import NoShooting
+
+from mycode.physics import PygamePhysics
+from mycode.displayable import Displayer
+
 mixer.init()
 
-class ImageBullet(NoShooting):
-    def __init__(self, game, gun, x, y, path, mass, force, angle, damage, sound: str = "", scale=1.0):
-        self.image = pygame.image.load(path).convert_alpha()
-        self.image = pygame.transform.rotate(self.image, 90)
-        super().__init__(game, x, y, self.image, mass, scale)
-        self.add_force(Vector2(0, -force).rotate(angle))
 
-        self.gun = gun
+class Bullet:
+    def __init__(
+        self, physics: PygamePhysics, damage: int, rotation: float, sound_path: str, image: pygame.Surface,
+        scale: float = 1.0
+    ):
+        self.displayer = Displayer(image, scale)
+        self.displayer.image = pygame.transform.rotate(image, 90)
+        
+        self.physics = physics
+        self.physics.add_force(Vector2(0, -self.physics.force).rotate(rotation))
+
         self.damage = damage
-
-        if sound != "":
-            self.sound = mixer.Sound(sound)
+        
+        if sound_path != "":
+            self.sound = mixer.Sound(sound_path)
             self.sound.set_volume(0.1)
 
         self.line = None
