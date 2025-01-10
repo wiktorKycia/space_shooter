@@ -90,31 +90,26 @@ class Weapon:
 
 
 class Gun(Weapon):
-    def __init__(self, game, slot, key, bullet, force, interval, max_ammo: int, reload_time: float,
-                 active_reload: bool):
-        super().__init__(game, slot, key)
+    def __init__(self, trigger: Callable, bullet: type, force: int, interval: float, clip: Clip):
+        super().__init__(trigger)
         self.interval = interval
         self.bul = bullet
         self.bullets = []
-        self.clip = Clip(game, max_ammo, reload_time, active_reload)
-
-        if self.is_player:
-            self.force = force
-        else:
-            self.force = -force
+        self.clip = clip
+        
+        self.force = force
 
     def shot(self):
-        bullet = self.bul(self.game, self, self.slot.pos.x, self.slot.pos.y, self.force)
+        bullet = self.bul(self.slot.pos.x, self.slot.pos.y, self.force)
         if not self.is_player: bullet.image = pygame.transform.flip(bullet.image, False, True)
         self.bullets.append(bullet)
         bullet.sound.play(0, 800)
         self.clip.shot()
-
-    def _shootCheck(self, condition):
-        if condition and self.clock > self.interval:
-            if self.clip.can_i_shoot():
-                self.clock = 0
-                self.shot()
+    
+    def _shootCheck(self):
+        if self.trigger() and self.clock > self.interval and self.clip.can_i_shoot():
+            self.clock = 0
+            self.shot()
 
     def tick(self):
         super().tick()
