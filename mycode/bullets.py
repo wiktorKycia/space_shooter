@@ -4,6 +4,7 @@ from pygame.math import Vector2
 
 from mycode.physics import PygamePhysics
 from mycode.displayable import Displayer
+from mycode.spacecraft import Spacecraft
 
 mixer.init()
 
@@ -28,16 +29,22 @@ class Bullet:
         self.line = None
 
         self.steered_by_menu = False
-
-    def check_collision(self, ship):
+    
+    def check_collision(self, ship: Spacecraft):
         if self.line is not None:
-            if (ship.mask.overlap(self.mask, (
-                    (self.pos.x - self.width / 2) - ship.hitbox.x, (self.pos.y - self.height / 2) - ship.hitbox.y))
-                    or ship.hitbox.clipline(self.line)):
+            if (ship.displayer.mask.overlap(
+                    self.displayer.mask, (
+                            (self.physics.pos.x - self.displayer.width / 2) - ship.displayer.hitbox.x,
+                            (self.physics.pos.y - self.displayer.height / 2) - ship.displayer.hitbox.y)
+            )
+                    or ship.displayer.hitbox.clipline(self.line)):
                 return True
             return False
-        elif ship.mask.overlap(self.mask, (
-                (self.pos.x - self.width / 2) - ship.hitbox.x, (self.pos.y - self.height / 2) - ship.hitbox.y)):
+        elif ship.displayer.mask.overlap(
+                self.displayer.mask, (
+                        (self.physics.pos.x - self.displayer.width / 2) - ship.displayer.hitbox.x,
+                        (self.physics.pos.y - self.displayer.height / 2) - ship.displayer.hitbox.y)
+        ):
             return True
         return False
 
