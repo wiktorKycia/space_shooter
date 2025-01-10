@@ -3,7 +3,7 @@ from pygame import mixer
 from pygame.math import Vector2
 
 from mycode.physics import PygamePhysics
-from mycode.displayable import Displayer
+from mycode.displayable import Displayer, PathConverter
 from mycode.projectile import Projectile
 from mycode.spacecraft import Spacecraft
 
@@ -12,7 +12,8 @@ mixer.init()
 
 class Bullet(Projectile):
     def __init__(
-        self, physics: PygamePhysics, damage: int, rotation: float, sound_path: str, image: pygame.Surface,
+        self, physics: PygamePhysics, damage: int, rotation: float, image: pygame.Surface,
+        sound_path: str | None = None,
         scale: float = 1.0
     ):
         super().__init__(physics, damage, rotation)
@@ -91,7 +92,34 @@ class Bullet(Projectile):
 class BulletBuilder:
     def __init__(self):
         self.bullet: Bullet | None = None
+        self.physics: PygamePhysics | None = None
+        self.damage: int | None = None
+        self.rotation: float = 0.0
+        self.image: pygame.Surface | None = None
+        self.sound_path: str | None = None
+        self.scale: float | None = None
     
     def buildPhysics(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
         self.physics = PygamePhysics(x, y, mass, force, slip)
         return self
+    
+    def set_damage(self, damage: int):
+        self.damage = damage
+        return self
+    
+    def set_rotation(self, rotation: float = 0.0):
+        self.rotation = rotation
+        return self
+    
+    def buildImage(self, path: str, scale: float = 1.0):
+        self.image = PathConverter(path).create()
+        self.scale = scale
+        return self
+    
+    def buildSound(self, path: str):
+        self.sound_path = path
+        return self
+    
+    def buildBullet(self):
+        self.bullet = Bullet(self.physics, self.damage, self.rotation, self.image, self.sound_path, self.scale)
+        return self.bullet
