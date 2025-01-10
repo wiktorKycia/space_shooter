@@ -1,4 +1,5 @@
 from mycode.physics import PygamePhysics
+from mycode.spacecraft import Spacecraft
 from pygame.math import Vector2
 
 class Projectile:
@@ -7,3 +8,6 @@ class Projectile:
         self.physics.add_force(Vector2(0, -self.physics.force).rotate(rotation))
         
         self.damage = damage
+    
+    def check_collision(self, ship: Spacecraft) -> bool:
+        pass
