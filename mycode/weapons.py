@@ -78,14 +78,14 @@ class LaserClip:
                 self._active = True
 
 class Weapon:
-    def __init__(self, trigger: Callable[]):
+    def __init__(self, trigger: Callable):
         self.trigger = trigger
         self.clock = 0
     
     def tick(self, dt):
         self.clock += dt
     
-    def draw(self, position: Vector2):
+    def draw(self, screen: pygame.Surface):
         pass
 
 
