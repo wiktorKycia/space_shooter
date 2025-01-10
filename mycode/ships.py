@@ -86,25 +86,25 @@ class PlayableShipBuilder:
         self.healthBar = None  # :RefillableBar
         self.physics: PygamePhysics | None = None
     
-    def createImage(self, path: str, scale: float = 1.0):
+    def buildImage(self, path: str, scale: float = 1.0):
         self.image = PathConverter(path).create()
         self.scale = scale
         return self
     
-    def createHealthBar(
+    def buildHealthBar(
         self, barType, amount: int, x: int, y: int, width: int, height: int, color: tuple[int, int, int] = (250, 0, 0)
     ):
         self.healthBar = barType(amount, x, y, width, height, color)
         return self
     
-    def createPhysics(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
+    def buildPhysics(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
         self.physics = PygamePhysics(x, y, mass, force, slip)
         return self
     
-    def createShip(self) -> PlayableShip:
+    def buildShip(self) -> PlayableShip:
         self.ship = PlayableShip(self.physics, self.healthBar, self.image, self.scale)
         return self.ship
-    # TODO: dodać metody createSlot i addWeapons
+    # TODO: dodać metody buildSlot i addWeapon
 
 
 class Ship1:
