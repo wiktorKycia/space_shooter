@@ -16,10 +16,10 @@ class Slot:
         self.trigger = trigger
         self.weapon = weapon
     
-    def tick(self, ship: Spacecraft):
-        pos = ship.physics.pos + self.translation
-        self.weapon.tick()
+    def tick(self, dt):
+        # pos = ship.physics.pos + self.translation
+        self.weapon.tick(dt)
     
-    def draw(self, ship: Spacecraft):
-        pos = ship.physics.pos + self.translation
+    def draw(self, position: Vector2):
+        pos = position + self.translation
         self.weapon.draw()

@@ -1,6 +1,7 @@
 import pygame
 import math
 from mycode.bullets import *
+from typing import Callable
 
 import random
 
@@ -77,22 +78,15 @@ class LaserClip:
                 self._active = True
 
 class Weapon:
-    def __init__(self, game, slot, key):
-        self.game = game
-        self.slot = slot
+    def __init__(self, trigger: Callable[]):
+        self.trigger = trigger
         self.clock = 0
-
-        if type(key) == int:
-            # if passed pygame.key value
-            self.is_player = True
-            self.key: int = key
-        else:
-            # if passed other bool type variable
-            self.is_player = False
-            self.key: bool = key
-
-    def tick(self):
-        self.clock += self.game.dt
+    
+    def tick(self, dt):
+        self.clock += dt
+    
+    def draw(self, position: Vector2):
+        pass
 
 
 class Gun(Weapon):
