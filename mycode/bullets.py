@@ -36,8 +36,7 @@ class Bullet:
                     self.displayer.mask, (
                             (self.physics.pos.x - self.displayer.width / 2) - ship.displayer.hitbox.x,
                             (self.physics.pos.y - self.displayer.height / 2) - ship.displayer.hitbox.y)
-            )
-                    or ship.displayer.hitbox.clipline(self.line)):
+            ) or ship.displayer.hitbox.clipline(self.line)):
                 return True
             return False
         elif ship.displayer.mask.overlap(
@@ -58,6 +57,7 @@ class Bullet:
         self.line = ((self.physics.pos.x, self.physics.pos.y), (new_pos.x, new_pos.y))
         
         # TODO: check collision and position somewhere else
+        '''
         
         # if self.physics.pos.y < 0:
         #     del self   <- This does not remove a Bullet from a list,
@@ -81,6 +81,7 @@ class Bullet:
         #                 self.game.menuHandler.currentMenu.other_bullets.remove(self)
         #         except ValueError:
         #             pass
+        '''
         
         self.physics.tick(dt)
         self.displayer.tick(self.physics.pos.x, self.physics.pos.y)

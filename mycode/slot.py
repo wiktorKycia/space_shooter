@@ -1,6 +1,6 @@
 from pygame.math import Vector2
 from typing import Callable
-from cannons import Weapon
+from weapons import Weapon
 from spacecraft import Spacecraft
 
 class Slot:

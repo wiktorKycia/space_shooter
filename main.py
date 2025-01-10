@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 from mycode.bullets import *
-from mycode.cannons import *
+from mycode.weapons import *
 from mycode.enemies import *
 from mycode.levels import *
 from mycode.other import *

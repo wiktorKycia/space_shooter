@@ -1,7 +1,7 @@
 import pygame
 from pygame import mixer
 from mycode.other import RefillableBar
-from mycode.cannons import *
+from mycode.weapons import *
 from mycode.physics import PygamePhysics
 from mycode.slot import Slot
 from mycode.enemies import BaseEnemy

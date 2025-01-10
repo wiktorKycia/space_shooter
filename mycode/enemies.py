@@ -1,6 +1,6 @@
 import pygame.time
 
-from mycode.cannons import *
+from mycode.weapons import *
 from mycode.Behaviors import *
 from mycode.slot import Slot
 import random
