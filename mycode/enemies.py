@@ -4,8 +4,9 @@ from mycode.weapons import *
 from mycode.Behaviors import *
 from mycode.slot import Slot
 import random
+import json
 
-from mycode.other import RefillableBar
+from mycode.other import RefillableBar, DeluxeHP
 from mycode.physics import PygamePhysics
 from mycode.displayable import Displayer
 from mycode.spacecraft import Spacecraft
@@ -40,6 +41,61 @@ class BaseEnemy(Spacecraft):
         for slot in self.slots:
             slot.draw()
 
+
+class BaseEnemyBuilder:
+    def __init__(self):
+        self.enemy: BaseEnemy | None = None
+        self.image: pygame.Surface | None = None
+        self.scale: float | None = None
+        self.displayer: Displayer | None = None
+        self.healthBar = None  # :RefillableBar
+        self.physics: PygamePhysics | None = None
+    
+    def buildImage(self, path: str, scale: float = 1.0):
+        self.image = PathConverter(path).create()
+        self.scale = scale
+        return self
+    
+    def buildHealthBar(
+        self, barType, amount: int, x: int, y: int, width: int, height: int, color: tuple[int, int, int] = (250, 0, 0)
+    ):
+        self.healthBar = barType(amount, x, y, width, height, color)
+        return self
+    
+    def buildPhysics(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
+        self.physics = PygamePhysics(x, y, mass, force, slip)
+        return self
+    
+    def buildEnemy(self) -> BaseEnemy:
+        self.enemy = BaseEnemy(self.physics, self.healthBar, self.image, self.scale)
+        return self.enemy
+    # TODO: add methods buildSlot and addWeapon
+
+
+class BaseEnemyBuilderDirector:
+    def __init__(self, builder: BaseEnemyBuilder, enemy_type: str | None = None):
+        self.enemy_type: str | None = enemy_type
+        self.builder: BaseEnemyBuilder = builder
+        with open('./gameData/enemies.json', 'r') as f:
+            self.config: dir = json.load(f)
+            enemies = self.config["enemies"]
+            self.enemy_data = list(filter(lambda enemy: enemy['name'] == self.enemy_type, enemies))[0]
+    
+    def choose_enemy(self, enemy_type: str):
+        self.enemy_type = enemy_type
+    
+    def build(self, x: int, y: int) -> BaseEnemy:
+        h: dir = self.config['enemiesDefaultHealthBar']
+        enemy: BaseEnemy = (
+            self.builder
+            .buildImage(self.enemy_data['path'], self.enemy_data['scale'])
+            .buildPhysics(x, y, self.enemy_data['mass'], self.enemy_data['force'])
+            .buildHealthBar(
+                DeluxeHP, self.enemy_data['hp_amount'], h['x'], h['y'], h['width'], h['height']
+            )
+            .buildEnemy()
+        )
+        return enemy
 
 class Enemy1(BaseEnemy):
     def __init__(self, game, x, y):

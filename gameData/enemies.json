@@ -1,10 +1,11 @@
 {
 	"enemies": [
 		{
+			"name": "Bouncer1",
 			"path": "./enemies/bouncer1.png",
 			"mass": 2,
 			"force": 1500,
-			"hp": 15,
+			"hp_amount": 15,
 			"scale": 3.0,
 			"slots": [
 				{
@@ -15,6 +16,7 @@
 			]
 		},
 		{
+			"name": "Bouncer2",
 			"path": "./enemies/bouncer2.png",
 			"mass": 6,
 			"force": 2500,
