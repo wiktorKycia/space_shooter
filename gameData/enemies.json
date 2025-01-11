@@ -1,0 +1,32 @@
+{
+	"enemies": [
+		{
+			"path": "./enemies/bouncer1.png",
+			"mass": 2,
+			"force": 1500,
+			"hp": 15,
+			"scale": 3.0,
+			"slots": [
+				{
+					"x": 0,
+					"y": 0,
+					"weapon": "Kinetic"
+				}
+			]
+		},
+		{
+			"path": "./enemies/bouncer2.png",
+			"mass": 6,
+			"force": 2500,
+			"hp": 35,
+			"scale": 3.0,
+			"slots": [
+				{
+					"x": 0,
+					"y": 10,
+					"weapon": "Kinetic"
+				}
+			]
+		}
+	]
+}
