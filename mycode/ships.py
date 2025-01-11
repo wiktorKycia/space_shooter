@@ -124,13 +124,15 @@ class PlayableShipBuilderDirector:
     
     def build(self, x: int, y: int) -> PlayableShip:
         h: dir = self.config['shipsDefaultHealthBar']
-        ship: PlayableShip = (self.builder
-                              .buildImage(self.ship_data['path'], self.ship_data['scale'])
-                              .buildPhysics(x, y, self.ship_data['mass'], self.ship_data['force'])
-                              .buildHealthBar(
-            DeluxeHP, self.ship_data['hp_amount'], h['x'], h['y'], h['width'], h['height']
+        ship: PlayableShip = (
+            self.builder
+            .buildImage(self.ship_data['path'], self.ship_data['scale'])
+            .buildPhysics(x, y, self.ship_data['mass'], self.ship_data['force'])
+            .buildHealthBar(
+                DeluxeHP, self.ship_data['hp_amount'], h['x'], h['y'], h['width'], h['height']
+            )
+            .buildShip()
         )
-                              .buildShip())
         return ship
 
 class Ship1:
