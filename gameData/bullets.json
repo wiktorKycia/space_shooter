@@ -1,0 +1,20 @@
+{
+	"bullets": [
+		{
+			"name": "KineticBullet",
+			"mass": 2,
+			"damage": 5,
+			"image_path": "./images/Laser Sprites/01.png",
+			"sound_path": "./sounds/shot_sounds/laser-light-gun.wav",
+			"scale": 0.5
+		},
+		{
+			"name": "ShotgunBullet",
+			"mass": 1,
+			"damage": 1,
+			"image_path": "./images/shotgun_bullet.png",
+			"sound_path": "./sounds/shot_sounds/laser-light-gun.wav",
+			"scale": 0.1
+		}
+	]
+}
