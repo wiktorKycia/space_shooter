@@ -8,6 +8,7 @@
 	"ships": [
 		{
 			"id": 1,
+			"name": "Ship1",
 			"mass": 300,
 			"force": 1500,
 			"hp_amount": 200,
@@ -30,6 +31,7 @@
 		},
 		{
 			"id": 2,
+			"name": "Ship2",
 			"mass": 300,
 			"force": 1500,
 			"hp_amount": 200,
@@ -46,6 +48,7 @@
 		},
 		{
 			"id": 3,
+			"name": "Ship3",
 			"mass": 300,
 			"force": 1500,
 			"hp_amount": 200,
@@ -68,6 +71,7 @@
 		},
 		{
 			"id": 4,
+			"name": "Ship4",
 			"mass": 300,
 			"force": 1500,
 			"hp_amount": 200,
@@ -102,6 +106,7 @@
 		},
 		{
 			"id": 5,
+			"name": "Ship5",
 			"mass": 300,
 			"force": 1500,
 			"hp_amount": 200,

@@ -1,5 +1,7 @@
 import pygame
 from pygame import mixer
+
+from mycode import DeluxeHP
 from mycode.other import RefillableBar
 from mycode.weapons import *
 from mycode.physics import PygamePhysics
@@ -7,6 +9,7 @@ from mycode.slot import Slot
 from mycode.enemies import BaseEnemy
 from mycode.displayable import Displayer, PathConverter
 from mycode.spacecraft import Spacecraft
+import json
 mixer.init()
 
 
@@ -106,6 +109,29 @@ class PlayableShipBuilder:
         return self.ship
     # TODO: dodać metody buildSlot i addWeapon
 
+
+class PlayableShipBuilderDirector:
+    def __init__(self, builder: PlayableShipBuilder, ship_type: str | None = None):
+        self.ship_type: str | None = ship_type
+        self.builder: PlayableShipBuilder = builder
+        with open('./gameData/playerShips.json', 'r') as f:
+            self.config: dir = json.load(f)
+            ships = self.config["ships"]
+            self.ship_data = list(filter(lambda ship: ship['name'] == self.ship_type, ships))[0]
+    
+    def choose_ship(self, ship_type: str):
+        self.ship_type = ship_type
+    
+    def build(self, x: int, y: int) -> PlayableShip:
+        h: dir = self.config['shipsDefaultHealthBar']
+        ship: PlayableShip = (self.builder
+                              .buildImage(self.ship_data['path'], self.ship_data['scale'])
+                              .buildPhysics(x, y, self.ship_data['mass'], self.ship_data['force'])
+                              .buildHealthBar(
+            DeluxeHP, self.ship_data['hp_amount'], h['x'], h['y'], h['width'], h['height']
+        )
+                              .buildShip())
+        return ship
 
 class Ship1:
     def __init__(self):
