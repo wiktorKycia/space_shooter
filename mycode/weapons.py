@@ -21,16 +21,17 @@ class Weapon:
 class Gun(Weapon):
     def __init__(
         self, trigger: Callable, bullet_name: str, force: int, interval: float, spread: int, clip: Clip,
-        is_player: bool = True
+        intensity: int = 1, is_player: bool = True
     ):
         super().__init__(trigger)
         self.interval: float = interval
         self.bullet_name: str = bullet_name
         self.bullets: list[Bullet] = []
         self.clip: Clip = clip
-        self.spread: int = spread
+        self.spread: tuple[float, float] = (-spread / 2, spread / 2)
         self.force: int = force
         self.is_player: bool = is_player
+        self.intensity: int = intensity
     
     @staticmethod
     def _create_bullet(bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
@@ -41,13 +42,14 @@ class Gun(Weapon):
     
     def shot(self, x: float, y: float):
         if self._shootCheck():
-            bullet = self._create_bullet(
-                self.bullet_name, x, y, self.force,
-                random.uniform(-self.spread / 2, self.spread / 2) if self.spread > 0 else 0
-            )
-            self.bullets.append(bullet)
-            bullet.sound.play(0, 800)
-            self.clip.shot()
+            for _ in range(self.intensity):
+                bullet = self._create_bullet(
+                    self.bullet_name, x, y, self.force,
+                    random.uniform(self.spread[0], self.spread[1]) if self.spread > 0 else 0
+                )
+                self.bullets.append(bullet)
+                bullet.sound.play(0, 800)
+                self.clip.shot()
     
     def _shootCheck(self) -> bool:
         if self.trigger() and self.clock > self.interval and self.clip.can_i_shoot():
