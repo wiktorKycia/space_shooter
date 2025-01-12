@@ -1,3 +1,4 @@
+import pygame
 from pygame.math import Vector2
 from typing import Callable
 from weapons import Weapon
@@ -20,6 +21,6 @@ class Slot:
         # pos = ship.physics.pos + self.translation
         self.weapon.tick(dt)
     
-    def draw(self, position: Vector2):
+    def draw(self, screen: pygame.Surface, position: Vector2):
         pos = position + self.translation
-        self.weapon.draw()
+        self.weapon.draw(screen)
