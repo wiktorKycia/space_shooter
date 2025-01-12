@@ -2,6 +2,8 @@ import pygame
 from pygame import mixer
 from pygame.math import Vector2
 
+import json
+
 from mycode.physics import PygamePhysics
 from mycode.displayable import Displayer, PathConverter
 from mycode.projectile import Projectile
@@ -123,3 +125,33 @@ class BulletBuilder:
     def buildBullet(self):
         self.bullet = Bullet(self.physics, self.damage, self.rotation, self.image, self.sound_path, self.scale)
         return self.bullet
+
+
+class BulletBuilderDirector:
+    def __init__(self, builder: BulletBuilder, bullet_name: str):
+        self.builder = builder
+        self.bullet_name = bullet_name
+        self.bullet_data: dir = { }
+        self.__reload_data()
+    
+    def __reload_data(self):
+        with open("./gameData/bullets.json") as f:
+            self.config: dir = json.load(f)
+            bullets = self.config['bullets']
+            self.bullet_data = list(filter(lambda bullet: bullet == self.bullet_name, bullets))[0]
+    
+    def choose_bullet(self, bullet_name):
+        self.bullet_name = bullet_name
+        self.__reload_data()
+    
+    def build(self, x: int, y: int, initial_force: int, rotation: float) -> Bullet:
+        bullet: Bullet = (
+            self.builder
+            .buildImage(self.bullet_data['image_path'], self.bullet_data['scale'])
+            .buildPhysics(x, y, self.bullet_data['mass'], initial_force)
+            .set_rotation(rotation)
+            .set_damage(self.bullet_data['damage'])
+            .buildSound(self.bullet_data['sound_path'])
+            .buildBullet()
+        )
+        return bullet
