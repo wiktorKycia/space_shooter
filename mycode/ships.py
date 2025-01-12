@@ -138,45 +138,45 @@ class PlayableShipBuilderDirector:
             .buildShip()
         )
         return ship
-
-class Ship1:
-    def __init__(self):
-        
-        self.slots.extend(
-            [
-                Slot(game, self, Vector2(20, -20), pygame.K_KP_0, KineticLight),
-                Slot(game, self, Vector2(-20, -20), pygame.K_KP_0, KineticLight)
-            ]
-        )
-
-
-class Ship2:
-    def __init__(self):
-        
-        self.slots.extend([
-            Slot(game, self, Vector2(0, -20), pygame.K_KP_0, ShotGun1)
-        ])
-
-
-class Ship3:
-    def __init__(self):
-        
-        self.slots.extend([
-            Slot(game, self, Vector2(-10, -20), pygame.K_KP_0, Flamethrower1),
-            Slot(game, self, Vector2(10, -20), pygame.K_KP_0, Flamethrower1)
-        ])
-
-
-class Ship4:
-    def __init__(self):
-        
-        self.slots.extend([
-            Slot(game, self, Vector2(3, -15), pygame.K_KP_0, Laser1),
-            Slot(game, self, Vector2(-4, -15), pygame.K_KP_0, Laser1),
-            Slot(game, self, Vector2(13, 6), pygame.K_KP_0, Laser1),
-            Slot(game, self, Vector2(-14, 6), pygame.K_KP_0, Laser1)
-        ])
-
-
-class Ship5:
-    def __init__(self): pass
+#
+# class Ship1:
+#     def __init__(self):
+#
+#         self.slots.extend(
+#             [
+#                 Slot(game, self, Vector2(20, -20), pygame.K_KP_0, KineticLight),
+#                 Slot(game, self, Vector2(-20, -20), pygame.K_KP_0, KineticLight)
+#             ]
+#         )
+#
+#
+# class Ship2:
+#     def __init__(self):
+#
+#         self.slots.extend([
+#             Slot(game, self, Vector2(0, -20), pygame.K_KP_0, ShotGun1)
+#         ])
+#
+#
+# class Ship3:
+#     def __init__(self):
+#
+#         self.slots.extend([
+#             Slot(game, self, Vector2(-10, -20), pygame.K_KP_0, Flamethrower1),
+#             Slot(game, self, Vector2(10, -20), pygame.K_KP_0, Flamethrower1)
+#         ])
+#
+#
+# class Ship4:
+#     def __init__(self):
+#
+#         self.slots.extend([
+#             Slot(game, self, Vector2(3, -15), pygame.K_KP_0, Laser1),
+#             Slot(game, self, Vector2(-4, -15), pygame.K_KP_0, Laser1),
+#             Slot(game, self, Vector2(13, 6), pygame.K_KP_0, Laser1),
+#             Slot(game, self, Vector2(-14, 6), pygame.K_KP_0, Laser1)
+#         ])
+#
+#
+# class Ship5:
+#     def __init__(self): pass
