@@ -121,6 +121,44 @@ class GunBuilder:
             self.is_player
         )
         return self.gun
+
+
+class GunBuilderDirector:
+    def __init__(self, builder: GunBuilder, gun_name: str | None = None):
+        self.gun_name: str | None = gun_name
+        self.builder: GunBuilder = builder
+        
+        self.gun_data: dir = { }
+        self.clip_data: dir = { }
+        
+        self.__reload_file()
+    
+    def __reload_file(self):
+        with open('./gameData/guns.json', 'r') as f:
+            self.config: dir = json.load(f)
+            guns = self.config["guns"]
+            self.gun_data = list(filter(lambda gun: gun['name'] == self.gun_name, guns))[0]
+            self.clip_data = self.gun_data['clip']
+    
+    def choose_gun(self, gun_name: str):
+        self.gun_name = gun_name
+        self.__reload_file()
+    
+    def build(self, trigger: Callable, is_player: bool) -> Gun:
+        g = (
+            self.builder
+            .set_trigger(trigger)
+            .set_clip(self.clip_data['max_ammo'], self.clip_data['reload_time'], self.clip_data['active_reload'])
+            .set_force(self.gun_data['force'])
+            .set_interval(self.gun_data['interval'])
+            .set_bullet_name(self.gun_data['bullet_name'])
+            .set_is_player(is_player)
+        )
+        if "spread" in self.gun_data and "intensity" in self.gun_data:
+            return g.set_spread(self.gun_data['spread']).set_intensity(self.gun_data['intensity']).build_gun()
+        else:
+            return g.build_gun()
+            
     
 #
 # class KineticLight(Gun):
