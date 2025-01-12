@@ -94,69 +94,20 @@ class Gun(Weapon):
 #             reload_time=2.0,
 #             active_reload=False
 #         )
-
-
-class ShotGun(Weapon):
-    def __init__(self, game, slot, key, bullet, spread, intensity, force, interval, max_ammo: int, reload_time: float,
-                 active_reload: bool):
-        super().__init__(game, slot, key)
-        self.bullets = []
-        self.bul = bullet
-        self.spread = [-spread / 2, spread / 2]
-        self.bullets_at_once = intensity
-        self.interval = interval
-        self.clip = Clip(game, max_ammo, reload_time, active_reload)
-
-        if self.is_player:
-            self.force = force
-        else:
-            self.force = -force
-
-    def shot(self):
-        for _ in range(self.bullets_at_once):
-            bullet = self.bul(self.game, self.slot.weapon, self.slot.pos.x, self.slot.pos.y, self.force,
-                              random.uniform(self.spread[0], self.spread[1]))
-            self.bullets.append(bullet)
-            bullet.sound.play(0, 800)
-            self.clip.shot()
-
-    def _shootCheck(self, condition):
-        if condition and self.clock > self.interval:
-            if self.clip.can_i_shoot():
-                self.clock = 0
-                self.shot()
-
-    def tick(self):
-        super().tick()
-        self.clip.tick()
-        pressed = pygame.key.get_pressed()
-
-        if self.is_player:
-            self._shootCheck((pressed[pygame.K_KP_0] or pressed[self.key]))
-        else:
-            self.key = self.slot.ship.is_shooting
-            self._shootCheck(self.key)
-
-        for bullet in self.bullets:
-            bullet.tick()
-
-    def draw(self):
-        for bullet in self.bullets:
-            bullet.draw()
-
-class ShotGun1(ShotGun):
-    def __init__(self, game, slot, key=pygame.K_KP_0):
-        super().__init__(
-            game, slot, key,
-            bullet=ShotgunBulletFire,
-            force=5000,
-            interval=0.2,
-            spread=10,
-            intensity=10,
-            max_ammo=1000,
-            reload_time=0.01,
-            active_reload=True
-        )
+#
+# class ShotGun1(ShotGun):
+#     def __init__(self, game, slot, key=pygame.K_KP_0):
+#         super().__init__(
+#             game, slot, key,
+#             bullet=ShotgunBulletFire,
+#             force=5000,
+#             interval=0.2,
+#             spread=10,
+#             intensity=10,
+#             max_ammo=1000,
+#             reload_time=0.01,
+#             active_reload=True
+#         )
 
 
 class Flamethrower(Weapon):
