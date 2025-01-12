@@ -2,7 +2,7 @@ import pygame
 import math
 from mycode.bullets import *
 from typing import Callable
-
+from abc import ABC, abstractmethod
 import random
 
 class Clip:
@@ -50,7 +50,6 @@ class Clip:
                 self.current_ammo += 100
                 self.clock = 0
 
-
 class LaserClip:
     def __init__(self, game, shooting_time, reload_time):
         self.game = game
@@ -77,6 +76,8 @@ class LaserClip:
                 self.clock = 0
                 self._active = True
 
+
+@ABC
 class Weapon:
     def __init__(self, trigger: Callable):
         self.trigger = trigger
@@ -85,6 +86,7 @@ class Weapon:
     def tick(self, dt):
         self.clock += dt
     
+    @abstractmethod
     def draw(self, screen: pygame.Surface):
         pass
 
