@@ -71,6 +71,57 @@ class Gun(Weapon):
             bullet.draw(screen)
 
 
+class GunBuilder:
+    def __init__(self):
+        self.gun: Gun | None = None
+        self.trigger: Callable | None = None
+        self.bullet_name: str | None = None
+        self.force: int | None = None
+        self.interval: float | None = None
+        self.spread: int | None = None
+        self.clip: Clip | None = None
+        self.intensity: int = 1
+        self.is_player: bool = True
+    
+    def set_trigger(self, trigger: Callable):
+        self.trigger = trigger
+        return self
+    
+    def set_bullet_name(self, bullet_name: str):
+        self.bullet_name = bullet_name
+        return self
+    
+    def set_force(self, force: int):
+        self.force = force
+        return self
+    
+    def set_interval(self, interval: float):
+        self.interval = interval
+        return self
+    
+    def set_spread(self, spread: int):
+        self.spread = spread
+        return self
+    
+    def set_clip(self, ):
+        self.clip = Clip()
+        return self
+    
+    def set_intensity(self, intensity: int):
+        self.intensity = intensity
+        return self
+    
+    def set_is_player(self, is_player: bool):
+        self.is_player = is_player
+        return self
+    
+    def build_gun(self) -> Gun:
+        self.gun = Gun(
+            self.trigger, self.bullet_name, self.force, self.interval, self.spread, self.clip, self.intensity,
+            self.is_player
+        )
+        return self.gun
+    
 #
 # class KineticLight(Gun):
 #     def __init__(self, game, slot, key=pygame.K_KP_0):
