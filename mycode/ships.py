@@ -1,6 +1,3 @@
-import pygame
-from pygame import mixer
-
 from mycode import DeluxeHP
 from mycode.other import RefillableBar
 from mycode.weapons import *
@@ -10,8 +7,7 @@ from mycode.enemies import BaseEnemy
 from mycode.displayable import Displayer, PathConverter
 from mycode.spacecraft import Spacecraft
 import json
-mixer.init()
-
+import math
 
 class PlayableShip(Spacecraft):
     def __init__(
@@ -36,13 +32,15 @@ class PlayableShip(Spacecraft):
         d = math.inf
         for enemy in enemies:
             distance = math.sqrt(
-                math.pow(abs(enemy.pos.x - self.physics.x), 2) + math.pow(abs(self.physics.y - enemy.pos.y), 2)
+                math.pow(abs(enemy.physics.pos.x - self.physics.x), 2) + math.pow(
+                    abs(self.physics.y - enemy.physics.pos.y), 2
+                )
             )
             if e is None or distance < d:
                 d = distance
                 e = enemy
         try:
-            return e.pos.x, e.pos.y
+            return e.physics.pos.x, e.physics.pos.y
         except AttributeError:
             return None
     
@@ -95,13 +93,14 @@ class PlayableShipBuilder:
         return self
     
     def buildHealthBar(
-        self, barType, amount: int, x: int, y: int, width: int, height: int, color: tuple[int, int, int] = (250, 0, 0)
+        self, barType, amount: int, x: float, y: float, width: int, height: int,
+        color: tuple[int, int, int] = (250, 0, 0)
     ):
         self.healthBar = barType(amount, x, y, width, height, color)
         return self
     
-    def buildPhysics(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
-        self.physics = PygamePhysics(x, y, mass, force, slip)
+    def buildPhysics(self, x: float, y: float, mass: int, force: int, slip: float = 0.98):
+        self.physics = PygamePhysics(x, y, mass, force, True, slip)
         return self
     
     def buildShip(self) -> PlayableShip:
@@ -126,7 +125,7 @@ class PlayableShipBuilderDirector:
         self.ship_type = ship_type
         self.__reload_file()
     
-    def build(self, x: int, y: int) -> PlayableShip:
+    def build(self, x: float, y: float) -> PlayableShip:
         h: dir = self.config['shipsDefaultHealthBar']
         ship: PlayableShip = (
             self.builder

@@ -1,88 +1,14 @@
-import pygame
-import math
 from mycode.bullets import *
+from mycode.clips import *
 from typing import Callable
-
 import random
-
-class Clip:
-    def __init__(self, game, max_ammo: int, reload_time: float, active_reload: bool = False):
-        self.game = game
-        self.max_ammo = max_ammo
-        self.current_ammo = max_ammo
-        self.reload_time = reload_time
-        self.active = active_reload
-        self.reloading = False
-
-        self.clock = 0
-
-
-    def maximise_ammo(self):
-        self.current_ammo = self.max_ammo
-
-    def shot(self):
-        self.current_ammo -= 1
-
-    def can_i_shoot(self):
-        if self.current_ammo > 0:
-            return True
-        # If ammo is equal or below 0, then undeniably returns False
-        return False
-
-    def tick(self):
-        # there is no ammo, passive reloading
-        if not self.active:
-            # it is not reloading
-            if not self.reloading:
-                if self.current_ammo <= 0:
-                    self.reloading = True
-            # it is reloading
-            if self.reloading:
-                self.clock += self.game.dt
-                if self.clock > self.reload_time:
-                    self.clock = 0
-                    self.reloading = False
-                    self.maximise_ammo()
-        # active reloading
-        else:
-            self.clock += self.game.dt
-            if self.clock > self.reload_time and self.current_ammo < self.max_ammo:
-                self.current_ammo += 100
-                self.clock = 0
-
-
-class LaserClip:
-    def __init__(self, game, shooting_time, reload_time):
-        self.game = game
-        self.clock = 0
-        self.shooting_time = shooting_time
-        self.reload_time = reload_time
-        self._active = True
-
-    def can_i_shoot(self):
-        return self._active
-
-    def maximise_ammo(self):
-        self.clock = 0
-        self._active = True
-
-    def tick(self):
-        self.clock += self.game.dt
-        if self._active:
-            if self.clock > self.shooting_time:
-                self.clock = 0
-                self._active = False
-        else:
-            if self.clock > self.reload_time:
-                self.clock = 0
-                self._active = True
 
 class Weapon:
     def __init__(self, trigger: Callable):
         self.trigger = trigger
         self.clock = 0
     
-    def tick(self, dt):
+    def tick(self, dt: float, x: float, y: float):
         self.clock += dt
     
     def draw(self, screen: pygame.Surface):
@@ -90,131 +16,145 @@ class Weapon:
 
 
 class Gun(Weapon):
-    def __init__(self, trigger: Callable, bullet: type, force: int, interval: float, clip: Clip):
+    def __init__(
+        self, trigger: Callable, bullet_name: str, force: int, interval: float, clip: Clip, spread: int = 0,
+        intensity: int = 1, is_player: bool = True
+    ):
         super().__init__(trigger)
-        self.interval = interval
-        self.bul = bullet
-        self.bullets = []
-        self.clip = clip
-        
-        self.force = force
-
-    def shot(self):
-        bullet = self.bul(self.slot.pos.x, self.slot.pos.y, self.force)
-        if not self.is_player: bullet.image = pygame.transform.flip(bullet.image, False, True)
-        self.bullets.append(bullet)
-        bullet.sound.play(0, 800)
-        self.clip.shot()
+        self.interval: float = interval
+        self.bullet_name: str = bullet_name
+        self.bullets: list[Bullet] = []
+        self.clip: Clip = clip
+        self.spread: tuple[float, float] = (-spread / 2, spread / 2)
+        self.force: int = force
+        self.is_player: bool = is_player
+        self.intensity: int = intensity
     
-    def _shootCheck(self):
+    @staticmethod
+    def _create_bullet(bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
+        builder = BulletBuilder()
+        director = BulletBuilderDirector(builder, bullet_name)
+        bullet: Bullet = director.build(x, y, initial_force, rotation)
+        return bullet
+    
+    def shot(self, x: float, y: float):
+        if self._shootCheck():
+            for _ in range(self.intensity):
+                bullet = self._create_bullet(
+                    self.bullet_name, x, y, self.force,
+                    random.uniform(self.spread[0], self.spread[1]) if self.spread[1] > 0 else 0
+                )
+                self.bullets.append(bullet)
+                bullet.sound.play(0, 800)
+                self.clip.shot()
+    
+    def _shootCheck(self) -> bool:
         if self.trigger() and self.clock > self.interval and self.clip.can_i_shoot():
             self.clock = 0
-            self.shot()
-
-    def tick(self):
-        super().tick()
-        self.clip.tick()
-        pressed = pygame.key.get_pressed()
-
-        if self.is_player:
-            self._shootCheck((pressed[pygame.K_KP_0] or pressed[self.key]))
-        else:
-            self.key = self.slot.ship.is_shooting
-            self._shootCheck(self.key)
+            return True
+        return False
+    
+    def tick(self, dt: float, x: float, y: float):
+        super().tick(dt, x, y)
+        self.clip.tick(dt)
+        
+        self.shot(x, y)
 
         for bullet in self.bullets:
-            bullet.tick()
-
-    def draw(self):
+            bullet.tick(dt)
+    
+    def draw(self, screen):
         for bullet in self.bullets:
-            bullet.draw()
+            bullet.draw(screen)
 
 
-class KineticLight(Gun):
-    def __init__(self, game, slot, key=pygame.K_KP_0):
-        super().__init__(
-            game, slot, key,
-            bullet=BulletSmallBlue,
-            force=3500,
-            interval=0.1,
-            max_ammo=50,
-            reload_time=3.0,
-            active_reload=False
-        )
-class KineticMedium(Gun):
-    def __init__(self, game, slot, key=pygame.K_KP_0):
-        super().__init__(
-            game, slot, key,
-            bullet=BulletMediumBlue,
-            force=3500,
-            interval=0.15,
-            max_ammo=50,
-            reload_time=2.0,
-            active_reload=False
-        )
-
-
-class ShotGun(Weapon):
-    def __init__(self, game, slot, key, bullet, spread, intensity, force, interval, max_ammo: int, reload_time: float,
-                 active_reload: bool):
-        super().__init__(game, slot, key)
-        self.bullets = []
-        self.bul = bullet
-        self.spread = [-spread / 2, spread / 2]
-        self.bullets_at_once = intensity
+class GunBuilder:
+    def __init__(self):
+        self.gun: Gun | None = None
+        self.trigger: Callable | None = None
+        self.bullet_name: str | None = None
+        self.force: int | None = None
+        self.interval: float | None = None
+        self.spread: int = 0
+        self.clip: Clip | None = None
+        self.intensity: int = 1
+        self.is_player: bool = True
+    
+    def set_trigger(self, trigger: Callable):
+        self.trigger = trigger
+        return self
+    
+    def set_bullet_name(self, bullet_name: str):
+        self.bullet_name = bullet_name
+        return self
+    
+    def set_force(self, force: int):
+        self.force = force
+        return self
+    
+    def set_interval(self, interval: float):
         self.interval = interval
-        self.clip = Clip(game, max_ammo, reload_time, active_reload)
-
-        if self.is_player:
-            self.force = force
-        else:
-            self.force = -force
-
-    def shot(self):
-        for _ in range(self.bullets_at_once):
-            bullet = self.bul(self.game, self.slot.weapon, self.slot.pos.x, self.slot.pos.y, self.force,
-                              random.uniform(self.spread[0], self.spread[1]))
-            self.bullets.append(bullet)
-            bullet.sound.play(0, 800)
-            self.clip.shot()
-
-    def _shootCheck(self, condition):
-        if condition and self.clock > self.interval:
-            if self.clip.can_i_shoot():
-                self.clock = 0
-                self.shot()
-
-    def tick(self):
-        super().tick()
-        self.clip.tick()
-        pressed = pygame.key.get_pressed()
-
-        if self.is_player:
-            self._shootCheck((pressed[pygame.K_KP_0] or pressed[self.key]))
-        else:
-            self.key = self.slot.ship.is_shooting
-            self._shootCheck(self.key)
-
-        for bullet in self.bullets:
-            bullet.tick()
-
-    def draw(self):
-        for bullet in self.bullets:
-            bullet.draw()
-
-class ShotGun1(ShotGun):
-    def __init__(self, game, slot, key=pygame.K_KP_0):
-        super().__init__(
-            game, slot, key,
-            bullet=ShotgunBulletFire,
-            force=5000,
-            interval=0.2,
-            spread=10,
-            intensity=10,
-            max_ammo=1000,
-            reload_time=0.01,
-            active_reload=True
+        return self
+    
+    def set_spread(self, spread: int):
+        self.spread = spread
+        return self
+    
+    def set_clip(self, max_ammo: int, reload_time: float, active_reload: bool = False):
+        self.clip = Clip(max_ammo, reload_time, active_reload)
+        return self
+    
+    def set_intensity(self, intensity: int):
+        self.intensity = intensity
+        return self
+    
+    def set_is_player(self, is_player: bool):
+        self.is_player = is_player
+        return self
+    
+    def build_gun(self) -> Gun:
+        self.gun = Gun(
+            self.trigger, self.bullet_name, self.force, self.interval, self.clip, self.spread, self.intensity,
+            self.is_player
         )
+        return self.gun
+
+
+class GunBuilderDirector:
+    def __init__(self, builder: GunBuilder, gun_name: str | None = None):
+        self.gun_name: str | None = gun_name
+        self.builder: GunBuilder = builder
+        
+        self.gun_data: dir = { }
+        self.clip_data: dir = { }
+        
+        self.__reload_file()
+    
+    def __reload_file(self):
+        with open('./gameData/guns.json', 'r') as f:
+            self.config: dir = json.load(f)
+            guns = self.config["guns"]
+            self.gun_data = list(filter(lambda gun: gun['name'] == self.gun_name, guns))[0]
+            self.clip_data = self.gun_data['clip']
+    
+    def choose_gun(self, gun_name: str):
+        self.gun_name = gun_name
+        self.__reload_file()
+    
+    def build(self, trigger: Callable, is_player: bool) -> Gun:
+        g = (
+            self.builder
+            .set_trigger(trigger)
+            .set_clip(self.clip_data['max_ammo'], self.clip_data['reload_time'], self.clip_data['active_reload'])
+            .set_force(self.gun_data['force'])
+            .set_interval(self.gun_data['interval'])
+            .set_bullet_name(self.gun_data['bullet_name'])
+            .set_is_player(is_player)
+        )
+        if "spread" in self.gun_data and "intensity" in self.gun_data:
+            return g.set_spread(self.gun_data['spread']).set_intensity(self.gun_data['intensity']).build_gun()
+        else:
+            return g.build_gun()
 
 
 class Flamethrower(Weapon):

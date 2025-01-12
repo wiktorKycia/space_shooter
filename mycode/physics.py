@@ -3,7 +3,7 @@ from pygame.math import Vector2
 
 
 class PygamePhysics:
-    def __init__(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
+    def __init__(self, x: float, y: float, mass: int, force: int, is_player: bool = True, slip: float = 0.98):
         self.pos: Vector2 = Vector2(x, y)
         self.vel: Vector2 = Vector2(0, 0)
         self.acc: Vector2 = Vector2(0, 0)
@@ -11,7 +11,7 @@ class PygamePhysics:
         self.clock: float = 0
         
         self.mass: int = mass
-        self.force: int = force
+        self.force: int = force if not is_player else -force
         
         self.slip: float = slip
         self.current_slip: float = slip

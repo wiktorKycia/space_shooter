@@ -1,15 +1,14 @@
 import pygame.time
 
-from mycode.weapons import *
-from mycode.Behaviors import *
-from mycode.slot import Slot
-import random
 import json
 
 from mycode.other import RefillableBar, DeluxeHP
 from mycode.physics import PygamePhysics
-from mycode.displayable import Displayer
+from mycode.displayable import Displayer, PathConverter
 from mycode.spacecraft import Spacecraft
+from mycode.weapons import GunBuilderDirector
+from mycode.Behaviors import *
+from mycode.slot import Slot
 
 
 class BaseEnemy(Spacecraft):
@@ -17,8 +16,6 @@ class BaseEnemy(Spacecraft):
         self.displayer = Displayer(image, scale)
         self.physics: PygamePhysics = physics
         self.hp = healthBar
-        
-        self.physics.force *= -1
         
         self.move_clock = 0
         self.slots = []
@@ -37,7 +34,7 @@ class BaseEnemy(Spacecraft):
             bullet_list.extend(slot.weapon.bullets)
     
     def draw(self, screen: pygame.Surface):
-        self.displayer.draw(screen)
+        self.displayer.draw(screen, self.physics.pos.x, self.physics.pos.y)
         
         for slot in self.slots:
             slot.draw()
@@ -58,13 +55,14 @@ class BaseEnemyBuilder:
         return self
     
     def buildHealthBar(
-        self, barType, amount: int, x: int, y: int, width: int, height: int, color: tuple[int, int, int] = (250, 0, 0)
+        self, barType, amount: int, x: float, y: float, width: int, height: int,
+        color: tuple[int, int, int] = (250, 0, 0)
     ):
         self.healthBar = barType(amount, x, y, width, height, color)
         return self
     
-    def buildPhysics(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
-        self.physics = PygamePhysics(x, y, mass, force, slip)
+    def buildPhysics(self, x: float, y: float, mass: int, force: int, slip: float = 0.98):
+        self.physics = PygamePhysics(x, y, mass, force, False, slip)
         return self
     
     def buildEnemy(self) -> BaseEnemy:
