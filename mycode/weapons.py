@@ -45,7 +45,7 @@ class Gun(Weapon):
             for _ in range(self.intensity):
                 bullet = self._create_bullet(
                     self.bullet_name, x, y, self.force,
-                    random.uniform(self.spread[0], self.spread[1]) if self.spread > 0 else 0
+                    random.uniform(self.spread[0], self.spread[1]) if self.spread[1] > 0 else 0
                 )
                 self.bullets.append(bullet)
                 bullet.sound.play(0, 800)
