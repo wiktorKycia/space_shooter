@@ -76,6 +76,9 @@ class BaseEnemyBuilderDirector:
     def __init__(self, builder: BaseEnemyBuilder, enemy_type: str | None = None):
         self.enemy_type: str | None = enemy_type
         self.builder: BaseEnemyBuilder = builder
+        self.__reload_file()
+    
+    def __reload_file(self):
         with open('./gameData/enemies.json', 'r') as f:
             self.config: dir = json.load(f)
             enemies = self.config["enemies"]
@@ -83,6 +86,7 @@ class BaseEnemyBuilderDirector:
     
     def choose_enemy(self, enemy_type: str):
         self.enemy_type = enemy_type
+        self.__reload_file()
     
     def build(self, x: int, y: int) -> BaseEnemy:
         h: dir = self.config['enemiesDefaultHealthBar']
@@ -91,7 +95,7 @@ class BaseEnemyBuilderDirector:
             .buildImage(self.enemy_data['path'], self.enemy_data['scale'])
             .buildPhysics(x, y, self.enemy_data['mass'], self.enemy_data['force'])
             .buildHealthBar(
-                DeluxeHP, self.enemy_data['hp_amount'], h['x'], h['y'], h['width'], h['height']
+                DeluxeHP, self.enemy_data['hp_amount'], x, y - 50, h['width'], h['height']
             )
             .buildEnemy()
         )

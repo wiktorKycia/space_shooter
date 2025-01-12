@@ -1,4 +1,8 @@
 {
+	"enemiesDefaultHealthBar": {
+		"width": 50,
+		"height": 10
+	},
 	"enemies": [
 		{
 			"name": "Bouncer1",
