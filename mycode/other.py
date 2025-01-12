@@ -46,14 +46,16 @@ from abc import ABC, abstractmethod
 @ABC
 class RefillableBar:
     @abstractmethod
-    def __init__(self, amount: int, x: int, y: int, width: int, height: int, color: tuple[int, int, int]):
+    def __init__(
+        self, amount: int, x: int, y: int, width: int, height: int, relative: bool, color: tuple[int, int, int]
+    ):
         self.amount: int = amount
         self.x: int = x
         self.y: int = y
         self.width: int = width
         self.height: int = height
+        self.relative: bool = relative
         self.color: tuple[int, int, int] = color
-        
     
     @abstractmethod
     def maximise(self):
@@ -65,6 +67,10 @@ class RefillableBar:
     
     @abstractmethod
     def add_health(self, amount: int):
+        pass
+    
+    @abstractmethod
+    def align(self):
         pass
     
     @abstractmethod
