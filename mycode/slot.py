@@ -2,7 +2,6 @@ import pygame
 from pygame.math import Vector2
 from typing import Callable
 from weapons import Weapon
-from spacecraft import Spacecraft
 
 class Slot:
     def __init__(self, translation: Vector2, trigger: Callable, weapon: Weapon):

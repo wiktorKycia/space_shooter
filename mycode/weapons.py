@@ -1,10 +1,7 @@
-import pygame
-import math
 from mycode.bullets import *
+from mycode.clips import *
 from typing import Callable
-from abc import ABC, abstractmethod
 import random
-from clips import *
 
 class Weapon:
     def __init__(self, trigger: Callable):
@@ -58,7 +55,7 @@ class Gun(Weapon):
         return False
     
     def tick(self, dt: float, x: float, y: float):
-        super().tick(dt)
+        super().tick(dt, x, y)
         self.clip.tick(dt)
         
         self.shot(x, y)

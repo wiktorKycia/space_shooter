@@ -47,7 +47,7 @@ from abc import ABC, abstractmethod
 class RefillableBar:
     @abstractmethod
     def __init__(
-        self, amount: int, x: int, y: int, width: int, height: int, color: tuple[int, int, int]
+        self, amount: int, x: float, y: float, width: int, height: int, color: tuple[int, int, int]
     ):
         self.amount: int = amount
         self.x: int = x
@@ -101,7 +101,7 @@ class HP(RefillableBar):
         # self.tick()
         # self.draw()
     
-    def align(self, x: int, y: int):
+    def align(self, x: float, y: float):
         self.x = x
         self.y = y
 
@@ -144,7 +144,7 @@ class DeluxeHP(RefillableBar):
         if self.amount > self.max_hp:
             self.amount = self.max_hp
     
-    def align(self, x: int, y: int):
+    def align(self, x: float, y: float):
         self.x = x
         self.y = y
     
