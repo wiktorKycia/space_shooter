@@ -59,7 +59,7 @@ class Gun(Weapon):
     
     def tick(self, dt: float, x: float, y: float):
         super().tick(dt)
-        self.clip.tick()
+        self.clip.tick(dt)
         
         self.shot(x, y)
 
