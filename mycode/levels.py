@@ -25,12 +25,13 @@ class WaveManager:
         elif wave_type == "line":
             enemy_count = wave.get("enemy_count", 1)
             spawners.line(enemies, x, y, enemy_count, self.create_enemy(enemy_type, x, y))
-
-    def create_enemy(self, enemy_type, x, y):
-        enemy_classes = {
-            "Enemy1": Enemy1,
-        }
-        return enemy_classes[enemy_type](self.game, x, y)
+    
+    @staticmethod
+    def create_enemy(enemy_type: str, x: float, y: float):
+        builder = BaseEnemyBuilder()
+        director = BaseEnemyBuilderDirector(builder, enemy_type)
+        enemy = director.build(x, y)
+        return enemy
 
 
 class LevelManager:

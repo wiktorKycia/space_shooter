@@ -46,14 +46,15 @@ from abc import ABC, abstractmethod
 @ABC
 class RefillableBar:
     @abstractmethod
-    def __init__(self, amount: int, x: int, y: int, width: int, height: int, color: tuple[int, int, int]):
+    def __init__(
+        self, amount: int, x: int, y: int, width: int, height: int, color: tuple[int, int, int]
+    ):
         self.amount: int = amount
         self.x: int = x
         self.y: int = y
         self.width: int = width
         self.height: int = height
         self.color: tuple[int, int, int] = color
-        
     
     @abstractmethod
     def maximise(self):
@@ -65,6 +66,10 @@ class RefillableBar:
     
     @abstractmethod
     def add_health(self, amount: int):
+        pass
+    
+    @abstractmethod
+    def align(self, x: float, y: float):
         pass
     
     @abstractmethod
@@ -95,6 +100,10 @@ class HP(RefillableBar):
         self.amount -= amount
         # self.tick()
         # self.draw()
+    
+    def align(self, x: int, y: int):
+        self.x = x
+        self.y = y
 
     def tick(self):
         self.block = pygame.Rect(self.x - self.width/2, self.y - self.height/2, self.unit * self.amount, self.height)
@@ -134,6 +143,10 @@ class DeluxeHP(RefillableBar):
             self.amount += amount
         if self.amount > self.max_hp:
             self.amount = self.max_hp
+    
+    def align(self, x: int, y: int):
+        self.x = x
+        self.y = y
     
     def tick(self, screen: pygame.Surface):
         transition_width = 0

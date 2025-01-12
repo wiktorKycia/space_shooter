@@ -27,6 +27,7 @@ class BaseEnemy(Spacecraft):
     def tick(self, dt: float):
         self.displayer.tick(self.physics.x, self.physics.y)
         self.physics.tick(dt)
+        self.hp.align(self.physics.pos.x, self.physics.pos.y - 50)
 
         for slot in self.slots:
             slot.tick()
@@ -88,7 +89,7 @@ class BaseEnemyBuilderDirector:
         self.enemy_type = enemy_type
         self.__reload_file()
     
-    def build(self, x: int, y: int) -> BaseEnemy:
+    def build(self, x: float, y: float) -> BaseEnemy:
         h: dir = self.config['enemiesDefaultHealthBar']
         enemy: BaseEnemy = (
             self.builder
