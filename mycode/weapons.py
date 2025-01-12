@@ -11,7 +11,7 @@ class Weapon:
         self.trigger = trigger
         self.clock = 0
     
-    def tick(self, dt):
+    def tick(self, dt: float, x: float, y: float):
         self.clock += dt
     
     def draw(self, screen: pygame.Surface):
@@ -39,38 +39,34 @@ class Gun(Weapon):
         bullet: Bullet = director.build(x, y, initial_force, rotation)
         return bullet
     
-    def shot(self, x: float, y: float, ):
-        bullet = self._create_bullet(
-            self.bullet_name, x, y, self.force,
-            random.uniform(-self.spread / 2, self.spread / 2) if self.spread > 0 else 0
-        )
-        
-        self.bullets.append(bullet)
-        bullet.sound.play(0, 800)
-        self.clip.shot()
+    def shot(self, x: float, y: float):
+        if self._shootCheck():
+            bullet = self._create_bullet(
+                self.bullet_name, x, y, self.force,
+                random.uniform(-self.spread / 2, self.spread / 2) if self.spread > 0 else 0
+            )
+            self.bullets.append(bullet)
+            bullet.sound.play(0, 800)
+            self.clip.shot()
     
-    def _shootCheck(self):
+    def _shootCheck(self) -> bool:
         if self.trigger() and self.clock > self.interval and self.clip.can_i_shoot():
             self.clock = 0
-            self.shot()
-
-    def tick(self):
-        super().tick()
+            return True
+        return False
+    
+    def tick(self, dt: float, x: float, y: float):
+        super().tick(dt)
         self.clip.tick()
-        pressed = pygame.key.get_pressed()
-
-        if self.is_player:
-            self._shootCheck((pressed[pygame.K_KP_0] or pressed[self.key]))
-        else:
-            self.key = self.slot.ship.is_shooting
-            self._shootCheck(self.key)
+        
+        self.shot(x, y)
 
         for bullet in self.bullets:
-            bullet.tick()
-
-    def draw(self):
+            bullet.tick(dt)
+    
+    def draw(self, screen):
         for bullet in self.bullets:
-            bullet.draw()
+            bullet.draw(screen)
 
 
 class KineticLight(Gun):

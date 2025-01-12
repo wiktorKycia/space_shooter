@@ -17,10 +17,9 @@ class Slot:
         self.trigger = trigger
         self.weapon = weapon
     
-    def tick(self, dt):
-        # pos = ship.physics.pos + self.translation
-        self.weapon.tick(dt)
-    
-    def draw(self, screen: pygame.Surface, position: Vector2):
+    def tick(self, dt: float, position: Vector2):
         pos = position + self.translation
+        self.weapon.tick(dt, pos.x, pos.y)
+    
+    def draw(self, screen: pygame.Surface):
         self.weapon.draw(screen)
