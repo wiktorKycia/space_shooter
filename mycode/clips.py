@@ -1,6 +1,5 @@
 class Clip:
-    def __init__(self, game, max_ammo: int, reload_time: float, active_reload: bool = False):
-        self.game = game
+    def __init__(self, max_ammo: int, reload_time: float, active_reload: bool = False):
         self.max_ammo = max_ammo
         self.current_ammo = max_ammo
         self.reload_time = reload_time
@@ -21,7 +20,7 @@ class Clip:
         # If ammo is equal or below 0, then undeniably returns False
         return False
     
-    def tick(self):
+    def tick(self, dt: float):
         # there is no ammo, passive reloading
         if not self.active:
             # it is not reloading
@@ -30,22 +29,21 @@ class Clip:
                     self.reloading = True
             # it is reloading
             if self.reloading:
-                self.clock += self.game.dt
+                self.clock += dt
                 if self.clock > self.reload_time:
                     self.clock = 0
                     self.reloading = False
                     self.maximise_ammo()
         # active reloading
         else:
-            self.clock += self.game.dt
+            self.clock += dt
             if self.clock > self.reload_time and self.current_ammo < self.max_ammo:
                 self.current_ammo += 100
                 self.clock = 0
 
 
 class LaserClip:
-    def __init__(self, game, shooting_time, reload_time):
-        self.game = game
+    def __init__(self, shooting_time, reload_time):
         self.clock = 0
         self.shooting_time = shooting_time
         self.reload_time = reload_time
@@ -58,8 +56,8 @@ class LaserClip:
         self.clock = 0
         self._active = True
     
-    def tick(self):
-        self.clock += self.game.dt
+    def tick(self, dt: float):
+        self.clock += dt
         if self._active:
             if self.clock > self.shooting_time:
                 self.clock = 0
