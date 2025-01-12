@@ -69,28 +69,29 @@ class Gun(Weapon):
             bullet.draw(screen)
 
 
-class KineticLight(Gun):
-    def __init__(self, game, slot, key=pygame.K_KP_0):
-        super().__init__(
-            game, slot, key,
-            bullet=BulletSmallBlue,
-            force=3500,
-            interval=0.1,
-            max_ammo=50,
-            reload_time=3.0,
-            active_reload=False
-        )
-class KineticMedium(Gun):
-    def __init__(self, game, slot, key=pygame.K_KP_0):
-        super().__init__(
-            game, slot, key,
-            bullet=BulletMediumBlue,
-            force=3500,
-            interval=0.15,
-            max_ammo=50,
-            reload_time=2.0,
-            active_reload=False
-        )
+#
+# class KineticLight(Gun):
+#     def __init__(self, game, slot, key=pygame.K_KP_0):
+#         super().__init__(
+#             game, slot, key,
+#             bullet=BulletSmallBlue,
+#             force=3500,
+#             interval=0.1,
+#             max_ammo=50,
+#             reload_time=3.0,
+#             active_reload=False
+#         )
+# class KineticMedium(Gun):
+#     def __init__(self, game, slot, key=pygame.K_KP_0):
+#         super().__init__(
+#             game, slot, key,
+#             bullet=BulletMediumBlue,
+#             force=3500,
+#             interval=0.15,
+#             max_ammo=50,
+#             reload_time=2.0,
+#             active_reload=False
+#         )
 
 
 class ShotGun(Weapon):
