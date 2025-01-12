@@ -69,7 +69,7 @@ class RefillableBar:
         pass
     
     @abstractmethod
-    def align(self):
+    def align(self, x: float, y: float):
         pass
     
     @abstractmethod

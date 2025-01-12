@@ -27,6 +27,7 @@ class BaseEnemy(Spacecraft):
     def tick(self, dt: float):
         self.displayer.tick(self.physics.x, self.physics.y)
         self.physics.tick(dt)
+        self.hp.align(self.physics.pos.x, self.physics.pos.y - 50)
 
         for slot in self.slots:
             slot.tick()
