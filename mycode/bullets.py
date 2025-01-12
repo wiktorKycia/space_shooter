@@ -101,8 +101,8 @@ class BulletBuilder:
         self.sound_path: str | None = None
         self.scale: float | None = None
     
-    def buildPhysics(self, x: int, y: int, mass: int, force: int, slip: float = 0.98):
-        self.physics = PygamePhysics(x, y, mass, force, slip)
+    def buildPhysics(self, x: float, y: float, mass: int, force: int, is_player: bool = True, slip: float = 0.98):
+        self.physics = PygamePhysics(x, y, mass, force, is_player, slip)
         return self
     
     def set_damage(self, damage: int):
@@ -113,8 +113,10 @@ class BulletBuilder:
         self.rotation = rotation
         return self
     
-    def buildImage(self, path: str, scale: float = 1.0):
+    def buildImage(self, path: str, scale: float = 1.0, is_player: bool = True):
         self.image = PathConverter(path).create()
+        if not is_player:
+            self.image = pygame.transform.flip(self.image, False, True)
         self.scale = scale
         return self
     
@@ -144,11 +146,11 @@ class BulletBuilderDirector:
         self.bullet_name = bullet_name
         self.__reload_data()
     
-    def build(self, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
+    def build(self, x: float, y: float, initial_force: int, rotation: float, is_player: bool = True) -> Bullet:
         bullet: Bullet = (
             self.builder
-            .buildImage(self.bullet_data['image_path'], self.bullet_data['scale'])
-            .buildPhysics(x, y, self.bullet_data['mass'], initial_force)
+            .buildImage(self.bullet_data['image_path'], self.bullet_data['scale'], is_player)
+            .buildPhysics(x, y, self.bullet_data['mass'], initial_force, is_player)
             .set_rotation(rotation)
             .set_damage(self.bullet_data['damage'])
             .buildSound(self.bullet_data['sound_path'])

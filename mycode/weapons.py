@@ -19,7 +19,10 @@ class Weapon:
 
 
 class Gun(Weapon):
-    def __init__(self, trigger: Callable, bullet_name: str, force: int, interval: float, spread: int, clip: Clip):
+    def __init__(
+        self, trigger: Callable, bullet_name: str, force: int, interval: float, spread: int, clip: Clip,
+        is_player: bool = True
+    ):
         super().__init__(trigger)
         self.interval: float = interval
         self.bullet_name: str = bullet_name
@@ -27,6 +30,7 @@ class Gun(Weapon):
         self.clip: Clip = clip
         self.spread: int = spread
         self.force: int = force
+        self.is_player: bool = is_player
     
     @staticmethod
     def _create_bullet(bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
@@ -40,7 +44,7 @@ class Gun(Weapon):
             self.bullet_name, x, y, self.force,
             random.uniform(-self.spread / 2, self.spread / 2) if self.spread > 0 else 0
         )
-        if not self.is_player: bullet.image = pygame.transform.flip(bullet.image, False, True)
+        
         self.bullets.append(bullet)
         bullet.sound.play(0, 800)
         self.clip.shot()
