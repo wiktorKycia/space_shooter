@@ -114,6 +114,9 @@ class PlayableShipBuilderDirector:
     def __init__(self, builder: PlayableShipBuilder, ship_type: str | None = None):
         self.ship_type: str | None = ship_type
         self.builder: PlayableShipBuilder = builder
+        self.__reload_file()
+    
+    def __reload_file(self):
         with open('./gameData/playerShips.json', 'r') as f:
             self.config: dir = json.load(f)
             ships = self.config["ships"]
@@ -121,6 +124,7 @@ class PlayableShipBuilderDirector:
     
     def choose_ship(self, ship_type: str):
         self.ship_type = ship_type
+        self.__reload_file()
     
     def build(self, x: int, y: int) -> PlayableShip:
         h: dir = self.config['shipsDefaultHealthBar']
