@@ -158,45 +158,6 @@ class GunBuilderDirector:
             return g.set_spread(self.gun_data['spread']).set_intensity(self.gun_data['intensity']).build_gun()
         else:
             return g.build_gun()
-            
-    
-#
-# class KineticLight(Gun):
-#     def __init__(self, game, slot, key=pygame.K_KP_0):
-#         super().__init__(
-#             game, slot, key,
-#             bullet=BulletSmallBlue,
-#             force=3500,
-#             interval=0.1,
-#             max_ammo=50,
-#             reload_time=3.0,
-#             active_reload=False
-#         )
-# class KineticMedium(Gun):
-#     def __init__(self, game, slot, key=pygame.K_KP_0):
-#         super().__init__(
-#             game, slot, key,
-#             bullet=BulletMediumBlue,
-#             force=3500,
-#             interval=0.15,
-#             max_ammo=50,
-#             reload_time=2.0,
-#             active_reload=False
-#         )
-#
-# class ShotGun1(ShotGun):
-#     def __init__(self, game, slot, key=pygame.K_KP_0):
-#         super().__init__(
-#             game, slot, key,
-#             bullet=ShotgunBulletFire,
-#             force=5000,
-#             interval=0.2,
-#             spread=10,
-#             intensity=10,
-#             max_ammo=1000,
-#             reload_time=0.01,
-#             active_reload=True
-#         )
 
 
 class Flamethrower(Weapon):
