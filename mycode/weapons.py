@@ -20,7 +20,7 @@ class Weapon:
 
 class Gun(Weapon):
     def __init__(
-        self, trigger: Callable, bullet_name: str, force: int, interval: float, spread: int, clip: Clip,
+        self, trigger: Callable, bullet_name: str, force: int, interval: float, clip: Clip, spread: int = 0,
         intensity: int = 1, is_player: bool = True
     ):
         super().__init__(trigger)
@@ -78,7 +78,7 @@ class GunBuilder:
         self.bullet_name: str | None = None
         self.force: int | None = None
         self.interval: float | None = None
-        self.spread: int | None = None
+        self.spread: int = 0
         self.clip: Clip | None = None
         self.intensity: int = 1
         self.is_player: bool = True
@@ -103,8 +103,8 @@ class GunBuilder:
         self.spread = spread
         return self
     
-    def set_clip(self, ):
-        self.clip = Clip()
+    def set_clip(self, max_ammo: int, reload_time: float, active_reload: bool = False):
+        self.clip = Clip(max_ammo, reload_time, active_reload)
         return self
     
     def set_intensity(self, intensity: int):
@@ -117,7 +117,7 @@ class GunBuilder:
     
     def build_gun(self) -> Gun:
         self.gun = Gun(
-            self.trigger, self.bullet_name, self.force, self.interval, self.spread, self.clip, self.intensity,
+            self.trigger, self.bullet_name, self.force, self.interval, self.clip, self.spread, self.intensity,
             self.is_player
         )
         return self.gun
