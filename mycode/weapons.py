@@ -4,11 +4,8 @@ from mycode.bullets import *
 from typing import Callable
 from abc import ABC, abstractmethod
 import random
+from clips import *
 
-
-
-
-@ABC
 class Weapon:
     def __init__(self, trigger: Callable):
         self.trigger = trigger
@@ -17,23 +14,32 @@ class Weapon:
     def tick(self, dt):
         self.clock += dt
     
-    @abstractmethod
     def draw(self, screen: pygame.Surface):
         pass
 
 
 class Gun(Weapon):
-    def __init__(self, trigger: Callable, bullet: type, force: int, interval: float, clip: Clip):
+    def __init__(self, trigger: Callable, bullet_name: str, force: int, interval: float, spread: int, clip: Clip):
         super().__init__(trigger)
-        self.interval = interval
-        self.bul = bullet
-        self.bullets = []
-        self.clip = clip
-        
-        self.force = force
-
-    def shot(self):
-        bullet = self.bul(self.slot.pos.x, self.slot.pos.y, self.force)
+        self.interval: float = interval
+        self.bullet_name: str = bullet_name
+        self.bullets: list[Bullet] = []
+        self.clip: Clip = clip
+        self.spread: int = spread
+        self.force: int = force
+    
+    @staticmethod
+    def _create_bullet(bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
+        builder = BulletBuilder()
+        director = BulletBuilderDirector(builder, bullet_name)
+        bullet: Bullet = director.build(x, y, initial_force, rotation)
+        return bullet
+    
+    def shot(self, x: float, y: float, ):
+        bullet = self._create_bullet(
+            self.bullet_name, x, y, self.force,
+            random.uniform(-self.spread / 2, self.spread / 2) if self.spread > 0 else 0
+        )
         if not self.is_player: bullet.image = pygame.transform.flip(bullet.image, False, True)
         self.bullets.append(bullet)
         bullet.sound.play(0, 800)

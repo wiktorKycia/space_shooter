@@ -144,7 +144,7 @@ class BulletBuilderDirector:
         self.bullet_name = bullet_name
         self.__reload_data()
     
-    def build(self, x: int, y: int, initial_force: int, rotation: float) -> Bullet:
+    def build(self, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
         bullet: Bullet = (
             self.builder
             .buildImage(self.bullet_data['image_path'], self.bullet_data['scale'])
