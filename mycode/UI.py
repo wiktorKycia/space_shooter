@@ -8,31 +8,30 @@ import json
 
 
 class MenuHandler:
-    def __init__(self, game, mainmenu):
-        self.game = game
+    def __init__(self, mainmenu):
         self.currentMenuType = mainmenu
-        self.currentMenu = self.currentMenuType(self.game)
+        self.currentMenu = self.currentMenuType()
         self.hiddenMenu = None
-
-    def resetMenu(self):
-        self.currentMenu = self.currentMenuType(self.game)
+    
+    def resetMenu(self, *args):
+        self.currentMenu = self.currentMenuType(*args)
 
     def revealMenu(self):
         self.currentMenuType = type(self.hiddenMenu)
         self.currentMenu = self.hiddenMenu
-
-    def changeMenu(self, menu, override=False):
+    
+    def changeMenu(self, menu, override: bool = False, *args):
         if override:
             self.hiddenMenu = self.currentMenu
 
         self.currentMenuType = menu
-        self.resetMenu()
-
-    def tick(self):
-        self.currentMenu.tick_menu()
-
-    def draw(self):
-        self.currentMenu.draw_menu()
+        self.resetMenu(args)
+    
+    def tick(self, *args):
+        self.currentMenu.tick_menu(args)
+    
+    def draw(self, *args):
+        self.currentMenu.draw_menu(args)
 
 
 class LevelButton(TextButton):
