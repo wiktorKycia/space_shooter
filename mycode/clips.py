@@ -1,4 +1,22 @@
-class Clip:
+from abc import abstractmethod, ABC
+
+
+@ABC
+class BaseClip:
+    @abstractmethod
+    def maximise_ammo(self):
+        pass
+    
+    @abstractmethod
+    def can_i_shoot(self):
+        pass
+    
+    @abstractmethod
+    def tick(self, dt: float):
+        pass
+
+
+class Clip(BaseClip):
     def __init__(self, max_ammo: int, reload_time: float, active_reload: bool = False):
         self.max_ammo = max_ammo
         self.current_ammo = max_ammo
@@ -42,7 +60,7 @@ class Clip:
                 self.clock = 0
 
 
-class LaserClip:
+class LaserClip(BaseClip):
     def __init__(self, shooting_time, reload_time):
         self.clock = 0
         self.shooting_time = shooting_time
