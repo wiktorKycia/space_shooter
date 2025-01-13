@@ -36,14 +36,14 @@ class MenuHandler:
 
 
 class LevelButton(TextButton):
-    def __init__(self, game, x, y, width, height, level_id:int):
+    def __init__(self, x, y, width, height, level_id: int):
         self.level_id = level_id
         self.text = f"Level {str(level_id)}"
-        super().__init__(game, x, y, width, height, self.text)
+        super().__init__(x, y, width, height, self.text)
 
 class Button(Clickable):
-    def __init__(self, game, x:int, y:int, path:str, scale:float = 1.0, path2:str=""):
-        super().__init__(game, x, y, path, scale, path2)
+    def __init__(self, x: int, y: int, path: str, scale: float = 1.0, path2: str = ""):
+        super().__init__(x, y, path, scale, path2)
 
 class MainMenu:
     def __init__(self, game):
