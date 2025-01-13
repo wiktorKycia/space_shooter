@@ -4,9 +4,10 @@ from typing import Callable
 import random
 
 class Weapon:
-    def __init__(self, trigger: Callable):
-        self.trigger = trigger
+    def __init__(self, trigger: Callable, clip: BaseClip):
+        self.trigger: Callable = trigger
         self.clock = 0
+        self.clip: BaseClip = clip
     
     def tick(self, dt: float, x: float, y: float):
         self.clock += dt
