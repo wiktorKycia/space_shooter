@@ -11,3 +11,9 @@ class Projectile:
     
     def check_collision(self, ship: Spacecraft) -> bool:
         pass
+    
+    def tick(self, dt: float):
+        pass
+    
+    def draw(self, dt: float):
+        pass

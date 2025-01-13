@@ -167,7 +167,7 @@ class LevelGame:
         :param menuHandler:
         """
         self.enemies: list[BaseEnemy] = []
-        self.other_bullets: list = []
+        self.other_bullets: list[Projectile] = []
         
         self.level_manager: LevelManager = levelManager
         self.level_number: int = level_number
@@ -187,7 +187,7 @@ class LevelGame:
         else:
             self.click_P_counter += 1
     
-    def tick_menu(self, player_ship: PlayableShip):
+    def tick_menu(self, dt: float, player_ship: PlayableShip):
         """
         Method tick contains instructions to run during every tick (frame).
         First, it calls every enemies' tick method,
@@ -196,33 +196,32 @@ class LevelGame:
         lastly, checks for clicking p key in order to show pause menu.
         """
         for enemy in self.enemies:
-            enemy.tick()
+            enemy.tick(dt)
 
         for bullet in self.other_bullets:
             if bullet.steered_by_menu:
-                bullet.tick()
+                bullet.tick(dt)
             else:
                 bullet.steered_by_menu = True
         
-        player_ship.tick()
+        player_ship.tick(dt)
         self.level_manager.tick(self.level_number, self.enemies)
         
         self.check_for_key_press()
     
-    def draw_menu(self, player_ship: PlayableShip):
+    def draw_menu(self, screen, player_ship: PlayableShip):
         """
         Method draw usually is called after tick method, it displays object on the screen.
         First, it draws the enemies,
         then player and player's hp.
         """
         for enemy in self.enemies:
-            enemy.draw()
+            enemy.draw(screen)
 
         for bullet in self.other_bullets:
-            bullet.draw()
+            bullet.draw(screen)
         
-        player_ship.draw()
-        player_ship.hp.tick()
+        player_ship.draw(screen)
 
 class LevelsMenu:
     def __init__(self, game, config_file: str = "../gameData/levels.json"):

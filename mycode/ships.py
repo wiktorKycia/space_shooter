@@ -78,6 +78,7 @@ class PlayableShip(Spacecraft):
         self.physics.tick(dt)
     
     def draw(self, screen: pygame.Surface):
+        self.hp.tick(screen)
         self.displayer.draw(screen, self.physics.x, self.physics.y)
         for slot in self.slots:
             slot.draw(screen)
