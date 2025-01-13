@@ -158,6 +158,7 @@ class GunBuilderDirector:
             return g.build_gun()
 
 
+'''
 class Flamethrower(Weapon):
     def __init__(self, game, slot, key, particle, spread, intensity, force, interval, max_ammo: int,
                  reload_time: float, active_reload: bool):
@@ -261,3 +262,4 @@ class Laser1(Laser):
             shooting_time=10.0,
             reload_time=5.0
         )
+'''
