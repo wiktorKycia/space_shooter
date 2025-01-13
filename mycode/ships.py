@@ -1,3 +1,5 @@
+import pygame
+
 from mycode import DeluxeHP
 from mycode.other import RefillableBar
 from mycode.weapons import *
@@ -115,9 +117,15 @@ class PlayableShipBuilder:
         return self
 
 
+keys = {
+    "numpad_0": pygame.K_KP_0
+}
+
 class PlayableShipBuilderDirector:
     def __init__(self, builder: PlayableShipBuilder, ship_type: str | None = None):
         self.ship_type: str | None = ship_type
+        self.ship_data: dir = { }
+        self.slots: list = []
         self.builder: PlayableShipBuilder = builder
         self.__reload_file()
     
@@ -126,6 +134,7 @@ class PlayableShipBuilderDirector:
             self.config: dir = json.load(f)
             ships = self.config["ships"]
             self.ship_data = list(filter(lambda ship: ship['name'] == self.ship_type, ships))[0]
+            self.slots: list = self.ship_data['slots']
     
     def choose_ship(self, ship_type: str):
         self.ship_type = ship_type
@@ -133,16 +142,17 @@ class PlayableShipBuilderDirector:
     
     def build(self, x: float, y: float) -> PlayableShip:
         h: dir = self.config['shipsDefaultHealthBar']
-        ship: PlayableShip = (
+        ship = (
             self.builder
             .buildImage(self.ship_data['path'], self.ship_data['scale'])
             .buildPhysics(x, y, self.ship_data['mass'], self.ship_data['force'])
             .buildHealthBar(
                 DeluxeHP, self.ship_data['hp_amount'], h['x'], h['y'], h['width'], h['height']
             )
-            .buildShip()
         )
-        return ship
+        for slot in self.slots:
+            ship.buildSlot(Vector2(slot['x'], slot['y']), lambda: pygame.key.get_pressed()[keys[slot['key']]])
+        return ship.buildShip()
 #
 # class Ship1:
 #     def __init__(self):
