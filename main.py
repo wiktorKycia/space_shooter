@@ -8,8 +8,8 @@ from mycode.other import *
 from mycode.player import *
 from mycode.ships import *
 from mycode.UI import *
-from tests.test11_line import width, height
-
+# from tests.test11_line import width, height
+import json
 
 class Game(object):
     """
@@ -81,11 +81,15 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((width, height))
     
     player = Player()
-    player.add_new_ship(Ship1())
-    player.add_new_ship(Ship2())
-    player.add_new_ship(Ship3())
-    player.add_new_ship(Ship4())
-    player.add_new_ship(Ship5())
+    
+    shipBuilder = PlayableShipBuilder()
+    shipDirector = PlayableShipBuilderDirector(shipBuilder)
+    
+    with open("./gameData/playerShips.json") as f:
+        for ship in json.load(f)['ships']:
+            shipDirector.choose_ship(ship['name'])
+            player.add_new_ship(shipDirector.build(width / 2, height / 2))
+    
     
     mouse = Mouse()
     
