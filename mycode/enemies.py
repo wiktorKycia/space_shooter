@@ -6,9 +6,10 @@ from mycode.other import RefillableBar, DeluxeHP
 from mycode.physics import PygamePhysics
 from mycode.displayable import Displayer, PathConverter
 from mycode.spacecraft import Spacecraft
-from mycode.weapons import GunBuilderDirector
+from mycode.weapons import GunBuilderDirector, Weapon
 from mycode.Behaviors import *
 from mycode.slot import Slot
+from typing import Callable
 
 
 class BaseEnemy(Spacecraft):
@@ -20,6 +21,9 @@ class BaseEnemy(Spacecraft):
         self.move_clock = 0
         self.slots = []
         self.is_shooting = True
+    
+    def add_weapon(self, weapon: Weapon, slot_index: int):
+        self.slots[slot_index].weapon = weapon
     
     def tick(self, dt: float):
         self.displayer.tick(self.physics.x, self.physics.y)
@@ -68,6 +72,10 @@ class BaseEnemyBuilder:
     def buildEnemy(self) -> BaseEnemy:
         self.enemy = BaseEnemy(self.physics, self.healthBar, self.image, self.scale)
         return self.enemy
+    
+    def buildSlot(self, translation: Vector2, trigger: Callable):
+        self.enemy.slots.append(Slot(translation, trigger))
+        return self
     # TODO: add methods buildSlot and addWeapon
 
 
