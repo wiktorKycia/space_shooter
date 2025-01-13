@@ -22,6 +22,9 @@ class BaseEnemy(Spacecraft):
         self.slots = []
         self.is_shooting = True
     
+    def add_slot(self, translation: Vector2, trigger: Callable):
+        self.slots.append(Slot(translation, trigger))
+    
     def add_weapon(self, weapon: Weapon, slot_index: int):
         self.slots[slot_index].weapon = weapon
     
@@ -76,13 +79,13 @@ class BaseEnemyBuilder:
     def buildSlot(self, translation: Vector2, trigger: Callable):
         self.enemy.slots.append(Slot(translation, trigger))
         return self
-    # TODO: add methods buildSlot and addWeapon
-
 
 class BaseEnemyBuilderDirector:
     def __init__(self, builder: BaseEnemyBuilder, enemy_type: str | None = None):
         self.enemy_type: str | None = enemy_type
         self.builder: BaseEnemyBuilder = builder
+        self.enemy_data: dir = { }
+        self.slots: list = []
         self.__reload_file()
     
     def __reload_file(self):
@@ -90,6 +93,7 @@ class BaseEnemyBuilderDirector:
             self.config: dir = json.load(f)
             enemies = self.config["enemies"]
             self.enemy_data = list(filter(lambda enemy: enemy['name'] == self.enemy_type, enemies))[0]
+            self.slots = self.enemy_data['slots']
     
     def choose_enemy(self, enemy_type: str):
         self.enemy_type = enemy_type
@@ -97,15 +101,16 @@ class BaseEnemyBuilderDirector:
     
     def build(self, x: float, y: float) -> BaseEnemy:
         h: dir = self.config['enemiesDefaultHealthBar']
-        enemy: BaseEnemy = (
+        enemy = (
             self.builder
             .buildImage(self.enemy_data['path'], self.enemy_data['scale'])
             .buildPhysics(x, y, self.enemy_data['mass'], self.enemy_data['force'])
             .buildHealthBar(
                 DeluxeHP, self.enemy_data['hp_amount'], x, y - 50, h['width'], h['height']
-            )
-            .buildEnemy()
+            ).buildEnemy()
         )
+        for slot in self.slots:
+            enemy.add_slot(Vector2(slot['x'], slot['y']), lambda: enemy.is_shooting)
         return enemy
 
 #
