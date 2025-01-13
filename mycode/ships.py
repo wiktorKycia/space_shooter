@@ -17,7 +17,7 @@ class PlayableShip(Spacecraft):
         self.physics: PygamePhysics = physics
         self.hp = healthBar
         
-        self.slots = []
+        self.slots: list[Slot] = []
 
     def refill_stats(self):
         self.hp.maximise()
@@ -26,6 +26,9 @@ class PlayableShip(Spacecraft):
                 slot.weapon.clip.maximise_ammo()
             except AttributeError:
                 pass
+    
+    def add_weapon(self, weapon: Weapon, slot_index: int):
+        self.slots[slot_index].weapon = weapon
 
     def getClosestEnemy(self, enemies: list[BaseEnemy]):
         e = None
@@ -67,7 +70,7 @@ class PlayableShip(Spacecraft):
             self.physics.add_force(force)
 
         for slot in self.slots:
-            slot.tick()
+            slot.tick(dt, self.physics.pos)
         
         self.displayer.tick(self.physics.x, self.physics.y)
         self.physics.tick(dt)
@@ -75,7 +78,7 @@ class PlayableShip(Spacecraft):
     def draw(self, screen: pygame.Surface):
         self.displayer.draw(screen, self.physics.x, self.physics.y)
         for slot in self.slots:
-            slot.draw()
+            slot.draw(screen)
 
 
 class PlayableShipBuilder:
@@ -106,7 +109,10 @@ class PlayableShipBuilder:
     def buildShip(self) -> PlayableShip:
         self.ship = PlayableShip(self.physics, self.healthBar, self.image, self.scale)
         return self.ship
-    # TODO: dodać metody buildSlot i addWeapon
+    
+    def buildSlot(self, translation: Vector2, trigger: Callable):
+        self.ship.slots.append(Slot(translation, trigger))
+        return self
 
 
 class PlayableShipBuilderDirector:

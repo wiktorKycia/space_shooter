@@ -4,7 +4,7 @@ from typing import Callable
 from weapons import Weapon
 
 class Slot:
-    def __init__(self, translation: Vector2, trigger: Callable, weapon: Weapon):
+    def __init__(self, translation: Vector2, trigger: Callable, weapon: Weapon | None = None):
         """
         Represents a weapon slot of a Ship,
         it can contain only one weapon
