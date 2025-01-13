@@ -8,14 +8,14 @@
 					"type": "single",
 					"x": 400,
 					"y": 100,
-					"enemy_type": "Enemy1"
+					"enemy_type": "Bouncer1"
 				},
 				{
 					"wave_number": 2,
 					"type": "pair",
 					"x": 400,
 					"y": 100,
-					"enemy_type": "Enemy1"
+					"enemy_type": "Bouncer1"
 				},
 				{
 					"wave_number": 3,
@@ -23,7 +23,7 @@
 					"x": 400,
 					"y": 100,
 					"enemy_count": 3,
-					"enemy_type": "Enemy1"
+					"enemy_type": "Bouncer1"
 				}
 			],
 			"reward": {
