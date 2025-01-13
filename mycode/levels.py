@@ -52,8 +52,8 @@ class LevelManager:
     
     def tick(self, level_number: int, enemies: list[BaseEnemy]):
         self.current_time = pygame.time.get_ticks()
-
-        if self.check_if_all_died() and self.flag:
+        
+        if self.check_if_all_died(enemies) and self.flag:
             self.flag = False
             self.point_time = pygame.time.get_ticks()
             self.wave_number += 1
