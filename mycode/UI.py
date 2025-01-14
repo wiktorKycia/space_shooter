@@ -42,7 +42,7 @@ class LevelButton(TextButton):
         super().__init__(x, y, width, height, self.text)
 
 class Button(Clickable):
-    def __init__(self, x: int, y: int, path: str, scale: float = 1.0, path2: str = ""):
+    def __init__(self, x: float, y: float, path: str, scale: float = 1.0, path2: str = ""):
         super().__init__(x, y, path, scale, path2)
 
 class MainMenu:
