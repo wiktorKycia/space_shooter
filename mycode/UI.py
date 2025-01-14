@@ -83,14 +83,28 @@ class GameMenu:
     def __init__(self, screen_size: tuple[int, int]):
 
         # define the buttons
-        self.button_endless = Button(game, size[0] / 3, size[1] / 5, "./images/buttons/button_endless.png", 1.0,
-                                     "./images/buttons/button_endless_hover.png")
-        self.button_levels = Button(game, size[0] * 2 / 3, size[1] / 5, "./images/buttons/button_levels.png", 1.0,
+        self.button_endless = Button(
+            screen_size[0] / 3, screen_size[1] / 5, "./images/buttons/button_endless.png", 1.0,
+            "./images/buttons/button_endless_hover.png"
+            )
+        self.button_levels = Button(
+            screen_size[0] * 2 / 3, screen_size[1] / 5, "./images/buttons/button_levels.png", 1.0,
                                     "./images/buttons/button_levels_hover.png")
-        self.button_ship = Button(game, size[0]/4, self.game.height-50, "./images/buttons/button_ship.png", 1.0, "./images/buttons/button_ship_hover.png")
-        self.button_hangar = Button(game, size[0]/2, self.game.height-50, "./images/buttons/button_hangar.png", 1.0, "./images/buttons/button_hangar_hover.png")
-        self.button_shop = Button(game, size[0]*3/4, self.game.height-50, "./images/buttons/button_shop.png", 1.0, "./images/buttons/button_shop_hover.png")
-        self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
+        self.button_ship = Button(
+            screen_size[0] / 4, screen_size[1] - 50, "./images/buttons/button_ship.png", 1.0,
+            "./images/buttons/button_ship_hover.png"
+            )
+        self.button_hangar = Button(
+            screen_size[0] / 2, screen_size[1] - 50, "./images/buttons/button_hangar.png", 1.0,
+            "./images/buttons/button_hangar_hover.png"
+            )
+        self.button_shop = Button(
+            screen_size[0] * 3 / 4, screen_size[1] - 50, "./images/buttons/button_shop.png", 1.0,
+            "./images/buttons/button_shop_hover.png"
+            )
+        self.button_back = Button(
+            50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png"
+        )
 
         # pack the buttons to the list
         self.buttons = [
