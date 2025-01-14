@@ -47,10 +47,7 @@ class Button(Clickable):
         super().__init__(x, y, path, scale, path2)
 
 class MainMenu:
-    def __init__(self, game):
-        self.game = game
-        size = game.screen.get_size()
-
+    def __init__(self, screen_size: tuple[int, int]):
         self.title_image = pygame.image.load("./images/Game_title.png")
         self.title_image = pygame.transform.scale(self.title_image, (int(self.title_image.get_width() * 2), int(self.title_image.get_height() * 2)))
 
