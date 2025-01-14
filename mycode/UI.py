@@ -50,9 +50,14 @@ class MainMenu:
     def __init__(self, screen_size: tuple[int, int]):
         self.title_image = pygame.image.load("./images/Game_title.png")
         self.title_image = pygame.transform.scale(self.title_image, (int(self.title_image.get_width() * 2), int(self.title_image.get_height() * 2)))
-
-        self.button_play = Button(game, size[0]/2, size[1]/2, "./images/buttons/button_play.png", 1.0, "./images/buttons/button_play_hover.png")
-        self.button_exit = Button(game, 50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png")
+        
+        self.button_play = Button(
+            screen_size[0] / 2, screen_size[1] / 2, "./images/buttons/button_play.png", 1.0,
+            "./images/buttons/button_play_hover.png"
+        )
+        self.button_exit = Button(
+            50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png"
+        )
         self.buttons = [
             self.button_play,
             self.button_exit
