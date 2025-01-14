@@ -63,19 +63,21 @@ class MainMenu:
             self.button_exit
         ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
-
-    def tick_menu(self):
-        if self.button_play.check_click():
-            # self.game.showing = "gamemenu"
-            self.game.menuHandler.changeMenu(GameMenu)
-        elif self.button_exit.check_click():
-            self.game.isrun = False
-
-    def draw_menu(self):
-        self.game.screen.blit(self.background, (0, 0))
-        self.game.screen.blit(self.title_image, (self.game.width/2 - self.title_image.get_width()/2, 150 - self.title_image.get_height()/2))
+    
+    def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler, quit_game: Callable):
+        if self.button_play.check_click(mouse):
+            menuHandler.changeMenu(GameMenu)
+        elif self.button_exit.check_click(mouse):
+            quit_game()
+    
+    def draw_menu(self, screen: pygame.Surface):
+        screen.blit(self.background, (0, 0))
+        screen.blit(
+            self.title_image,
+            (screen.get_width() / 2 - self.title_image.get_width() / 2, 150 - self.title_image.get_height() / 2)
+        )
         for button in self.buttons:
-            button.draw()
+            button.draw(screen)
 
 class GameMenu:
     def __init__(self, game):
