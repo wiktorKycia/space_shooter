@@ -80,9 +80,7 @@ class MainMenu:
             button.draw(screen)
 
 class GameMenu:
-    def __init__(self, game):
-        self.game = game
-        size = game.screen.get_size()
+    def __init__(self, screen_size: tuple[int, int]):
 
         # define the buttons
         self.button_endless = Button(game, size[0] / 3, size[1] / 5, "./images/buttons/button_endless.png", 1.0,
