@@ -20,6 +20,22 @@ class PlayableShip(Spacecraft):
         self.hp = healthBar
         
         self.slots: list[Slot] = []
+    
+    def reset_stats(self, screen: pygame.Surface):
+        # center ship's position
+        self.physics.pos = Vector2(screen.get_width() / 2, screen.get_height() / 2)
+        self.physics.vel = Vector2(0, 0)
+        self.physics.acc = Vector2(0, 0)
+        
+        # maximise ship's stats
+        self.refill_stats()
+        
+        # clear bullets
+        for slot in self.slots:
+            try:
+                slot.weapon.bullets.clear()
+            except AttributeError:
+                pass
 
     def refill_stats(self):
         self.hp.maximise()
