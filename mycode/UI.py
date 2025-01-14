@@ -80,7 +80,7 @@ class MainMenu:
             button.draw(screen)
 
 class GameMenu:
-    def __init__(self, screen_size: tuple[int, int]):
+    def __init__(self, screen_size: tuple[int, int], ship: PlayableShip):
 
         # define the buttons
         self.button_endless = Button(
@@ -116,26 +116,8 @@ class GameMenu:
             self.button_back
         ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
-        self.ship = self.game.player.current_ship
+        ship.reset_stats()
 
-        # center ship's position
-        self.ship.pos = Vector2(self.game.width/2, self.game.height/2)
-        self.ship.vel = Vector2(0, 0)
-        self.ship.acc = Vector2(0, 0)
-
-        # maximise ship's stats
-        self.ship.hp.maximise_hp()
-        for slot in self.ship.slots:
-            try:
-                slot.weapon.clip.maximise_ammo()
-            except AttributeError:
-                pass
-
-            # clear bullets
-            try:
-                slot.weapon.bullets.clear()
-            except AttributeError:
-                pass
 
         # self.game.menuHandler.currentMenu.other_bullets.clear()
 
