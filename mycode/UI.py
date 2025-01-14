@@ -126,17 +126,16 @@ class GameMenu:
         width = self.coin.get_width()
         height = self.coin.get_height()
         self.coin = pygame.transform.scale(self.coin, (int(width * 5), int(height * 5)))
-
-
-    def tick_menu(self):
-        if self.button_levels.check_click():
-            self.game.menuHandler.changeMenu(LevelsMenu)
-        elif self.button_back.check_click():
-            self.game.menuHandler.changeMenu(MainMenu)
-        elif self.button_hangar.check_click():
-            self.game.menuHandler.changeMenu(HangarMenu)
-        elif self.button_ship.check_click():
-            self.game.menuHandler.changeMenu(ShipMenu)
+    
+    def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler):
+        if self.button_levels.check_click(mouse):
+            menuHandler.changeMenu(LevelsMenu)
+        elif self.button_back.check_click(mouse):
+            menuHandler.changeMenu(MainMenu)
+        elif self.button_hangar.check_click(mouse):
+            menuHandler.changeMenu(HangarMenu)
+        elif self.button_ship.check_click(mouse):
+            menuHandler.changeMenu(ShipMenu)
 
     def draw_menu(self):
         self.game.screen.blit(self.background, (0, 0))
