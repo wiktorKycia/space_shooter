@@ -69,6 +69,9 @@ class Game(object):
         # Exit
         pygame.quit()
         quit()
+    
+    def quit_game(self):
+        self.isrun = False
 
     def tick(self):
         self.menuHandler.tick()
