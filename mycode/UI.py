@@ -222,34 +222,34 @@ class LevelGame:
         player_ship.draw(screen)
 
 class LevelsMenu:
-    def __init__(self, game, config_file: str = "../gameData/levels.json"):
-        self.game = game
-        self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
+    def __init__(self, screen_size: tuple[int, int], config_file: str = "../gameData/levels.json"):
+        screen_size: tuple[int, int] = screen_size
+        self.button_back = Button(
+            50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png"
+        )
         self.buttons = []
         with open(config_file, "r") as f:
             self.number_of_levels: int = len(json.load(f)['levels'])
 
         for i in range(self.number_of_levels):
             if (i+1) % 3 == 1:
-                self.buttons.append(LevelButton(self.game, self.game.width/5, self._calculate_level_y(i+1), 200, 100, i+1))
+                self.buttons.append(LevelButton(screen_size[0] / 5, self._calculate_level_y(i + 1), 200, 100, i + 1))
             elif (i+1) % 3 == 2:
-                self.buttons.append(LevelButton(self.game, self.game.width/2, self._calculate_level_y(i+1), 200, 100, i+1))
+                self.buttons.append(LevelButton(screen_size[0] / 2, self._calculate_level_y(i + 1), 200, 100, i + 1))
             elif (i+1) % 3 == 0:
-                self.buttons.append(LevelButton(self.game, self.game.width*4/5, self._calculate_level_y(i+1), 200, 100, i+1))
-
-    def tick_menu(self):
-        if self.button_back.check_click():
-            self.game.showing = "gamemenu"
-            self.game.menuHandler.changeMenu(GameMenu)
+                self.buttons.append(
+                    LevelButton(screen_size[0] * 4 / 5, self._calculate_level_y(i + 1), 200, 100, i + 1)
+                )
+    
+    def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler):
+        if self.button_back.check_click(mouse):
+            menuHandler.changeMenu(GameMenu)
         for i, button in enumerate(self.buttons):
             # tu nie może być printa sprawdzającego check_click()
-            if button.check_click():
-                self.game.menuHandler.changeMenu(LevelGame)
-                self.game.menuHandler.currentMenu.level_pointer = i
-                self.game.menuHandler.currentMenu.reset_current_level()
-                # self.game.level_pointer = i
-                # self.game.levels[self.game.level_pointer].__init__(self.game)
-                # self.game.showing = "game"
+            if button.check_click(mouse):
+                menuHandler.changeMenu(LevelGame)
+                menuHandler.currentMenu.level_pointer = i
+                menuHandler.currentMenu.reset_current_level()
         for event in pygame.event.get():
             if event.type == MOUSEWHEEL:
                 if event.y == -1:
@@ -268,11 +268,11 @@ class LevelsMenu:
         b = level_id - a
         y = 80 + b * 40
         return y
-
-    def draw_menu(self):
+    
+    def draw_menu(self, screen: pygame.Surface):
         for button in self.buttons:
-            button.draw()
-        self.button_back.draw()
+            button.draw(screen)
+        self.button_back.draw(screen)
         #     if button.level_id % 3 == 1:
         #         button.draw(self.game.screen, self.game.width/5, self._calculate_level_y(button.level_id))
         #     if button.level_id % 3 == 2:
