@@ -80,8 +80,9 @@ class MainMenu:
             button.draw(screen)
 
 class GameMenu:
-    def __init__(self, screen_size: tuple[int, int], ship: PlayableShip):
-
+    def __init__(self, screen: pygame.Surface, ship: PlayableShip):
+        screen_size: tuple[int, int] = screen.get_size()
+        
         # define the buttons
         self.button_endless = Button(
             screen_size[0] / 3, screen_size[1] / 5, "./images/buttons/button_endless.png", 1.0,
@@ -116,7 +117,7 @@ class GameMenu:
             self.button_back
         ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
-        ship.reset_stats()
+        ship.reset_stats(screen)
 
 
         # self.game.menuHandler.currentMenu.other_bullets.clear()
