@@ -326,22 +326,28 @@ class HangarMenu:
         self.button_prev.draw(screen)
 
 class PauseMenu:
-    def __init__(self, game, resume_button_menu=LevelGame, exit_button_menu=LevelsMenu):
-        self.game = game
+    def __init__(self, screen_size: tuple[int, int], resume_button_menu: type, exit_button_menu: type):
+        self.screen_size = screen_size
         self.resume_button_menu = resume_button_menu
         self.exit_button_menu = exit_button_menu
-        self.button_exit = Button(self.game, self.game.width/2, self.game.height/2-100, "./images/buttons/button_exit2.png", 2.0, "./images/buttons/button_exit2_hover.png")
-        self.button_resume = Button(self.game, self.game.width/2, self.game.height/2+100, "./images/buttons/button_resume.png", 2.0, "./images/buttons/button_resume_hover.png")
-    def tick_menu(self):
-        if self.button_exit.check_click():
-            self.game.showing = self.exit_button_menu
-            self.game.menuHandler.changeMenu(self.exit_button_menu)
-        elif self.button_resume.check_click():
-            self.game.showing = self.resume_button_menu
-            self.game.menuHandler.revealMenu()
-    def draw_menu(self):
-       self.button_exit.draw()
-       self.button_resume.draw()
+        self.button_exit = Button(
+            screen_size[0] / 2, screen_size[1] / 2 - 100, "./images/buttons/button_exit2.png", 2.0,
+            "./images/buttons/button_exit2_hover.png"
+        )
+        self.button_resume = Button(
+            screen_size[0] / 2, screen_size[1] / 2 + 100, "./images/buttons/button_resume.png", 2.0,
+            "./images/buttons/button_resume_hover.png"
+        )
+    
+    def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler):
+        if self.button_exit.check_click(mouse):
+            menuHandler.changeMenu(self.exit_button_menu)
+        elif self.button_resume.check_click(mouse):
+            menuHandler.revealMenu()
+    
+    def draw_menu(self, screen: pygame.Surface):
+        self.button_exit.draw(screen)
+        self.button_resume.draw(screen)
 
 class ShipMenu:
     def __init__(self, game):
