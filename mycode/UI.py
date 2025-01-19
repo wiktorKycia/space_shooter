@@ -281,46 +281,49 @@ class LevelsMenu:
         #         button.draw(self.game.screen, self.game.width*4/5, self._calculate_level_y(button.level_id))
 
 class HangarMenu:
-    def __init__(self, game):
-        self.game = game
-        self.button_back = Button(game, 50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png")
-        self.button_next = Button(game, 720, 250, "./images/buttons/button_next.png", 1.0, "./images/buttons/button_next_hover.png")
-        self.button_prev = Button(game, 30, 250, "./images/buttons/button_prev.png", 1.0, "./images/buttons/button_prev_hover.png")
+    def __init__(self, screen_size: tuple[int, int]):
+        self.screen_size = screen_size
+        self.button_back = Button(
+            50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png"
+        )
+        self.button_next = Button(
+            720, 250, "./images/buttons/button_next.png", 1.0, "./images/buttons/button_next_hover.png"
+        )
+        self.button_prev = Button(
+            30, 250, "./images/buttons/button_prev.png", 1.0, "./images/buttons/button_prev_hover.png"
+        )
         self.translation = 0
-
-    def tick_menu(self):
-        if self.button_back.check_click():
-            # self.game.player.current_ship.pos = Vector2(self.game.width / 2, self.game.height / 2)
-            self.game.showing = "gamemenu"
-            self.game.menuHandler.changeMenu(GameMenu)
-            # self.game.gamemenu.__init__(self.game)
-        elif self.button_next.check_click():
+    
+    def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler, player: Player):
+        if self.button_back.check_click(mouse):
+            menuHandler.changeMenu(GameMenu)
+        elif self.button_next.check_click(mouse):
             self.translation -= 50
-        elif self.button_prev.check_click():
+        elif self.button_prev.check_click(mouse):
             self.translation += 50
-
-        for i, ship in enumerate(self.game.player.ships):
+        
+        for i, ship in enumerate(player.ships):
             action = False
             pos = pygame.mouse.get_pos()
-            # check if the ship collides with the mouse
-            if ship.mask.overlap(self.game.mouse.mask, (pos[0] - ship.hitbox.x, pos[1] - ship.hitbox.y)):
-                # check if the mouse is clicked
-                if self.game.mouse.click():
+            if ship.displayer.mask.overlap(
+                    mouse.mask, (pos[0] - ship.displayer.hitbox.x, pos[1] - ship.displayer.hitbox.y)
+            ):
+                if mouse.click():
                     action = True
             if action:
-                self.game.player.current_ship = self.game.player.ships[i]
-
-    def draw_menu(self):
-        for i, ship in enumerate(self.game.player.ships):
-            ship.pos.x = 100 + 150 * i + self.translation
-            ship.pos.y = 150
-            ship.hitbox.center = (ship.pos.x, ship.pos.y)
-            ship.draw()
-        self.game.player.current_ship.hitbox.center = (self.game.player.current_ship.pos.x, self.game.player.current_ship.pos.y)
-        pygame.draw.rect(self.game.screen, (255, 255, 255), self.game.player.current_ship.hitbox, 1)
-        self.button_back.draw()
-        self.button_next.draw()
-        self.button_prev.draw()
+                player.set_current_ship(player.ships[i])
+    
+    def draw_menu(self, screen: pygame.Surface, player: Player):
+        for i, ship in enumerate(player.ships):
+            ship.physics.pos.x = 100 + 150 * i + self.translation
+            ship.physics.pos.y = 150
+            ship.displayer.hitbox.center = (ship.physics.pos.x, ship.physics.pos.y)
+            ship.draw(screen)
+        player.current_ship.hitbox.center = (player.current_ship.pos.x, player.current_ship.pos.y)
+        pygame.draw.rect(screen, (255, 255, 255), player.current_ship.hitbox, 1)
+        self.button_back.draw(screen)
+        self.button_next.draw(screen)
+        self.button_prev.draw(screen)
 
 class PauseMenu:
     def __init__(self, game, resume_button_menu=LevelGame, exit_button_menu=LevelsMenu):
@@ -372,13 +375,3 @@ class ShipMenu:
         self.ship.pos = Vector2(self.game.width / 2, 50)
         self.ship.draw()
         self.button_back.draw()
-
-class SettingsMenu:
-    def __init__(self, game):
-        self.game = game
-        self.buttons = []
-
-    def tick_menu(self):
-        pass
-    def draw_menu(self):
-        pass
