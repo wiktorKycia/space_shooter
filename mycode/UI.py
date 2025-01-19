@@ -137,19 +137,18 @@ class GameMenu:
             menuHandler.changeMenu(HangarMenu)
         elif self.button_ship.check_click(mouse):
             menuHandler.changeMenu(ShipMenu)
-
-    def draw_menu(self):
-        self.game.screen.blit(self.background, (0, 0))
+    
+    def draw_menu(self, screen: pygame.Surface, player_ship: PlayableShip, coins: int):
+        screen.blit(self.background, (0, 0))
         for button in self.buttons:
-            button.draw()
-        self.ship.pos = Vector2(self.game.width / 2, self.game.height / 2)
-        self.ship.draw()
-        self.game.screen.blit(self.coin, (450, 300))
-        write(self.game, str(self.game.player.coins), 500, 300, 36, (200, 200, 200))
-
-        write(self.game, f"Health: {str(self.game.player.current_ship.hp.max_hp)}", 50, 300, 28, (200, 200, 200))
-        write(self.game, f"Force: {str(self.game.player.current_ship.force)}", 50, 350, 28, (200, 200, 200))
-        write(self.game, f"Mass: {str(self.game.player.current_ship.mass)}", 50, 400, 28, (200, 200, 200))
+            button.draw(screen)
+        player_ship.draw(screen)
+        screen.blit(self.coin, (450, 300))
+        write(str(coins), 500, 300, 36, (200, 200, 200))
+        
+        write(f"Health: {str(player_ship.hp.amount)}", 50, 300, 28, (200, 200, 200))
+        write(f"Force: {str(player_ship.physics.force)}", 50, 350, 28, (200, 200, 200))
+        write(f"Mass: {str(player_ship.physics.mass)}", 50, 400, 28, (200, 200, 200))
 
 
 from levels import LevelManager
