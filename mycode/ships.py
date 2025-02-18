@@ -15,11 +15,7 @@ class PlayableShip(Spacecraft):
     def __init__(
         self, physics: PygamePhysics, healthBar: RefillableBar, image: pygame.Surface, scale: float = 1.0
     ):
-        self.displayer = Displayer(image, scale)
-        self.physics: PygamePhysics = physics
-        self.hp = healthBar
-        
-        self.slots: list[Slot] = []
+        super().__init__(physics, healthBar, image, scale)
     
     def reset_stats(self, screen: pygame.Surface):
         # center ship's position
