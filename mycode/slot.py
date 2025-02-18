@@ -1,7 +1,7 @@
 import pygame
 from pygame.math import Vector2
 from typing import Callable
-from weapons import Weapon
+from mycode.weapons import Weapon
 
 class Slot:
     def __init__(self, translation: Vector2, trigger: Callable, weapon: Weapon | None = None):
