@@ -1,8 +1,7 @@
 from abc import abstractmethod, ABC
 
 
-@ABC
-class BaseClip:
+class BaseClip(ABC):
     @abstractmethod
     def maximise_ammo(self):
         pass

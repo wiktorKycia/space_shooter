@@ -6,8 +6,7 @@ from mycode.other import RefillableBar
 from mycode.slot import Slot
 
 
-@ABC
-class Spacecraft:
+class Spacecraft(ABC):
     def __init__(self, physics: PygamePhysics, healthBar: RefillableBar, image: pygame.Surface, scale: float = 1.0):
         self.displayer = Displayer(image, scale)
         self.physics: PygamePhysics = physics

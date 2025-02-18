@@ -43,8 +43,8 @@ from abc import ABC, abstractmethod
 #         pygame.draw.rect(self.game.screen, self.color, self.bar)
 #         pygame.draw.rect(self.game.screen, (255, 255, 255),
 #                          (self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height), 2)
-@ABC
-class RefillableBar:
+
+class RefillableBar(ABC):
     @abstractmethod
     def __init__(
         self, amount: int, x: float, y: float, width: int, height: int, color: tuple[int, int, int]
