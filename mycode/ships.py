@@ -1,3 +1,5 @@
+from typing import Type
+
 import pygame
 
 from mycode import DeluxeHP
@@ -12,10 +14,8 @@ import json
 import math
 
 class PlayableShip(Spacecraft):
-    def __init__(
-        self, physics: PygamePhysics, healthBar: RefillableBar, image: pygame.Surface, scale: float = 1.0
-    ):
-        super().__init__(physics, healthBar, image, scale)
+    def __init__(self):
+        super().__init__()
     
     def reset_stats(self, screen: pygame.Surface):
         # center ship's position
@@ -98,36 +98,37 @@ class PlayableShip(Spacecraft):
 
 class PlayableShipBuilder:
     def __init__(self):
-        self.ship: PlayableShip | None = None
-        self.image: pygame.Surface | None = None
-        self.scale: float | None = None
-        self.displayer: Displayer | None = None
-        self.healthBar = None  # :RefillableBar
-        self.physics: PygamePhysics | None = None
+        self.ship: PlayableShip|None = None
+
+    def reset(self):
+        self.ship = PlayableShip()
+        return self
     
     def buildImage(self, path: str, scale: float = 1.0):
-        self.image = PathConverter(path).create()
-        self.scale = scale
+        self.ship.displayer = Displayer(
+            PathConverter(path).create(),
+            scale
+        )
         return self
     
     def buildHealthBar(
-        self, barType, amount: int, x: float, y: float, width: int, height: int,
+        self, barType: Type[RefillableBar], amount: int, x: float, y: float, width: int, height: int,
         color: tuple[int, int, int] = (250, 0, 0)
     ):
-        self.healthBar = barType(amount, x, y, width, height, color)
+        self.ship.hp = barType(amount, x, y, width, height, color)
         return self
     
     def buildPhysics(self, x: float, y: float, mass: int, force: int, slip: float = 0.98):
-        self.physics = PygamePhysics(x, y, mass, force, True, slip)
+        self.ship.physics = PygamePhysics(x, y, mass, force, True, slip)
         return self
-    
-    def buildShip(self) -> PlayableShip:
-        self.ship = PlayableShip(self.physics, self.healthBar, self.image, self.scale)
-        return self.ship
-    
+
     def buildSlot(self, translation: Vector2, trigger: Callable):
         self.ship.slots.append(Slot(translation, trigger))
         return self
+
+    def buildShip(self) -> PlayableShip:
+        return self.ship
+
 
 
 keys = {

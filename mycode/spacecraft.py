@@ -13,10 +13,10 @@ if TYPE_CHECKING:
 
 class Spacecraft(ABC):
     def __init__(self):
-        self.displayer: Displayer
-        self.physics: PygamePhysics
-        self.hp: RefillableBar
-        self.slots: list[Slot]
+        self.displayer: Displayer|None = None
+        self.physics: PygamePhysics|None = None
+        self.hp: RefillableBar|None = None
+        self.slots: list[Slot] = []
     
     @abstractmethod
     def tick(self, dt: float):
