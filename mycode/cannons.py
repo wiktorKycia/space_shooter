@@ -15,15 +15,12 @@ class Clip:
 
         self.clock = 0
 
-        # self.ammo_bar = AmmoBar(game, self.max_ammo, bar_width, bar_height, bar_x, bar_y)
 
     def maximise_ammo(self):
         self.current_ammo = self.max_ammo
-        # self.ammo_bar.fill()
 
     def shot(self):
         self.current_ammo -= 1
-        # self.ammo_bar.decrease_by(1)
 
     def can_i_shoot(self):
         if self.current_ammo > 0:
@@ -32,7 +29,6 @@ class Clip:
         return False
 
     def tick(self):
-        # self.ammo_bar.tick()
         # there is no ammo, passive reloading
         if not self.active:
             # it is not reloading
@@ -52,8 +48,6 @@ class Clip:
             if self.clock > self.reload_time and self.current_ammo < self.max_ammo:
                 self.current_ammo += 100
                 self.clock = 0
-                # self.ammo_bar.increase_by(1)
-        # self.ammo_bar.draw()
 
 
 class LaserClip:
@@ -252,7 +246,7 @@ class Flamethrower(Weapon):
 
     def shot(self):
         for _ in range(self.intensity):
-            par = self.particle(self.game, self.slot.weapon, self.slot.pos.x, self.slot.pos.y, 2, 1, self.force,
+            par = self.particle(self.game, self.slot.weapon, 2, 1, self.force,
                                 random.uniform(self.spread[0], self.spread[1]))
             self.particles.append(par)
             self.clip.shot()

@@ -7,7 +7,6 @@ from mycode.levels import *
 from mycode.other import *
 from mycode.player import *
 from mycode.ships import *
-from mycode.two_players import *
 from mycode.UI import *
 
 class Game(object):
