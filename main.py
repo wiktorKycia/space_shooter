@@ -78,7 +78,7 @@ if __name__ == "__main__":
     player = Player()
     
     shipBuilder = PlayableShipBuilder()
-    shipDirector = PlayableShipBuilderDirector(shipBuilder)
+    shipDirector = PlayableShipBuilderDirector(shipBuilder, "Ship1")
     
     with open("./gameData/playerShips.json") as f:
         for ship in json.load(f)['ships']:
