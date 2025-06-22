@@ -1,14 +1,6 @@
 import pygame
-from pygame.locals import *
-from mycode.bullets import *
-from mycode.weapons import *
-from mycode.enemies import *
 from mycode.levels import *
-from mycode.other import *
-from mycode.player import *
-from mycode.ships import *
 from mycode.UI import *
-# from tests.test11_line import width, height
 import json
 
 class Game(object):
