@@ -1,0 +1,2 @@
+pip install circular-imports
+circular-imports <path> --output imports.dot --exclude .venv,sounds,.gitignore,README.md,images,gameData,enemies

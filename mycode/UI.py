@@ -151,9 +151,8 @@ class GameMenu:
         write(f"Mass: {str(player_ship.physics.mass)}", 50, 400, 28, (200, 200, 200))
 
 
-from levels import LevelManager
+from mycode.levels import LevelManager
 from mycode.enemies import BaseEnemy
-from collections.abc import Callable
 class LevelGame:
     def __init__(
         self, level_number: int, levelManager: LevelManager, menuHandler: MenuHandler, player_ship: PlayableShip

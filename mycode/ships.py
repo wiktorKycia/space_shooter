@@ -137,14 +137,14 @@ keys = {
 class PlayableShipBuilderDirector:
     def __init__(self, builder: PlayableShipBuilder, ship_type: str | None = None):
         self.ship_type: str | None = ship_type
-        self.ship_data: dir = { }
+        self.ship_data: dict = { }
         self.slots: list = []
         self.builder: PlayableShipBuilder = builder
         self.__reload_file()
     
     def __reload_file(self):
         with open('./gameData/playerShips.json', 'r') as f:
-            self.config: dir = json.load(f)
+            self.config: dict = json.load(f)
             ships = self.config["ships"]
             self.ship_data = list(filter(lambda ship: ship['name'] == self.ship_type, ships))[0]
             self.slots: list = self.ship_data['slots']
@@ -154,7 +154,7 @@ class PlayableShipBuilderDirector:
         self.__reload_file()
     
     def build(self, x: float, y: float) -> PlayableShip:
-        h: dir = self.config['shipsDefaultHealthBar']
+        h: dict = self.config['shipsDefaultHealthBar']
         ship = (
             self.builder
             .buildImage(self.ship_data['path'], self.ship_data['scale'])
