@@ -122,13 +122,12 @@ class PlayableShipBuilder:
         self.ship.physics = PygamePhysics(x, y, mass, force, True, slip)
         return self
 
-    def buildSlot(self, translation: Vector2, trigger: Callable):
-        self.ship.slots.append(Slot(translation, trigger))
-        return self
-
     def buildShip(self) -> PlayableShip:
         return self.ship
 
+    def buildSlot(self, translation: Vector2, trigger: Callable):
+        self.ship.slots.append(Slot(translation, trigger))
+        return self
 
 
 keys = {
@@ -146,8 +145,8 @@ class PlayableShipBuilderDirector:
     def __reload_file(self):
         with open('./gameData/playerShips.json', 'r') as f:
             self.config: dict = json.load(f)
-            ships = self.config["ships"]
-            self.ship_data = list(filter(lambda ship: ship['name'] == self.ship_type, ships))[0]
+            ships: list = self.config["ships"]
+            self.ship_data: dict = list(filter(lambda ship: ship['name'] == self.ship_type, ships))[0]
             self.slots: list = self.ship_data['slots']
     
     def choose_ship(self, ship_type: str):
@@ -158,6 +157,7 @@ class PlayableShipBuilderDirector:
         h: dict = self.config['shipsDefaultHealthBar']
         ship = (
             self.builder
+            .reset()
             .buildImage(self.ship_data['path'], self.ship_data['scale'])
             .buildPhysics(x, y, self.ship_data['mass'], self.ship_data['force'])
             .buildHealthBar(
