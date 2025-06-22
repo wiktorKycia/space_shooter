@@ -16,9 +16,9 @@ class Slot:
         :param trigger: a function returning bool
         :param weapon: any end child class inheriting from Weapon
         """
-        self.translation = translation
-        self.trigger = trigger
-        self.weapon = weapon
+        self.translation: Vector2 = translation
+        self.trigger: Callable = trigger
+        self.weapon: Weapon = weapon
     
     def tick(self, dt: float, position: Vector2):
         pos = position + self.translation
