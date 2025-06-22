@@ -1,6 +1,9 @@
-from mycode.physics import PygamePhysics
-from mycode.spacecraft import Spacecraft
-from pygame.math import Vector2
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from mycode.physics import PygamePhysics
+    from mycode.spacecraft import Spacecraft
+    from pygame.math import Vector2
 
 class Projectile:
     def __init__(self, physics: PygamePhysics, damage: int, rotation: float = 0):
