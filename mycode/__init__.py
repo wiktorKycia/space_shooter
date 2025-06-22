@@ -77,6 +77,7 @@ class TextObject(UnClickable):
     ):
         """
         renders the text, returns pygame.Surface type
+        :param screen:
         :param text: the text displayed
         :param font_size: size of the text
         :param color: color of the text in rgb
@@ -179,7 +180,6 @@ class TextButton(StaticObject):
         Represents a button, that has text in it
         by default it has background color of rgb(30, 30, 30),
         but when hovering it has color of rgb(100, 100, 100)
-        :param game:
         :param x: x coordinate
         :param y: y coordinate
         :param width: width of the button

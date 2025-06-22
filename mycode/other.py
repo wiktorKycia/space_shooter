@@ -203,8 +203,7 @@ class DeluxeHP(RefillableBar):
             )
 
 class Mouse:
-    def __init__(self, game):
-        self.game = game
+    def __init__(self):
         self.click_counter = 0
         self.surf = pygame.Surface((1, 1))
         self.surf.fill((0, 0, 0))
