@@ -1,8 +1,7 @@
 import pygame.time
 from mycode.enemies import *
-from mycode.UI import *
 import json
-import spawners
+from mycode import spawners
 
 class WaveManager:
     def __init__(self, config_file):

@@ -1,7 +1,11 @@
+from __future__ import annotations
+
 import pygame
 from pygame.math import Vector2
-from typing import Callable
-from mycode.weapons import Weapon
+from typing import Callable, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from mycode.weapons import Weapon
 
 class Slot:
     def __init__(self, translation: Vector2, trigger: Callable, weapon: Weapon | None = None):
@@ -12,9 +16,9 @@ class Slot:
         :param trigger: a function returning bool
         :param weapon: any end child class inheriting from Weapon
         """
-        self.translation = translation
-        self.trigger = trigger
-        self.weapon = weapon
+        self.translation: Vector2 = translation
+        self.trigger: Callable = trigger
+        self.weapon: Weapon = weapon
     
     def tick(self, dt: float, position: Vector2):
         pos = position + self.translation

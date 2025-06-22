@@ -22,10 +22,7 @@ class Player(object):
     def subtract_coins(self, amount:int):
         self.coins -= amount
 
-    def add_new_ship(self, ship):
-        if any(isinstance(ship, type(sh)) for sh in self.ships):
-            print("You cannot add the ship to the list, you have this model!")
-        
+    def add_new_ship(self, ship: PlayableShip):
         self.ships.append(ship)
         
         if len(self.ships) == 1:

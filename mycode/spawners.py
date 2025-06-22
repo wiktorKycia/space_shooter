@@ -1,8 +1,4 @@
-import pygame.time
 from mycode.enemies import *
-from mycode.UI import *
-import random
-import json
 from copy import deepcopy
 
 

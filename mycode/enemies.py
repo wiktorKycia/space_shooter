@@ -9,21 +9,15 @@ from mycode.spacecraft import Spacecraft
 from mycode.weapons import GunBuilderDirector, Weapon
 from mycode.Behaviors import *
 from mycode.slot import Slot
-from typing import Callable
+from typing import Callable, Type
 
 
 class BaseEnemy(Spacecraft):
-    def __init__(self, physics: PygamePhysics, healthBar: RefillableBar, image: pygame.Surface, scale: float = 1.0):
-        self.displayer = Displayer(image, scale)
-        self.physics: PygamePhysics = physics
-        self.hp = healthBar
+    def __init__(self):
+        super().__init__()
         
         self.move_clock = 0
-        self.slots = []
         self.is_shooting = True
-    
-    def add_slot(self, translation: Vector2, trigger: Callable):
-        self.slots.append(Slot(translation, trigger))
     
     def add_weapon(self, weapon: Weapon, slot_index: int):
         self.slots[slot_index].weapon = weapon
@@ -50,34 +44,34 @@ class BaseEnemy(Spacecraft):
 class BaseEnemyBuilder:
     def __init__(self):
         self.enemy: BaseEnemy | None = None
-        self.image: pygame.Surface | None = None
-        self.scale: float | None = None
-        self.displayer: Displayer | None = None
-        self.healthBar = None  # :RefillableBar
-        self.physics: PygamePhysics | None = None
+
+    def reset(self):
+        self.enemy = BaseEnemy()
+        return self
     
     def buildImage(self, path: str, scale: float = 1.0):
-        self.image = PathConverter(path).create()
-        self.scale = scale
+        self.enemy.displayer = Displayer(
+            PathConverter(path).create(),
+            scale
+        )
         return self
     
     def buildHealthBar(
-        self, barType, amount: int, x: float, y: float, width: int, height: int,
+            self, barType: Type[RefillableBar], amount: int, x: float, y: float, width: int, height: int,
         color: tuple[int, int, int] = (250, 0, 0)
     ):
-        self.healthBar = barType(amount, x, y, width, height, color)
+        self.enemy.hp = barType(amount, x, y, width, height, color)
         return self
     
     def buildPhysics(self, x: float, y: float, mass: int, force: int, slip: float = 0.98):
-        self.physics = PygamePhysics(x, y, mass, force, False, slip)
+        self.enemy.physics = PygamePhysics(x, y, mass, force, False, slip)
         return self
     
     def buildEnemy(self) -> BaseEnemy:
-        self.enemy = BaseEnemy(self.physics, self.healthBar, self.image, self.scale)
         return self.enemy
-    
-    def buildSlot(self, translation: Vector2, trigger: Callable):
-        self.enemy.slots.append(Slot(translation, trigger))
+
+    def buildSlot(self, translation: Vector2):
+        self.enemy.slots.append(Slot(translation, lambda: self.enemy.is_shooting))
         return self
 
 class BaseEnemyBuilderDirector:
@@ -103,15 +97,16 @@ class BaseEnemyBuilderDirector:
         h: dir = self.config['enemiesDefaultHealthBar']
         enemy = (
             self.builder
+            .reset()
             .buildImage(self.enemy_data['path'], self.enemy_data['scale'])
             .buildPhysics(x, y, self.enemy_data['mass'], self.enemy_data['force'])
             .buildHealthBar(
                 DeluxeHP, self.enemy_data['hp_amount'], x, y - 50, h['width'], h['height']
-            ).buildEnemy()
+            )
         )
         for slot in self.slots:
-            enemy.add_slot(Vector2(slot['x'], slot['y']), lambda: enemy.is_shooting)
-        return enemy
+            enemy.buildSlot(Vector2(slot['x'], slot['y']))
+        return enemy.buildEnemy()
 
 #
 # class Bouncer1(BaseEnemy):

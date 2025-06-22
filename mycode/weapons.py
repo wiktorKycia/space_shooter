@@ -4,11 +4,11 @@ from typing import Callable
 import random
 
 class Weapon:
-    def __init__(self, trigger: Callable, clip: BaseClip):
-        self.trigger: Callable = trigger
+    def __init__(self):
+        self.trigger: Callable | None = None
+        self.clip: BaseClip | None = None
         self.clock = 0
-        self.clip: BaseClip = clip
-    
+
     def tick(self, dt: float, x: float, y: float):
         self.clock += dt
     
@@ -17,19 +17,16 @@ class Weapon:
 
 
 class Gun(Weapon):
-    def __init__(
-        self, trigger: Callable, bullet_name: str, force: int, interval: float, clip: Clip, spread: int = 0,
-        intensity: int = 1, is_player: bool = True
-    ):
-        super().__init__(trigger)
-        self.interval: float = interval
-        self.bullet_name: str = bullet_name
+    def __init__(self):
+        super().__init__()
+        self.interval: float | None = None
+        self.bullet_name: str | None = None
         self.bullets: list[Bullet] = []
-        self.clip: Clip = clip
-        self.spread: tuple[float, float] = (-spread / 2, spread / 2)
-        self.force: int = force
-        self.is_player: bool = is_player
-        self.intensity: int = intensity
+        self.clip: Clip | None = None
+        self.spread: tuple[float, float] | None = None
+        self.force: int | None = None
+        self.is_player: bool | None = None
+        self.intensity: int | None = None
     
     @staticmethod
     def _create_bullet(bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
@@ -72,52 +69,44 @@ class Gun(Weapon):
 class GunBuilder:
     def __init__(self):
         self.gun: Gun | None = None
-        self.trigger: Callable | None = None
-        self.bullet_name: str | None = None
-        self.force: int | None = None
-        self.interval: float | None = None
-        self.spread: int = 0
-        self.clip: Clip | None = None
-        self.intensity: int = 1
-        self.is_player: bool = True
+
+    def reset(self):
+        self.gun = Gun
+        return self
     
     def set_trigger(self, trigger: Callable):
-        self.trigger = trigger
+        self.gun.trigger = trigger
         return self
     
     def set_bullet_name(self, bullet_name: str):
-        self.bullet_name = bullet_name
+        self.gun.bullet_name = bullet_name
         return self
     
     def set_force(self, force: int):
-        self.force = force
+        self.gun.force = force
         return self
     
     def set_interval(self, interval: float):
-        self.interval = interval
+        self.gun.interval = interval
         return self
-    
-    def set_spread(self, spread: int):
-        self.spread = spread
+
+    def set_spread(self, spread: int = 0):
+        self.gun.spread = (-spread / 2, spread / 2)
         return self
     
     def set_clip(self, max_ammo: int, reload_time: float, active_reload: bool = False):
-        self.clip = Clip(max_ammo, reload_time, active_reload)
+        self.gun.clip = Clip(max_ammo, reload_time, active_reload)
         return self
-    
-    def set_intensity(self, intensity: int):
-        self.intensity = intensity
+
+    def set_intensity(self, intensity: int = 1):
+        self.gun.intensity = intensity
         return self
-    
-    def set_is_player(self, is_player: bool):
-        self.is_player = is_player
+
+    def set_is_player(self, is_player: bool = True):
+        self.gun.is_player = is_player
         return self
     
     def build_gun(self) -> Gun:
-        self.gun = Gun(
-            self.trigger, self.bullet_name, self.force, self.interval, self.clip, self.spread, self.intensity,
-            self.is_player
-        )
         return self.gun
 
 
@@ -145,6 +134,7 @@ class GunBuilderDirector:
     def build(self, trigger: Callable, is_player: bool) -> Gun:
         g = (
             self.builder
+            .reset()
             .set_trigger(trigger)
             .set_clip(self.clip_data['max_ammo'], self.clip_data['reload_time'], self.clip_data['active_reload'])
             .set_force(self.gun_data['force'])

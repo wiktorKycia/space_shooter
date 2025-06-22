@@ -13,22 +13,10 @@ mixer.init()
 
 
 class Bullet(Projectile):
-    def __init__(
-        self, physics: PygamePhysics, damage: int, rotation: float, image: pygame.Surface,
-        sound_path: str | None = None,
-        scale: float = 1.0
-    ):
-        super().__init__(physics, damage, rotation)
-        
-        self.displayer = Displayer(image, scale)
-        self.displayer.image = pygame.transform.rotate(image, 90)
-        
-        if sound_path != "":
-            self.sound = mixer.Sound(sound_path)
-            self.sound.set_volume(0.1)
-
+    def __init__(self):
+        super().__init__()
+        self.sound: mixer.Sound | None = None
         self.line = None
-
         self.steered_by_menu = False
     
     def check_collision(self, ship: Spacecraft):
@@ -94,38 +82,39 @@ class Bullet(Projectile):
 class BulletBuilder:
     def __init__(self):
         self.bullet: Bullet | None = None
-        self.physics: PygamePhysics | None = None
-        self.damage: int | None = None
-        self.rotation: float = 0.0
-        self.image: pygame.Surface | None = None
-        self.sound_path: str | None = None
-        self.scale: float | None = None
+
+    def reset(self):
+        self.bullet = Bullet()
+        return self
     
     def buildPhysics(self, x: float, y: float, mass: int, force: int, is_player: bool = True, slip: float = 0.98):
-        self.physics = PygamePhysics(x, y, mass, force, is_player, slip)
+        self.bullet.physics = PygamePhysics(x, y, mass, force, is_player, slip)
         return self
     
     def set_damage(self, damage: int):
-        self.damage = damage
+        self.bullet.damage = damage
         return self
-    
-    def set_rotation(self, rotation: float = 0.0):
-        self.rotation = rotation
+
+    def set_initial_rotation(self, rotation: float = 0.0):
+        self.bullet.initial_rotation = rotation
         return self
-    
-    def buildImage(self, path: str, scale: float = 1.0, is_player: bool = True):
-        self.image = PathConverter(path).create()
+
+    def buildDisplayer(self, path: str, scale: float = 1.0, is_player: bool = True):
+        self.bullet.displayer = Displayer(
+            pygame.transform.rotate(PathConverter(path).create(), 90),
+            scale
+        )
         if not is_player:
-            self.image = pygame.transform.flip(self.image, False, True)
-        self.scale = scale
+            self.bullet.displayer.image = pygame.transform.flip(self.bullet.displayer.image, False, True)
         return self
-    
-    def buildSound(self, path: str):
-        self.sound_path = path
+
+    def buildSound(self, path: str, volume: float = 0.1):
+        self.bullet.sound = mixer.Sound(path)
+        self.bullet.sound.set_volume(volume)
         return self
     
     def buildBullet(self):
-        self.bullet = Bullet(self.physics, self.damage, self.rotation, self.image, self.sound_path, self.scale)
+        self.bullet.physics.add_force(Vector2(0, -self.bullet.physics.force).rotate(self.bullet.initial_rotation))
         return self.bullet
 
 
@@ -149,9 +138,10 @@ class BulletBuilderDirector:
     def build(self, x: float, y: float, initial_force: int, rotation: float, is_player: bool = True) -> Bullet:
         bullet: Bullet = (
             self.builder
-            .buildImage(self.bullet_data['image_path'], self.bullet_data['scale'], is_player)
+            .reset()
+            .buildDisplayer(self.bullet_data['image_path'], self.bullet_data['scale'], is_player)
             .buildPhysics(x, y, self.bullet_data['mass'], initial_force, is_player)
-            .set_rotation(rotation)
+            .set_initial_rotation(rotation)
             .set_damage(self.bullet_data['damage'])
             .buildSound(self.bullet_data['sound_path'])
             .buildBullet()
