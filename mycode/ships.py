@@ -16,10 +16,10 @@ import math
 class PlayableShip(Spacecraft):
     def __init__(self):
         super().__init__()
-    
-    def reset_stats(self, screen: pygame.Surface):
+
+    def reset_stats(self, screen_size: tuple[int, int]):
         # center ship's position
-        self.physics.pos = Vector2(screen.get_width() / 2, screen.get_height() / 2)
+        self.physics.pos = Vector2(screen_size[0] / 2, screen_size[1] / 2)
         self.physics.vel = Vector2(0, 0)
         self.physics.acc = Vector2(0, 0)
         
