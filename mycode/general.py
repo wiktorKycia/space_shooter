@@ -16,3 +16,6 @@ def write_on_surface(surface, text, x, y, font_size, color=(0, 0, 0), is_centere
         y = (surface.get_rect().height - rend.get_rect().height) / 2
     surface.blit(rend, (x, y))
 
+
+def convert_path(path: str) -> pygame.Surface:
+    return pygame.image.load(path).convert_alpha()

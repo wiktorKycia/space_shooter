@@ -9,42 +9,48 @@ from mycode import TextButton, Clickable
 from mycode.other import Mouse
 
 
-class MenuHandler:
-    def __init__(self, mainmenu):
-        self.currentMenuType = mainmenu
-        self.currentMenu = self.currentMenuType()
-        self.hiddenMenu = None
-    
-    def resetMenu(self, *args):
-        self.currentMenu = self.currentMenuType(*args)
-
-    def revealMenu(self):
-        self.currentMenuType = type(self.hiddenMenu)
-        self.currentMenu = self.hiddenMenu
-    
-    def changeMenu(self, menu, override: bool = False, *args):
-        if override:
-            self.hiddenMenu = self.currentMenu
-
-        self.currentMenuType = menu
-        self.resetMenu(args)
-    
-    def tick(self, *args):
-        self.currentMenu.tick_menu(args)
-    
-    def draw(self, *args):
-        self.currentMenu.draw_menu(args)
-
-
 class LevelButton(TextButton):
     def __init__(self, x, y, width, height, level_id: int):
         self.level_id = level_id
         self.text = f"Level {str(level_id)}"
         super().__init__(x, y, width, height, self.text)
 
+
 class Button(Clickable):
     def __init__(self, x: float, y: float, path: str, scale: float = 1.0, path2: str = ""):
         super().__init__(x, y, path, scale, path2)
+
+
+class MenuHandler:
+    def __init__(self, mainmenu):
+        self.currentMenuType = mainmenu
+        self.currentMenu = self.currentMenuType()
+        self.hiddenMenu = None
+
+    def resetMenu(self, *args):
+        self.currentMenu = self.currentMenuType(*args)
+
+    def revealMenu(self):
+        self.currentMenuType = type(self.hiddenMenu)
+        self.currentMenu = self.hiddenMenu
+
+    def changeMenu(self, menu, override: bool = False, *args):
+        if override:
+            self.hiddenMenu = self.currentMenu
+
+        self.currentMenuType = menu
+        self.resetMenu(args)
+
+    def tick(self, *args):
+        self.currentMenu.tick_menu(args)
+
+    def draw(self, *args):
+        self.currentMenu.draw_menu(args)
+
+
+class Menu:
+    def __init__(self):
+        pass
 
 class MainMenu:
     def __init__(self, screen_size: tuple[int, int]):
@@ -80,8 +86,8 @@ class MainMenu:
             button.draw(screen)
 
 class GameMenu:
-    def __init__(self, screen: pygame.Surface, ship: PlayableShip):
-        screen_size: tuple[int, int] = screen.get_size()
+    def __init__(self, screen_size: tuple[int, int], ship: PlayableShip):
+        screen_size: tuple[int, int] = screen_size
         
         # define the buttons
         self.button_endless = Button(
@@ -117,13 +123,13 @@ class GameMenu:
             self.button_back
         ]
         self.background = pygame.image.load("./images/background.png").convert_alpha()
-        ship.reset_stats(screen)
+        ship.reset_stats(screen_size)
 
 
         # self.game.menuHandler.currentMenu.other_bullets.clear()
 
         # coin
-        self.coin = pygame.image.load("./images/coin.png").convert_alpha()
+        self.coin: pygame.Surface = convert_path("./images/coin.png")
         width = self.coin.get_width()
         height = self.coin.get_height()
         self.coin = pygame.transform.scale(self.coin, (int(width * 5), int(height * 5)))
