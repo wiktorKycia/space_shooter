@@ -1,96 +1,52 @@
-import pygame
+import pygame, sys
 from mycode.levels import *
 from mycode.UI import *
+from pygame.locals import *
 import json
 
-class Game(object):
-    """
-    The main class in the program.
-    It is used to connect things into one game.
-    """
+pygame.init()
+pygame.display.set_caption("Planet defender")
 
-    def __init__(self,
-        player: Player,
-        mouse: Mouse,
-        menuHandler: MenuHandler,
-        levelManager: LevelManager,
-        screen: pygame.Surface,
-        max_tps: float = 100.0,
-        caption: str = "Planet defender"
-    ):
-        self.tps_max = max_tps
+tps_max = 100.0
+tps_clock = pygame.time.Clock()
+dt = 0.0
 
-        #initialization
-        pygame.init()
-        self.screen: pygame.Surface = screen
-        self.tps_clock = pygame.time.Clock()
-        self.dt = 0.0
-        pygame.display.set_caption(caption)
+running: bool = True
 
-        #running
-        self.isrun = True
+width, height = (750, 750)
+screen = pygame.display.set_mode((width, height))
 
-        #loading objects
-        self.player = player
-        self.mouse = mouse
+player = Player()
 
-        self.levelManager = levelManager
-        
-        self.menuHandler = menuHandler
-        
-        while self.isrun:
-            # Events
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.isrun = False
-            
-            # Update time
-            self.dt = self.tps_clock.get_time() / 1000
-            self.tps_clock.tick(self.tps_max)
-            
-            # Draw the background
-            self.screen.fill((0, 0, 0))
-            
-            # Move and draw objects
-            self.tick()
-            self.draw()
-            
-            # Do the next tick
-            pygame.display.update()
-        
-        # Exit
-        pygame.quit()
-        quit()
-    
-    def quit_game(self):
-        self.isrun = False
+shipBuilder = PlayableShipBuilder()
+shipDirector = PlayableShipBuilderDirector(shipBuilder, "Ship1")
 
-    def tick(self):
-        self.menuHandler.tick()
+with open("./gameData/playerShips.json") as f:
+	for ship in json.load(f)['ships']:
+		shipDirector.choose_ship(ship['name'])
+		player.add_new_ship(shipDirector.build(width / 2, height / 2))
 
-    def draw(self):
-        self.menuHandler.draw()
+mouse = Mouse()
 
-if __name__ == "__main__":
-    width, height = (750, 750)
-    screen = pygame.display.set_mode((width, height))
-    
-    player = Player()
-    
-    shipBuilder = PlayableShipBuilder()
-    shipDirector = PlayableShipBuilderDirector(shipBuilder, "Ship1")
-    
-    with open("./gameData/playerShips.json") as f:
-        for ship in json.load(f)['ships']:
-            shipDirector.choose_ship(ship['name'])
-            player.add_new_ship(shipDirector.build(width / 2, height / 2))
-    
-    
-    mouse = Mouse()
-    
-    menuHandler = MenuHandler(MainMenu)
-    
-    waveManager: WaveManager = WaveManager("./gameData/levels.json")
-    levelManager: LevelManager = LevelManager(waveManager)
-    
-    game: Game = Game(player, mouse, menuHandler, levelManager, screen, 100.0)
+waveManager: WaveManager = WaveManager("./gameData/levels.json")
+levelManager: LevelManager = LevelManager(waveManager)
+
+while running:
+	# Events
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			running = False
+
+	# clock
+	dt = tps_clock.get_time() / 1000
+	tps_clock.tick(tps_max)
+
+	# Draw the background
+	screen.fill((0, 0, 0))
+
+	# Do the next tick
+	pygame.display.update()
+
+# Exit
+pygame.quit()
+quit()
