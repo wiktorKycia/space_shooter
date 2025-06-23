@@ -33,6 +33,7 @@ def main_menu():
 	global tps_clock
 	global click
 	global dt
+	global width, height
 	running: bool = True
 
 	# objects
@@ -46,7 +47,7 @@ def main_menu():
 	# 		shipDirector.choose_ship(ship['name'])
 	# 		player.add_new_ship(shipDirector.build(width / 2, height / 2))
 	#
-	# mouse = Mouse()
+	mouse = Mouse()
 	#
 	# waveManager: WaveManager = WaveManager("./gameData/levels.json")
 	# levelManager: LevelManager = LevelManager(waveManager)
@@ -54,25 +55,48 @@ def main_menu():
 	# main loop
 	while running:
 		# clock
-		dt:float = tps_clock.get_time() / 1000
+		dt = tps_clock.get_time() / 1000
 
 		# Draw the background
 		screen.fill((0, 0, 0))
+
+		title_image = pygame.image.load("./images/Game_title.png")
+		title_image = pygame.transform.scale(
+			title_image, (int(title_image.get_width() * 2), int(title_image.get_height() * 2))
+		)
+
+		bg = pygame.image.load("./images/background.png").convert_alpha()
 
 		draw_text('main menu', font, (255, 255, 255), screen, 20, 20)
 
 		mx, my = pygame.mouse.get_pos()
 
-		button_1 = pygame.Rect(50, 100, 200, 50)
-		button_2 = pygame.Rect(50, 200, 200, 50)
-		if button_1.collidepoint((mx, my)):
+		button_play = Button(
+			width/2, height/2, "./images/buttons/button_play.png", 1.0, "./images/buttons/button_play_hover.png"
+		)
+		button_exit = Button(
+			50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png"
+		)
+		buttons = [button_play, button_exit]
+
+		for button in buttons:
+			button.tick(mouse)
+
+		if button_play.img.get_rect().collidepoint((mx, my)):
 			if click:
 				game()
-		if button_2.collidepoint((mx, my)):
+		if button_exit.img.get_rect().collidepoint((mx, my)):
 			if click:
-				options()
-		pygame.draw.rect(screen, (255, 0, 0), button_1)
-		pygame.draw.rect(screen, (255, 0, 0), button_2)
+				pygame.quit()
+				sys.exit()
+
+		screen.blit(bg, (0,0))
+		screen.blit(
+			title_image,
+			(screen.get_width() / 2 - title_image.get_width() / 2, 150 - title_image.get_height() / 2)
+		)
+		for button in buttons:
+			button.draw(screen)
 
 		click = False
 

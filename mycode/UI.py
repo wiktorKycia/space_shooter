@@ -20,6 +20,9 @@ class Button(Clickable):
     def __init__(self, x: float, y: float, path: str, scale: float = 1.0, path2: str = ""):
         super().__init__(x, y, path, scale, path2)
 
+    def tick(self, mouse: Mouse):
+        self.check_click(mouse)
+
 
 class MenuHandler:
     def __init__(self, mainmenu):
@@ -54,16 +57,8 @@ class Menu:
 
 class MainMenu:
     def __init__(self, screen_size: tuple[int, int]):
-        self.title_image = pygame.image.load("./images/Game_title.png")
-        self.title_image = pygame.transform.scale(self.title_image, (int(self.title_image.get_width() * 2), int(self.title_image.get_height() * 2)))
-        
-        self.button_play = Button(
-            screen_size[0] / 2, screen_size[1] / 2, "./images/buttons/button_play.png", 1.0,
-            "./images/buttons/button_play_hover.png"
-        )
-        self.button_exit = Button(
-            50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png"
-        )
+
+        # self.
         self.buttons = [
             self.button_play,
             self.button_exit

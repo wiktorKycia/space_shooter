@@ -158,18 +158,18 @@ class Clickable(StaticObject):
          - if no -> changes the image to the first image
         :return: action
         """
-        action = False
+        # action = False
         pos = pygame.mouse.get_pos()
         # check if the rect collides with the mouse
         if self.rect.collidepoint(pos):
             self.img = self.image2
             # check if the mouse is clicked
-            if mouse.click():
-                action = True
+            # if mouse.click():
+            #     action = True
         elif not self.rect.collidepoint(pos):
             self.img = self.image
 
-        return action
+        # return action
     
     def draw(self, screen: pygame.Surface):
         screen.blit(self.img, (self.x - self.width / 2, self.y - self.height / 2))
