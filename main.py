@@ -189,11 +189,11 @@ def game():
 
 		ship.draw_for_menu(screen)
 		screen.blit(coin, (450, 300))
-		write(screen, str(player.coins), 500, 300, 36, (200, 200, 200))
+		write(surf=screen, text=str(player.coins), x=500, y=300, font_size=36, color=(200, 200, 200))
 
-		write(screen, f"Health: {str(ship.hp.amount)}", 50, 300, 28, (200, 200, 200))
-		write(screen, f"Force: {str(-ship.physics.force)}", 50, 350, 28, (200, 200, 200))
-		write(screen, f"Mass: {str(ship.physics.mass)}", 50, 400, 28, (200, 200, 200))
+		write(surf=screen, text=f"Health: {str(ship.hp.amount)}", x=50, y=300, font_size=28, color=(200, 200, 200))
+		write(surf=screen, text=f"Force: {str(-ship.physics.force)}", x=50, y=350, font_size=28, color=(200, 200, 200))
+		write(surf=screen, text=f"Mass: {str(ship.physics.mass)}", x=50, y=400, font_size=28, color=(200, 200, 200))
 
 		for button in buttons:
 			button.tick(click)

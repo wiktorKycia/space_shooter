@@ -1,7 +1,7 @@
 import pygame
 
 
-def write(surf: pygame.Surface, text, x, y, font_size, color=(0, 0, 0), font_style="Arial", is_centered=False):
+def write(surf: pygame.Surface, text: str, x: int, y: int, font_size: int, color: tuple[int,int,int] = (0, 0, 0), font_style: str = "Arial", is_centered: bool = False):
     font = pygame.font.SysFont(font_style, font_size)
     rend = font.render(text, True, color)
     if is_centered:
