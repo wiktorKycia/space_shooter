@@ -6,8 +6,7 @@ from mycode.UI import *
 from pygame.locals import *
 import json
 
-if TYPE_CHECKING:
-	from pygame.font import Font
+from pygame.font import Font
 
 # initialization
 pygame.init()
@@ -62,20 +61,20 @@ def main_menu():
 		# clock
 		dt = tps_clock.get_time() / 1000
 
-		# Draw the background
-		screen.fill((0, 0, 0))
-
+		# Loading objects
+		# load title image
 		title_image = pygame.image.load("./images/Game_title.png")
 		title_image = pygame.transform.scale(
 			title_image, (int(title_image.get_width() * 2), int(title_image.get_height() * 2))
 		)
 
+		# load background image
 		bg = pygame.image.load("./images/background.png").convert_alpha()
 
-		draw_text('main menu', font, (255, 255, 255), screen, 20, 20)
-
+		# get the mouse position
 		mx, my = pygame.mouse.get_pos()
 
+		# load buttons
 		button_play = Button(
 			width/2, height/2, "./images/buttons/button_play.png", 1.0, "./images/buttons/button_play_hover.png"
 		)
@@ -83,6 +82,15 @@ def main_menu():
 			50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png"
 		)
 		buttons = [button_play, button_exit]
+
+
+		# Draw the background
+		screen.fill((0, 0, 0))
+
+
+		# draw_text('main menu', font, (255, 255, 255), screen, 20, 20)
+
+
 
 		for button in buttons:
 			button.tick(mouse)
