@@ -51,7 +51,7 @@ def main_menu():
 	# 		shipDirector.choose_ship(ship['name'])
 	# 		player.add_new_ship(shipDirector.build(width / 2, height / 2))
 	#
-	mouse = Mouse()
+	# mouse = Mouse()
 	#
 	# waveManager: WaveManager = WaveManager("./gameData/levels.json")
 	# levelManager: LevelManager = LevelManager(waveManager)
@@ -72,14 +72,16 @@ def main_menu():
 		bg = pygame.image.load("./images/background.png").convert_alpha()
 
 		# get the mouse position
-		mx, my = pygame.mouse.get_pos()
+		# mx, my = pygame.mouse.get_pos()
 
 		# load buttons
 		button_play = Button(
-			width/2, height/2, "./images/buttons/button_play.png", 1.0, "./images/buttons/button_play_hover.png"
+			width/2, height/2, "./images/buttons/button_play.png", 1.0, "./images/buttons/button_play_hover.png",
+			callback=lambda: game()
 		)
 		button_exit = Button(
-			50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png"
+			50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png",
+			callback=lambda: (pygame.quit(), sys.exit())
 		)
 		buttons = [button_play, button_exit]
 
@@ -93,15 +95,15 @@ def main_menu():
 
 
 		for button in buttons:
-			button.tick(mouse)
+			button.tick(click)
 
-		if button_play.img.get_rect().collidepoint((mx, my)):
-			if click:
-				game()
-		if button_exit.img.get_rect().collidepoint((mx, my)):
-			if click:
-				pygame.quit()
-				sys.exit()
+		# if button_play.img.get_rect().collidepoint((mx, my)):
+		# 	if click:
+		# 		game()
+		# if button_exit.img.get_rect().collidepoint((mx, my)):
+		# 	if click:
+		# 		pygame.quit()
+		# 		sys.exit()
 
 		screen.blit(bg, (0,0))
 		screen.blit(

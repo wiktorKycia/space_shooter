@@ -17,11 +17,11 @@ class LevelButton(TextButton):
 
 
 class Button(Clickable):
-    def __init__(self, x: float, y: float, path: str, scale: float = 1.0, path2: str = ""):
-        super().__init__(x, y, path, scale, path2)
+    def __init__(self, x: float, y: float, path: str, scale: float = 1.0, path_hover: str = "", callback: Callable = lambda: None):
+        super().__init__(x, y, path, scale, path_hover, callback)
 
-    def tick(self, mouse: Mouse):
-        self.check_click(mouse)
+    def tick(self, click: bool):
+        self.tick(click)
 
 
 class MenuHandler:

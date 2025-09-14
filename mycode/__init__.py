@@ -3,6 +3,7 @@ from pygame.math import Vector2
 from mycode.other import *
 from mycode.general import *
 import math
+from typing import Callable
 
 
 class StaticObject:
@@ -122,7 +123,7 @@ class ImageObject(UnClickable):
 
 
 class Clickable(StaticObject):
-    def __init__(self, x, y, path, scale=1.0, path2=""):
+    def __init__(self, x, y, path, scale=1.0, path_hover="", callback: Callable = lambda: None):
         """
         A class for the object, that can be clicked,
         it might have 2 images, as one will be shown only when mouse is hovering over the image rectangle
@@ -130,25 +131,27 @@ class Clickable(StaticObject):
         :param y: y coordinate
         :param path: path to the main image
         :param scale: scale of the image
-        :param path2: path to image shown, when mouse is over the object
+        :param path_hover: path to image shown, when mouse is over the object
+        :param callback: a function to call when the button is clicked
         """
         super().__init__(x, y)
-        self.image = pygame.image.load(path).convert_alpha()
-        if scale != 1.0: self.image = pygame.transform.scale_by(self.image, scale)
-        if path2 != "":
-            self.image2 = pygame.image.load(path2)
-            if scale != 1.0: self.image2 = pygame.transform.scale_by(self.image2, scale)
+        self.main_image = pygame.image.load(path).convert_alpha()
+        if scale != 1.0: self.main_image = pygame.transform.scale_by(self.main_image, scale)
+        if path_hover != "":
+            self.image_hover = pygame.image.load(path_hover)
+            if scale != 1.0: self.image_hover = pygame.transform.scale_by(self.image_hover, scale)
 
-        self.width = self.image.get_width()
-        self.height = self.image.get_height()
+        self.current_image = self.main_image
 
-        self.rect = self.image.get_rect()
+        self.width = self.current_image.get_width()
+        self.height = self.current_image.get_height()
+
+        self.rect = self.current_image.get_rect()
         self.rect.center = (x, y)
 
-        # current image
-        self.img = self.image
+        self.callback = callback
     
-    def check_click(self, mouse: Mouse):
+    def tick(self, click: bool):
         """
         sets action variable to False\n
         checks the mouse position,\n
@@ -158,21 +161,20 @@ class Clickable(StaticObject):
          - if no -> changes the image to the first image
         :return: action
         """
-        # action = False
         pos = pygame.mouse.get_pos()
+
         # check if the rect collides with the mouse
         if self.rect.collidepoint(pos):
-            self.img = self.image2
-            # check if the mouse is clicked
-            # if mouse.click():
-            #     action = True
-        elif not self.rect.collidepoint(pos):
-            self.img = self.image
+            self.current_image = self.image_hover
 
-        # return action
+            if click:
+                self.callback()
+
+        else:
+            self.current_image = self.main_image
     
     def draw(self, screen: pygame.Surface):
-        screen.blit(self.img, (self.x - self.width / 2, self.y - self.height / 2))
+        screen.blit(self.current_image, (self.x - self.width / 2, self.y - self.height / 2))
 
 class TextButton(StaticObject):
     def __init__(self, x, y, width, height, text):
