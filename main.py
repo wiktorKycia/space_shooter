@@ -145,23 +145,5 @@ def game():
 		tps_clock.tick(60)
 
 
-def options():
-	running = True
-	while running:
-		screen.fill((0, 0, 0))
-
-		draw_text('options', font, (255, 255, 255), screen, 20, 20)
-		for event in pygame.event.get():
-			if event.type == QUIT:
-				pygame.quit()
-				sys.exit()
-			if event.type == KEYDOWN:
-				if event.key == K_ESCAPE:
-					running = False
-
-		pygame.display.update()
-		tps_clock.tick(60)
-
-
 if __name__ == "__main__":
 	main_menu()
