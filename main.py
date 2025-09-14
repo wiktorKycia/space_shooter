@@ -31,8 +31,22 @@ tps_max = 100.0
 tps_clock = pygame.time.Clock()
 dt = 0.0
 
-
+# mouse
 click: bool = False
+
+# player
+player = Player()
+
+shipBuilder = PlayableShipBuilder()
+shipDirector = PlayableShipBuilderDirector(shipBuilder, "Ship1")
+
+with open("./gameData/playerShips.json") as f:
+	for ship in json.load(f)['ships']:
+		shipDirector.choose_ship(ship['name'])
+		player.add_new_ship(shipDirector.build(width / 2, height / 2))
+
+# waveManager: WaveManager = WaveManager("./gameData/levels.json")
+# levelManager: LevelManager = LevelManager(waveManager)
 
 def main_menu():
 	global tps_clock
@@ -40,22 +54,6 @@ def main_menu():
 	global dt
 	global width, height
 	running: bool = True
-
-	# objects
-	# player = Player()
-	#
-	# shipBuilder = PlayableShipBuilder()
-	# shipDirector = PlayableShipBuilderDirector(shipBuilder, "Ship1")
-	#
-	# with open("./gameData/playerShips.json") as f:
-	# 	for ship in json.load(f)['ships']:
-	# 		shipDirector.choose_ship(ship['name'])
-	# 		player.add_new_ship(shipDirector.build(width / 2, height / 2))
-	#
-	# mouse = Mouse()
-	#
-	# waveManager: WaveManager = WaveManager("./gameData/levels.json")
-	# levelManager: LevelManager = LevelManager(waveManager)
 
 	# Loading objects
 	# load title image
