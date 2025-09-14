@@ -5,7 +5,7 @@ import pygame
 from pygame.math import *
 from pygame.locals import *
 import json
-from mycode import TextButton, Clickable
+from mycode import Clickable
 from mycode.other import Mouse
 
 
