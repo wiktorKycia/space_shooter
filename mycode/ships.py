@@ -8,8 +8,9 @@ from mycode.weapons import *
 from mycode.physics import PygamePhysics
 from mycode.slot import Slot
 from mycode.enemies import BaseEnemy
-from mycode.displayable import Displayer, PathConverter
+from mycode.displayable import Displayer
 from mycode.spacecraft import Spacecraft
+from mycode.utils import create_image_with_alpha_conversion
 import json
 import math
 
@@ -109,7 +110,7 @@ class PlayableShipBuilder:
     
     def buildImage(self, path: str, scale: float = 1.0):
         self.ship.displayer = Displayer(
-            PathConverter(path).create(),
+            create_image_with_alpha_conversion(path),
             scale
         )
         return self

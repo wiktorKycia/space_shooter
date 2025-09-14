@@ -4,11 +4,12 @@ import json
 
 from mycode.other import RefillableBar, DeluxeHP
 from mycode.physics import PygamePhysics
-from mycode.displayable import Displayer, PathConverter
+from mycode.displayable import Displayer
 from mycode.spacecraft import Spacecraft
 from mycode.weapons import GunBuilderDirector, Weapon
 from mycode.Behaviors import *
 from mycode.slot import Slot
+from mycode.utils import create_image_with_alpha_conversion
 from typing import Callable, Type
 
 
@@ -51,7 +52,7 @@ class BaseEnemyBuilder:
     
     def buildImage(self, path: str, scale: float = 1.0):
         self.enemy.displayer = Displayer(
-            PathConverter(path).create(),
+            create_image_with_alpha_conversion(path),
             scale
         )
         return self

@@ -1,7 +1,7 @@
 import pygame
 from pygame.math import Vector2
 from mycode.other import *
-from mycode.general import *
+from mycode.utils import *
 import math
 from typing import Callable
 

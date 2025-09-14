@@ -5,9 +5,10 @@ from pygame.math import Vector2
 import json
 
 from mycode.physics import PygamePhysics
-from mycode.displayable import Displayer, PathConverter
+from mycode.displayable import Displayer
 from mycode.projectile import Projectile
 from mycode.spacecraft import Spacecraft
+from mycode.utils import create_image_with_alpha_conversion
 
 mixer.init()
 
@@ -101,7 +102,7 @@ class BulletBuilder:
 
     def buildDisplayer(self, path: str, scale: float = 1.0, is_player: bool = True):
         self.bullet.displayer = Displayer(
-            pygame.transform.rotate(PathConverter(path).create(), 90),
+            pygame.transform.rotate(create_image_with_alpha_conversion(path), 90),
             scale
         )
         if not is_player:

@@ -1,6 +1,6 @@
 from mycode.ships import *
 from mycode.player import *
-from mycode.general import *
+from mycode.utils import *
 import pygame
 from pygame.math import *
 from pygame.locals import *
