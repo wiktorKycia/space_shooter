@@ -17,5 +17,5 @@ def write_on_surface(surface, text, x, y, font_size, color=(0, 0, 0), is_centere
     surface.blit(rend, (x, y))
 
 
-def convert_path(path: str) -> pygame.Surface:
+def create_image_with_alpha_conversion(path: str) -> pygame.Surface:
     return pygame.image.load(path).convert_alpha()

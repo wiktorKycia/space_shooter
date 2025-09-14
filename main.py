@@ -88,12 +88,8 @@ def main_menu():
 		# clock
 		dt = tps_clock.get_time() / 1000
 
-		# Draw the background
+		# Draw
 		screen.fill((0, 0, 0))
-
-		# play the buttons
-		for button in buttons:
-			button.tick(click)
 
 		# display objects
 		screen.blit(bg, (0,0))
@@ -103,6 +99,11 @@ def main_menu():
 		)
 		for button in buttons:
 			button.draw(screen)
+
+
+		# Tick
+		for button in buttons:
+			button.tick(click)
 
 		click = False
 
@@ -130,7 +131,12 @@ def main_menu():
 
 def game():
 	global tps_clock
+	global click
 	running: bool = True
+
+	def menu_quit():
+		nonlocal running
+		running = False
 
 	# define the buttons
 	button_endless = Button(
@@ -154,7 +160,8 @@ def game():
 		"./images/buttons/button_shop_hover.png"
 	)
 	button_back = Button(
-		50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png"
+		50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png",
+		callback=menu_quit
 	)
 
 	# pack the buttons to the list
@@ -166,11 +173,34 @@ def game():
 		button_shop,
 		button_back
 	]
+	bg = pygame.image.load("./images/background.png").convert_alpha()
+	ship = player.current_ship
+	ship.reset_stats(screen_size)
+
+	# coin
+	coin: pygame.Surface = create_image_with_alpha_conversion("./images/coin.png")
+	coin = pygame.transform.scale(coin, (int(coin.get_width() * 5), int(coin.get_height() * 5)))
 
 	while running:
 		screen.fill((0, 0, 0))
 
-		draw_text('game', font, (255, 255, 255), screen, 20, 20)
+		screen.blit(bg, (0,0))
+		for button in buttons:
+			button.draw(screen)
+
+		ship.draw(screen)
+		screen.blit(coin, (450, 300))
+		write(str(player.coins), 500, 300, 36, (200, 200, 200))
+
+		write(f"Health: {str(ship.hp.amount)}", 50, 300, 28, (200, 200, 200))
+		write(f"Force: {str(ship.physics.force)}", 50, 350, 28, (200, 200, 200))
+		write(f"Mass: {str(ship.physics.mass)}", 50, 400, 28, (200, 200, 200))
+
+		for button in buttons:
+			button.tick(click)
+
+		click = False
+
 		for event in pygame.event.get():
 			if event.type == QUIT:
 				pygame.quit()
@@ -178,9 +208,12 @@ def game():
 			if event.type == KEYDOWN:
 				if event.key == K_ESCAPE:
 					running = False
+			if event.type == MOUSEBUTTONDOWN:
+				if event.button == 1:
+					click = True
 
 		pygame.display.update()
-		tps_clock.tick(60)
+		tps_clock.tick(tps_max)
 
 
 if __name__ == "__main__":
