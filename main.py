@@ -68,7 +68,7 @@ def main_menu():
 	# get the mouse position
 	# mx, my = pygame.mouse.get_pos()
 
-	def stop():
+	def menu_quit():
 		nonlocal running
 		running = False
 
@@ -79,7 +79,7 @@ def main_menu():
 	)
 	button_exit = Button(
 		50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png",
-		callback=lambda: stop()
+		callback=lambda: menu_quit()
 	)
 	buttons = [button_play, button_exit]
 
@@ -99,7 +99,6 @@ def main_menu():
 		)
 		for button in buttons:
 			button.draw(screen)
-
 
 		# Tick
 		for button in buttons:
@@ -188,13 +187,13 @@ def game():
 		for button in buttons:
 			button.draw(screen)
 
-		ship.draw(screen)
+		ship.draw_for_menu(screen)
 		screen.blit(coin, (450, 300))
-		write(str(player.coins), 500, 300, 36, (200, 200, 200))
+		write(screen, str(player.coins), 500, 300, 36, (200, 200, 200))
 
-		write(f"Health: {str(ship.hp.amount)}", 50, 300, 28, (200, 200, 200))
-		write(f"Force: {str(ship.physics.force)}", 50, 350, 28, (200, 200, 200))
-		write(f"Mass: {str(ship.physics.mass)}", 50, 400, 28, (200, 200, 200))
+		write(screen, f"Health: {str(ship.hp.amount)}", 50, 300, 28, (200, 200, 200))
+		write(screen, f"Force: {str(-ship.physics.force)}", 50, 350, 28, (200, 200, 200))
+		write(screen, f"Mass: {str(ship.physics.mass)}", 50, 400, 28, (200, 200, 200))
 
 		for button in buttons:
 			button.tick(click)

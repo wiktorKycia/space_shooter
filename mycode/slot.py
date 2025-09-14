@@ -25,4 +25,5 @@ class Slot:
         self.weapon.tick(dt, pos.x, pos.y)
     
     def draw(self, screen: pygame.Surface):
-        self.weapon.draw(screen)
+        if self.weapon:
+            self.weapon.draw(screen)

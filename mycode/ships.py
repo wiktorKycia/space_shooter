@@ -91,9 +91,12 @@ class PlayableShip(Spacecraft):
     
     def draw(self, screen: pygame.Surface):
         self.hp.tick(screen)
-        self.displayer.draw(screen, self.physics.x, self.physics.y)
+        self.draw_for_menu(screen)
         for slot in self.slots:
             slot.draw(screen)
+
+    def draw_for_menu(self, screen: pygame.Surface):
+        self.displayer.draw(screen, self.physics.x, self.physics.y)
 
 
 class PlayableShipBuilder:
@@ -137,6 +140,7 @@ keys = {
 class PlayableShipBuilderDirector:
     def __init__(self, builder: PlayableShipBuilder, ship_type: str | None = None):
         self.ship_type: str | None = ship_type
+        self.config: dict = { }
         self.ship_data: dict = { }
         self.slots: list = []
         self.builder: PlayableShipBuilder = builder
