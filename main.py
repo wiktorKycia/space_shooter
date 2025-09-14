@@ -56,35 +56,38 @@ def main_menu():
 	# waveManager: WaveManager = WaveManager("./gameData/levels.json")
 	# levelManager: LevelManager = LevelManager(waveManager)
 
+	# Loading objects
+	# load title image
+	title_image = pygame.image.load("./images/Game_title.png")
+	title_image = pygame.transform.scale(
+		title_image, (int(title_image.get_width() * 2), int(title_image.get_height() * 2))
+	)
+
+	# load background image
+	bg = pygame.image.load("./images/background.png").convert_alpha()
+
+	# get the mouse position
+	# mx, my = pygame.mouse.get_pos()
+
+	def stop():
+		nonlocal running
+		running = False
+
+	# load buttons
+	button_play = Button(
+		width / 2, height / 2, "./images/buttons/button_play.png", 1.0, "./images/buttons/button_play_hover.png",
+		callback=lambda: game()
+	)
+	button_exit = Button(
+		50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png",
+		callback=lambda: stop()
+	)
+	buttons = [button_play, button_exit]
+
 	# main loop
 	while running:
 		# clock
 		dt = tps_clock.get_time() / 1000
-
-		# Loading objects
-		# load title image
-		title_image = pygame.image.load("./images/Game_title.png")
-		title_image = pygame.transform.scale(
-			title_image, (int(title_image.get_width() * 2), int(title_image.get_height() * 2))
-		)
-
-		# load background image
-		bg = pygame.image.load("./images/background.png").convert_alpha()
-
-		# get the mouse position
-		# mx, my = pygame.mouse.get_pos()
-
-		# load buttons
-		button_play = Button(
-			width/2, height/2, "./images/buttons/button_play.png", 1.0, "./images/buttons/button_play_hover.png",
-			callback=lambda: game()
-		)
-		button_exit = Button(
-			50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png",
-			callback=lambda: (pygame.quit(), sys.exit())
-		)
-		buttons = [button_play, button_exit]
-
 
 		# Draw the background
 		screen.fill((0, 0, 0))
