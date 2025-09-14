@@ -14,7 +14,8 @@ pygame.display.set_caption("Planet defender")
 
 # screen
 width, height = (750, 750)
-screen = pygame.display.set_mode((width, height))
+screen_size = (width, height)
+screen = pygame.display.set_mode(screen_size)
 
 # text
 font = pygame.font.SysFont(None, 20)
@@ -131,7 +132,43 @@ def main_menu():
 
 def game():
 	global tps_clock
-	running = True
+	running: bool = True
+
+	# define the buttons
+	button_endless = Button(
+		screen_size[0] / 3, screen_size[1] / 5, "./images/buttons/button_endless.png", 1.0,
+		"./images/buttons/button_endless_hover.png"
+	)
+	button_levels = Button(
+		screen_size[0] * 2 / 3, screen_size[1] / 5, "./images/buttons/button_levels.png", 1.0,
+		"./images/buttons/button_levels_hover.png"
+	)
+	button_ship = Button(
+		screen_size[0] / 4, screen_size[1] - 50, "./images/buttons/button_ship.png", 1.0,
+		"./images/buttons/button_ship_hover.png"
+	)
+	button_hangar = Button(
+		screen_size[0] / 2, screen_size[1] - 50, "./images/buttons/button_hangar.png", 1.0,
+		"./images/buttons/button_hangar_hover.png"
+	)
+	button_shop = Button(
+		screen_size[0] * 3 / 4, screen_size[1] - 50, "./images/buttons/button_shop.png", 1.0,
+		"./images/buttons/button_shop_hover.png"
+	)
+	button_back = Button(
+		50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png"
+	)
+
+	# pack the buttons to the list
+	buttons = [
+		button_endless,
+		button_levels,
+		button_ship,
+		button_hangar,
+		button_shop,
+		button_back
+	]
+
 	while running:
 		screen.fill((0, 0, 0))
 
