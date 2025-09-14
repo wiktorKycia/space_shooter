@@ -21,7 +21,7 @@ class Button(Clickable):
         super().__init__(x, y, path, scale, path_hover, callback)
 
     def tick(self, click: bool):
-        self.tick(click)
+        super().tick(click)
 
 
 class MenuHandler:

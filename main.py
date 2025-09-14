@@ -89,22 +89,11 @@ def main_menu():
 		# Draw the background
 		screen.fill((0, 0, 0))
 
-
-		# draw_text('main menu', font, (255, 255, 255), screen, 20, 20)
-
-
-
+		# play the buttons
 		for button in buttons:
 			button.tick(click)
 
-		# if button_play.img.get_rect().collidepoint((mx, my)):
-		# 	if click:
-		# 		game()
-		# if button_exit.img.get_rect().collidepoint((mx, my)):
-		# 	if click:
-		# 		pygame.quit()
-		# 		sys.exit()
-
+		# display objects
 		screen.blit(bg, (0,0))
 		screen.blit(
 			title_image,
