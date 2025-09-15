@@ -146,9 +146,9 @@ class Button:
         sets action variable to False\n
         checks the mouse position,\n
         checks if mouse collides with rect,
-         - if yes -> changes the image, checks if the mouse is clicked,
-         * if yes -> sets action variable to True
-         - if no -> changes the image to the first image
+         - if yes -> activates the button, checks if the mouse is clicked,
+         * if yes -> calls the callback function
+         - if no -> deactivates the button
         :return: action
         """
         pos = pygame.mouse.get_pos()
@@ -167,10 +167,10 @@ class Button:
 
 
 class LevelButton(Button):
-    def __init__(self, x, y, width, height, level_id: int):
+    def __init__(self, x: int, y:int, width:int, height:int, level_id: int, callback: Callable):
         self.level_id = level_id
-        self.text = f"Level {str(level_id)}"
-        super().__init__(x, y, width, height, self.text)
+        self.displayer: ButtonDisplayer = TextButtonDisplayer(width, height, f"Level {str(level_id)}")
+        super().__init__(x, y, self.displayer, callback)
 
 
 # class Button(Clickable):
