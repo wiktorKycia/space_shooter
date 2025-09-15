@@ -133,6 +133,8 @@ def main_menu():
 def game():
 	global tps_clock
 	global click
+	global dt
+	global width, height
 	running: bool = True
 
 	def menu_quit():
@@ -215,6 +217,45 @@ def game():
 
 		pygame.display.update()
 		tps_clock.tick(tps_max)
+
+def levels():
+	global tps_clock
+	global click
+	global dt
+	global width, height
+	running: bool = True
+
+	config_file: str = "../gameData/levels.json"
+	number_of_levels: int = 0
+
+	def menu_quit():
+		nonlocal running
+		running = False
+
+	def calculate_level_y(level_id):
+		a = level_id % 3
+		if a == 0: a = 3
+		b = level_id - a
+		y = 80 + b * 40
+		return y
+
+	button_back = Button(
+		50, 700, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
+		callback=menu_quit
+	)
+	buttons = []
+	with open(config_file, "r") as f:
+		number_of_levels = len(json.load(f)['levels'])
+
+	for i in range(number_of_levels):
+		if (i + 1) % 3 == 1:
+			buttons.append(LevelButton(width // 5, calculate_level_y(i + 1), 200, 100, i + 1))
+		elif (i + 1) % 3 == 2:
+			buttons.append(LevelButton(width // 2, calculate_level_y(i + 1), 200, 100, i + 1))
+		elif (i + 1) % 3 == 0:
+			buttons.append(
+				LevelButton(width * 4 // 5, calculate_level_y(i + 1), 200, 100, i + 1)
+			)
 
 
 if __name__ == "__main__":
