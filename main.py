@@ -14,8 +14,7 @@ pygame.display.set_caption("Planet defender")
 
 # screen
 width, height = (750, 750)
-screen_size = (width, height)
-screen = pygame.display.set_mode(screen_size)
+screen = pygame.display.set_mode((width, height))
 
 # text
 font = pygame.font.SysFont(None, 20)
@@ -74,11 +73,14 @@ def main_menu():
 
 	# load buttons
 	button_play = Button(
-		width / 2, height / 2, "./images/buttons/button_play.png", 1.0, "./images/buttons/button_play_hover.png",
+		width // 2, height // 2,
+		ImageButtonDisplayer("./images/buttons/button_play.png", "./images/buttons/button_play_hover.png"),
 		callback=lambda: game()
 	)
+
 	button_exit = Button(
-		50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png",
+		50, 700,
+		ImageButtonDisplayer("./images/buttons/button_exit.png", "./images/buttons/button_exit_hover.png"),
 		callback=lambda: menu_quit()
 	)
 	buttons = [button_play, button_exit]
@@ -139,27 +141,27 @@ def game():
 
 	# define the buttons
 	button_endless = Button(
-		screen_size[0] / 3, screen_size[1] / 5, "./images/buttons/button_endless.png", 1.0,
-		"./images/buttons/button_endless_hover.png"
+		width // 3, height // 5,
+		ImageButtonDisplayer("./images/buttons/button_endless.png", "./images/buttons/button_endless_hover.png")
 	)
 	button_levels = Button(
-		screen_size[0] * 2 / 3, screen_size[1] / 5, "./images/buttons/button_levels.png", 1.0,
-		"./images/buttons/button_levels_hover.png"
+		width * 2 // 3, height // 5,
+		ImageButtonDisplayer("./images/buttons/button_levels.png", "./images/buttons/button_levels_hover.png")
 	)
 	button_ship = Button(
-		screen_size[0] / 4, screen_size[1] - 50, "./images/buttons/button_ship.png", 1.0,
-		"./images/buttons/button_ship_hover.png"
+		width // 4, height - 50,
+		ImageButtonDisplayer("./images/buttons/button_ship.png", "./images/buttons/button_ship_hover.png")
 	)
 	button_hangar = Button(
-		screen_size[0] / 2, screen_size[1] - 50, "./images/buttons/button_hangar.png", 1.0,
-		"./images/buttons/button_hangar_hover.png"
+		width // 2, height - 50,
+		ImageButtonDisplayer("./images/buttons/button_hangar.png", "./images/buttons/button_hangar_hover.png")
 	)
 	button_shop = Button(
-		screen_size[0] * 3 / 4, screen_size[1] - 50, "./images/buttons/button_shop.png", 1.0,
-		"./images/buttons/button_shop_hover.png"
+		width * 3 // 4, height - 50,
+		ImageButtonDisplayer("./images/buttons/button_shop.png", "./images/buttons/button_shop_hover.png")
 	)
 	button_back = Button(
-		50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png",
+		50, 700, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
 		callback=menu_quit
 	)
 
@@ -174,7 +176,7 @@ def game():
 	]
 	bg = pygame.image.load("./images/background.png").convert_alpha()
 	ship = player.current_ship
-	ship.reset_stats(screen_size)
+	ship.reset_stats((width, height))
 
 	# coin
 	coin: pygame.Surface = create_image_with_alpha_conversion("./images/coin.png")
