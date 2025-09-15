@@ -249,14 +249,58 @@ def levels():
 
 	for i in range(number_of_levels):
 		if (i + 1) % 3 == 1:
-			buttons.append(LevelButton(width // 5, calculate_level_y(i + 1), 200, 100, i + 1))
+			buttons.append(LevelButton(width // 5, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1)))
 		elif (i + 1) % 3 == 2:
-			buttons.append(LevelButton(width // 2, calculate_level_y(i + 1), 200, 100, i + 1))
+			buttons.append(LevelButton(width // 2, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1)))
 		elif (i + 1) % 3 == 0:
 			buttons.append(
-				LevelButton(width * 4 // 5, calculate_level_y(i + 1), 200, 100, i + 1)
+				LevelButton(width * 4 // 5, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1))
 			)
 
+	while running:
+		screen.fill((0, 0, 0))
+
+		button_back.tick(click)
+
+		for button in buttons:
+			button.tick(click)
+
+
+		for i, button in enumerate(buttons):
+			# tu nie może być printa sprawdzającego check_click()
+			if button.check_click(mouse):
+				menuHandler.changeMenu(LevelGame)
+				menuHandler.currentMenu.level_pointer = i
+				menuHandler.currentMenu.reset_current_level()
+		for event in pygame.event.get():
+			if event.type == MOUSEWHEEL:
+				if event.y == -1:
+					for button in buttons:
+						button.y -= 50
+						button.rect.center = (button.x, button.y)
+				elif event.y == 1:
+					for button in buttons:
+						button.y += 50
+						button.rect.center = (button.x, button.y)
+
+		click = False
+
+		for event in pygame.event.get():
+			if event.type == QUIT:
+				pygame.quit()
+				sys.exit()
+			if event.type == KEYDOWN:
+				if event.key == K_ESCAPE:
+					running = False
+			if event.type == MOUSEBUTTONDOWN:
+				if event.button == 1:
+					click = True
+
+		pygame.display.update()
+		tps_clock.tick(tps_max)
+
+def level(level_number: int):
+	pass
 
 if __name__ == "__main__":
 	main_menu()
