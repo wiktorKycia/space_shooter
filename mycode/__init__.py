@@ -6,24 +6,24 @@ import math
 from typing import Callable
 
 
-class StaticObject:
-    """
-    Static Object is the parent class for every object in the game, that does not move.
-    It has general use in user interface.
-    It has only the x, y as coordinates and game parameters.
-    """
-    
-    def __init__(self, x, y):
-        """
-        Static Object is the parent class for every object in the game, that does not move.
-        It has general use in user interface.
-        It has only the x, y as coordinates and game parameters.
-        :param x: x coordinate
-        :param y: y coordinate
-        """
-        super().__init__()
-        self.x = x
-        self.y = y
+# class StaticObject:
+#     """
+#     Static Object is the parent class for every object in the game, that does not move.
+#     It has general use in user interface.
+#     It has only the x, y as coordinates and game parameters.
+#     """
+#
+#     def __init__(self, x, y):
+#         """
+#         Static Object is the parent class for every object in the game, that does not move.
+#         It has general use in user interface.
+#         It has only the x, y as coordinates and game parameters.
+#         :param x: x coordinate
+#         :param y: y coordinate
+#         """
+#         super().__init__()
+#         self.x = x
+#         self.y = y
 
 #
 # class UnClickable(StaticObject): # TODO: to usunąć, bo nikt tego nie używa, klasy pochodne też
@@ -121,63 +121,6 @@ class StaticObject:
 #         """
 #         screen.blit(self.image, (self.x - self.image.get_width() / 2, self.y - self.image.get_height() / 2))
 
-
-class Clickable(StaticObject):
-    def __init__(self, x, y, path, scale=1.0, path_hover="", callback: Callable = lambda: None):
-        """
-        A class for the object, that can be clicked,
-        it might have 2 images, as one will be shown only when mouse is hovering over the image rectangle
-        :param x: x coordinate
-        :param y: y coordinate
-        :param path: path to the main image
-        :param scale: scale of the image
-        :param path_hover: path to image shown, when mouse is over the object
-        :param callback: a function to call when the button is clicked
-        """
-        super().__init__(x, y)
-        # TODO: połączyć Clickable i TextButton, bo robią to samo
-        # wprowadzić jakąź metodę on_hover, lub coś, co zmieniałoby wygląd po najechaniu
-        # w Button, byłby to obrazek, a w LevelButton - tło
-        self.main_image = pygame.image.load(path).convert_alpha()
-        if scale != 1.0: self.main_image = pygame.transform.scale_by(self.main_image, scale)
-        if path_hover != "":
-            self.image_hover = pygame.image.load(path_hover)
-            if scale != 1.0: self.image_hover = pygame.transform.scale_by(self.image_hover, scale)
-
-        self.current_image = self.main_image
-
-        self.width = self.current_image.get_width()
-        self.height = self.current_image.get_height()
-
-        self.rect = self.current_image.get_rect()
-        self.rect.center = (x, y)
-
-        self.callback = callback
-    
-    def tick(self, click: bool):
-        """
-        sets action variable to False\n
-        checks the mouse position,\n
-        checks if mouse collides with rect,
-         - if yes -> changes the image, checks if the mouse is clicked,
-         * if yes -> sets action variable to True
-         - if no -> changes the image to the first image
-        :return: action
-        """
-        pos = pygame.mouse.get_pos()
-
-        # check if the rect collides with the mouse
-        if self.rect.collidepoint(pos):
-            self.current_image = self.image_hover
-
-            if click:
-                self.callback()
-
-        else:
-            self.current_image = self.main_image
-    
-    def draw(self, screen: pygame.Surface):
-        screen.blit(self.current_image, (self.x - self.width / 2, self.y - self.height / 2))
 
 # class TextButton(StaticObject):
 #     def __init__(self, x, y, width, height, text):
