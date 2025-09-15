@@ -180,7 +180,6 @@ class LevelButton(Button):
 #     def tick(self, click: bool):
 #         super().tick(click)
 
-
 class MenuHandler:
     def __init__(self, mainmenu):
         self.currentMenuType = mainmenu
@@ -207,107 +206,107 @@ class MenuHandler:
     def draw(self, *args):
         self.currentMenu.draw_menu(args)
 
-
-class Menu:
-    def __init__(self):
-        pass
-
-class MainMenu:
-    def __init__(self, screen_size: tuple[int, int]):
-
-        # self.
-        self.buttons = [
-            self.button_play,
-            self.button_exit
-        ]
-        self.background = pygame.image.load("./images/background.png").convert_alpha()
-    
-    def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler, quit_game: Callable):
-        if self.button_play.check_click(mouse):
-            menuHandler.changeMenu(GameMenu)
-        elif self.button_exit.check_click(mouse):
-            quit_game()
-    
-    def draw_menu(self, screen: pygame.Surface):
-        screen.blit(self.background, (0, 0))
-        screen.blit(
-            self.title_image,
-            (screen.get_width() / 2 - self.title_image.get_width() / 2, 150 - self.title_image.get_height() / 2)
-        )
-        for button in self.buttons:
-            button.draw(screen)
-
-class GameMenu:
-    def __init__(self, screen_size: tuple[int, int], ship: PlayableShip):
-        screen_size: tuple[int, int] = screen_size
-        
-        # define the buttons
-        self.button_endless = Button(
-            screen_size[0] / 3, screen_size[1] / 5, "./images/buttons/button_endless.png", 1.0,
-            "./images/buttons/button_endless_hover.png"
-            )
-        self.button_levels = Button(
-            screen_size[0] * 2 / 3, screen_size[1] / 5, "./images/buttons/button_levels.png", 1.0,
-                                    "./images/buttons/button_levels_hover.png")
-        self.button_ship = Button(
-            screen_size[0] / 4, screen_size[1] - 50, "./images/buttons/button_ship.png", 1.0,
-            "./images/buttons/button_ship_hover.png"
-            )
-        self.button_hangar = Button(
-            screen_size[0] / 2, screen_size[1] - 50, "./images/buttons/button_hangar.png", 1.0,
-            "./images/buttons/button_hangar_hover.png"
-            )
-        self.button_shop = Button(
-            screen_size[0] * 3 / 4, screen_size[1] - 50, "./images/buttons/button_shop.png", 1.0,
-            "./images/buttons/button_shop_hover.png"
-            )
-        self.button_back = Button(
-            50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png"
-        )
-
-        # pack the buttons to the list
-        self.buttons = [
-            self.button_endless,
-            self.button_levels,
-            self.button_ship,
-            self.button_hangar,
-            self.button_shop,
-            self.button_back
-        ]
-        self.background = pygame.image.load("./images/background.png").convert_alpha()
-        ship.reset_stats(screen_size)
-
-
-        # self.game.menuHandler.currentMenu.other_bullets.clear()
-
-        # coin
-        self.coin: pygame.Surface = convert_path("./images/coin.png")
-        width = self.coin.get_width()
-        height = self.coin.get_height()
-        self.coin = pygame.transform.scale(self.coin, (int(width * 5), int(height * 5)))
-    
-    def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler):
-        if self.button_levels.check_click(mouse):
-            menuHandler.changeMenu(LevelsMenu)
-        elif self.button_back.check_click(mouse):
-            menuHandler.changeMenu(MainMenu)
-        elif self.button_hangar.check_click(mouse):
-            menuHandler.changeMenu(HangarMenu)
-        elif self.button_ship.check_click(mouse):
-            menuHandler.changeMenu(ShipMenu)
-    
-    def draw_menu(self, screen: pygame.Surface, player_ship: PlayableShip, coins: int):
-        screen.blit(self.background, (0, 0))
-        for button in self.buttons:
-            button.draw(screen)
-        player_ship.draw(screen)
-        screen.blit(self.coin, (450, 300))
-        write(str(coins), 500, 300, 36, (200, 200, 200))
-        
-        write(f"Health: {str(player_ship.hp.amount)}", 50, 300, 28, (200, 200, 200))
-        write(f"Force: {str(player_ship.physics.force)}", 50, 350, 28, (200, 200, 200))
-        write(f"Mass: {str(player_ship.physics.mass)}", 50, 400, 28, (200, 200, 200))
-
+#
+# class Menu:
+#     def __init__(self):
+#         pass
+#
+# class MainMenu:
+#     def __init__(self, screen_size: tuple[int, int]):
+#
+#         # self.
+#         self.buttons = [
+#             self.button_play,
+#             self.button_exit
+#         ]
+#         self.background = pygame.image.load("./images/background.png").convert_alpha()
+#
+#     def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler, quit_game: Callable):
+#         if self.button_play.check_click(mouse):
+#             menuHandler.changeMenu(GameMenu)
+#         elif self.button_exit.check_click(mouse):
+#             quit_game()
+#
+#     def draw_menu(self, screen: pygame.Surface):
+#         screen.blit(self.background, (0, 0))
+#         screen.blit(
+#             self.title_image,
+#             (screen.get_width() / 2 - self.title_image.get_width() / 2, 150 - self.title_image.get_height() / 2)
+#         )
+#         for button in self.buttons:
+#             button.draw(screen)
+#
+# class GameMenu:
+#     def __init__(self, screen_size: tuple[int, int], ship: PlayableShip):
+#         screen_size: tuple[int, int] = screen_size
+#
+#         # define the buttons
+#         self.button_endless = Button(
+#             screen_size[0] / 3, screen_size[1] / 5, "./images/buttons/button_endless.png", 1.0,
+#             "./images/buttons/button_endless_hover.png"
+#             )
+#         self.button_levels = Button(
+#             screen_size[0] * 2 / 3, screen_size[1] / 5, "./images/buttons/button_levels.png", 1.0,
+#                                     "./images/buttons/button_levels_hover.png")
+#         self.button_ship = Button(
+#             screen_size[0] / 4, screen_size[1] - 50, "./images/buttons/button_ship.png", 1.0,
+#             "./images/buttons/button_ship_hover.png"
+#             )
+#         self.button_hangar = Button(
+#             screen_size[0] / 2, screen_size[1] - 50, "./images/buttons/button_hangar.png", 1.0,
+#             "./images/buttons/button_hangar_hover.png"
+#             )
+#         self.button_shop = Button(
+#             screen_size[0] * 3 / 4, screen_size[1] - 50, "./images/buttons/button_shop.png", 1.0,
+#             "./images/buttons/button_shop_hover.png"
+#             )
+#         self.button_back = Button(
+#             50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png"
+#         )
+#
+#         # pack the buttons to the list
+#         self.buttons = [
+#             self.button_endless,
+#             self.button_levels,
+#             self.button_ship,
+#             self.button_hangar,
+#             self.button_shop,
+#             self.button_back
+#         ]
+#         self.background = pygame.image.load("./images/background.png").convert_alpha()
+#         ship.reset_stats(screen_size)
+#
+#
+#         # self.game.menuHandler.currentMenu.other_bullets.clear()
+#
+#         # coin
+#         self.coin: pygame.Surface = convert_path("./images/coin.png")
+#         width = self.coin.get_width()
+#         height = self.coin.get_height()
+#         self.coin = pygame.transform.scale(self.coin, (int(width * 5), int(height * 5)))
+#
+#     def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler):
+#         if self.button_levels.check_click(mouse):
+#             menuHandler.changeMenu(LevelsMenu)
+#         elif self.button_back.check_click(mouse):
+#             menuHandler.changeMenu(MainMenu)
+#         elif self.button_hangar.check_click(mouse):
+#             menuHandler.changeMenu(HangarMenu)
+#         elif self.button_ship.check_click(mouse):
+#             menuHandler.changeMenu(ShipMenu)
+#
+#     def draw_menu(self, screen: pygame.Surface, player_ship: PlayableShip, coins: int):
+#         screen.blit(self.background, (0, 0))
+#         for button in self.buttons:
+#             button.draw(screen)
+#         player_ship.draw(screen)
+#         screen.blit(self.coin, (450, 300))
+#         write(str(coins), 500, 300, 36, (200, 200, 200))
+#
+#         write(f"Health: {str(player_ship.hp.amount)}", 50, 300, 28, (200, 200, 200))
+#         write(f"Force: {str(player_ship.physics.force)}", 50, 350, 28, (200, 200, 200))
+#         write(f"Mass: {str(player_ship.physics.mass)}", 50, 400, 28, (200, 200, 200))
+#
 
 from mycode.levels import LevelManager
 from mycode.enemies import BaseEnemy
