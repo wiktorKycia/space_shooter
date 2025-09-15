@@ -5,7 +5,7 @@ import pygame
 from pygame.math import *
 from pygame.locals import *
 import json
-from mycode.other import Mouse
+from mycode.hp import Mouse
 from abc import abstractmethod, ABC
 from typing import Optional
 

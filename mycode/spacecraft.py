@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from mycode.physics import PygamePhysics
     from mycode.displayable import Displayer
-    from mycode.other import RefillableBar
+    from mycode.hp import RefillableBar
     from mycode.slot import Slot
 
 

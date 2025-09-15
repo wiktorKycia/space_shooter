@@ -3,7 +3,7 @@ from typing import Type
 import pygame
 
 from mycode import DeluxeHP
-from mycode.other import RefillableBar
+from mycode.hp import RefillableBar
 from mycode.weapons import *
 from mycode.physics import PygamePhysics
 from mycode.slot import Slot

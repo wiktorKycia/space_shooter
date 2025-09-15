@@ -2,7 +2,7 @@ import pygame.time
 
 import json
 
-from mycode.other import RefillableBar, DeluxeHP
+from mycode.hp import RefillableBar, DeluxeHP
 from mycode.physics import PygamePhysics
 from mycode.displayable import Displayer
 from mycode.spacecraft import Spacecraft
