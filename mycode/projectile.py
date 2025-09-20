@@ -16,6 +16,7 @@ class Projectile:
         self.displayer: Displayer | None = None
         self.damage: int = 0
         self.initial_rotation: float = 0.0
+        self.steered_by_menu = False
     
     def check_collision(self, ship: Spacecraft) -> bool:
         pass

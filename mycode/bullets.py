@@ -18,7 +18,7 @@ class Bullet(Projectile):
         super().__init__()
         self.sound: mixer.Sound | None = None
         self.line = None
-        self.steered_by_menu = False
+
     
     def check_collision(self, ship: Spacecraft):
         if self.line is not None:

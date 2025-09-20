@@ -4,7 +4,7 @@ import json
 from mycode import spawners
 
 class WaveManager:
-    def __init__(self, config_file):
+    def __init__(self, config_file: str):
         with open(config_file, "r") as f:
             self.config = json.load(f)
     
