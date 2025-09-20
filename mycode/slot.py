@@ -21,8 +21,9 @@ class Slot:
         self.weapon: Weapon = weapon
     
     def tick(self, dt: float, position: Vector2):
-        pos = position + self.translation
-        self.weapon.tick(dt, pos.x, pos.y)
+        if self.weapon:
+            pos = position + self.translation
+            self.weapon.tick(dt, pos.x, pos.y)
     
     def draw(self, screen: pygame.Surface):
         if self.weapon:
