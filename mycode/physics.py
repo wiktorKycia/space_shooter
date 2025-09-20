@@ -11,7 +11,7 @@ class PygamePhysics:
         self.clock: float = 0
         
         self.mass: int = mass
-        self.force: int = force if not is_player else -force
+        self.force: int = force if is_player else -force
         
         self.slip: float = slip
         self.current_slip: float = slip

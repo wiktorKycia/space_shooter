@@ -79,7 +79,7 @@ class PlayableShip(Spacecraft):
             self.physics.current_slip = self.physics.slip
 
         if force != [0, 0]:
-            self.physics.add_force(force.clamp_magnitude(self.physics.force))
+            self.physics.add_force(force.clamp_magnitude(0, abs(self.physics.force)))
         else:
             self.physics.add_force(force)
 

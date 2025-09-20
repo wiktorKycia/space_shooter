@@ -29,7 +29,7 @@ class BaseEnemy(Spacecraft):
         self.hp.align(self.physics.pos.x, self.physics.pos.y - 50)
 
         for slot in self.slots:
-            slot.tick()
+            slot.tick(dt, self.physics.pos)
     
     def _move_bullets_after_die(self, bullet_list: list):
         for slot in self.slots:
@@ -39,7 +39,7 @@ class BaseEnemy(Spacecraft):
         self.displayer.draw(screen, self.physics.pos.x, self.physics.pos.y)
         
         for slot in self.slots:
-            slot.draw()
+            slot.draw(screen)
 
 
 class BaseEnemyBuilder:
