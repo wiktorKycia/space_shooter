@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pygame
+
 from mycode.physics import PygamePhysics
 from pygame.math import Vector2
 
@@ -24,5 +26,5 @@ class Projectile:
     def tick(self, dt: float):
         pass
     
-    def draw(self, dt: float):
+    def draw(self, screen: pygame.Surface):
         pass
