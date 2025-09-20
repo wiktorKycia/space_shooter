@@ -114,8 +114,8 @@ class TextButtonDisplayer(ButtonDisplayer):
         writes the text of the button
         :return:
         """
-        screen.blit(self.surf, (x - self.get_width() / 2, y - self.get_height() / 2))
-        pygame.draw.rect(screen, (250, 250, 250), self.get_rect(), 1)
+        rect = screen.blit(self.surf, (x - self.get_width() / 2, y - self.get_height() / 2))
+        pygame.draw.rect(screen, (250, 250, 250), rect, 1)
         write(self.surf, self.text, 0, 0, 28, (200, 200, 200), is_centered=True)
 
 class Button:
