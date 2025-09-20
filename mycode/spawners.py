@@ -1,5 +1,6 @@
 from mycode.enemies import *
 from copy import deepcopy
+from pygame.math import Vector2
 
 
 def add_single(enemies: list[BaseEnemy], enemy: BaseEnemy):
@@ -7,10 +8,10 @@ def add_single(enemies: list[BaseEnemy], enemy: BaseEnemy):
 
 
 def pair(enemies: list[BaseEnemy], x: float, y: float, enemy: BaseEnemy):
-    enemy1 = deepcopy(enemy)
+    enemy1 = deepcopy(enemy) # TODO: zmienić deepcopy na coś innego
     enemy2 = deepcopy(enemy)
-    enemy1.physics.pos.xy = (x - 50, y)
-    enemy2.physics.pos.xy = (x + 50, y)
+    enemy1.physics.pos.xy = Vector2(x - 50, y)
+    enemy2.physics.pos.xy = Vector2(x + 50, y)
     enemies.extend([enemy1, enemy2])
 
 
@@ -20,8 +21,8 @@ def line(enemies: list[BaseEnemy], x: float, y: float, length_: int, enemy: Base
         enemy1 = deepcopy(enemy)
         enemy2 = deepcopy(enemy)
         
-        enemy1.physics.pos.xy = (x - (spacing / 2), y)
-        enemy2.physics.pos.xy = (x + (spacing / 2), y)
+        enemy1.physics.pos.xy = Vector2(x - (spacing / 2), y)
+        enemy2.physics.pos.xy = Vector2(x + (spacing / 2), y)
         
         enemies.extend([enemy1, enemy2])
         created = 2
@@ -35,11 +36,11 @@ def line(enemies: list[BaseEnemy], x: float, y: float, length_: int, enemy: Base
         enemy2 = deepcopy(enemy)
         
         if created == 2:
-            enemy1.physics.pos.xy = (x - (i + 1) * spacing, y)
-            enemy2.physics.pos.xy = (x + (i + 1) * spacing, y)
+            enemy1.physics.pos.xy = Vector2(x - (i + 1) * spacing, y)
+            enemy2.physics.pos.xy = Vector2(x + (i + 1) * spacing, y)
         else:
-            enemy1.physics.pos.xy = (x - 50 - (i + 1) * spacing, y)
-            enemy2.physics.pos.xy = (x + 50 + (i + 1) * spacing, y)
+            enemy1.physics.pos.xy = Vector2(x - 50 - (i + 1) * spacing, y)
+            enemy2.physics.pos.xy = Vector2(x + 50 + (i + 1) * spacing, y)
         
         enemies.extend([enemy1, enemy2])
 
