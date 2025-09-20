@@ -75,7 +75,7 @@ class ImageButtonDisplayer(ButtonDisplayer):
         screen.blit(self.current_image, (x - self.current_image.get_width() / 2, y - self.current_image.get_height() / 2))
 
 class TextButtonDisplayer(ButtonDisplayer):
-    def __init__(self, width:int , height:int , text: str, color: tuple[int, int, int] = (30, 30, 30), hover_color: tuple[int, int, int] = (100, 100, 100)):
+    def __init__(self, width: int, height: int, text: str, color: tuple[int, int, int] = (30, 30, 30), hover_color: tuple[int, int, int] = (100, 100, 100)):
         """
         Display managers for buttons, that has dynamic or not-repetitive text inside of them
         :param width:
@@ -306,7 +306,7 @@ class MenuHandler:
 #         write(f"Force: {str(player_ship.physics.force)}", 50, 350, 28, (200, 200, 200))
 #         write(f"Mass: {str(player_ship.physics.mass)}", 50, 400, 28, (200, 200, 200))
 #
-
+'''
 from mycode.levels import LevelManager
 from mycode.enemies import BaseEnemy
 class LevelGame:
@@ -532,3 +532,4 @@ class ShipMenu:
         # self.ship.pos = Vector2(self.game.width / 2, 50)
         # self.ship.draw()
         self.button_back.draw(screen)
+'''

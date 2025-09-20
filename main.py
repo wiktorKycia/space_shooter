@@ -148,7 +148,8 @@ def game():
 	)
 	button_levels = Button(
 		width * 2 // 3, height // 5,
-		ImageButtonDisplayer("./images/buttons/button_levels.png", "./images/buttons/button_levels_hover.png")
+		ImageButtonDisplayer("./images/buttons/button_levels.png", "./images/buttons/button_levels_hover.png"),
+		callback=lambda: levels()
 	)
 	button_ship = Button(
 		width // 4, height - 50,
@@ -225,7 +226,7 @@ def levels():
 	global width, height
 	running: bool = True
 
-	config_file: str = "../gameData/levels.json"
+	config_file: str = "./gameData/levels.json"
 	number_of_levels: int = 0
 
 	def menu_quit():
@@ -261,14 +262,14 @@ def levels():
 		screen.fill((0, 0, 0))
 
 		button_back.tick(click)
+		button_back.draw(screen)
 
 		for button in level_buttons:
 			button.tick(click)
+			button.draw(screen)
 
 
 		# for i, button in enumerate(level_buttons):
-		#
-		#
 		# 	# tu nie może być printa sprawdzającego check_click()
 		# 	if button.check_click(mouse):
 		# 		menuHandler.changeMenu(LevelGame)
