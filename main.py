@@ -243,17 +243,17 @@ def levels():
 		50, 700, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
 		callback=menu_quit
 	)
-	buttons = []
+	level_buttons = []
 	with open(config_file, "r") as f:
 		number_of_levels = len(json.load(f)['levels'])
 
 	for i in range(number_of_levels):
 		if (i + 1) % 3 == 1:
-			buttons.append(LevelButton(width // 5, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1)))
+			level_buttons.append(LevelButton(width // 5, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1)))
 		elif (i + 1) % 3 == 2:
-			buttons.append(LevelButton(width // 2, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1)))
+			level_buttons.append(LevelButton(width // 2, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1)))
 		elif (i + 1) % 3 == 0:
-			buttons.append(
+			level_buttons.append(
 				LevelButton(width * 4 // 5, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1))
 			)
 
@@ -262,26 +262,19 @@ def levels():
 
 		button_back.tick(click)
 
-		for button in buttons:
+		for button in level_buttons:
 			button.tick(click)
 
 
-		for i, button in enumerate(buttons):
-			# tu nie może być printa sprawdzającego check_click()
-			if button.check_click(mouse):
-				menuHandler.changeMenu(LevelGame)
-				menuHandler.currentMenu.level_pointer = i
-				menuHandler.currentMenu.reset_current_level()
-		for event in pygame.event.get():
-			if event.type == MOUSEWHEEL:
-				if event.y == -1:
-					for button in buttons:
-						button.y -= 50
-						button.rect.center = (button.x, button.y)
-				elif event.y == 1:
-					for button in buttons:
-						button.y += 50
-						button.rect.center = (button.x, button.y)
+		# for i, button in enumerate(level_buttons):
+		#
+		#
+		# 	# tu nie może być printa sprawdzającego check_click()
+		# 	if button.check_click(mouse):
+		# 		menuHandler.changeMenu(LevelGame)
+		# 		menuHandler.currentMenu.level_pointer = i
+		# 		menuHandler.currentMenu.reset_current_level()
+
 
 		click = False
 
@@ -295,6 +288,15 @@ def levels():
 			if event.type == MOUSEBUTTONDOWN:
 				if event.button == 1:
 					click = True
+			if event.type == MOUSEWHEEL:
+				if event.y == -1:
+					for button in level_buttons:
+						button.y -= 50
+						button.rect.center = (button.x, button.y)
+				elif event.y == 1:
+					for button in level_buttons:
+						button.y += 50
+						button.rect.center = (button.x, button.y)
 
 		pygame.display.update()
 		tps_clock.tick(tps_max)
