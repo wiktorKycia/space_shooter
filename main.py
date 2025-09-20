@@ -335,6 +335,15 @@ def level(level_number: int, config_file: str):
 
 		level_manager.tick(level_number, enemies)
 
+		for enemy in enemies:
+			enemy.draw(screen)
+
+		for bullet in other_projectiles:
+			bullet.draw(screen)
+
+		player_ship.draw(screen)
+
+
 		for event in pygame.event.get():
 			if event.type == QUIT:
 				pygame.quit()
