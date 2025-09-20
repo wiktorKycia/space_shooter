@@ -44,8 +44,7 @@ with open("./gameData/playerShips.json") as f:
 		shipDirector.choose_ship(ship['name'])
 		player.add_new_ship(shipDirector.build(width / 2, height / 2))
 
-# waveManager: WaveManager = WaveManager("./gameData/levels.json")
-# levelManager: LevelManager = LevelManager(waveManager)
+
 
 def main_menu():
 	global tps_clock
@@ -135,6 +134,7 @@ def game():
 	global click
 	global dt
 	global width, height
+	global player
 	running: bool = True
 
 	def menu_quit():
@@ -249,12 +249,12 @@ def levels():
 
 	for i in range(number_of_levels):
 		if (i + 1) % 3 == 1:
-			level_buttons.append(LevelButton(width // 5, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1)))
+			level_buttons.append(LevelButton(width // 5, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1, config_file)))
 		elif (i + 1) % 3 == 2:
-			level_buttons.append(LevelButton(width // 2, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1)))
+			level_buttons.append(LevelButton(width // 2, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1, config_file)))
 		elif (i + 1) % 3 == 0:
 			level_buttons.append(
-				LevelButton(width * 4 // 5, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1))
+				LevelButton(width * 4 // 5, calculate_level_y(i + 1), 200, 100, i + 1, lambda: level(i+1, config_file))
 			)
 
 	while running:
@@ -301,8 +301,51 @@ def levels():
 		pygame.display.update()
 		tps_clock.tick(tps_max)
 
-def level(level_number: int):
-	pass
+def level(level_number: int, config_file: str):
+	global tps_clock
+	global click
+	global dt
+	global width, height
+	global player
+	running: bool = True
+
+	player_ship = player.current_ship
+
+	enemies: list[BaseEnemy] = []
+	other_projectiles: list[Projectile] = []
+
+	wave_manager: WaveManager = WaveManager(config_file)
+	level_manager: LevelManager = LevelManager(wave_manager)
+
+	# reset player's ship's stats
+	player_ship.refill_stats()
+
+	while running:
+		screen.fill((0, 0, 0))
+
+		player_ship.tick(dt)
+		for enemy in enemies:
+			enemy.tick(dt)
+
+		for bullet in other_projectiles:
+			if bullet.steered_by_menu:
+				bullet.tick(dt)
+			else:
+				bullet.steered_by_menu = True
+
+		level_manager.tick(level_number, enemies)
+
+		for event in pygame.event.get():
+			if event.type == QUIT:
+				pygame.quit()
+				sys.exit()
+			if event.type == KEYDOWN:
+				if event.key == K_ESCAPE or event.key == K_p:
+					# running = False
+					pass # tu zrobić takie coś, żeby się pokazywało manu pauzy
+
+		pygame.display.update()
+		tps_clock.tick(tps_max)
 
 if __name__ == "__main__":
 	main_menu()
