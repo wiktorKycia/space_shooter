@@ -130,7 +130,7 @@ class BulletBuilderDirector:
         with open("./gameData/bullets.json") as f:
             self.config: dir = json.load(f)
             bullets = self.config['bullets']
-            self.bullet_data = list(filter(lambda bullet: bullet == self.bullet_name, bullets))[0]
+            self.bullet_data = list(filter(lambda bullet: bullet['name'] == self.bullet_name, bullets))[0]
     
     def choose_bullet(self, bullet_name):
         self.bullet_name = bullet_name
