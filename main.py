@@ -310,6 +310,10 @@ def level(level_number: int, config_file: str):
 	global player
 	running: bool = True
 
+	def menu_quit():
+		nonlocal running
+		running = False
+
 	player_ship = player.current_ship
 
 	enemies: list[BaseEnemy] = []
@@ -352,26 +356,30 @@ def level(level_number: int, config_file: str):
 				sys.exit()
 			if event.type == KEYDOWN:
 				if event.key == K_ESCAPE or event.key == K_p:
-					pause_menu()
+					pause_menu(menu_quit)
 
 		pygame.display.update()
 		tps_clock.tick(tps_max)
 
-def pause_menu():
+def pause_menu(button_exit_callback: Callable):
 	global tps_clock
 	global click
-	global dt
 	global width, height
-	global player
 	running: bool = True
 
 	def menu_quit():
 		nonlocal running
 		running = False
 
+	def menu_exit():
+		nonlocal running
+		running = False
+		button_exit_callback()
+
 	button_exit = Button(
 		width // 2, height // 2 - 100,
-		ImageButtonDisplayer("./images/buttons/button_exit2.png", "./images/buttons/button_exit2_hover.png", 2.0)
+		ImageButtonDisplayer("./images/buttons/button_exit2.png", "./images/buttons/button_exit2_hover.png", 2.0),
+		callback=menu_exit
 	)
 	button_resume = Button(
 		width // 2, height // 2 + 100,
