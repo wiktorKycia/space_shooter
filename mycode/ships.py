@@ -84,7 +84,7 @@ class PlayableShip(Spacecraft):
             self.physics.add_force(force)
 
         for slot in self.slots:
-            slot.tick(dt, self.physics.pos)
+            slot.tick(dt, self.physics.pos.x, self.physics.pos.y)
         
         self.displayer.tick(self.physics.x, self.physics.y)
         self.physics.tick(dt)
