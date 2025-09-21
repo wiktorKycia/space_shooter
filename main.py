@@ -344,6 +344,7 @@ def level(level_number: int, config_file: str):
 
 		player_ship.draw(screen)
 
+		click = False
 
 		for event in pygame.event.get():
 			if event.type == QUIT:
@@ -351,8 +352,47 @@ def level(level_number: int, config_file: str):
 				sys.exit()
 			if event.type == KEYDOWN:
 				if event.key == K_ESCAPE or event.key == K_p:
-					# running = False
-					pass # tu zrobić takie coś, żeby się pokazywało manu pauzy
+					pause_menu()
+
+		pygame.display.update()
+		tps_clock.tick(tps_max)
+
+def pause_menu():
+	global tps_clock
+	global click
+	global dt
+	global width, height
+	global player
+	running: bool = True
+
+	def menu_quit():
+		nonlocal running
+		running = False
+
+	button_exit = Button(
+		width // 2, height // 2 - 100,
+		ImageButtonDisplayer("./images/buttons/button_exit2.png", "./images/buttons/button_exit2_hover.png", 2.0)
+	)
+	button_resume = Button(
+		width // 2, height // 2 + 100,
+		ImageButtonDisplayer("./images/buttons/button_resume.png", "./images/buttons/button_resume_hover.png", 2.0),
+		callback=lambda: menu_quit()
+	)
+	while running:
+		screen.fill((0, 0, 0))
+
+		button_resume.draw(screen)
+		button_exit.draw(screen)
+
+		button_resume.tick(click)
+		button_exit.tick(click)
+
+		click = False
+
+		for event in pygame.event.get():
+			if event.type == QUIT:
+				pygame.quit()
+				sys.exit()
 
 		pygame.display.update()
 		tps_clock.tick(tps_max)
