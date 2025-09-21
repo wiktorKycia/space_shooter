@@ -25,10 +25,10 @@ class Gun(Weapon):
         self.bullet_name: str | None = None
         self.bullets: list[Bullet] = []
         self.clip: Clip | None = None
-        self.spread: tuple[float, float] | None = None
+        self.spread: tuple[float, float] = (0, 0)
         self.force: int | None = None
         self.is_player: bool | None = None
-        self.intensity: int | None = None
+        self.intensity: int = 1
     
     @staticmethod
     def _create_bullet(bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
@@ -71,7 +71,7 @@ class GunBuilder:
         self.gun: Gun | None = None
 
     def reset(self):
-        self.gun = Gun
+        self.gun = Gun()
         return self
     
     def set_trigger(self, trigger: Callable):

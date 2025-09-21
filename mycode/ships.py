@@ -133,7 +133,7 @@ class PlayableShipBuilder:
             # temporarily only guns, in the future: make it interchangeable across all weapons
             gun_builder = GunBuilder()
             gun_builder_director = GunBuilderDirector(gun_builder, gun_name)
-            gun = gun_builder_director.build(is_player=True)
+            gun: Gun = gun_builder_director.build(is_player=True)
 
             self.ship.slots.append(Slot(translation, trigger, gun))
             return self
