@@ -6,7 +6,7 @@ from mycode.hp import RefillableBar, DeluxeHP
 from mycode.physics import PygamePhysics
 from mycode.displayable import Displayer
 from mycode.spacecraft import Spacecraft
-from mycode.weapons import GunBuilderDirector, Weapon
+from mycode.weapons import GunBuilder, GunBuilderDirector, Weapon
 from mycode.Behaviors import *
 from mycode.slot import Slot
 from mycode.utils import create_image_with_alpha_conversion
@@ -71,9 +71,18 @@ class BaseEnemyBuilder:
     def buildEnemy(self) -> BaseEnemy:
         return self.enemy
 
-    def buildSlot(self, translation: Vector2):
-        self.enemy.slots.append(Slot(translation, lambda: self.enemy.is_shooting))
-        return self
+    def buildSlot(self, translation: Vector2, gun_name: str | None = None):
+        if gun_name:
+            # temporarily only guns, in the future: make it interchangeable across all weapons
+            gun_builder = GunBuilder()
+            gun_builder_director = GunBuilderDirector(gun_builder, gun_name)
+            gun = gun_builder_director.build(is_player=False)
+
+            self.enemy.slots.append(Slot(translation, lambda: self.enemy.is_shooting, gun))
+            return self
+        else:
+            self.enemy.slots.append(Slot(translation, lambda: self.enemy.is_shooting))
+            return self
 
 class BaseEnemyBuilderDirector:
     def __init__(self, builder: BaseEnemyBuilder, enemy_type: str | None = None):
@@ -106,7 +115,7 @@ class BaseEnemyBuilderDirector:
             )
         )
         for slot in self.slots:
-            enemy.buildSlot(Vector2(slot['x'], slot['y']))
+            enemy.buildSlot(Vector2(slot['x'], slot['y']), slot['weapon'])
         return enemy.buildEnemy()
 
 #
