@@ -393,6 +393,9 @@ def pause_menu():
 			if event.type == QUIT:
 				pygame.quit()
 				sys.exit()
+			if event.type == MOUSEBUTTONDOWN:
+				if event.button == 1:
+					click = True
 
 		pygame.display.update()
 		tps_clock.tick(tps_max)
