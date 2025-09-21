@@ -1,12 +1,8 @@
-from typing import TYPE_CHECKING
-
 import pygame, sys
 from mycode.levels import *
 from mycode.UI import *
 from pygame.locals import *
 import json
-
-from pygame.font import Font
 
 # initialization
 pygame.init()
@@ -15,15 +11,6 @@ pygame.display.set_caption("Planet defender")
 # screen
 width, height = (750, 750)
 screen = pygame.display.set_mode((width, height))
-
-# text
-font = pygame.font.SysFont(None, 20)
-
-def draw_text(text: str, font: Font, color: tuple[int, int, int], surface: pygame.Surface, x: int, y: int):
-	textobj = font.render(text, 1, color)
-	textrect = textobj.get_rect()
-	textrect.topleft = (x, y)
-	surface.blit(textobj, textrect)
 
 # clocks
 tps_max = 100.0
