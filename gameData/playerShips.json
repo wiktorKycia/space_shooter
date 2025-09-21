@@ -19,13 +19,13 @@
 					"x": 20,
 					"y": -20,
 					"key": "numpad_0",
-					"weapon": "Kinetic1"
+					"weapon": "Kinetic"
 				},
 				{
 					"x": -20,
 					"y": -20,
 					"key": "numpad_0",
-					"weapon": "Kinetic1"
+					"weapon": "Kinetic"
 				}
 			]
 		},
