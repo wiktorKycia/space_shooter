@@ -128,9 +128,18 @@ class PlayableShipBuilder:
     def buildShip(self) -> PlayableShip:
         return self.ship
 
-    def buildSlot(self, translation: Vector2, trigger: Callable):
-        self.ship.slots.append(Slot(translation, trigger))
-        return self
+    def buildSlot(self, translation: Vector2, trigger: Callable, gun_name: str | None = None):
+        if gun_name:
+            # temporarily only guns, in the future: make it interchangeable across all weapons
+            gun_builder = GunBuilder()
+            gun_builder_director = GunBuilderDirector(gun_builder, gun_name)
+            gun = gun_builder_director.build(is_player=True)
+
+            self.ship.slots.append(Slot(translation, trigger, gun))
+            return self
+        else:
+            self.ship.slots.append(Slot(translation, trigger))
+            return self
 
 
 keys = {
@@ -169,7 +178,7 @@ class PlayableShipBuilderDirector:
             )
         )
         for slot in self.slots:
-            ship.buildSlot(Vector2(slot['x'], slot['y']), lambda: pygame.key.get_pressed()[keys[slot['key']]])
+            ship.buildSlot(Vector2(slot['x'], slot['y']), lambda: pygame.key.get_pressed()[keys[slot['key']]], slot['weapon'])
         return ship.buildShip()
 #
 # class Ship1:
