@@ -1,6 +1,7 @@
 .idea/
 __pycache__
 venv
+.venv
 images/the chosen ones
 images/ship1.xcf
 explsion_sounds
