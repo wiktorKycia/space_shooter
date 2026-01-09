@@ -1,0 +1,119 @@
+{
+	"shipsDefaultHealthBar": {
+		"x": 165,
+		"y": 710,
+		"height": 25,
+		"width": 300
+	},
+	"ships": [
+		{
+			"id": 1,
+			"name": "Ship1",
+			"mass": 300,
+			"force": 1500,
+			"hp_amount": 200,
+			"path": "./images/SpaceShips/Ship_1.png",
+			"scale": 2.0,
+			"slots": [
+				{
+					"x": 20,
+					"y": -20,
+					"key": "numpad_0",
+					"weapon": "Kinetic"
+				},
+				{
+					"x": -20,
+					"y": -20,
+					"key": "numpad_0",
+					"weapon": "Kinetic"
+				}
+			]
+		},
+		{
+			"id": 2,
+			"name": "Ship2",
+			"mass": 300,
+			"force": 1500,
+			"hp_amount": 200,
+			"path": "./images/SpaceShips/Ship_2.png",
+			"scale": 2.0,
+			"slots": [
+				{
+					"x": 0,
+					"y": -20,
+					"key": "numpad_0",
+					"weapon": "Shotgun"
+				}
+			]
+		},
+		{
+			"id": 3,
+			"name": "Ship3",
+			"mass": 300,
+			"force": 1500,
+			"hp_amount": 200,
+			"path": "./images/SpaceShips/Ship_3.png",
+			"scale": 2.0,
+			"slots": [
+				{
+					"x": -10,
+					"y": -20,
+					"key": "numpad_0",
+					"weapon": "Kinetic"
+				},
+				{
+					"x": 10,
+					"y": -20,
+					"key": "numpad_0",
+					"weapon": "Kinetic"
+				}
+			]
+		},
+		{
+			"id": 4,
+			"name": "Ship4",
+			"mass": 300,
+			"force": 1500,
+			"hp_amount": 200,
+			"path": "./images/SpaceShips/Ship_4.png",
+			"scale": 2.0,
+			"slots": [
+				{
+					"x": 3,
+					"y": -15,
+					"key": "numpad_0",
+					"weapon": "Kinetic"
+				},
+				{
+					"x": -4,
+					"y": -15,
+					"key": "numpad_0",
+					"weapon": "Kinetic"
+				},
+				{
+					"x": 13,
+					"y": 6,
+					"key": "numpad_0",
+					"weapon": "Kinetic"
+				},
+				{
+					"x": 14,
+					"y": 6,
+					"key": "numpad_0",
+					"weapon": "Kinetic"
+				}
+			]
+		},
+		{
+			"id": 5,
+			"name": "Ship5",
+			"mass": 300,
+			"force": 1500,
+			"hp_amount": 200,
+			"path": "./images/SpaceShips/Ship_5.png",
+			"scale": 2.0,
+			"slots": [
+			]
+		}
+	]
+}
