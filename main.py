@@ -366,7 +366,7 @@ def pause_menu(button_exit_callback: Callable):
 	button_exit = Button(
 		width // 2, height // 2 - 100,
 		ImageButtonDisplayer("./images/buttons/button_exit2.png", "./images/buttons/button_exit2_hover.png", 2.0),
-		callback=menu_exit
+		callback=lambda: menu_exit()
 	)
 	button_resume = Button(
 		width // 2, height // 2 + 100,
