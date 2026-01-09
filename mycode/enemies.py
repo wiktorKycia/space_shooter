@@ -1,192 +1,221 @@
 import pygame.time
-import pygame.math
-import mycode
-from mycode import *
-from mycode.other import *
-from mycode.bullets import *
-from mycode.cannons import *
+
+import json
+
+from mycode.hp import RefillableBar, DeluxeHP
+from mycode.physics import PygamePhysics
+from mycode.displayable import Displayer
+from mycode.spacecraft import Spacecraft
+from mycode.weapons import GunBuilder, GunBuilderDirector, Weapon
 from mycode.Behaviors import *
 from mycode.slot import Slot
-import os
-import random
+from mycode.utils import create_image_with_alpha_conversion
+from typing import Callable, Type
 
 
-class BaseEnemy(Shooting):
-    def __init__(self, game, x, y, path, mass, max_speed, force, hp_amount, hp_width=50, hp_height=10, hp_relative=True,
-                 slip=0.98, scale=1.0):
-        super().__init__(game, x, y, path, mass, max_speed, -force, hp_amount, hp_width=hp_width, hp_height=hp_height,
-                         hp_relative=hp_relative, slip=slip, scale=scale)
+class BaseEnemy(Spacecraft):
+    def __init__(self):
+        super().__init__()
+        
         self.move_clock = 0
-        self.slots = []
         self.is_shooting = True
-
-    def tick(self):
-        super().tick()
+    
+    def add_weapon(self, weapon: Weapon, slot_index: int):
+        self.slots[slot_index].weapon = weapon
+    
+    def tick(self, dt: float):
+        self.displayer.tick(self.physics.x, self.physics.y)
+        self.physics.tick(dt)
+        self.hp.align(self.physics.pos.x, self.physics.pos.y - 50)
 
         for slot in self.slots:
-            slot.tick()
-
-        if self.hp.hp <= 0:
-            for slot in self.slots:
-                self.game.menuHandler.currentMenu.other_bullets.extend(slot.weapon.bullets)
-            self.game.menuHandler.currentMenu.enemies.remove(self)
-
-    def draw(self):
-        super().draw()
+            slot.tick(dt, self.physics.pos.x, self.physics.pos.y)
+    
+    def _move_bullets_after_die(self, bullet_list: list):
         for slot in self.slots:
-            slot.draw()
+            bullet_list.extend(slot.weapon.bullets)
+    
+    def draw(self, screen: pygame.Surface):
+        self.displayer.draw(screen, self.physics.pos.x, self.physics.pos.y)
+        
+        for slot in self.slots:
+            slot.draw(screen)
 
 
-class Enemy1(BaseEnemy):
-    def __init__(self, game, x, y):
-        self.game = game
-        super().__init__(
-            game, x, y,
-            path="./enemies/Enemy1.png",
-            mass=50,
-            max_speed=50,
-            force=500,
-            hp_amount=20
+class BaseEnemyBuilder:
+    def __init__(self):
+        self.enemy: BaseEnemy | None = None
+
+    def reset(self):
+        self.enemy = BaseEnemy()
+        return self
+    
+    def buildImage(self, path: str, scale: float = 1.0):
+        self.enemy.displayer = Displayer(
+            create_image_with_alpha_conversion(path),
+            scale
         )
-        self.slots.extend(
-            [
-                Slot(game, self, Vector2(0, 10), self.is_shooting, KineticLight)
-            ]
+        return self
+    
+    def buildHealthBar(
+            self, barType: Type[RefillableBar], amount: int, x: float, y: float, width: int, height: int,
+        color: tuple[int, int, int] = (250, 0, 0)
+    ):
+        self.enemy.hp = barType(amount, x, y, width, height, color)
+        return self
+    
+    def buildPhysics(self, x: float, y: float, mass: int, force: int, slip: float = 0.98):
+        self.enemy.physics = PygamePhysics(x, y, mass, force, False, slip)
+        return self
+    
+    def buildEnemy(self) -> BaseEnemy:
+        return self.enemy
+
+    def buildSlot(self, translation: Vector2, gun_name: str | None = None):
+        if gun_name:
+            # temporarily only guns, in the future: make it interchangeable across all weapons
+            gun_builder = GunBuilder()
+            gun_builder_director = GunBuilderDirector(gun_builder, gun_name)
+            gun = gun_builder_director.build(is_player=False)
+
+            self.enemy.slots.append(Slot(translation, lambda: self.enemy.is_shooting, gun))
+            return self
+        else:
+            self.enemy.slots.append(Slot(translation, lambda: self.enemy.is_shooting))
+            return self
+
+class BaseEnemyBuilderDirector:
+    def __init__(self, builder: BaseEnemyBuilder, enemy_type: str | None = None):
+        self.enemy_type: str | None = enemy_type
+        self.builder: BaseEnemyBuilder = builder
+        self.enemy_data: dict = { }
+        self.slots: list = []
+        self.__reload_file()
+    
+    def __reload_file(self):
+        with open('./gameData/enemies.json', 'r') as f:
+            self.config: dict = json.load(f)
+            enemies = self.config["enemies"]
+            self.enemy_data = list(filter(lambda enemy: enemy['name'] == self.enemy_type, enemies))[0]
+            self.slots = self.enemy_data['slots']
+    
+    def choose_enemy(self, enemy_type: str):
+        self.enemy_type = enemy_type
+        self.__reload_file()
+    
+    def build(self, x: float, y: float) -> BaseEnemy:
+        h: dict = self.config['enemiesDefaultHealthBar']
+        enemy = (
+            self.builder
+            .reset()
+            .buildImage(self.enemy_data['path'], self.enemy_data['scale'])
+            .buildPhysics(x, y, self.enemy_data['mass'], self.enemy_data['force'])
+            .buildHealthBar(
+                DeluxeHP, self.enemy_data['hp_amount'], x, y - 50, h['width'], h['height']
+            )
         )
+        for slot in self.slots:
+            enemy.buildSlot(Vector2(slot['x'], slot['y']), slot['weapon'])
+        return enemy.buildEnemy()
 
-class Enemy2(BaseEnemy):
-    def __init__(self, game, x, y):
-        self.game = game
-        super().__init__(
-            game, x, y,
-            path="./enemies/Enemy2.png",
-            mass=75,
-            max_speed=120,
-            force=350,
-            hp_amount=45
-        )
-        self.slots.extend(
-            [
-                Slot(game, self, Vector2(0, 10), self.is_shooting, KineticLight)
-            ]
-        )
-
-class Enemy3(BaseEnemy):
-    def __init__(self, game, x, y):
-        self.game = game
-        super().__init__(
-            game, x, y,
-            path="./enemies/Enemy3.png",
-            mass=250,
-            max_speed=100,
-            force=1000,
-            hp_amount=100
-        )
-        self.slots.extend(
-            [
-                Slot(game, self, Vector2(-22, 10), self.is_shooting, KineticMedium),
-                Slot(game, self, Vector2(22, 10), self.is_shooting, KineticMedium)
-            ]
-        )
-
-
-class Bouncer1(BaseEnemy):
-    def __init__(self, game, x, y):
-        super().__init__(
-            game, x, y,
-            "./enemies/bouncer1.png",
-            mass=2,
-            max_speed=200,
-            force=1500,
-            hp_amount=15,
-            scale=3.0
-        )
-        self.slots.extend(
-            [
-                Slot(game, self, Vector2(0, 0), self.is_shooting, KineticLight)
-            ]
-        )
-
-    def do_move(self):
-        angle = 0
-        if self.pos.x < 350 and self.pos.y < 150: # top left
-            angle = random.randint(91, 180)
-        if self.pos.x > 350 and self.pos.y < 150: # top right
-            angle = random.randint(180, 270)
-        if self.pos.x < 350 and self.pos.y > 150: # bottom left
-            angle = random.randint(1, 90)
-        if self.pos.x > 350 and self.pos.y > 150: # bottom right
-            angle = random.randint(270, 360)
-        if angle > 180:
-            angle = -angle
-        if angle < -180:
-            angle = -angle
-        self.add_force(Vector2(0, self.force))
-        self.acc.rotate_ip(angle)
-
-    def tick(self):
-        self.hp.x = self.pos.x
-        self.hp.y = self.pos.y - 50
-        self.move_clock += self.game.dt
-        if self.move_clock > 0.5:
-            self.move_clock = 0
-            self.do_move()
-        super().tick()
-
-
-class Bouncer2(BaseEnemy):
-    def __init__(self, game, x, y):
-        super().__init__(
-            game, x, y,
-            "./enemies/bouncer2.png",
-            mass=6,
-            max_speed=200,
-            force=2500,
-            hp_amount=35,
-            scale=3.0
-        )
-        self.slots.extend(
-            [
-                Slot(game, self, Vector2(0, 10), self.is_shooting, KineticLight)
-            ]
-        )
-        self.destination_x = random.randint(0, 750)
-        self.destination_y = random.randint(0, 350)
-        self.dest_clock = 0
-
-        self.behavior = Behavior(self.game, self)
-
-    def reset_destination_points(self):
-        self.destination_x = random.randint(0, 750)
-        self.destination_y = random.randint(0, 350)
-
-    def do_move(self, x, y):
-        angle = 0
-        if self.pos.x < x and self.pos.y < y:  # top left
-            angle = random.randint(91, 180)
-        if self.pos.x > x and self.pos.y < y:  # top right
-            angle = random.randint(180, 270)
-        if self.pos.x < x and self.pos.y > y:  # bottom left
-            angle = random.randint(1, 90)
-        if self.pos.x > x and self.pos.y > y:  # bottom right
-            angle = random.randint(270, 360)
-        if angle > 180:
-            angle = -angle
-        if angle < -180:
-            angle = -angle
-        self.add_force(Vector2(0, self.force))
-        self.acc.rotate_ip(angle)
-
-    def tick(self):
-        self.hp.x = self.pos.x
-        self.hp.y = self.pos.y - 50
-        self.move_clock += self.game.dt
-        # self.dest_clock += self.game.dt
-        # if self.dest_clock > 5.0:
-        #     self.reset_destination_points()
-        self.behavior.tick()
-
-        if self.move_clock > 0.5:
-            self.move_clock = 0
-            self.do_move(self.destination_x, self.destination_y)
-        super().tick()
+#
+# class Bouncer1(BaseEnemy):
+#     def __init__(self, game, x, y):
+#         super().__init__(
+#             game, x, y,
+#             "./enemies/bouncer1.png",
+#             mass=2,
+#             max_speed=200,
+#             force=1500,
+#             hp_amount=15,
+#             scale=3.0
+#         )
+#         self.slots.extend(
+#             [
+#                 Slot(game, self, Vector2(0, 0), self.is_shooting, KineticLight)
+#             ]
+#         )
+#
+#     def do_move(self):
+#         angle = 0
+#         if self.pos.x < 350 and self.pos.y < 150: # top left
+#             angle = random.randint(91, 180)
+#         if self.pos.x > 350 and self.pos.y < 150: # top right
+#             angle = random.randint(180, 270)
+#         if self.pos.x < 350 and self.pos.y > 150: # bottom left
+#             angle = random.randint(1, 90)
+#         if self.pos.x > 350 and self.pos.y > 150: # bottom right
+#             angle = random.randint(270, 360)
+#         if angle > 180:
+#             angle = -angle
+#         if angle < -180:
+#             angle = -angle
+#         self.add_force(Vector2(0, self.force))
+#         self.acc.rotate_ip(angle)
+#
+#     def tick(self):
+#         self.hp.x = self.pos.x
+#         self.hp.y = self.pos.y - 50
+#         self.move_clock += self.game.dt
+#         if self.move_clock > 0.5:
+#             self.move_clock = 0
+#             self.do_move()
+#         super().tick()
+#
+#
+# class Bouncer2(BaseEnemy):
+#     def __init__(self, game, x, y):
+#         super().__init__(
+#             game, x, y,
+#             "./enemies/bouncer2.png",
+#             mass=6,
+#             max_speed=200,
+#             force=2500,
+#             hp_amount=35,
+#             scale=3.0
+#         )
+#         self.slots.extend(
+#             [
+#                 Slot(game, self, Vector2(0, 10), self.is_shooting, KineticLight)
+#             ]
+#         )
+#         self.destination_x = random.randint(0, 750)
+#         self.destination_y = random.randint(0, 350)
+#         self.dest_clock = 0
+#
+#         self.behavior = Behavior(self.game, self)
+#
+#     def reset_destination_points(self):
+#         self.destination_x = random.randint(0, 750)
+#         self.destination_y = random.randint(0, 350)
+#
+#     def do_move(self, x, y):
+#         angle = 0
+#         if self.pos.x < x and self.pos.y < y:  # top left
+#             angle = random.randint(91, 180)
+#         if self.pos.x > x and self.pos.y < y:  # top right
+#             angle = random.randint(180, 270)
+#         if self.pos.x < x and self.pos.y > y:  # bottom left
+#             angle = random.randint(1, 90)
+#         if self.pos.x > x and self.pos.y > y:  # bottom right
+#             angle = random.randint(270, 360)
+#         if angle > 180:
+#             angle = -angle
+#         if angle < -180:
+#             angle = -angle
+#         self.add_force(Vector2(0, self.force))
+#         self.acc.rotate_ip(angle)
+#
+#     def tick(self):
+#         self.hp.x = self.pos.x
+#         self.hp.y = self.pos.y - 50
+#         self.move_clock += self.game.dt
+#         # self.dest_clock += self.game.dt
+#         # if self.dest_clock > 5.0:
+#         #     self.reset_destination_points()
+#         self.behavior.tick()
+#
+#         if self.move_clock > 0.5:
+#             self.move_clock = 0
+#             self.do_move(self.destination_x, self.destination_y)
+#         super().tick()

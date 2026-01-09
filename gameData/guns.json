@@ -1,0 +1,28 @@
+{
+	"guns": [
+		{
+			"name": "Kinetic",
+			"bullet_name": "KineticBullet",
+			"force": 3500,
+			"interval": 0.1,
+			"clip": {
+				"max_ammo": 50,
+				"reload_time": 3.0,
+				"active_reload": false
+			}
+		},
+		{
+			"name": "Shotgun",
+			"bullet_name": "ShotgunBullet",
+			"force": 5000,
+			"interval": 0.2,
+			"spread": 10,
+			"intensity": 10,
+			"clip": {
+				"max_ammo": 200,
+				"reload_time": 5.0,
+				"active_reload": true
+			}
+		}
+	]
+}
