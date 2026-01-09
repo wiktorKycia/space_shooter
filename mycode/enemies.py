@@ -2,13 +2,14 @@ import pygame.time
 
 import json
 
-from mycode.other import RefillableBar, DeluxeHP
+from mycode.hp import RefillableBar, DeluxeHP
 from mycode.physics import PygamePhysics
-from mycode.displayable import Displayer, PathConverter
+from mycode.displayable import Displayer
 from mycode.spacecraft import Spacecraft
-from mycode.weapons import GunBuilderDirector, Weapon
+from mycode.weapons import GunBuilder, GunBuilderDirector, Weapon
 from mycode.Behaviors import *
 from mycode.slot import Slot
+from mycode.utils import create_image_with_alpha_conversion
 from typing import Callable, Type
 
 
@@ -28,7 +29,7 @@ class BaseEnemy(Spacecraft):
         self.hp.align(self.physics.pos.x, self.physics.pos.y - 50)
 
         for slot in self.slots:
-            slot.tick()
+            slot.tick(dt, self.physics.pos.x, self.physics.pos.y)
     
     def _move_bullets_after_die(self, bullet_list: list):
         for slot in self.slots:
@@ -38,7 +39,7 @@ class BaseEnemy(Spacecraft):
         self.displayer.draw(screen, self.physics.pos.x, self.physics.pos.y)
         
         for slot in self.slots:
-            slot.draw()
+            slot.draw(screen)
 
 
 class BaseEnemyBuilder:
@@ -51,7 +52,7 @@ class BaseEnemyBuilder:
     
     def buildImage(self, path: str, scale: float = 1.0):
         self.enemy.displayer = Displayer(
-            PathConverter(path).create(),
+            create_image_with_alpha_conversion(path),
             scale
         )
         return self
@@ -70,21 +71,30 @@ class BaseEnemyBuilder:
     def buildEnemy(self) -> BaseEnemy:
         return self.enemy
 
-    def buildSlot(self, translation: Vector2):
-        self.enemy.slots.append(Slot(translation, lambda: self.enemy.is_shooting))
-        return self
+    def buildSlot(self, translation: Vector2, gun_name: str | None = None):
+        if gun_name:
+            # temporarily only guns, in the future: make it interchangeable across all weapons
+            gun_builder = GunBuilder()
+            gun_builder_director = GunBuilderDirector(gun_builder, gun_name)
+            gun = gun_builder_director.build(is_player=False)
+
+            self.enemy.slots.append(Slot(translation, lambda: self.enemy.is_shooting, gun))
+            return self
+        else:
+            self.enemy.slots.append(Slot(translation, lambda: self.enemy.is_shooting))
+            return self
 
 class BaseEnemyBuilderDirector:
     def __init__(self, builder: BaseEnemyBuilder, enemy_type: str | None = None):
         self.enemy_type: str | None = enemy_type
         self.builder: BaseEnemyBuilder = builder
-        self.enemy_data: dir = { }
+        self.enemy_data: dict = { }
         self.slots: list = []
         self.__reload_file()
     
     def __reload_file(self):
         with open('./gameData/enemies.json', 'r') as f:
-            self.config: dir = json.load(f)
+            self.config: dict = json.load(f)
             enemies = self.config["enemies"]
             self.enemy_data = list(filter(lambda enemy: enemy['name'] == self.enemy_type, enemies))[0]
             self.slots = self.enemy_data['slots']
@@ -94,7 +104,7 @@ class BaseEnemyBuilderDirector:
         self.__reload_file()
     
     def build(self, x: float, y: float) -> BaseEnemy:
-        h: dir = self.config['enemiesDefaultHealthBar']
+        h: dict = self.config['enemiesDefaultHealthBar']
         enemy = (
             self.builder
             .reset()
@@ -105,7 +115,7 @@ class BaseEnemyBuilderDirector:
             )
         )
         for slot in self.slots:
-            enemy.buildSlot(Vector2(slot['x'], slot['y']))
+            enemy.buildSlot(Vector2(slot['x'], slot['y']), slot['weapon'])
         return enemy.buildEnemy()
 
 #

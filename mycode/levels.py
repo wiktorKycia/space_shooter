@@ -4,7 +4,7 @@ import json
 from mycode import spawners
 
 class WaveManager:
-    def __init__(self, config_file):
+    def __init__(self, config_file: str):
         with open(config_file, "r") as f:
             self.config = json.load(f)
     
@@ -18,19 +18,12 @@ class WaveManager:
         enemy_type = wave["enemy_type"]
 
         if wave_type == "single":
-            spawners.add_single(enemies, self.create_enemy(enemy_type, x, y))
+            spawners.add_single(enemies, x, y, enemy_type)
         elif wave_type == "pair":
-            spawners.pair(enemies, x, y, self.create_enemy(enemy_type, x, y))
+            spawners.pair(enemies, x, y, enemy_type)
         elif wave_type == "line":
             enemy_count = wave.get("enemy_count", 1)
-            spawners.line(enemies, x, y, enemy_count, self.create_enemy(enemy_type, x, y))
-    
-    @staticmethod
-    def create_enemy(enemy_type: str, x: float, y: float):
-        builder = BaseEnemyBuilder()
-        director = BaseEnemyBuilderDirector(builder, enemy_type)
-        enemy = director.build(x, y)
-        return enemy
+            spawners.line(enemies, x, y, enemy_count, enemy_type)
 
 
 class LevelManager:

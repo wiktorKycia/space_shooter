@@ -5,9 +5,10 @@ from pygame.math import Vector2
 import json
 
 from mycode.physics import PygamePhysics
-from mycode.displayable import Displayer, PathConverter
+from mycode.displayable import Displayer
 from mycode.projectile import Projectile
 from mycode.spacecraft import Spacecraft
+from mycode.utils import create_image_with_alpha_conversion
 
 mixer.init()
 
@@ -17,7 +18,7 @@ class Bullet(Projectile):
         super().__init__()
         self.sound: mixer.Sound | None = None
         self.line = None
-        self.steered_by_menu = False
+
     
     def check_collision(self, ship: Spacecraft):
         if self.line is not None:
@@ -101,7 +102,7 @@ class BulletBuilder:
 
     def buildDisplayer(self, path: str, scale: float = 1.0, is_player: bool = True):
         self.bullet.displayer = Displayer(
-            pygame.transform.rotate(PathConverter(path).create(), 90),
+            pygame.transform.rotate(create_image_with_alpha_conversion(path), 90),
             scale
         )
         if not is_player:
@@ -122,14 +123,14 @@ class BulletBuilderDirector:
     def __init__(self, builder: BulletBuilder, bullet_name: str):
         self.builder = builder
         self.bullet_name = bullet_name
-        self.bullet_data: dir = { }
+        self.bullet_data: dict = { }
         self.__reload_data()
     
     def __reload_data(self):
         with open("./gameData/bullets.json") as f:
-            self.config: dir = json.load(f)
+            self.config: dict = json.load(f)
             bullets = self.config['bullets']
-            self.bullet_data = list(filter(lambda bullet: bullet == self.bullet_name, bullets))[0]
+            self.bullet_data = list(filter(lambda bullet: bullet['name'] == self.bullet_name, bullets))[0]
     
     def choose_bullet(self, bullet_name):
         self.bullet_name = bullet_name

@@ -19,13 +19,13 @@
 					"x": 20,
 					"y": -20,
 					"key": "numpad_0",
-					"weapon": "Kinetic1"
+					"weapon": "Kinetic"
 				},
 				{
 					"x": -20,
 					"y": -20,
 					"key": "numpad_0",
-					"weapon": "Kinetic1"
+					"weapon": "Kinetic"
 				}
 			]
 		},
@@ -42,7 +42,7 @@
 					"x": 0,
 					"y": -20,
 					"key": "numpad_0",
-					"weapon": "ShotGun1"
+					"weapon": "Shotgun"
 				}
 			]
 		},
@@ -59,13 +59,13 @@
 					"x": -10,
 					"y": -20,
 					"key": "numpad_0",
-					"weapon": "Flamethrower1"
+					"weapon": "Kinetic"
 				},
 				{
 					"x": 10,
 					"y": -20,
 					"key": "numpad_0",
-					"weapon": "Flamethrower1"
+					"weapon": "Kinetic"
 				}
 			]
 		},
@@ -82,25 +82,25 @@
 					"x": 3,
 					"y": -15,
 					"key": "numpad_0",
-					"weapon": "Laser1"
+					"weapon": "Kinetic"
 				},
 				{
 					"x": -4,
 					"y": -15,
 					"key": "numpad_0",
-					"weapon": "Laser1"
+					"weapon": "Kinetic"
 				},
 				{
 					"x": 13,
 					"y": 6,
 					"key": "numpad_0",
-					"weapon": "Laser1"
+					"weapon": "Kinetic"
 				},
 				{
 					"x": 14,
 					"y": 6,
 					"key": "numpad_0",
-					"weapon": "Laser1"
+					"weapon": "Kinetic"
 				}
 			]
 		},

@@ -202,19 +202,19 @@ class DeluxeHP(RefillableBar):
                 (self.x - self.bar_length / 2, self.y - self.height / 2, self.bar_length, self.height), 2
             )
 
-class Mouse:
-    def __init__(self):
-        self.click_counter = 0
-        self.surf = pygame.Surface((1, 1))
-        self.surf.fill((0, 0, 0))
-        self.mask = pygame.mask.from_surface(self.surf)
-
-    def click(self, button=0):
-        if pygame.mouse.get_pressed()[button] == 1 and self.click_counter == 0:
-            self.click_counter += 1
-            return True
-        elif pygame.mouse.get_pressed()[button] == 0:
-            self.click_counter = 0
-        else:
-            self.click_counter += 1
-        return False
+# class Mouse:
+#     def __init__(self):
+#         self.click_counter = 0
+#         self.surf = pygame.Surface((1, 1))
+#         self.surf.fill((0, 0, 0))
+#         self.mask = pygame.mask.from_surface(self.surf)
+#
+#     def click(self, button=0):
+#         if pygame.mouse.get_pressed()[button] == 1 and self.click_counter == 0:
+#             self.click_counter += 1
+#             return True
+#         elif pygame.mouse.get_pressed()[button] == 0:
+#             self.click_counter = 0
+#         else:
+#             self.click_counter += 1
+#         return False

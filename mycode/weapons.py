@@ -5,11 +5,13 @@ import random
 
 class Weapon:
     def __init__(self):
-        self.trigger: Callable | None = None
         self.clip: BaseClip | None = None
         self.clock = 0
 
-    def tick(self, dt: float, x: float, y: float):
+    def shoot(self, x: float, y: float):
+        pass
+
+    def tick(self, dt: float):
         self.clock += dt
     
     def draw(self, screen: pygame.Surface):
@@ -23,19 +25,18 @@ class Gun(Weapon):
         self.bullet_name: str | None = None
         self.bullets: list[Bullet] = []
         self.clip: Clip | None = None
-        self.spread: tuple[float, float] | None = None
+        self.spread: tuple[float, float] = (0, 0)
         self.force: int | None = None
         self.is_player: bool | None = None
-        self.intensity: int | None = None
-    
-    @staticmethod
-    def _create_bullet(bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
+        self.intensity: int = 1
+
+    def _create_bullet(self, bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
         builder = BulletBuilder()
         director = BulletBuilderDirector(builder, bullet_name)
-        bullet: Bullet = director.build(x, y, initial_force, rotation)
+        bullet: Bullet = director.build(x, y, initial_force, rotation, self.is_player)
         return bullet
     
-    def shot(self, x: float, y: float):
+    def shoot(self, x: float, y: float):
         if self._shootCheck():
             for _ in range(self.intensity):
                 bullet = self._create_bullet(
@@ -47,16 +48,14 @@ class Gun(Weapon):
                 self.clip.shot()
     
     def _shootCheck(self) -> bool:
-        if self.trigger() and self.clock > self.interval and self.clip.can_i_shoot():
+        if self.clock > self.interval and self.clip.can_i_shoot():
             self.clock = 0
             return True
         return False
     
-    def tick(self, dt: float, x: float, y: float):
-        super().tick(dt, x, y)
+    def tick(self, dt: float):
+        super().tick(dt)
         self.clip.tick(dt)
-        
-        self.shot(x, y)
 
         for bullet in self.bullets:
             bullet.tick(dt)
@@ -71,7 +70,7 @@ class GunBuilder:
         self.gun: Gun | None = None
 
     def reset(self):
-        self.gun = Gun
+        self.gun = Gun()
         return self
     
     def set_trigger(self, trigger: Callable):
@@ -115,14 +114,14 @@ class GunBuilderDirector:
         self.gun_name: str | None = gun_name
         self.builder: GunBuilder = builder
         
-        self.gun_data: dir = { }
-        self.clip_data: dir = { }
+        self.gun_data: dict = { }
+        self.clip_data: dict = { }
         
         self.__reload_file()
     
     def __reload_file(self):
         with open('./gameData/guns.json', 'r') as f:
-            self.config: dir = json.load(f)
+            self.config: dict = json.load(f)
             guns = self.config["guns"]
             self.gun_data = list(filter(lambda gun: gun['name'] == self.gun_name, guns))[0]
             self.clip_data = self.gun_data['clip']
@@ -131,11 +130,10 @@ class GunBuilderDirector:
         self.gun_name = gun_name
         self.__reload_file()
     
-    def build(self, trigger: Callable, is_player: bool) -> Gun:
+    def build(self, is_player: bool) -> Gun:
         g = (
             self.builder
             .reset()
-            .set_trigger(trigger)
             .set_clip(self.clip_data['max_ammo'], self.clip_data['reload_time'], self.clip_data['active_reload'])
             .set_force(self.gun_data['force'])
             .set_interval(self.gun_data['interval'])

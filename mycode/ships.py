@@ -2,14 +2,14 @@ from typing import Type
 
 import pygame
 
-from mycode import DeluxeHP
-from mycode.other import RefillableBar
+from mycode.hp import DeluxeHP, RefillableBar
 from mycode.weapons import *
 from mycode.physics import PygamePhysics
 from mycode.slot import Slot
 from mycode.enemies import BaseEnemy
-from mycode.displayable import Displayer, PathConverter
+from mycode.displayable import Displayer
 from mycode.spacecraft import Spacecraft
+from mycode.utils import create_image_with_alpha_conversion
 import json
 import math
 
@@ -79,21 +79,24 @@ class PlayableShip(Spacecraft):
             self.physics.current_slip = self.physics.slip
 
         if force != [0, 0]:
-            self.physics.add_force(force.clamp_magnitude(self.physics.force))
+            self.physics.add_force(force.clamp_magnitude(0, abs(self.physics.force)))
         else:
             self.physics.add_force(force)
 
         for slot in self.slots:
-            slot.tick(dt, self.physics.pos)
+            slot.tick(dt, self.physics.pos.x, self.physics.pos.y)
         
         self.displayer.tick(self.physics.x, self.physics.y)
         self.physics.tick(dt)
     
     def draw(self, screen: pygame.Surface):
         self.hp.tick(screen)
-        self.displayer.draw(screen, self.physics.x, self.physics.y)
+        self.draw_for_menu(screen)
         for slot in self.slots:
             slot.draw(screen)
+
+    def draw_for_menu(self, screen: pygame.Surface):
+        self.displayer.draw(screen, self.physics.x, self.physics.y)
 
 
 class PlayableShipBuilder:
@@ -106,7 +109,7 @@ class PlayableShipBuilder:
     
     def buildImage(self, path: str, scale: float = 1.0):
         self.ship.displayer = Displayer(
-            PathConverter(path).create(),
+            create_image_with_alpha_conversion(path),
             scale
         )
         return self
@@ -125,9 +128,18 @@ class PlayableShipBuilder:
     def buildShip(self) -> PlayableShip:
         return self.ship
 
-    def buildSlot(self, translation: Vector2, trigger: Callable):
-        self.ship.slots.append(Slot(translation, trigger))
-        return self
+    def buildSlot(self, translation: Vector2, trigger: Callable, gun_name: str | None = None):
+        if gun_name:
+            # temporarily only guns, in the future: make it interchangeable across all weapons
+            gun_builder = GunBuilder()
+            gun_builder_director = GunBuilderDirector(gun_builder, gun_name)
+            gun: Gun = gun_builder_director.build(is_player=True)
+
+            self.ship.slots.append(Slot(translation, trigger, gun))
+            return self
+        else:
+            self.ship.slots.append(Slot(translation, trigger))
+            return self
 
 
 keys = {
@@ -137,6 +149,7 @@ keys = {
 class PlayableShipBuilderDirector:
     def __init__(self, builder: PlayableShipBuilder, ship_type: str | None = None):
         self.ship_type: str | None = ship_type
+        self.config: dict = { }
         self.ship_data: dict = { }
         self.slots: list = []
         self.builder: PlayableShipBuilder = builder
@@ -165,7 +178,7 @@ class PlayableShipBuilderDirector:
             )
         )
         for slot in self.slots:
-            ship.buildSlot(Vector2(slot['x'], slot['y']), lambda: pygame.key.get_pressed()[keys[slot['key']]])
+            ship.buildSlot(Vector2(slot['x'], slot['y']), lambda: pygame.key.get_pressed()[keys[slot['key']]], slot['weapon'])
         return ship.buildShip()
 #
 # class Ship1:

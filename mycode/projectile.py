@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pygame
+
 from mycode.physics import PygamePhysics
 from pygame.math import Vector2
 
@@ -16,6 +18,7 @@ class Projectile:
         self.displayer: Displayer | None = None
         self.damage: int = 0
         self.initial_rotation: float = 0.0
+        self.steered_by_menu = False
     
     def check_collision(self, ship: Spacecraft) -> bool:
         pass
@@ -23,5 +26,5 @@ class Projectile:
     def tick(self, dt: float):
         pass
     
-    def draw(self, dt: float):
+    def draw(self, screen: pygame.Surface):
         pass

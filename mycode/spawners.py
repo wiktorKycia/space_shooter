@@ -1,45 +1,53 @@
 from mycode.enemies import *
 from copy import deepcopy
+from pygame.math import Vector2
 
 
-def add_single(enemies: list[BaseEnemy], enemy: BaseEnemy):
-    enemies.append(enemy)
+def create_enemy(enemy_type: str, x: float, y: float):
+    builder = BaseEnemyBuilder()
+    director = BaseEnemyBuilderDirector(builder, enemy_type)
+    enemy = director.build(x, y)
+    return enemy
 
 
-def pair(enemies: list[BaseEnemy], x: float, y: float, enemy: BaseEnemy):
-    enemy1 = deepcopy(enemy)
-    enemy2 = deepcopy(enemy)
-    enemy1.physics.pos.xy = (x - 50, y)
-    enemy2.physics.pos.xy = (x + 50, y)
+def add_single(enemies: list[BaseEnemy], x: float, y: float, enemy_type: str):
+    enemies.append(create_enemy(enemy_type, x, y))
+
+
+def pair(enemies: list[BaseEnemy], x: float, y: float, enemy_type: str):
+    enemy1 = create_enemy(enemy_type, x, y)
+    enemy2 = create_enemy(enemy_type, x, y)
+    enemy1.physics.pos.xy = Vector2(x - 50, y)
+    enemy2.physics.pos.xy = Vector2(x + 50, y)
     enemies.extend([enemy1, enemy2])
 
 
-def line(enemies: list[BaseEnemy], x: float, y: float, length_: int, enemy: BaseEnemy, spacing: int = 100):
+def line(enemies: list[BaseEnemy], x: float, y: float, length_: int, enemy_type: str, spacing: int = 100):
     created: int = 0
     if length_ % 2 == 0:
-        enemy1 = deepcopy(enemy)
-        enemy2 = deepcopy(enemy)
+        enemy1 = create_enemy(enemy_type, x, y)
+        enemy2 = create_enemy(enemy_type, x, y)
         
-        enemy1.physics.pos.xy = (x - (spacing / 2), y)
-        enemy2.physics.pos.xy = (x + (spacing / 2), y)
+        enemy1.physics.pos.xy = Vector2(x - (spacing / 2), y)
+        enemy2.physics.pos.xy = Vector2(x + (spacing / 2), y)
         
         enemies.extend([enemy1, enemy2])
         created = 2
     else:
-        enemy1 = deepcopy(enemy)
+        enemy1 = create_enemy(enemy_type, x, y)
         enemies.append(enemy1)
         created = 1
     
     for i in range(0, int((length_ - created) / 2)):
-        enemy1 = deepcopy(enemy)
-        enemy2 = deepcopy(enemy)
+        enemy1 = create_enemy(enemy_type, x, y)
+        enemy2 = create_enemy(enemy_type, x, y)
         
         if created == 2:
-            enemy1.physics.pos.xy = (x - (i + 1) * spacing, y)
-            enemy2.physics.pos.xy = (x + (i + 1) * spacing, y)
+            enemy1.physics.pos.xy = Vector2(x - (i + 1) * spacing, y)
+            enemy2.physics.pos.xy = Vector2(x + (i + 1) * spacing, y)
         else:
-            enemy1.physics.pos.xy = (x - 50 - (i + 1) * spacing, y)
-            enemy2.physics.pos.xy = (x + 50 + (i + 1) * spacing, y)
+            enemy1.physics.pos.xy = Vector2(x - 50 - (i + 1) * spacing, y)
+            enemy2.physics.pos.xy = Vector2(x + 50 + (i + 1) * spacing, y)
         
         enemies.extend([enemy1, enemy2])
 

@@ -1,6 +1,7 @@
 .idea/
 __pycache__
 venv
+.venv
 images/the chosen ones
 images/ship1.xcf
 explsion_sounds
@@ -14,3 +15,5 @@ images/SpaceShips4
 images/SpaceShips3
 images/ships
 SpaceShips4
+todo.txt
+a.py

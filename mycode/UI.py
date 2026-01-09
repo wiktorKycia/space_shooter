@@ -1,25 +1,183 @@
 from mycode.ships import *
 from mycode.player import *
-from mycode.general import *
+from mycode.utils import *
 import pygame
 from pygame.math import *
 from pygame.locals import *
 import json
-from mycode import TextButton, Clickable
-from mycode.other import Mouse
+from abc import abstractmethod, ABC
+from typing import Optional
+
+class ButtonDisplayer(ABC):
+    @abstractmethod
+    def get_rect(self) -> pygame.rect.Rect:
+        """Returns the rect area of the button"""
+        pass
+    @abstractmethod
+    def get_width(self) -> int:
+        """Returns the width of the button"""
+        pass
+    @abstractmethod
+    def get_height(self) -> int:
+        """Returns the height of the button"""
+        pass
+    @abstractmethod
+    def activate(self) -> None:
+        """An action performed when a button goes active, for example when mouse hovers over it"""
+        pass
+    @abstractmethod
+    def deactivate(self) -> None:
+        """An action performed when a button goes inactive, for example when mouse leaves the object"""
+        pass
+    @abstractmethod
+    def draw(self, screen: pygame.Surface, x:int , y:int) -> None:
+        """Displays the button on the screen"""
+        pass
+
+class ImageButtonDisplayer(ButtonDisplayer):
+    def __init__(self, path: str, path_hover: str = "", scale: float = 1.0):
+        """
+        Display manager for buttons, that have an image, that changes on hover
+        :param path: path to the main image
+        :param scale: scale of the image
+        :param path_hover: path to image shown, when mouse is over the object
+        """
+        self.main_image: pygame.Surface = pygame.image.load(path).convert_alpha()
+        self.hover_image: Optional[pygame.Surface] = None
+        self.current_image: pygame.Surface = self.main_image
+
+        if scale != 1.0:
+            self.main_image = pygame.transform.scale_by(self.main_image, scale)
+
+        if path_hover != "":
+            self.hover_image = pygame.image.load(path_hover)
+
+            if scale != 1.0:
+                self.hover_image = pygame.transform.scale_by(self.hover_image, scale)
+
+    def get_rect(self) -> pygame.rect.Rect:
+        return self.current_image.get_rect()
+
+    def get_width(self) -> int:
+        return self.current_image.get_width()
+
+    def get_height(self) -> int:
+        return self.current_image.get_height()
+
+    def activate(self):
+        if self.hover_image:
+            self.current_image = self.hover_image
+
+    def deactivate(self):
+        self.current_image = self.main_image
+
+    def draw(self, screen: pygame.Surface, x:int, y:int):
+        screen.blit(self.current_image, (x - self.current_image.get_width() / 2, y - self.current_image.get_height() / 2))
+
+class TextButtonDisplayer(ButtonDisplayer):
+    def __init__(self, width: int, height: int, text: str, color: tuple[int, int, int] = (30, 30, 30), hover_color: tuple[int, int, int] = (100, 100, 100)):
+        """
+        Display managers for buttons, that has dynamic or not-repetitive text inside of them
+        :param width:
+        :param height:
+        :param text:
+        """
+        self.main_color: tuple[int, int, int] = color
+        self.hover_color: tuple[int, int, int] = hover_color
+
+        self.surf: pygame.Surface = pygame.Surface((width, height))
+        self.surf.fill(color)
+
+        self.text: str = text
+
+    def get_rect(self) -> pygame.rect.Rect:
+        return self.surf.get_rect()
+
+    def get_width(self) -> int:
+        return self.surf.get_width()
+
+    def get_height(self) -> int:
+        return self.surf.get_height()
+
+    def activate(self) -> None:
+        self.surf.fill(self.hover_color)
+        write(self.surf, self.text, 0, 0, 28, (250, 250, 250), is_centered=True)
+
+    def deactivate(self) -> None:
+        self.surf.fill(self.main_color)
+        write(self.surf, self.text, 0, 0, 28, (200, 200, 200), is_centered=True)
+
+    def draw(self, screen, x, y):
+        """
+        Blits the button surface on the screen,
+        draws the border of the button,
+        writes the text of the button
+        :return:
+        """
+        rect = screen.blit(self.surf, (x - self.get_width() / 2, y - self.get_height() / 2))
+        pygame.draw.rect(screen, (250, 250, 250), rect, 1)
+        write(self.surf, self.text, 0, 0, 28, (200, 200, 200), is_centered=True)
+
+class Button:
+    def __init__(self, x: int, y:int, displayer: ButtonDisplayer, callback: Callable = lambda: None):
+        """
+        A class for the object, that can be clicked,
+        it might have 2 images, as one will be shown only when mouse is hovering over the image rectangle
+        :param x: x coordinate
+        :param y: y coordinate
+        :param callback: a function to call when the button is clicked
+        """
+        self.x: int = x
+        self.y: int = y
+
+        self.displayer: ButtonDisplayer = displayer
+
+        # self.width = self.current_image.get_width()
+        # self.height = self.current_image.get_height()
+
+        self.rect: pygame.rect.Rect = self.displayer.get_rect()
+        self.rect.center = (x, y)
+
+        self.callback: Callable = callback
+
+    def tick(self, click: bool):
+        """
+        sets action variable to False\n
+        checks the mouse position,\n
+        checks if mouse collides with rect,
+         - if yes -> activates the button, checks if the mouse is clicked,
+         * if yes -> calls the callback function
+         - if no -> deactivates the button
+        :return: action
+        """
+        pos = pygame.mouse.get_pos()
+
+        if self.rect.collidepoint(pos):
+            self.displayer.activate()
+
+            if click:
+                self.callback()
+
+        else:
+            self.displayer.deactivate()
+
+    def draw(self, screen: pygame.Surface):
+        self.displayer.draw(screen, self.x, self.y)
 
 
-class LevelButton(TextButton):
-    def __init__(self, x, y, width, height, level_id: int):
+class LevelButton(Button):
+    def __init__(self, x: int, y:int, width:int, height:int, level_id: int, callback: Callable):
         self.level_id = level_id
-        self.text = f"Level {str(level_id)}"
-        super().__init__(x, y, width, height, self.text)
+        self.displayer: ButtonDisplayer = TextButtonDisplayer(width, height, f"Level {str(level_id)}")
+        super().__init__(x, y, self.displayer, callback)
 
 
-class Button(Clickable):
-    def __init__(self, x: float, y: float, path: str, scale: float = 1.0, path2: str = ""):
-        super().__init__(x, y, path, scale, path2)
-
+# class Button(Clickable):
+#     def __init__(self, x: float, y: float, path: str, scale: float = 1.0, path_hover: str = "", callback: Callable = lambda: None):
+#         super().__init__(x, y, path, scale, path_hover, callback)
+#
+#     def tick(self, click: bool):
+#         super().tick(click)
 
 class MenuHandler:
     def __init__(self, mainmenu):
@@ -47,116 +205,108 @@ class MenuHandler:
     def draw(self, *args):
         self.currentMenu.draw_menu(args)
 
-
-class Menu:
-    def __init__(self):
-        pass
-
-class MainMenu:
-    def __init__(self, screen_size: tuple[int, int]):
-        self.title_image = pygame.image.load("./images/Game_title.png")
-        self.title_image = pygame.transform.scale(self.title_image, (int(self.title_image.get_width() * 2), int(self.title_image.get_height() * 2)))
-        
-        self.button_play = Button(
-            screen_size[0] / 2, screen_size[1] / 2, "./images/buttons/button_play.png", 1.0,
-            "./images/buttons/button_play_hover.png"
-        )
-        self.button_exit = Button(
-            50, 700, "./images/buttons/button_exit.png", 1.0, "./images/buttons/button_exit_hover.png"
-        )
-        self.buttons = [
-            self.button_play,
-            self.button_exit
-        ]
-        self.background = pygame.image.load("./images/background.png").convert_alpha()
-    
-    def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler, quit_game: Callable):
-        if self.button_play.check_click(mouse):
-            menuHandler.changeMenu(GameMenu)
-        elif self.button_exit.check_click(mouse):
-            quit_game()
-    
-    def draw_menu(self, screen: pygame.Surface):
-        screen.blit(self.background, (0, 0))
-        screen.blit(
-            self.title_image,
-            (screen.get_width() / 2 - self.title_image.get_width() / 2, 150 - self.title_image.get_height() / 2)
-        )
-        for button in self.buttons:
-            button.draw(screen)
-
-class GameMenu:
-    def __init__(self, screen_size: tuple[int, int], ship: PlayableShip):
-        screen_size: tuple[int, int] = screen_size
-        
-        # define the buttons
-        self.button_endless = Button(
-            screen_size[0] / 3, screen_size[1] / 5, "./images/buttons/button_endless.png", 1.0,
-            "./images/buttons/button_endless_hover.png"
-            )
-        self.button_levels = Button(
-            screen_size[0] * 2 / 3, screen_size[1] / 5, "./images/buttons/button_levels.png", 1.0,
-                                    "./images/buttons/button_levels_hover.png")
-        self.button_ship = Button(
-            screen_size[0] / 4, screen_size[1] - 50, "./images/buttons/button_ship.png", 1.0,
-            "./images/buttons/button_ship_hover.png"
-            )
-        self.button_hangar = Button(
-            screen_size[0] / 2, screen_size[1] - 50, "./images/buttons/button_hangar.png", 1.0,
-            "./images/buttons/button_hangar_hover.png"
-            )
-        self.button_shop = Button(
-            screen_size[0] * 3 / 4, screen_size[1] - 50, "./images/buttons/button_shop.png", 1.0,
-            "./images/buttons/button_shop_hover.png"
-            )
-        self.button_back = Button(
-            50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png"
-        )
-
-        # pack the buttons to the list
-        self.buttons = [
-            self.button_endless,
-            self.button_levels,
-            self.button_ship,
-            self.button_hangar,
-            self.button_shop,
-            self.button_back
-        ]
-        self.background = pygame.image.load("./images/background.png").convert_alpha()
-        ship.reset_stats(screen_size)
-
-
-        # self.game.menuHandler.currentMenu.other_bullets.clear()
-
-        # coin
-        self.coin: pygame.Surface = convert_path("./images/coin.png")
-        width = self.coin.get_width()
-        height = self.coin.get_height()
-        self.coin = pygame.transform.scale(self.coin, (int(width * 5), int(height * 5)))
-    
-    def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler):
-        if self.button_levels.check_click(mouse):
-            menuHandler.changeMenu(LevelsMenu)
-        elif self.button_back.check_click(mouse):
-            menuHandler.changeMenu(MainMenu)
-        elif self.button_hangar.check_click(mouse):
-            menuHandler.changeMenu(HangarMenu)
-        elif self.button_ship.check_click(mouse):
-            menuHandler.changeMenu(ShipMenu)
-    
-    def draw_menu(self, screen: pygame.Surface, player_ship: PlayableShip, coins: int):
-        screen.blit(self.background, (0, 0))
-        for button in self.buttons:
-            button.draw(screen)
-        player_ship.draw(screen)
-        screen.blit(self.coin, (450, 300))
-        write(str(coins), 500, 300, 36, (200, 200, 200))
-        
-        write(f"Health: {str(player_ship.hp.amount)}", 50, 300, 28, (200, 200, 200))
-        write(f"Force: {str(player_ship.physics.force)}", 50, 350, 28, (200, 200, 200))
-        write(f"Mass: {str(player_ship.physics.mass)}", 50, 400, 28, (200, 200, 200))
-
-
+#
+# class Menu:
+#     def __init__(self):
+#         pass
+#
+# class MainMenu:
+#     def __init__(self, screen_size: tuple[int, int]):
+#
+#         # self.
+#         self.buttons = [
+#             self.button_play,
+#             self.button_exit
+#         ]
+#         self.background = pygame.image.load("./images/background.png").convert_alpha()
+#
+#     def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler, quit_game: Callable):
+#         if self.button_play.check_click(mouse):
+#             menuHandler.changeMenu(GameMenu)
+#         elif self.button_exit.check_click(mouse):
+#             quit_game()
+#
+#     def draw_menu(self, screen: pygame.Surface):
+#         screen.blit(self.background, (0, 0))
+#         screen.blit(
+#             self.title_image,
+#             (screen.get_width() / 2 - self.title_image.get_width() / 2, 150 - self.title_image.get_height() / 2)
+#         )
+#         for button in self.buttons:
+#             button.draw(screen)
+#
+# class GameMenu:
+#     def __init__(self, screen_size: tuple[int, int], ship: PlayableShip):
+#         screen_size: tuple[int, int] = screen_size
+#
+#         # define the buttons
+#         self.button_endless = Button(
+#             screen_size[0] / 3, screen_size[1] / 5, "./images/buttons/button_endless.png", 1.0,
+#             "./images/buttons/button_endless_hover.png"
+#             )
+#         self.button_levels = Button(
+#             screen_size[0] * 2 / 3, screen_size[1] / 5, "./images/buttons/button_levels.png", 1.0,
+#                                     "./images/buttons/button_levels_hover.png")
+#         self.button_ship = Button(
+#             screen_size[0] / 4, screen_size[1] - 50, "./images/buttons/button_ship.png", 1.0,
+#             "./images/buttons/button_ship_hover.png"
+#             )
+#         self.button_hangar = Button(
+#             screen_size[0] / 2, screen_size[1] - 50, "./images/buttons/button_hangar.png", 1.0,
+#             "./images/buttons/button_hangar_hover.png"
+#             )
+#         self.button_shop = Button(
+#             screen_size[0] * 3 / 4, screen_size[1] - 50, "./images/buttons/button_shop.png", 1.0,
+#             "./images/buttons/button_shop_hover.png"
+#             )
+#         self.button_back = Button(
+#             50, 700, "./images/buttons/button_back.png", 1.0, "./images/buttons/button_back_hover.png"
+#         )
+#
+#         # pack the buttons to the list
+#         self.buttons = [
+#             self.button_endless,
+#             self.button_levels,
+#             self.button_ship,
+#             self.button_hangar,
+#             self.button_shop,
+#             self.button_back
+#         ]
+#         self.background = pygame.image.load("./images/background.png").convert_alpha()
+#         ship.reset_stats(screen_size)
+#
+#
+#         # self.game.menuHandler.currentMenu.other_bullets.clear()
+#
+#         # coin
+#         self.coin: pygame.Surface = convert_path("./images/coin.png")
+#         width = self.coin.get_width()
+#         height = self.coin.get_height()
+#         self.coin = pygame.transform.scale(self.coin, (int(width * 5), int(height * 5)))
+#
+#     def tick_menu(self, mouse: Mouse, menuHandler: MenuHandler):
+#         if self.button_levels.check_click(mouse):
+#             menuHandler.changeMenu(LevelsMenu)
+#         elif self.button_back.check_click(mouse):
+#             menuHandler.changeMenu(MainMenu)
+#         elif self.button_hangar.check_click(mouse):
+#             menuHandler.changeMenu(HangarMenu)
+#         elif self.button_ship.check_click(mouse):
+#             menuHandler.changeMenu(ShipMenu)
+#
+#     def draw_menu(self, screen: pygame.Surface, player_ship: PlayableShip, coins: int):
+#         screen.blit(self.background, (0, 0))
+#         for button in self.buttons:
+#             button.draw(screen)
+#         player_ship.draw(screen)
+#         screen.blit(self.coin, (450, 300))
+#         write(str(coins), 500, 300, 36, (200, 200, 200))
+#
+#         write(f"Health: {str(player_ship.hp.amount)}", 50, 300, 28, (200, 200, 200))
+#         write(f"Force: {str(player_ship.physics.force)}", 50, 350, 28, (200, 200, 200))
+#         write(f"Mass: {str(player_ship.physics.mass)}", 50, 400, 28, (200, 200, 200))
+#
+'''
 from mycode.levels import LevelManager
 from mycode.enemies import BaseEnemy
 class LevelGame:
@@ -382,3 +532,4 @@ class ShipMenu:
         # self.ship.pos = Vector2(self.game.width / 2, 50)
         # self.ship.draw()
         self.button_back.draw(screen)
+'''
