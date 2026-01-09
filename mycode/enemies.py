@@ -88,13 +88,13 @@ class BaseEnemyBuilderDirector:
     def __init__(self, builder: BaseEnemyBuilder, enemy_type: str | None = None):
         self.enemy_type: str | None = enemy_type
         self.builder: BaseEnemyBuilder = builder
-        self.enemy_data: dir = { }
+        self.enemy_data: dict = { }
         self.slots: list = []
         self.__reload_file()
     
     def __reload_file(self):
         with open('./gameData/enemies.json', 'r') as f:
-            self.config: dir = json.load(f)
+            self.config: dict = json.load(f)
             enemies = self.config["enemies"]
             self.enemy_data = list(filter(lambda enemy: enemy['name'] == self.enemy_type, enemies))[0]
             self.slots = self.enemy_data['slots']
@@ -104,7 +104,7 @@ class BaseEnemyBuilderDirector:
         self.__reload_file()
     
     def build(self, x: float, y: float) -> BaseEnemy:
-        h: dir = self.config['enemiesDefaultHealthBar']
+        h: dict = self.config['enemiesDefaultHealthBar']
         enemy = (
             self.builder
             .reset()

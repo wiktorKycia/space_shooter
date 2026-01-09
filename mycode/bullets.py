@@ -123,12 +123,12 @@ class BulletBuilderDirector:
     def __init__(self, builder: BulletBuilder, bullet_name: str):
         self.builder = builder
         self.bullet_name = bullet_name
-        self.bullet_data: dir = { }
+        self.bullet_data: dict = { }
         self.__reload_data()
     
     def __reload_data(self):
         with open("./gameData/bullets.json") as f:
-            self.config: dir = json.load(f)
+            self.config: dict = json.load(f)
             bullets = self.config['bullets']
             self.bullet_data = list(filter(lambda bullet: bullet['name'] == self.bullet_name, bullets))[0]
     
