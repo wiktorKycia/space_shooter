@@ -29,12 +29,11 @@ class Gun(Weapon):
         self.force: int | None = None
         self.is_player: bool | None = None
         self.intensity: int = 1
-    
-    @staticmethod
-    def _create_bullet(bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
+
+    def _create_bullet(self, bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
         builder = BulletBuilder()
         director = BulletBuilderDirector(builder, bullet_name)
-        bullet: Bullet = director.build(x, y, initial_force, rotation)
+        bullet: Bullet = director.build(x, y, initial_force, rotation, self.is_player)
         return bullet
     
     def shoot(self, x: float, y: float):
@@ -115,14 +114,14 @@ class GunBuilderDirector:
         self.gun_name: str | None = gun_name
         self.builder: GunBuilder = builder
         
-        self.gun_data: dir = { }
-        self.clip_data: dir = { }
+        self.gun_data: dict = { }
+        self.clip_data: dict = { }
         
         self.__reload_file()
     
     def __reload_file(self):
         with open('./gameData/guns.json', 'r') as f:
-            self.config: dir = json.load(f)
+            self.config: dict = json.load(f)
             guns = self.config["guns"]
             self.gun_data = list(filter(lambda gun: gun['name'] == self.gun_name, guns))[0]
             self.clip_data = self.gun_data['clip']
