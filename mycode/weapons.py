@@ -29,12 +29,11 @@ class Gun(Weapon):
         self.force: int | None = None
         self.is_player: bool | None = None
         self.intensity: int = 1
-    
-    @staticmethod
-    def _create_bullet(bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
+
+    def _create_bullet(self, bullet_name: str, x: float, y: float, initial_force: int, rotation: float) -> Bullet:
         builder = BulletBuilder()
         director = BulletBuilderDirector(builder, bullet_name)
-        bullet: Bullet = director.build(x, y, initial_force, rotation)
+        bullet: Bullet = director.build(x, y, initial_force, rotation, self.is_player)
         return bullet
     
     def shoot(self, x: float, y: float):
