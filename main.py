@@ -66,7 +66,7 @@ def main_menu():
 	)
 
 	button_exit = Button(
-		50, 700,
+		50, height-50,
 		ImageButtonDisplayer("./images/buttons/button_exit.png", "./images/buttons/button_exit_hover.png"),
 		callback=lambda: menu_quit()
 	)
@@ -153,7 +153,7 @@ def game():
 		ImageButtonDisplayer("./images/buttons/button_shop.png", "./images/buttons/button_shop_hover.png")
 	)
 	button_back = Button(
-		50, 700, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
+		50, height-50, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
 		callback=menu_quit
 	)
 
@@ -230,7 +230,7 @@ def levels():
 		return y
 
 	button_back = Button(
-		50, 700, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
+		50, height-50, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
 		callback=menu_quit
 	)
 	level_buttons = []
