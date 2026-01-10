@@ -9,7 +9,7 @@ pygame.init()
 pygame.display.set_caption("Planet defender")
 
 # screen
-width, height = (750, 750)
+width, height = (800, 800)
 screen = pygame.display.set_mode((width, height))
 
 # clocks
