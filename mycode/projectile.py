@@ -19,6 +19,8 @@ class Projectile:
         self.damage: int = 0
         self.initial_rotation: float = 0.0
         self.steered_by_menu = False
+        self.line: tuple[tuple[float, float], tuple[float, float]] | None = None
+        self.is_player: bool | None = None
     
     def check_collision(self, ship: Spacecraft) -> bool:
         pass
