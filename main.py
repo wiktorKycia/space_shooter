@@ -48,7 +48,7 @@ def main_menu():
 	)
 
 	# load background image
-	bg = pygame.image.load("./images/background.png").convert_alpha()
+	bg = pygame.image.load("./images/peakpx.png").convert_alpha()
 
 	# get the mouse position
 	# mx, my = pygame.mouse.get_pos()
