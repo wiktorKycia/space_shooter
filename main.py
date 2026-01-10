@@ -2,6 +2,7 @@ import pygame, sys
 from mycode.levels import *
 from mycode.UI import *
 from pygame.locals import *
+from mycode.collisions import check_collision
 import json
 
 # initialization
@@ -317,6 +318,10 @@ def level(level_number: int, config_file: str):
 	while running:
 		screen.fill((0, 0, 0))
 
+		# collision detection
+
+
+		# ticking
 		player_ship.tick(dt)
 		for enemy in enemies:
 			enemy.tick(dt)
@@ -329,6 +334,7 @@ def level(level_number: int, config_file: str):
 
 		level_manager.tick(level_number, enemies)
 
+		# drawing
 		for enemy in enemies:
 			enemy.draw(screen)
 
