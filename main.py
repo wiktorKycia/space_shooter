@@ -186,7 +186,7 @@ def game():
 		write(surf=screen, text=str(player.coins), x=500, y=300, font_size=36, color=(200, 200, 200))
 
 		write(surf=screen, text=f"Health: {str(ship.hp.amount)}", x=50, y=300, font_size=28, color=(200, 200, 200))
-		write(surf=screen, text=f"Force: {str(-ship.physics.force)}", x=50, y=350, font_size=28, color=(200, 200, 200))
+		write(surf=screen, text=f"Force: {str(ship.physics.force)}", x=50, y=350, font_size=28, color=(200, 200, 200))
 		write(surf=screen, text=f"Mass: {str(ship.physics.mass)}", x=50, y=400, font_size=28, color=(200, 200, 200))
 
 		for button in buttons:
