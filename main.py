@@ -9,8 +9,11 @@ pygame.init()
 pygame.display.set_caption("Planet defender")
 
 # screen
-width, height = (750, 750)
+width, height = (800, 800)
 screen = pygame.display.set_mode((width, height))
+
+# load background image
+bg = pygame.image.load("./images/peakpx.png").convert_alpha()
 
 # clocks
 tps_max = 100.0
@@ -38,6 +41,7 @@ def main_menu():
 	global click
 	global dt
 	global width, height
+	global bg
 	running: bool = True
 
 	# Loading objects
@@ -46,9 +50,6 @@ def main_menu():
 	title_image = pygame.transform.scale(
 		title_image, (int(title_image.get_width() * 2), int(title_image.get_height() * 2))
 	)
-
-	# load background image
-	bg = pygame.image.load("./images/background.png").convert_alpha()
 
 	# get the mouse position
 	# mx, my = pygame.mouse.get_pos()
@@ -65,7 +66,7 @@ def main_menu():
 	)
 
 	button_exit = Button(
-		50, 700,
+		50, height-50,
 		ImageButtonDisplayer("./images/buttons/button_exit.png", "./images/buttons/button_exit_hover.png"),
 		callback=lambda: menu_quit()
 	)
@@ -122,6 +123,7 @@ def game():
 	global dt
 	global width, height
 	global player
+	global bg
 	running: bool = True
 
 	def menu_quit():
@@ -151,7 +153,7 @@ def game():
 		ImageButtonDisplayer("./images/buttons/button_shop.png", "./images/buttons/button_shop_hover.png")
 	)
 	button_back = Button(
-		50, 700, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
+		50, height-50, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
 		callback=menu_quit
 	)
 
@@ -164,7 +166,7 @@ def game():
 		button_shop,
 		button_back
 	]
-	bg = pygame.image.load("./images/background.png").convert_alpha()
+
 	ship = player.current_ship
 	ship.reset_stats((width, height))
 
@@ -180,11 +182,11 @@ def game():
 			button.draw(screen)
 
 		ship.draw_for_menu(screen)
-		screen.blit(coin, (450, 300))
-		write(surf=screen, text=str(player.coins), x=500, y=300, font_size=36, color=(200, 200, 200))
+		screen.blit(coin, (550, 300))
+		write(surf=screen, text=str(player.coins), x=600, y=300, font_size=36, color=(200, 200, 200))
 
 		write(surf=screen, text=f"Health: {str(ship.hp.amount)}", x=50, y=300, font_size=28, color=(200, 200, 200))
-		write(surf=screen, text=f"Force: {str(-ship.physics.force)}", x=50, y=350, font_size=28, color=(200, 200, 200))
+		write(surf=screen, text=f"Force: {str(ship.physics.force)}", x=50, y=350, font_size=28, color=(200, 200, 200))
 		write(surf=screen, text=f"Mass: {str(ship.physics.mass)}", x=50, y=400, font_size=28, color=(200, 200, 200))
 
 		for button in buttons:
@@ -228,7 +230,7 @@ def levels():
 		return y
 
 	button_back = Button(
-		50, 700, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
+		50, height-50, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
 		callback=menu_quit
 	)
 	level_buttons = []
