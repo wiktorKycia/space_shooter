@@ -361,6 +361,8 @@ def pause_menu(button_exit_callback: Callable):
 	def menu_exit():
 		nonlocal running
 		running = False
+		global player
+		player.current_ship.reset_stats((width, height))
 		button_exit_callback()
 
 	button_exit = Button(
