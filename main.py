@@ -12,6 +12,9 @@ pygame.display.set_caption("Planet defender")
 width, height = (800, 800)
 screen = pygame.display.set_mode((width, height))
 
+# load background image
+bg = pygame.image.load("./images/peakpx.png").convert_alpha()
+
 # clocks
 tps_max = 100.0
 tps_clock = pygame.time.Clock()
@@ -38,6 +41,7 @@ def main_menu():
 	global click
 	global dt
 	global width, height
+	global bg
 	running: bool = True
 
 	# Loading objects
@@ -46,9 +50,6 @@ def main_menu():
 	title_image = pygame.transform.scale(
 		title_image, (int(title_image.get_width() * 2), int(title_image.get_height() * 2))
 	)
-
-	# load background image
-	bg = pygame.image.load("./images/peakpx.png").convert_alpha()
 
 	# get the mouse position
 	# mx, my = pygame.mouse.get_pos()
@@ -122,6 +123,7 @@ def game():
 	global dt
 	global width, height
 	global player
+	global bg
 	running: bool = True
 
 	def menu_quit():
@@ -164,7 +166,7 @@ def game():
 		button_shop,
 		button_back
 	]
-	bg = pygame.image.load("./images/background.png").convert_alpha()
+
 	ship = player.current_ship
 	ship.reset_stats((width, height))
 
