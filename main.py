@@ -364,7 +364,7 @@ def level(level_number: int, config_file: str):
 		for projectile, _ship in collisions:
 			_ship.hp.damage(projectile.damage)
 			projectile.alive = False
-			if _ship.hp.amount >= 0:
+			if _ship.hp.amount <= 0:
 				_ship.alive = False
 
 		# cleanup of dead projectiles
