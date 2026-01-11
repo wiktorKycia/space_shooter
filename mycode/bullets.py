@@ -211,3 +211,9 @@ class CollisionManager:
         ):
             return True
         return False
+
+    def cleanup_dead_objects(self):
+        """Removed flagged instances"""
+        self.player_projectiles = [p for p in self.player_projectiles if p.alive]
+        self.enemy_projectiles = [p for p in self.enemy_projectiles if p.alive]
+        self.ships = [s for s in self.ships if s.alive]
