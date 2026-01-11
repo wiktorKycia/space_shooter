@@ -346,6 +346,8 @@ def level(level_number: int, config_file: str):
 
 		player_ship.draw(screen)
 
+
+		# load new projectiles to collision manager
 		for slot in player_ship.slots:
 			for p in slot.weapon.get_new_projectiles():
 				collision_manager.register_projectile(p)
@@ -362,6 +364,8 @@ def level(level_number: int, config_file: str):
 		for projectile, _ship in collisions:
 			_ship.hp.damage(projectile.damage)
 			projectile.alive = False
+			if _ship.hp.amount >= 0:
+				_ship.alive = False
 
 		# cleanup of dead projectiles
 		collision_manager.cleanup_dead_objects()
@@ -369,6 +373,9 @@ def level(level_number: int, config_file: str):
 		for enemy in enemies:
 			for slot in enemy.slots:
 				slot.weapon.cleanup_dead_projectiles()
+			if not enemy.alive:
+				enemies.remove(enemy)
+				del enemy
 
 		for slot in player_ship.slots:
 			slot.weapon.cleanup_dead_projectiles()
