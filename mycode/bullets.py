@@ -1,3 +1,4 @@
+from argparse import ArgumentError
 from typing import Optional
 
 import pygame
@@ -156,3 +157,12 @@ class CollisionManager:
             self.player_projectiles.add(projectile)
         else:
             self.enemy_projectiles.add(projectile)
+
+    def register_projectiles(self, projectiles: list[Projectile]):
+        # if len(projectiles) == 0:
+        #     raise ArgumentError("The length of 'projectiles' parameter should not be zero")
+
+        if projectiles[0].is_player:
+            self.player_projectiles |= projectiles
+        else:
+            self.enemy_projectiles |= projectiles
