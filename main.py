@@ -350,7 +350,7 @@ def level(level_number: int, config_file: str):
 		collisions = collision_manager.check_collisions()
 
 		# handle collision results
-		for _, projectile, _ship in collisions:
+		for projectile, _ship in collisions:
 			_ship.hp.damage(projectile.damage)
 			projectile.alive = False
 

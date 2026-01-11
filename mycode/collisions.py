@@ -38,19 +38,19 @@ class CollisionManager:
         """Adds a ship to the list of ships"""
         self.ships.add(ship)
 
-    def check_collisions(self) -> list[tuple[bool, Projectile, Spacecraft]]:
+    def check_collisions(self) -> list[tuple[Projectile, Spacecraft]]:
         """Main collision detection - call this every frame"""
-        collisions: list[tuple[bool, Projectile, Spacecraft]] = [] # bool: player-friendly, bullet object, ship object
+        collisions: list[tuple[Projectile, Spacecraft]] = []
 
         for p in self.player_projectiles:
             for enemy in list(filter(lambda s: isinstance(s, BaseEnemy), self.ships)):
                 if self._check_collision(p, enemy):
-                    collisions.append((True, p, enemy))
+                    collisions.append((p, enemy))
 
         for p in self.enemy_projectiles:
             for ship in list(filter(lambda s: isinstance(s, PlayableShip), self.ships)):
                 if self._check_collision(p, ship):
-                    collisions.append((False, p, ship))
+                    collisions.append((p, ship))
 
         return collisions
 
