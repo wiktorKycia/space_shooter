@@ -2,7 +2,7 @@ import pygame, sys
 from mycode.levels import *
 from mycode.UI import *
 from pygame.locals import *
-from mycode.collisions import check_collision
+from mycode.collisions import CollisionManager
 import json
 
 # initialization
@@ -35,7 +35,8 @@ with open("./gameData/playerShips.json") as f:
 		shipDirector.choose_ship(ship['name'])
 		player.add_new_ship(shipDirector.build(width / 2, height / 2))
 
-
+# collisions
+collision_manager = CollisionManager()
 
 def main_menu():
 	global tps_clock
@@ -315,11 +316,13 @@ def level(level_number: int, config_file: str):
 	# reset player's ship's stats
 	player_ship.refill_stats()
 
+	# collisions
+	collision_manager.register_ship(player_ship)
+	for e in enemies:
+		collision_manager.register_ship(e)
+
 	while running:
 		screen.fill((0, 0, 0))
-
-		# collision detection
-
 
 		# ticking
 		player_ship.tick(dt)
