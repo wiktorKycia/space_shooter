@@ -18,10 +18,6 @@ class Bullet(Projectile):
         super().__init__()
         self.sound: mixer.Sound | None = None
         self.line: tuple[tuple[float, float], tuple[float, float]] | None = None
-
-    
-    # def check_collision(self, ship: Spacecraft):
-
     
     def tick(self, dt):
         # Checking if the target of a bullet is in between of last bullet position and new bullet position
@@ -31,34 +27,7 @@ class Bullet(Projectile):
         # if self.vel.y * self.game.dt > self.height or self.vel.x * self.game.dt > self.width:
         new_pos: Vector2 = self.physics.pos + (((self.physics.vel * self.physics.current_slip) + self.physics.acc) * dt)
         self.line = ((self.physics.pos.x, self.physics.pos.y), (new_pos.x, new_pos.y))
-        
-        # TODO: check collision and position somewhere else
 
-        
-        if self.physics.pos.y < 0:
-            del self  # <- This does not remove a Bullet from a list,
-            return
-        
-        if self.gun.is_player:
-            for enemy in self.game.menuHandler.currentMenu.enemies:
-                if self.check_collision(enemy):
-                    enemy.hp.get_damage(self.damage)
-                    try:
-                        self.gun.bullets.remove(self)
-                    except ValueError:
-                        pass
-        else:
-            if self.check_collision(self.game.player.current_ship):
-                self.game.player.current_ship.hp.get_damage(self.damage)
-                try:
-                    if not self.steered_by_menu:
-                        self.gun.bullets.remove(self)
-                    else:
-                        self.game.menuHandler.currentMenu.other_bullets.remove(self)
-                except ValueError:
-                    pass
-
-        
         self.physics.tick(dt)
         self.displayer.tick(self.physics.pos.x, self.physics.pos.y)
     
