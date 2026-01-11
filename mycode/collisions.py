@@ -4,8 +4,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from mycode.projectile import Projectile
     from mycode.spacecraft import Spacecraft
-    from mycode.ships import PlayableShip
-    from mycode.enemies import BaseEnemy
+
+from mycode.ships import PlayableShip
+from mycode.enemies import BaseEnemy
 
 class CollisionManager:
     def __init__(self):
