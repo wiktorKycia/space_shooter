@@ -346,6 +346,13 @@ def level(level_number: int, config_file: str):
 
 		player_ship.draw(screen)
 
+		for slot in player_ship:
+			collision_manager.register_projectiles(slot.weapon.get_new_projectiles())
+
+		for enemy in enemies:
+			for slot in enemy.slots:
+				collision_manager.register_projectiles(slot.weapon.get_new_projectiles())
+
 		# checking collisions
 		collisions = collision_manager.check_collisions()
 
