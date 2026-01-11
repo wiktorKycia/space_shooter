@@ -1,4 +1,3 @@
-from argparse import ArgumentError
 from typing import Optional
 
 import pygame
@@ -7,9 +6,11 @@ from pygame.math import Vector2
 
 import json
 
+from mycode.enemies import BaseEnemy
 from mycode.physics import PygamePhysics
 from mycode.displayable import Displayer
 from mycode.projectile import Projectile
+from mycode.ships import PlayableShip
 from mycode.spacecraft import Spacecraft
 from mycode.utils import create_image_with_alpha_conversion
 from mycode.collisions import check_collision
@@ -175,3 +176,19 @@ class CollisionManager:
     def register_ship(self, ship: Spacecraft):
         """Adds a ship to the list of ships"""
         self.ships.add(ship)
+
+    def check_collisions(self) -> list[tuple[bool, Projectile, Spacecraft]]:
+        """Main collision detection - call this every frame"""
+        collisions: list[tuple[bool, Projectile, Spacecraft]] = [] # bool: player-friendly, bullet object, ship object
+
+        for p in self.player_projectiles:
+            for enemy in list(filter(lambda s: isinstance(s, BaseEnemy), self.ships)):
+                if self._check_collision(p, enemy):
+                    collisions.append((True, p, enemy))
+
+        for p in self.enemy_projectiles:
+            for ship in list(filter(lambda s: isinstance(s, PlayableShip), self.ships)):
+                if self._check_collision(p, ship):
+                    collisions.append((False, p, ship))
+
+        return collisions
