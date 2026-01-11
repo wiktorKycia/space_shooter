@@ -192,3 +192,22 @@ class CollisionManager:
                     collisions.append((False, p, ship))
 
         return collisions
+
+    def _check_collision(self, projectile: Projectile, ship: Spacecraft):
+        if projectile.line is not None:
+            if (ship.displayer.mask.overlap(
+                    projectile.displayer.mask, (
+                            (projectile.physics.pos.x - projectile.displayer.width / 2) - ship.displayer.hitbox.x,
+                            (projectile.physics.pos.y - projectile.displayer.height / 2) - ship.displayer.hitbox.y
+                    )
+            ) or ship.displayer.hitbox.clipline(projectile.line)):
+                return True
+            return False
+        elif ship.displayer.mask.overlap(
+                projectile.displayer.mask, (
+                        (projectile.physics.pos.x - projectile.displayer.width / 2) - ship.displayer.hitbox.x,
+                        (projectile.physics.pos.y - projectile.displayer.height / 2) - ship.displayer.hitbox.y
+                )
+        ):
+            return True
+        return False
