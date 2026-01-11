@@ -17,6 +17,7 @@ class Spacecraft(ABC):
         self.physics: PygamePhysics|None = None
         self.hp: RefillableBar|None = None
         self.slots: list[Slot] = []
+        self.alive: bool = True
     
     @abstractmethod
     def tick(self, dt: float):

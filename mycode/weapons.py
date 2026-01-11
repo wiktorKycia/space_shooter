@@ -8,7 +8,15 @@ class Weapon:
         self.clip: BaseClip | None = None
         self.clock = 0
 
+        self.fresh_projectiles: list[Projectile] = []
+
     def shoot(self, x: float, y: float):
+        pass
+
+    def get_new_projectiles(self):
+        pass
+
+    def cleanup_dead_projectiles(self):
         pass
 
     def tick(self, dt: float):
@@ -44,6 +52,7 @@ class Gun(Weapon):
                     random.uniform(self.spread[0], self.spread[1]) if self.spread[1] > 0 else 0
                 )
                 self.bullets.append(bullet)
+                self.fresh_projectiles.append(bullet)
                 bullet.sound.play(0, 800)
                 self.clip.shot()
     
@@ -52,10 +61,21 @@ class Gun(Weapon):
             self.clock = 0
             return True
         return False
+
+    def cleanup_dead_projectiles(self):
+        for bullet in self.bullets:
+            if not bullet.alive or bullet.physics.pos.y < 0 or bullet.physics.pos.y > 800: # game height = 800
+                self.bullets.remove(bullet)
+                del bullet
+
+    def get_new_projectiles(self):
+        return self.fresh_projectiles
     
     def tick(self, dt: float):
         super().tick(dt)
         self.clip.tick(dt)
+
+        self.fresh_projectiles = [] # I can put it here thanks to ticking and then shooting
 
         for bullet in self.bullets:
             bullet.tick(dt)

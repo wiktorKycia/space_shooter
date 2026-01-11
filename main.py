@@ -2,6 +2,7 @@ import pygame, sys
 from mycode.levels import *
 from mycode.UI import *
 from pygame.locals import *
+from mycode.collisions import CollisionManager
 import json
 
 # initialization
@@ -34,7 +35,8 @@ with open("./gameData/playerShips.json") as f:
 		shipDirector.choose_ship(ship['name'])
 		player.add_new_ship(shipDirector.build(width / 2, height / 2))
 
-
+# collisions
+collision_manager = CollisionManager()
 
 def main_menu():
 	global tps_clock
@@ -314,9 +316,13 @@ def level(level_number: int, config_file: str):
 	# reset player's ship's stats
 	player_ship.refill_stats()
 
+	# collisions
+	collision_manager.register_ship(player_ship)
+
 	while running:
 		screen.fill((0, 0, 0))
 
+		# ticking
 		player_ship.tick(dt)
 		for enemy in enemies:
 			enemy.tick(dt)
@@ -327,8 +333,12 @@ def level(level_number: int, config_file: str):
 			else:
 				bullet.steered_by_menu = True
 
-		level_manager.tick(level_number, enemies)
+		created_enemies = level_manager.tick(level_number, enemies)
+		if created_enemies:
+			for e in created_enemies:
+				collision_manager.register_ship(e)
 
+		# drawing
 		for enemy in enemies:
 			enemy.draw(screen)
 
@@ -336,6 +346,40 @@ def level(level_number: int, config_file: str):
 			bullet.draw(screen)
 
 		player_ship.draw(screen)
+
+
+		# load new projectiles to collision manager
+		for slot in player_ship.slots:
+			for p in slot.weapon.get_new_projectiles():
+				collision_manager.register_projectile(p)
+
+		for enemy in enemies:
+			for slot in enemy.slots:
+				for p in slot.weapon.get_new_projectiles():
+					collision_manager.register_projectile(p)
+
+		# checking collisions
+		collisions = collision_manager.check_collisions()
+
+		# handle collision results
+		for projectile, _ship in collisions:
+			_ship.hp.damage(projectile.damage)
+			projectile.alive = False
+			if _ship.hp.amount <= 0:
+				_ship.alive = False
+
+		# cleanup of dead projectiles
+		collision_manager.cleanup_dead_objects()
+
+		for enemy in enemies:
+			for slot in enemy.slots:
+				slot.weapon.cleanup_dead_projectiles()
+			if not enemy.alive:
+				enemies.remove(enemy)
+				del enemy
+
+		for slot in player_ship.slots:
+			slot.weapon.cleanup_dead_projectiles()
 
 		click = False
 

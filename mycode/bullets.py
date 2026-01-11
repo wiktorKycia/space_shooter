@@ -7,7 +7,7 @@ import json
 from mycode.physics import PygamePhysics
 from mycode.displayable import Displayer
 from mycode.projectile import Projectile
-from mycode.spacecraft import Spacecraft
+
 from mycode.utils import create_image_with_alpha_conversion
 
 mixer.init()
@@ -17,25 +17,7 @@ class Bullet(Projectile):
     def __init__(self):
         super().__init__()
         self.sound: mixer.Sound | None = None
-        self.line = None
-
-    
-    def check_collision(self, ship: Spacecraft):
-        if self.line is not None:
-            if (ship.displayer.mask.overlap(
-                    self.displayer.mask, (
-                            (self.physics.pos.x - self.displayer.width / 2) - ship.displayer.hitbox.x,
-                            (self.physics.pos.y - self.displayer.height / 2) - ship.displayer.hitbox.y)
-            ) or ship.displayer.hitbox.clipline(self.line)):
-                return True
-            return False
-        elif ship.displayer.mask.overlap(
-                self.displayer.mask, (
-                        (self.physics.pos.x - self.displayer.width / 2) - ship.displayer.hitbox.x,
-                        (self.physics.pos.y - self.displayer.height / 2) - ship.displayer.hitbox.y)
-        ):
-            return True
-        return False
+        self.line: tuple[tuple[float, float], tuple[float, float]] | None = None
     
     def tick(self, dt):
         # Checking if the target of a bullet is in between of last bullet position and new bullet position
@@ -45,34 +27,7 @@ class Bullet(Projectile):
         # if self.vel.y * self.game.dt > self.height or self.vel.x * self.game.dt > self.width:
         new_pos: Vector2 = self.physics.pos + (((self.physics.vel * self.physics.current_slip) + self.physics.acc) * dt)
         self.line = ((self.physics.pos.x, self.physics.pos.y), (new_pos.x, new_pos.y))
-        
-        # TODO: check collision and position somewhere else
-        '''
-        
-        # if self.physics.pos.y < 0:
-        #     del self   <- This does not remove a Bullet from a list,
-        #     return
-        
-        # if self.gun.is_player:
-        #     for enemy in self.game.menuHandler.currentMenu.enemies:
-        #         if self.check_collision(enemy):
-        #             enemy.hp.get_damage(self.damage)
-        #             try:
-        #                 self.gun.bullets.remove(self)
-        #             except ValueError:
-        #                 pass
-        # else:
-        #     if self.check_collision(self.game.player.current_ship):
-        #         self.game.player.current_ship.hp.get_damage(self.damage)
-        #         try:
-        #             if not self.steered_by_menu:
-        #                 self.gun.bullets.remove(self)
-        #             else:
-        #                 self.game.menuHandler.currentMenu.other_bullets.remove(self)
-        #         except ValueError:
-        #             pass
-        '''
-        
+
         self.physics.tick(dt)
         self.displayer.tick(self.physics.pos.x, self.physics.pos.y)
     
@@ -90,6 +45,10 @@ class BulletBuilder:
     
     def buildPhysics(self, x: float, y: float, mass: int, force: int, is_player: bool = True, slip: float = 0.98):
         self.bullet.physics = PygamePhysics(x, y, mass, force, is_player, slip)
+        return self
+
+    def set_is_player(self, is_player: bool):
+        self.bullet.is_player = is_player
         return self
     
     def set_damage(self, damage: int):
@@ -142,6 +101,7 @@ class BulletBuilderDirector:
             .reset()
             .buildDisplayer(self.bullet_data['image_path'], self.bullet_data['scale'], is_player)
             .buildPhysics(x, y, self.bullet_data['mass'], initial_force, is_player)
+            .set_is_player(is_player)
             .set_initial_rotation(rotation)
             .set_damage(self.bullet_data['damage'])
             .buildSound(self.bullet_data['sound_path'])
