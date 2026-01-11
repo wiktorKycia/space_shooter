@@ -1,24 +1,24 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-	from mycode.projectile import Projectile
-	from mycode.spacecraft import Spacecraft
-	from mycode.ships import PlayableShip
-	from mycode.enemies import BaseEnemy
+    from mycode.projectile import Projectile
+    from mycode.spacecraft import Spacecraft
+    from mycode.ships import PlayableShip
+    from mycode.enemies import BaseEnemy
 
 class CollisionManager:
     def __init__(self):
-        self.player_projectiles: Optional[set[Projectile]] = None
-        self.enemy_projectiles: Optional[set[Projectile]] = None
-        self.ships: Optional[set[Spacecraft]] = None
+        self.player_projectiles: list[Projectile] = []
+        self.enemy_projectiles: list[Projectile] = []
+        self.ships: list[Spacecraft] = []
 
     def register_projectile(self, projectile: Projectile):
         """Add a projectile based on the is_player flag"""
         if projectile.is_player:
-            self.player_projectiles.add(projectile)
+            self.player_projectiles.append(projectile)
         else:
-            self.enemy_projectiles.add(projectile)
+            self.enemy_projectiles.append(projectile)
 
     def register_projectiles(self, projectiles: list[Projectile]):
         """
@@ -30,13 +30,13 @@ class CollisionManager:
         #     raise ArgumentError("The length of 'projectiles' parameter should not be zero")
 
         if projectiles[0].is_player:
-            self.player_projectiles |= projectiles
+            self.player_projectiles.extend(projectiles)
         else:
-            self.enemy_projectiles |= projectiles
+            self.enemy_projectiles.extend(projectiles)
 
     def register_ship(self, ship: Spacecraft):
         """Adds a ship to the list of ships"""
-        self.ships.add(ship)
+        self.ships.append(ship)
 
     def check_collisions(self) -> list[tuple[Projectile, Spacecraft]]:
         """Main collision detection - call this every frame"""
