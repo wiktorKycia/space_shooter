@@ -144,7 +144,7 @@ class BulletBuilderDirector:
         return bullet
 
 
-class BulletManager:
+class CollisionManager:
     def __init__(self):
         self.bullets: Optional[set[Bullet]] = None
 
