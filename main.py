@@ -361,6 +361,9 @@ def level(level_number: int, config_file: str):
 			_ship.hp.damage(projectile.damage)
 			projectile.alive = False
 
+		# cleanup of dead projectiles
+		collision_manager.cleanup_dead_objects()
+
 		for enemy in enemies:
 			for slot in enemy.slots:
 				slot.weapon.cleanup_dead_projectiles()
