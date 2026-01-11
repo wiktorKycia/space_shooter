@@ -361,6 +361,12 @@ def level(level_number: int, config_file: str):
 			_ship.hp.damage(projectile.damage)
 			projectile.alive = False
 
+		for enemy in enemies:
+			for slot in enemy.slots:
+				slot.weapon.cleanup_dead_projectiles()
+
+		for slot in player_ship:
+			slot.weapon.cleanup_dead_projectiles()
 
 		click = False
 
