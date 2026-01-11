@@ -159,6 +159,11 @@ class CollisionManager:
             self.enemy_projectiles.add(projectile)
 
     def register_projectiles(self, projectiles: list[Projectile]):
+        """
+        Allows to register more projectiles at once
+
+        To avoid bugs, all projectiles must have the same value of 'is_player'
+        """
         # if len(projectiles) == 0:
         #     raise ArgumentError("The length of 'projectiles' parameter should not be zero")
 
