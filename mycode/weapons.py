@@ -11,6 +11,9 @@ class Weapon:
     def shoot(self, x: float, y: float):
         pass
 
+    def cleanup_dead_projectiles(self):
+        pass
+
     def tick(self, dt: float):
         self.clock += dt
     
@@ -52,6 +55,12 @@ class Gun(Weapon):
             self.clock = 0
             return True
         return False
+
+    def cleanup_dead_projectiles(self):
+        for bullet in self.bullets:
+            if not bullet.alive:
+                self.bullets.remove(bullet)
+                del bullet
     
     def tick(self, dt: float):
         super().tick(dt)
