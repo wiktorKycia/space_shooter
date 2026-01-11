@@ -1,3 +1,5 @@
+from typing import Optional
+
 import pygame
 from pygame import mixer
 from pygame.math import Vector2
@@ -9,6 +11,7 @@ from mycode.displayable import Displayer
 from mycode.projectile import Projectile
 from mycode.spacecraft import Spacecraft
 from mycode.utils import create_image_with_alpha_conversion
+from mycode.collisions import check_collision
 
 mixer.init()
 
@@ -139,3 +142,19 @@ class BulletBuilderDirector:
             .buildBullet()
         )
         return bullet
+
+
+class BulletManager:
+    def __init__(self):
+        self.bullets: Optional[set[Bullet]] = None
+
+    def check_collisions_with(self, spacecraft: Spacecraft):
+        for bullet in
+
+    def tick(self, dt: float):
+        for bullet in self.bullets:
+            bullet.tick(dt)
+
+    def draw(self, screen: pygame.Surface):
+        for bullet in self.bullets:
+            bullet.draw(screen)
