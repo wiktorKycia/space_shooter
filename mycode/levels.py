@@ -17,13 +17,17 @@ class WaveManager:
         x, y = wave["x"], wave["y"]
         enemy_type = wave["enemy_type"]
 
+        created: list[BaseEnemy] = []
+
         if wave_type == "single":
-            spawners.add_single(enemies, x, y, enemy_type)
+            created = spawners.add_single(enemies, x, y, enemy_type)
         elif wave_type == "pair":
-            spawners.pair(enemies, x, y, enemy_type)
+            created = spawners.pair(enemies, x, y, enemy_type)
         elif wave_type == "line":
             enemy_count = wave.get("enemy_count", 1)
-            spawners.line(enemies, x, y, enemy_count, enemy_type)
+            created = spawners.line(enemies, x, y, enemy_count, enemy_type)
+
+        return created
 
 
 class LevelManager:
@@ -51,7 +55,9 @@ class LevelManager:
             self.wave_number += 1
         elif self.check_if_all_died(enemies) and not self.flag and self.current_time - self.point_time >= 1500:
             self.flag = True
-            self.waveManager.spawn_wave(level_number, self.wave_number, enemies)
+            return self.waveManager.spawn_wave(level_number, self.wave_number, enemies)
+
+        return None
 
 # class Level:
 #     def __init__(self, game):

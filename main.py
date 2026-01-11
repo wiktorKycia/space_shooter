@@ -318,8 +318,6 @@ def level(level_number: int, config_file: str):
 
 	# collisions
 	collision_manager.register_ship(player_ship)
-	for e in enemies:
-		collision_manager.register_ship(e)
 
 	while running:
 		screen.fill((0, 0, 0))
@@ -335,7 +333,10 @@ def level(level_number: int, config_file: str):
 			else:
 				bullet.steered_by_menu = True
 
-		level_manager.tick(level_number, enemies)
+		created_enemies = level_manager.tick(level_number, enemies)
+		if created_enemies:
+			for e in created_enemies:
+				collision_manager.register_ship(e)
 
 		# drawing
 		for enemy in enemies:

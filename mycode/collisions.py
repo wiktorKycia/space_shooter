@@ -45,7 +45,9 @@ class CollisionManager:
 
         for p in self.player_projectiles:
             for enemy in list(filter(lambda s: isinstance(s, BaseEnemy), self.ships)):
+                print(enemy)
                 if self._check_collision(p, enemy):
+                    print('enemy got hit')
                     collisions.append((p, enemy))
 
         for p in self.enemy_projectiles:

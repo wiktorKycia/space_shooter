@@ -11,7 +11,9 @@ def create_enemy(enemy_type: str, x: float, y: float):
 
 
 def add_single(enemies: list[BaseEnemy], x: float, y: float, enemy_type: str):
-    enemies.append(create_enemy(enemy_type, x, y))
+    e = create_enemy(enemy_type, x, y)
+    enemies.append(e)
+    return e
 
 
 def pair(enemies: list[BaseEnemy], x: float, y: float, enemy_type: str):
@@ -20,10 +22,13 @@ def pair(enemies: list[BaseEnemy], x: float, y: float, enemy_type: str):
     enemy1.physics.pos.xy = Vector2(x - 50, y)
     enemy2.physics.pos.xy = Vector2(x + 50, y)
     enemies.extend([enemy1, enemy2])
+    return enemy1, enemy2
 
 
 def line(enemies: list[BaseEnemy], x: float, y: float, length_: int, enemy_type: str, spacing: int = 100):
-    created: int = 0
+    created_number: int = 0
+    created: list[BaseEnemy] = []
+
     if length_ % 2 == 0:
         enemy1 = create_enemy(enemy_type, x, y)
         enemy2 = create_enemy(enemy_type, x, y)
@@ -32,17 +37,19 @@ def line(enemies: list[BaseEnemy], x: float, y: float, length_: int, enemy_type:
         enemy2.physics.pos.xy = Vector2(x + (spacing / 2), y)
         
         enemies.extend([enemy1, enemy2])
-        created = 2
+        created.extend([enemy1, enemy2])
+        created_number = 2
     else:
         enemy1 = create_enemy(enemy_type, x, y)
         enemies.append(enemy1)
-        created = 1
+        created.append(enemy1)
+        created_number = 1
     
-    for i in range(0, int((length_ - created) / 2)):
+    for i in range(0, int((length_ - created_number) / 2)):
         enemy1 = create_enemy(enemy_type, x, y)
         enemy2 = create_enemy(enemy_type, x, y)
         
-        if created == 2:
+        if created_number == 2:
             enemy1.physics.pos.xy = Vector2(x - (i + 1) * spacing, y)
             enemy2.physics.pos.xy = Vector2(x + (i + 1) * spacing, y)
         else:
@@ -50,6 +57,9 @@ def line(enemies: list[BaseEnemy], x: float, y: float, length_: int, enemy_type:
             enemy2.physics.pos.xy = Vector2(x + 50 + (i + 1) * spacing, y)
         
         enemies.extend([enemy1, enemy2])
+        created.extend([enemy1, enemy2])
+
+    return created
 
 # def triangle1(self, x: float, y: float):
 #     enemy1 = Enemy1(self.game, x - 50, y - 50)
