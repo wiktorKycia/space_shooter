@@ -64,7 +64,7 @@ class Gun(Weapon):
 
     def cleanup_dead_projectiles(self):
         for bullet in self.bullets:
-            if not bullet.alive:
+            if not bullet.alive or bullet.physics.pos.y < 0 or bullet.physics.pos.y > 800: # game height = 800
                 self.bullets.remove(bullet)
                 del bullet
 
