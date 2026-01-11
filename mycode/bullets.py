@@ -7,7 +7,7 @@ import json
 from mycode.physics import PygamePhysics
 from mycode.displayable import Displayer
 from mycode.projectile import Projectile
-from mycode.spacecraft import Spacecraft
+
 from mycode.utils import create_image_with_alpha_conversion
 
 mixer.init()
