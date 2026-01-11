@@ -146,10 +146,9 @@ class BulletBuilderDirector:
 
 class CollisionManager:
     def __init__(self):
-        self.bullets: Optional[set[Bullet]] = None
-
-    def check_collisions_with(self, spacecraft: Spacecraft):
-        for bullet in
+        self.player_projectiles: Optional[set[Projectile]] = None
+        self.enemy_projectiles: Optional[set[Projectile]] = None
+        self.ships: Optional[set[Spacecraft]] = None
 
     def tick(self, dt: float):
         for bullet in self.bullets:
