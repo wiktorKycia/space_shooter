@@ -171,3 +171,7 @@ class CollisionManager:
             self.player_projectiles |= projectiles
         else:
             self.enemy_projectiles |= projectiles
+
+    def register_ship(self, ship: Spacecraft):
+        """Adds a ship to the list of ships"""
+        self.ships.add(ship)
