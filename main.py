@@ -346,6 +346,15 @@ def level(level_number: int, config_file: str):
 
 		player_ship.draw(screen)
 
+		# checking collisions
+		collisions = collision_manager.check_collisions()
+
+		# handle collision results
+		for _, projectile, _ship in collisions:
+			_ship.hp.damage(projectile.damage)
+			projectile.alive = False
+
+
 		click = False
 
 		for event in pygame.event.get():
