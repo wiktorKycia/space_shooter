@@ -36,6 +36,7 @@ class BaseEnemy(Spacecraft):
             bullet_list.extend(slot.weapon.bullets)
     
     def draw(self, screen: pygame.Surface):
+        self.hp.tick(screen)
         self.displayer.draw(screen, self.physics.pos.x, self.physics.pos.y)
         
         for slot in self.slots:
