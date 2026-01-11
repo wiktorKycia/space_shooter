@@ -150,10 +150,9 @@ class CollisionManager:
         self.enemy_projectiles: Optional[set[Projectile]] = None
         self.ships: Optional[set[Spacecraft]] = None
 
-    def tick(self, dt: float):
-        for bullet in self.bullets:
-            bullet.tick(dt)
-
-    def draw(self, screen: pygame.Surface):
-        for bullet in self.bullets:
-            bullet.draw(screen)
+    def register_projectile(self, projectile: Projectile):
+        """Add a projectile based on the is_player flag"""
+        if projectile.is_player:
+            self.player_projectiles.add(projectile)
+        else:
+            self.enemy_projectiles.add(projectile)
