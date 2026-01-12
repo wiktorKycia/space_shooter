@@ -315,7 +315,7 @@ def level(level_number: int, config_file: str):
 
 	# reset player's ship's stats
 	player_ship.refill_stats()
-	player_ship.reset_stats()
+	player_ship.reset_stats((width, height))
 
 	# collisions
 	collision_manager.register_ship(player_ship)
