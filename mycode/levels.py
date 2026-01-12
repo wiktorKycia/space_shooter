@@ -21,7 +21,7 @@ class WaveManager:
         created: list[BaseEnemy] = []
 
         if wave_type == "single":
-            created = spawners.add_single(enemies, x, y, enemy_type)
+            created = list(spawners.add_single(enemies, x, y, enemy_type))
         elif wave_type == "pair":
             created = spawners.pair(enemies, x, y, enemy_type)
         elif wave_type == "line":
@@ -36,7 +36,7 @@ class LevelManager:
         self.clock = pygame.time.Clock()
         self.current_time = 0
         self.point_time = 0
-        self.wave_number = 0
+        self.wave_number = -1 # it is here, because we need to call 0th wave and the number increases before the spawner is called
         self.flag = True
         self.waveManager = waveManager
     
