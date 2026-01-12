@@ -304,6 +304,9 @@ def level(level_number: int, config_file: str):
 	def menu_quit():
 		nonlocal running
 		running = False
+		player_ship.refill_stats()
+		player_ship.reset_stats((width, height))
+
 
 	player_ship = player.current_ship
 
