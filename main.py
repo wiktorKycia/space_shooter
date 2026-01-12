@@ -315,6 +315,7 @@ def level(level_number: int, config_file: str):
 
 	# reset player's ship's stats
 	player_ship.refill_stats()
+	player_ship.reset_stats((width, height))
 
 	# collisions
 	collision_manager.register_ship(player_ship)
@@ -337,6 +338,8 @@ def level(level_number: int, config_file: str):
 		if created_enemies:
 			for e in created_enemies:
 				collision_manager.register_ship(e)
+		elif created_enemies is False: # The level has ended
+			menu_quit()
 
 		# drawing
 		for enemy in enemies:

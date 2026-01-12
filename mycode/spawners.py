@@ -22,7 +22,7 @@ def pair(enemies: list[BaseEnemy], x: float, y: float, enemy_type: str):
     enemy1.physics.pos.xy = Vector2(x - 50, y)
     enemy2.physics.pos.xy = Vector2(x + 50, y)
     enemies.extend([enemy1, enemy2])
-    return enemy1, enemy2
+    return [enemy1, enemy2]
 
 
 def line(enemies: list[BaseEnemy], x: float, y: float, length_: int, enemy_type: str, spacing: int = 100):
