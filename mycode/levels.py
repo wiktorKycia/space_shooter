@@ -21,7 +21,7 @@ class WaveManager:
         created: list[BaseEnemy] = []
 
         if wave_type == "single":
-            created = list(spawners.add_single(enemies, x, y, enemy_type))
+            created = [spawners.add_single(enemies, x, y, enemy_type),]
         elif wave_type == "pair":
             created = spawners.pair(enemies, x, y, enemy_type)
         elif wave_type == "line":
