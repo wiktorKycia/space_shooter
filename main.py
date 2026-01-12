@@ -337,6 +337,8 @@ def level(level_number: int, config_file: str):
 		if created_enemies:
 			for e in created_enemies:
 				collision_manager.register_ship(e)
+		elif created_enemies is False: # The level has ended
+			menu_quit()
 
 		# drawing
 		for enemy in enemies:

@@ -9,9 +9,10 @@ class WaveManager:
             self.config = json.load(f)
     
     def spawn_wave(self, level_number: int, wave_number: int, enemies: list[BaseEnemy]):
+        if wave_number >= len(self.config['levels'][level_number - 1]['waves']):
+            return False
+
         wave = self.config['levels'][level_number - 1]['waves'][wave_number]
-        if not wave:
-            return
 
         wave_type = wave["type"]
         x, y = wave["x"], wave["y"]
