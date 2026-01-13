@@ -1,4 +1,8 @@
-from mycode.ships import PlayableShip
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from mycode.ships import PlayableShip
 
 class Player(object):
     def __init__(self, coins=1500):
