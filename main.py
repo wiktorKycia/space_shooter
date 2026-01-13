@@ -468,9 +468,13 @@ def shop_menu():
 	scroll_y: int = 0
 
 	ships: list = []
+	weapons: list = []
 
 	with open("./gameData/playerShips.json") as file:
 		ships = json.load(file)['ships']
+
+	with open("./gameData/guns.json") as file:
+		weapons = json.load(file)["guns"]
 
 	j = 0
 	k = 0
@@ -483,6 +487,20 @@ def shop_menu():
 		k = k+1 if j == 0 else k
 		scrollable_ui.append(button)
 
+	if j == 0: k -= 1
+
+	weapons_heading_padding_top = 150+k*100
+
+	j = 0
+	k = 0
+	for i, weapon in enumerate(weapons):
+		button: Button = Button(
+			x=100+j*100, y=100+weapons_heading_padding_top+k*50,
+			displayer=ImageButtonDisplayer(weapons[i]["path"], scale=4.0)
+		)
+		j = 0 if j == 7 else j + 1
+		k = k + 1 if j == 0 else k
+		scrollable_ui.append(button)
 
 
 	while running:
@@ -492,6 +510,7 @@ def shop_menu():
 		button_back.draw(screen)
 
 		write(screen, "Ships:", 20, 20 + scroll_y, 28, (250, 250, 250), "Arial")
+		write(screen, "Weapons:", 20, 20 + scroll_y + weapons_heading_padding_top, 28, (250, 250, 250), "Arial")
 
 		for ui in scrollable_ui:
 			ui.tick(click)
