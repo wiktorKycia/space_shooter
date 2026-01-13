@@ -465,7 +465,7 @@ def shop_menu():
 	)
 
 	scrollable_ui: list = []
-
+	scroll_y: int = 0
 
 	ships: list = []
 
@@ -491,7 +491,7 @@ def shop_menu():
 		button_back.tick(click)
 		button_back.draw(screen)
 
-		write(screen, "Ships:", 0, 0, 28, (250, 250, 250), "Arial")
+		write(screen, "Ships:", 20, 20 + scroll_y, 28, (250, 250, 250), "Arial")
 
 		for ui in scrollable_ui:
 			ui.tick(click)
@@ -511,10 +511,12 @@ def shop_menu():
 					for button in scrollable_ui:
 						button.y -= 50
 						button.rect.center = (button.x, button.y)
+						scroll_y -= 50
 				elif event.y == 1:
 					for button in scrollable_ui:
 						button.y += 50
 						button.rect.center = (button.x, button.y)
+						scroll_y += 50
 
 		pygame.display.update()
 		tps_clock.tick(tps_max)
