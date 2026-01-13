@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from mycode.ships import PlayableShip
 
-class Player(object):
+class Player:
     def __init__(self, coins=1500):
         self.coins = coins
         self.ships: list[PlayableShip] = []
