@@ -152,7 +152,8 @@ def game():
 	)
 	button_shop = Button(
 		width * 3 // 4, height - 50,
-		ImageButtonDisplayer("./images/buttons/button_shop.png", "./images/buttons/button_shop_hover.png")
+		ImageButtonDisplayer("./images/buttons/button_shop.png", "./images/buttons/button_shop_hover.png"),
+		callback=lambda: shop_menu()
 	)
 	button_back = Button(
 		50, height-50, ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
