@@ -511,12 +511,12 @@ def shop_menu():
 					for button in scrollable_ui:
 						button.y -= 50
 						button.rect.center = (button.x, button.y)
-						scroll_y -= 50
+					scroll_y -= 50
 				elif event.y == 1:
 					for button in scrollable_ui:
 						button.y += 50
 						button.rect.center = (button.x, button.y)
-						scroll_y += 50
+					scroll_y += 50
 
 		pygame.display.update()
 		tps_clock.tick(tps_max)
