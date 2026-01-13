@@ -23,7 +23,8 @@
 				"max_ammo": 200,
 				"reload_time": 5.0,
 				"active_reload": true
-			}
+			},
+			"path": "./images/gun1.png"
 		}
 	]
 }
