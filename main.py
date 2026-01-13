@@ -467,13 +467,10 @@ def shop_menu():
 	scrollable_ui: list = []
 
 
-
-	config: dict = {}
 	ships: list = []
 
 	with open("./gameData/playerShips.json") as file:
-		config = json.load(file)
-		ships = config['ships']
+		ships = json.load(file)['ships']
 
 	j = 0
 	k = 0
