@@ -129,6 +129,13 @@ class GunBuilder:
     def set_is_player(self, is_player: bool = True):
         self.gun.is_player = is_player
         return self
+
+    def set_image(self, path: str, scale: float = 1.0):
+        self.gun.displayer = Displayer(
+            create_image_with_alpha_conversion(path),
+            scale
+        )
+        return self
     
     def build_gun(self) -> Gun:
         return self.gun
