@@ -3,12 +3,16 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from mycode.ships import PlayableShip
+    from mycode.weapons import Weapon
 
 class Player:
-    def __init__(self, coins=1500):
-        self.coins = coins
+    def __init__(self, coins:int = 1500):
+        self.coins: int = coins
+
         self.ships: list[PlayableShip] = []
         self.__current_ship: PlayableShip | None = None
+
+        self.weapons: list[Weapon] = []
     
     def set_current_ship(self, ship: PlayableShip):
         if ship not in self.ships:
