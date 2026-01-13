@@ -9,7 +9,8 @@
 				"max_ammo": 50,
 				"reload_time": 3.0,
 				"active_reload": false
-			}
+			},
+			"path": "./images/gun1.png"
 		},
 		{
 			"name": "Shotgun",
