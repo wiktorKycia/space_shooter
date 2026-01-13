@@ -171,6 +171,7 @@ class GunBuilderDirector:
             .set_interval(self.gun_data['interval'])
             .set_bullet_name(self.gun_data['bullet_name'])
             .set_is_player(is_player)
+            .set_image(self.gun_data['path'])
         )
         if "spread" in self.gun_data and "intensity" in self.gun_data:
             return g.set_spread(self.gun_data['spread']).set_intensity(self.gun_data['intensity']).build_gun()
