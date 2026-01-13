@@ -449,7 +449,6 @@ def pause_menu(button_exit_callback: Callable):
 		pygame.display.update()
 		tps_clock.tick(tps_max)
 
-
 def shop_menu():
 	global tps_clock, click, width, height
 	running: bool = True
@@ -465,6 +464,26 @@ def shop_menu():
 	)
 
 	scrollable_ui: list = []
+
+	write(screen, "Ships:", 0, 0, 28, (250, 250, 250), "Arial")
+
+	config: dict = {}
+	ships: list = []
+
+	with open("./gameData/playerShips.json") as file:
+		config = json.load(file)
+		ships = config['ships']
+
+	j = 0
+	for i, _ship in enumerate(ships):
+		button:Button =  Button(
+			x=50+j*100, y=50+i*100,
+			displayer=ImageButtonDisplayer(ships[i]["path"])
+		)
+		j = 0 if j == 2 else j+1
+		scrollable_ui.append(button)
+
+
 
 	while running:
 		screen.fill((0,0,0))
