@@ -1,6 +1,6 @@
 from mycode.bullets import *
 from mycode.clips import *
-from typing import Callable
+from typing import Callable, Optional
 import random
 
 class Weapon:
@@ -9,6 +9,8 @@ class Weapon:
         self.clock = 0
 
         self.fresh_projectiles: list[Projectile] = []
+
+        self.displayer: Optional[Displayer] = None
 
     def shoot(self, x: float, y: float):
         pass
@@ -24,6 +26,9 @@ class Weapon:
     
     def draw(self, screen: pygame.Surface):
         pass
+
+    def draw_for_menu(self, screen: pygame.Surface, x: float, y: float):
+        self.displayer.draw(screen, x, y)
 
 
 class Gun(Weapon):
