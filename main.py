@@ -476,12 +476,14 @@ def shop_menu():
 		ships = config['ships']
 
 	j = 0
+	k = 0
 	for i, _ship in enumerate(ships):
 		button:Button =  Button(
-			x=50+j*100, y=50+i*100,
-			displayer=ImageButtonDisplayer(ships[i]["path"])
+			x=100+j*100, y=100+k*100,
+			displayer=ImageButtonDisplayer(ships[i]["path"], scale=2.0)
 		)
-		j = 0 if j == 2 else j+1
+		j = 0 if j == 7 else j+1
+		k = k+1 if j == 0 else k
 		scrollable_ui.append(button)
 
 
