@@ -449,5 +449,9 @@ def pause_menu(button_exit_callback: Callable):
 		pygame.display.update()
 		tps_clock.tick(tps_max)
 
+
+def shop_menu():
+	pass
+
 if __name__ == "__main__":
 	main_menu()
