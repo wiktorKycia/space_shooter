@@ -13,16 +13,6 @@ class Player:
         self.__current_ship: PlayableShip | None = None
 
         self.weapons: list[Weapon] = []
-    
-    def set_current_ship(self, ship: PlayableShip):
-        if ship not in self.ships:
-            raise Exception("No such ship in list")
-        else:
-            self.__current_ship = self.ships[self.ships.index(ship)]
-    
-    @property
-    def current_ship(self):
-        return self.__current_ship
 
     def add_coins(self, amount:int):
         self.coins += amount
@@ -30,8 +20,18 @@ class Player:
     def subtract_coins(self, amount:int):
         self.coins -= amount
 
+    @property
+    def current_ship(self):
+        return self.__current_ship
+
     def add_new_ship(self, ship: PlayableShip):
         self.ships.append(ship)
-        
+
         if len(self.ships) == 1:
             self.set_current_ship(ship)
+
+    def set_current_ship(self, ship: PlayableShip):
+        if ship not in self.ships:
+            raise Exception("No such ship in list")
+        else:
+            self.__current_ship = self.ships[self.ships.index(ship)]
