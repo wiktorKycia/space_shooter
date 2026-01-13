@@ -451,7 +451,48 @@ def pause_menu(button_exit_callback: Callable):
 
 
 def shop_menu():
-	pass
+	global tps_clock, click, width, height
+	running: bool = True
+
+	def menu_quit():
+		nonlocal running
+		running = False
+
+	button_back = Button(
+		50, height - 50,
+		ImageButtonDisplayer("./images/buttons/button_back.png", "./images/buttons/button_back_hover.png"),
+		callback=menu_quit
+	)
+
+	scrollable_ui: list = []
+
+	while running:
+		screen.fill((0,0,0))
+
+		button_back.tick(click)
+		button_back.draw(screen)
+
+		click = False
+
+		for event in pygame.event.get():
+			if event.type == QUIT:
+				pygame.quit()
+				sys.exit()
+			if event.type == MOUSEBUTTONDOWN:
+				if event.button == 1:
+					click = True
+			if event.type == MOUSEWHEEL:
+				if event.y == -1:
+					for button in scrollable_ui:
+						button.y -= 50
+						button.rect.center = (button.x, button.y)
+				elif event.y == 1:
+					for button in scrollable_ui:
+						button.y += 50
+						button.rect.center = (button.x, button.y)
+
+		pygame.display.update()
+		tps_clock.tick(tps_max)
 
 if __name__ == "__main__":
 	main_menu()
