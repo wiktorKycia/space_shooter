@@ -466,7 +466,7 @@ def shop_menu():
 
 	scrollable_ui: list = []
 
-	write(screen, "Ships:", 0, 0, 28, (250, 250, 250), "Arial")
+
 
 	config: dict = {}
 	ships: list = []
@@ -491,6 +491,12 @@ def shop_menu():
 
 		button_back.tick(click)
 		button_back.draw(screen)
+
+		write(screen, "Ships:", 0, 0, 28, (250, 250, 250), "Arial")
+
+		for ui in scrollable_ui:
+			ui.tick(click)
+			ui.draw(screen)
 
 		click = False
 
