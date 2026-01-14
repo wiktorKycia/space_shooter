@@ -343,6 +343,9 @@ def level(level_number: int, config_file: str):
 			for e in created_enemies:
 				collision_manager.register_ship(e)
 		elif created_enemies is False: # The level has ended
+			with open('./gameData/levels.json') as f:
+				config = json.load(f)
+				player.add_coins(config["levels"][level_number - 1]['reward']['coins'])
 			menu_quit()
 
 		# drawing
